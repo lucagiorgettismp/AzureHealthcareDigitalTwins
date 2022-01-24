@@ -17,12 +17,16 @@ namespace Simulator
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Form1 form = new Form1();
-            form.Text = "Simulator";
+            if (AzureApi.AuthenticationTwinClient() != null)
+            {
 
-            form.addPatients();
+                Form1 form = new Form1();
+                form.Text = "Simulator";
 
-            Application.Run(form);
+                form.addPatients();
+
+                Application.Run(form);
+            }
         }
     }
 }
