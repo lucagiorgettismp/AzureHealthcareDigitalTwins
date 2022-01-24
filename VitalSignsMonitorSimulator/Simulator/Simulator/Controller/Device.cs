@@ -42,7 +42,7 @@ namespace Simulator.Simulator
         {
             var data = new
             {
-                temperature = Math.Round(value: deviceData.Temperature, 1),
+                temperature = Math.Round(value: (double) deviceData.Temperature.Value, 1),
                 bloodPressure = deviceData.BloodPressure,
                 saturation = deviceData.Saturation,
                 breathFrequency = deviceData.BreathFrequency,
