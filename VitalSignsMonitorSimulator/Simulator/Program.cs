@@ -14,16 +14,12 @@ namespace Simulator
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            if (AuthenticationApi.Twins() != null)
-            {
+            Form1 form = new Form1();
+            form.Text = "Simulator";
 
-                Form1 form = new Form1();
-                form.Text = "Simulator";
+            form.addPatients();
 
-                form.addPatients();
-
-                Application.Run(form);
-            }
+            Application.Run(form);
         }
     }
 }
