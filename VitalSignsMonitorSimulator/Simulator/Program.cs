@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Simulator
@@ -17,7 +14,7 @@ namespace Simulator
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            if (AzureApi.AuthenticationTwinClient() != null)
+            if (AuthenticationApi.Twins() != null)
             {
 
                 Form1 form = new Form1();

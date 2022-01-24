@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Azure.DigitalTwins.Core;
 using Azure.Identity;
 using Microsoft.Azure.Devices.Client;
@@ -16,61 +12,64 @@ namespace Simulator
         private static DigitalTwinsClient twinClient = null;
         private static DeviceClient deviceClient = null;
 
-        public static DigitalTwinsClient AuthenticationTwinClient()
+        private static IConfiguration readConfig()
         {
-            Uri adtInstanceUrl;
+            IConfiguration config;
             try
             {
                 // Read configuration data from the 
-                IConfiguration config = new ConfigurationBuilder()
+                config = new ConfigurationBuilder()
                     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false)
                     .Build();
-                adtInstanceUrl = new Uri(config["instanceUrl"]);
             }
             catch (Exception ex) when (ex is FileNotFoundException || ex is UriFormatException)
             {
                 Log.Error($"Could not read the client twin configuration.\n\nException message: {ex.Message}");
-                return twinClient;
+                return null;
             }
 
-            Log.Ok("Twin client authenticating...");
-            var credential = new DefaultAzureCredential();
-            twinClient = new DigitalTwinsClient(adtInstanceUrl, credential);
+            return config;
+        }
 
-            Log.Ok($"Service twin client created – ready to go!");
+        public static DigitalTwinsClient Twins()
+        {
+            Uri adtInstanceUrl;
 
+            IConfiguration config = readConfig();
+
+            if (config != null)
+            {
+                adtInstanceUrl = new Uri(config["instanceUrl"]);
+                Log.Ok("Twin client authenticating...");
+                var credential = new DefaultAzureCredential();
+                twinClient = new DigitalTwinsClient(adtInstanceUrl, credential);
+
+                Log.Ok($"Service twin client created – ready to go!");
+            }
             return twinClient;
         }
 
-        public static DeviceClient AuthenticationDeviceClient()
+        public static DeviceClient Device()
         {
             String host;
             String deviceId;
             String sharedAccessKey;
-            try
-            {
-                // Read configuration data from the 
-                IConfiguration config = new ConfigurationBuilder()
-                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false)
-                    .Build();
 
+            IConfiguration config = readConfig();
+
+            if(config != null)
+            {
                 host = config["host"];
                 deviceId = config["deviceId"];
                 sharedAccessKey = config["sharedAccesKey"];
+
+                Log.Ok("Device client authenticating...");
+
+                String connectionString = $"HostName={host}DeviceId={deviceId}SharedAccessKey={sharedAccessKey}";
+                deviceClient = DeviceClient.CreateFromConnectionString(connectionString);
+
+                Log.Ok($"Service device client created – ready to go!");
             }
-            catch (Exception ex) when (ex is FileNotFoundException || ex is UriFormatException)
-            {
-                Log.Error($"Could not read the client device configuration.\n\nException message: {ex.Message}");
-                return deviceClient;
-            }
-
-            Log.Ok("Device client authenticating...");
-
-            String connectionString = $"HostName={host}DeviceId={deviceId}SharedAccessKey={sharedAccessKey}";
-            deviceClient = DeviceClient.CreateFromConnectionString(connectionString);
-
-            Log.Ok($"Service device client created – ready to go!");
-
             return deviceClient;
         }
     }

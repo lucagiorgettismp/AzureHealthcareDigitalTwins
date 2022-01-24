@@ -17,7 +17,7 @@ namespace Simulator.Simulator
 
         public Device()
         {
-            this.deviceClient = Setting.AuthenticationDeviceClient();
+            this.deviceClient = AuthenticationApi.Device();
             this.dataGenerator = new DeviceDataGenerator();
         }
 

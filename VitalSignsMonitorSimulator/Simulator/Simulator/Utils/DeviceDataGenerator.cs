@@ -6,13 +6,19 @@
     {
         private DeviceData deviceData;
 
+        private const string CELSIUS = "Celsius";
+        private const string PERCENTAGE = "Percentage";
+        private const string mmHg = "mmHg";
+        private const string BPM = "bpm";
+        private const string RPM = "rpm";
+
         public DeviceDataGenerator()
         {
             deviceData = new DeviceData
             {
                 Temperature = new DeviceDataProperty
                 {
-                    UnitOfMeasurement = "Celsius",
+                    UnitOfMeasurement = CELSIUS,
                     MinValue = (double) 35,
                     MaxValue = (double) 45,
                     Value = (double) 36.6,
@@ -23,7 +29,7 @@
                 },
                 BatteryPower = new DeviceDataProperty
                 {
-                    UnitOfMeasurement = "Percentage",
+                    UnitOfMeasurement = PERCENTAGE,
                     MinValue = 0,
                     MaxValue = 100,
                     Value = 50,
@@ -33,7 +39,7 @@
                     UpdateDelta = 1,
                 },
                 BloodPressure = new DeviceDataProperty {
-                    UnitOfMeasurement = "mmHg",
+                    UnitOfMeasurement = mmHg,
                     MinValue = 60,
                     MaxValue = 160,
                     Value = 115,
@@ -45,7 +51,7 @@
 
                 BreathFrequency = new DeviceDataProperty
                 {
-                    UnitOfMeasurement = "rpm",
+                    UnitOfMeasurement = RPM,
                     MinValue = 6,
                     MaxValue = 30,
                     Value = 14,
@@ -56,7 +62,7 @@
                 },
                 HeartFrequency = new DeviceDataProperty
                 {
-                    UnitOfMeasurement = "bpm",
+                    UnitOfMeasurement = BPM,
                     MinValue = 40,
                     MaxValue = 140,
                     Value = 80,
@@ -67,7 +73,7 @@
                 },
                 Saturation = new DeviceDataProperty
                 {
-                    UnitOfMeasurement = "Percentage",
+                    UnitOfMeasurement = PERCENTAGE,
                     MinValue = 60,
                     MaxValue = 100,
                     Value = 98,
