@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Simulator
 {
-    class AzureApi
+    class AuthenticationApi
     {
         private static DigitalTwinsClient twinClient = null;
         private static DeviceClient deviceClient = null;

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -261,14 +261,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AzureApi.cs" />
+    <Compile Include="AzureApi\AuthenticationApi.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Log.cs" />
+    <Compile Include="AzureApi\DigitalTwinOperations.cs" />
+    <Compile Include="Simulator\Controller\Device.cs" />
+    <Compile Include="Simulator\Model\DeviceDataProperty.cs" />
+    <Compile Include="Simulator\Model\DeviceData.cs" />
+    <Compile Include="Simulator\Utils\DeviceDataGenerator.cs" />
+    <Compile Include="Simulator\Utils\NumGenerator.cs" />
+    <Compile Include="Utils\Log.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
