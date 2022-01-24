@@ -1,0 +1,8 @@
+
+AzureTools/AzureAppFunctions/AppFunctions/bin/
+
+AzureTools/AzureAppFunctions/AppFunctions/obj/
+
+AzureTools/AzureAppFunctions/AppFunctions/Properties/PublishProfiles/
+
+*.user
