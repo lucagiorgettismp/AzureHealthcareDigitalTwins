@@ -16,7 +16,13 @@ namespace Simulator
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            Form1 form = new Form1();
+            form.Text = "Simulator";
+
+            form.addPatients();
+
+            Application.Run(form);
         }
     }
 }

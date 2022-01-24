@@ -22,7 +22,17 @@ namespace Simulator
             Console.WriteLine("Click button start!");
         }
 
+        private void create_button_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("Click button create!");
+        }
+
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void patients_twins_collections_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
