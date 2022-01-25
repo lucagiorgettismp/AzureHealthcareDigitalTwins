@@ -16,5 +16,48 @@ namespace Simulator
         {
             InitializeComponent();
         }
+
+        private void patient_name_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label_name_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void patient_surname_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label_surname_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label_age_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label_gender_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label_description_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label_body_mass_index_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void patient_name_TextChanged_1(object sender, EventArgs e)
+        {}
     }
 }
