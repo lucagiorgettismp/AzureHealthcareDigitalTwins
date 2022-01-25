@@ -21,5 +21,18 @@ namespace Simulator.Simulator.Controller
         public async Task<List<String>> getTwins() {
             return await this.op.getTwins(this.twinClient);
         }
+
+        public async void createPatientTwin(
+            string name,
+            string surname,
+            int age,
+            string gender,
+            double height,
+            double weight,
+            string description,
+            double bmi)
+        {
+            await this.op.createPatientTwin(twinClient, name, surname, age, gender, height, weight, description, bmi);
+        }
     }
 }

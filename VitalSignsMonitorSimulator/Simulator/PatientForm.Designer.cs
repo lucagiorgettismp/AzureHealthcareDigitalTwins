@@ -40,7 +40,6 @@ namespace Simulator
             this.label_description = new System.Windows.Forms.Label();
             this.label_body_mass_index = new System.Windows.Forms.Label();
             this.patient_age = new System.Windows.Forms.TextBox();
-            this.patient_gender = new System.Windows.Forms.TextBox();
             this.patient_height = new System.Windows.Forms.TextBox();
             this.patient_weight = new System.Windows.Forms.TextBox();
             this.patient_description = new System.Windows.Forms.TextBox();
@@ -48,6 +47,7 @@ namespace Simulator
             this.patient_name = new System.Windows.Forms.TextBox();
             this.save_patient_button = new System.Windows.Forms.Button();
             this.title = new System.Windows.Forms.Label();
+            this.patient_gender = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,7 +66,6 @@ namespace Simulator
             this.tableLayoutPanel1.Controls.Add(this.label_description, 0, 7);
             this.tableLayoutPanel1.Controls.Add(this.label_body_mass_index, 0, 8);
             this.tableLayoutPanel1.Controls.Add(this.patient_age, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.patient_gender, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.patient_height, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.patient_weight, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.patient_description, 1, 7);
@@ -74,6 +73,7 @@ namespace Simulator
             this.tableLayoutPanel1.Controls.Add(this.patient_name, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.save_patient_button, 1, 9);
             this.tableLayoutPanel1.Controls.Add(this.title, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.patient_gender, 1, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -120,9 +120,10 @@ namespace Simulator
             // patient_surname
             // 
             this.patient_surname.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.patient_surname.Location = new System.Drawing.Point(156, 112);
+            this.patient_surname.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.patient_surname.Location = new System.Drawing.Point(156, 109);
             this.patient_surname.Name = "patient_surname";
-            this.patient_surname.Size = new System.Drawing.Size(537, 20);
+            this.patient_surname.Size = new System.Drawing.Size(537, 23);
             this.patient_surname.TabIndex = 3;
             this.patient_surname.TextChanged += new System.EventHandler(this.patient_surname_TextChanged);
             // 
@@ -204,39 +205,44 @@ namespace Simulator
             // patient_age
             // 
             this.patient_age.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.patient_age.Location = new System.Drawing.Point(156, 157);
+            this.patient_age.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.patient_age.Location = new System.Drawing.Point(156, 154);
+            this.patient_age.MaxLength = 3;
             this.patient_age.Name = "patient_age";
-            this.patient_age.Size = new System.Drawing.Size(537, 20);
+            this.patient_age.Size = new System.Drawing.Size(537, 23);
             this.patient_age.TabIndex = 10;
-            // 
-            // patient_gender
-            // 
-            this.patient_gender.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.patient_gender.Location = new System.Drawing.Point(156, 202);
-            this.patient_gender.Name = "patient_gender";
-            this.patient_gender.Size = new System.Drawing.Size(537, 20);
-            this.patient_gender.TabIndex = 11;
+            this.patient_age.TextChanged += new System.EventHandler(this.patient_age_TextChanged);
+            this.patient_age.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.patient_age_KeyPress);
             // 
             // patient_height
             // 
             this.patient_height.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.patient_height.Location = new System.Drawing.Point(156, 247);
+            this.patient_height.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.patient_height.Location = new System.Drawing.Point(156, 244);
+            this.patient_height.MaxLength = 4;
             this.patient_height.Name = "patient_height";
-            this.patient_height.Size = new System.Drawing.Size(537, 20);
+            this.patient_height.Size = new System.Drawing.Size(537, 23);
             this.patient_height.TabIndex = 12;
+            this.patient_height.TextChanged += new System.EventHandler(this.patient_height_TextChanged);
+            this.patient_height.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.patient_height_KeyPress);
             // 
             // patient_weight
             // 
             this.patient_weight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.patient_weight.Location = new System.Drawing.Point(156, 292);
+            this.patient_weight.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.patient_weight.Location = new System.Drawing.Point(156, 289);
+            this.patient_weight.MaxLength = 4;
             this.patient_weight.Name = "patient_weight";
-            this.patient_weight.Size = new System.Drawing.Size(537, 20);
+            this.patient_weight.Size = new System.Drawing.Size(537, 23);
             this.patient_weight.TabIndex = 13;
+            this.patient_weight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.patient_weight_KeyPress);
             // 
             // patient_description
             // 
             this.patient_description.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.patient_description.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.patient_description.Location = new System.Drawing.Point(156, 336);
+            this.patient_description.Multiline = true;
             this.patient_description.Name = "patient_description";
             this.patient_description.Size = new System.Drawing.Size(537, 20);
             this.patient_description.TabIndex = 14;
@@ -244,17 +250,21 @@ namespace Simulator
             // patient_body_mass_index
             // 
             this.patient_body_mass_index.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.patient_body_mass_index.Location = new System.Drawing.Point(156, 380);
+            this.patient_body_mass_index.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.patient_body_mass_index.Location = new System.Drawing.Point(156, 377);
+            this.patient_body_mass_index.MaxLength = 5;
             this.patient_body_mass_index.Name = "patient_body_mass_index";
-            this.patient_body_mass_index.Size = new System.Drawing.Size(537, 20);
+            this.patient_body_mass_index.Size = new System.Drawing.Size(537, 23);
             this.patient_body_mass_index.TabIndex = 15;
+            this.patient_body_mass_index.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.patient_body_mass_index_KeyPress);
             // 
             // patient_name
             // 
             this.patient_name.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.patient_name.Location = new System.Drawing.Point(156, 67);
+            this.patient_name.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.patient_name.Location = new System.Drawing.Point(156, 64);
             this.patient_name.Name = "patient_name";
-            this.patient_name.Size = new System.Drawing.Size(537, 20);
+            this.patient_name.Size = new System.Drawing.Size(537, 23);
             this.patient_name.TabIndex = 16;
             this.patient_name.TextChanged += new System.EventHandler(this.patient_name_TextChanged_1);
             // 
@@ -266,20 +276,34 @@ namespace Simulator
             this.save_patient_button.Name = "save_patient_button";
             this.save_patient_button.Size = new System.Drawing.Size(75, 23);
             this.save_patient_button.TabIndex = 17;
-            this.save_patient_button.Text = "Salva";
+            this.save_patient_button.Text = "Save";
             this.save_patient_button.UseVisualStyleBackColor = true;
+            this.save_patient_button.Click += new System.EventHandler(this.save_patient_button_Click);
             // 
             // title
             // 
             this.title.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.title.AutoSize = true;
             this.title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.title.Location = new System.Drawing.Point(386, 10);
+            this.title.Location = new System.Drawing.Point(396, 10);
             this.title.Margin = new System.Windows.Forms.Padding(15, 0, 15, 15);
             this.title.Name = "title";
-            this.title.Size = new System.Drawing.Size(181, 20);
+            this.title.Size = new System.Drawing.Size(160, 20);
             this.title.TabIndex = 18;
-            this.title.Text = "Crea un nuovo paziente:";
+            this.title.Text = "Create a new patient:";
+            // 
+            // patient_gender
+            // 
+            this.patient_gender.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.patient_gender.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.patient_gender.FormattingEnabled = true;
+            this.patient_gender.Items.AddRange(new object[] {
+            "Male",
+            "Female"});
+            this.patient_gender.Location = new System.Drawing.Point(156, 194);
+            this.patient_gender.Name = "patient_gender";
+            this.patient_gender.Size = new System.Drawing.Size(537, 24);
+            this.patient_gender.TabIndex = 19;
             // 
             // PatientForm
             // 
@@ -308,7 +332,6 @@ namespace Simulator
         private System.Windows.Forms.Label label_description;
         private System.Windows.Forms.Label label_body_mass_index;
         private System.Windows.Forms.TextBox patient_age;
-        private System.Windows.Forms.TextBox patient_gender;
         private System.Windows.Forms.TextBox patient_height;
         private System.Windows.Forms.TextBox patient_weight;
         private System.Windows.Forms.TextBox patient_description;
@@ -316,5 +339,6 @@ namespace Simulator
         private System.Windows.Forms.TextBox patient_name;
         private System.Windows.Forms.Button save_patient_button;
         private System.Windows.Forms.Label title;
+        private System.Windows.Forms.ComboBox patient_gender;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Simulator.Simulator.Controller;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,13 @@ namespace Simulator
 {
     public partial class PatientForm : Form
     {
+        Client clientTwins;
+
         public PatientForm()
         {
             InitializeComponent();
+
+            this.clientTwins = new Client();
         }
 
         private void patient_name_TextChanged(object sender, EventArgs e)
@@ -59,5 +64,85 @@ namespace Simulator
 
         private void patient_name_TextChanged_1(object sender, EventArgs e)
         {}
+
+        private void patient_age_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void patient_height_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void patient_age_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void patient_height_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void patient_weight_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void patient_body_mass_index_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void save_patient_button_Click(object sender, EventArgs e)
+        {
+            this.clientTwins.createPatientTwin(
+                this.patient_name.Text,
+                this.patient_surname.Text,
+                Convert.ToInt32(this.patient_age.Text),
+                this.patient_gender.Text,
+                Convert.ToDouble(this.patient_height.Text),
+                Convert.ToDouble(this.patient_weight.Text),
+                this.patient_description.Text,
+                Convert.ToDouble(this.patient_body_mass_index.Text));
+
+        }
     }
 }
