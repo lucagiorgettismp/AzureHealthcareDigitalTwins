@@ -42,12 +42,12 @@ namespace Simulator.Simulator
         {
             var data = new
             {
-                temperature = Math.Round(value: (double) deviceData.Temperature.Value, 1),
-                bloodPressure = deviceData.BloodPressure,
-                saturation = deviceData.Saturation,
-                breathFrequency = deviceData.BreathFrequency,
-                heartFrequency = deviceData.HeartFrequency,
-                batteryPower = deviceData.BatteryPower
+                temperature = Math.Round(value: Convert.ToDouble(deviceData.Temperature.Value), 1),
+                bloodPressure = Convert.ToInt64(deviceData.BloodPressure.Value),
+                saturation = Convert.ToInt64(deviceData.Saturation.Value),
+                breathFrequency = Convert.ToInt64(deviceData.BreathFrequency.Value),
+                heartFrequency = Convert.ToInt64(deviceData.HeartFrequency.Value),
+                batteryPower = Convert.ToInt64(deviceData.BatteryPower.Value)
             };
 
             return JsonConvert.SerializeObject(data);

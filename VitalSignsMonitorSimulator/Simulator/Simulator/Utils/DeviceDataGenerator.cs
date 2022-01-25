@@ -104,23 +104,23 @@
 
         private DeviceDataProperty GenerateValue(DeviceDataProperty dataProperty)
         {
-            var oldValue = (double) dataProperty.Value;
+            var oldValue = Convert.ToDouble(dataProperty.Value);
             var random = new Random();
-            var delta = (double) dataProperty.UpdateDelta;
+            var delta = Convert.ToDouble(dataProperty.UpdateDelta);
 
             var newValue = oldValue + random.NextDouble() * (2 * delta ) - delta;
-            if (newValue < (double) dataProperty.MinValue)
+            if (newValue < Convert.ToDouble(dataProperty.MinValue))
             {
-                newValue = (double) dataProperty.MinValue;
+                newValue = Convert.ToDouble(dataProperty.MinValue);
             }
 
-            if (newValue > (double)dataProperty.MaxValue)
+            if (newValue > Convert.ToDouble(dataProperty.MaxValue))
             {
-                newValue = (double)dataProperty.MaxValue;
+                newValue = Convert.ToDouble(dataProperty.MaxValue);
             }
 
-            dataProperty.InAlarm = newValue <= (double)dataProperty.AlarmMinThreashold || newValue >= (double)dataProperty.AlarmMaxThreashold;
-            dataProperty.Value = dataProperty.Value is int ? newValue : (double)newValue;
+            dataProperty.InAlarm = newValue <= Convert.ToDouble(dataProperty.AlarmMinThreashold) || newValue >= Convert.ToDouble(dataProperty.AlarmMaxThreashold);
+            dataProperty.Value = dataProperty.Value is int ? newValue : Convert.ToDouble(newValue);
 
             return dataProperty;
         }

@@ -16,12 +16,12 @@ namespace Simulator
             this.deviceHub = new Device();
         }
 
-        private void start_button_click(object sender, EventArgs e)
+        private async void start_button_click(object sender, EventArgs e)
         {
             Console.WriteLine("Click button start!");
 
             var tokenSource = new CancellationTokenSource();
-            this.deviceHub.SendMessageToIoTHub(tokenSource.Token);
+            await this.deviceHub.SendMessageToIoTHub(tokenSource.Token);
         }
 
         private void create_button_Click(object sender, EventArgs e)
