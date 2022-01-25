@@ -9,12 +9,10 @@ namespace Simulator
 {
     class AuthenticationApi
     {
-        private static DigitalTwinsClient twinClient = null;
-        private static DeviceClient deviceClient = null;
-
         private static IConfiguration readConfig()
         {
             IConfiguration config;
+
             try
             {
                 // Read configuration data from the 
@@ -31,10 +29,11 @@ namespace Simulator
             return config;
         }
 
-        public static DigitalTwinsClient Twins()
+        public static DigitalTwinsClient GetClient()
         {
             Uri adtInstanceUrl;
 
+            DigitalTwinsClient twinClient = null;
             IConfiguration config = readConfig();
 
             if (config != null)
@@ -45,16 +44,18 @@ namespace Simulator
                 twinClient = new DigitalTwinsClient(adtInstanceUrl, credential);
 
                 Log.Ok($"Service twin client created – ready to go!");
+                Console.WriteLine();
             }
             return twinClient;
         }
 
-        public static DeviceClient Device()
+        public static DeviceClient GetDevice()
         {
             String host;
             String deviceId;
             String sharedAccessKey;
 
+            DeviceClient deviceClient = null;
             IConfiguration config = readConfig();
 
             if(config != null)
@@ -69,6 +70,7 @@ namespace Simulator
                 deviceClient = DeviceClient.CreateFromConnectionString(connectionString);
 
                 Log.Ok($"Service device client created – ready to go!");
+                Console.WriteLine();
             }
             return deviceClient;
         }

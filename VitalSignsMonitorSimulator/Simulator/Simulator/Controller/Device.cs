@@ -13,16 +13,17 @@ namespace Simulator.Simulator
 
         DeviceClient deviceClient;
         DeviceDataGenerator dataGenerator;
-        static int msgCounter = 1;
 
         public Device()
         {
-            this.deviceClient = AuthenticationApi.Device();
+            this.deviceClient = AuthenticationApi.GetDevice();
             this.dataGenerator = new DeviceDataGenerator();
         }
 
         public async Task SendMessageToIoTHub(CancellationToken token)
         {
+            int msgCounter = 1;
+
             while (!token.IsCancellationRequested)
             {
                 var deviceData = dataGenerator.GetUpdatedDeviceData();
@@ -31,7 +32,8 @@ namespace Simulator.Simulator
                 var message = CreateMessage(json);
 
                 await deviceClient.SendEventAsync(message);
-                Console.WriteLine($"[{msgCounter}] Sending message at {DateTime.Now} and Message : {json}");
+                Log.Ok($"[{msgCounter}] Sending message at {DateTime.Now} and Message : {json}");
+                Console.WriteLine();
 
                 await Task.Delay(1500);
                 msgCounter += 1;
