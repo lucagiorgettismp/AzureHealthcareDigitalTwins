@@ -28,7 +28,7 @@ namespace Simulator
                     Log.Ok("-----------------");
                 }
             }
-            Log.Ok("Reading finisched.");
+            Log.Ok("Reading finished.");
             Console.WriteLine();
 
             return IdTwins;

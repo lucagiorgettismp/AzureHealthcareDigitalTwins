@@ -20,7 +20,6 @@ namespace Simulator
             this.deviceHub = new Device();
             this.clientTwins = new Client();
 
-            this.tokenSource = new CancellationTokenSource();
             this.simulatorIsInRunning = false;
         }
 
@@ -33,8 +32,8 @@ namespace Simulator
                 Log.Ok("Start simulation!");
                 Console.WriteLine();
 
-                var tokenSource = new CancellationTokenSource();
-                await this.deviceHub.SendMessageToIoTHub(tokenSource.Token, Simulator.Model.CrudMode.Update);
+                this.tokenSource = new CancellationTokenSource();
+                await this.deviceHub.SendMessageToIoTHub(this.tokenSource.Token, Simulator.Model.CrudMode.Update);
             }
         }
 
