@@ -45,33 +45,15 @@ namespace Simulator.Simulator
             var data = new VitalSignsMonitorPayload
             {
                 Mode = mode,
-                Data = new VitalSignsMonitorPayloadData
+                Data = mode != CrudMode.Delete ? new VitalSignsMonitorPayloadData
                 {
-                    Temperature = new VitalSignsMonitorPayloadParameter(deviceData.Temperature, mode)
-                    {
-                        Value = Math.Round(value: Convert.ToDouble(deviceData.Temperature.Value), 1),
-                    },
-                    BloodPressure = new VitalSignsMonitorPayloadParameter(deviceData.BloodPressure, mode)
-                    {
-                        Value = Convert.ToInt64(deviceData.BloodPressure.Value),
-                    },
-                    Saturation = new VitalSignsMonitorPayloadParameter(deviceData.Saturation, mode)
-                    {
-                        Value = Convert.ToInt64(deviceData.Saturation.Value),
-                    },
-                    BreathFrequency = new VitalSignsMonitorPayloadParameter(deviceData.BreathFrequency, mode)
-                    {
-                        Value = Convert.ToInt64(deviceData.BreathFrequency.Value),
-                    },
-                    HeartFrequency = new VitalSignsMonitorPayloadParameter(deviceData.HeartFrequency, mode)
-                    {
-                        Value = Convert.ToInt64(deviceData.HeartFrequency.Value),
-                    },
-                    BatteryPower = new VitalSignsMonitorPayloadParameter(deviceData.BatteryPower, mode)
-                    {
-                        Value = Convert.ToInt64(deviceData.BatteryPower.Value)
-                    }              
-                }
+                    Temperature = new VitalSignsMonitorPayloadParameter<double>(deviceData.Temperature, mode),
+                    BloodPressure = new VitalSignsMonitorPayloadParameter<int>(deviceData.BloodPressure, mode),
+                    Saturation = new VitalSignsMonitorPayloadParameter<int>(deviceData.Saturation, mode),
+                    BreathFrequency = new VitalSignsMonitorPayloadParameter<int>(deviceData.BreathFrequency, mode),
+                    HeartFrequency = new VitalSignsMonitorPayloadParameter<int>(deviceData.HeartFrequency, mode),
+                    BatteryPower = new VitalSignsMonitorPayloadParameter<int>(deviceData.BatteryPower, mode)
+                } : null
             };
 
             return JsonConvert.SerializeObject(data);
