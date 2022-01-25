@@ -16,29 +16,29 @@
         {
             deviceData = new DeviceData
             {
-                Temperature = new DeviceDataProperty
+                Temperature = new DeviceDataProperty<Double>
                 {
                     UnitOfMeasurement = CELSIUS,
-                    MinValue = (double) 35,
-                    MaxValue = (double) 45,
-                    Value = (double) 36.6,
+                    MinValue = 35,
+                    MaxValue = 45,
+                    Value = 36.6,
                     AlarmMinThreashold = 36.4,
                     AlarmMaxThreashold = 37.2,
                     InAlarm = false,
-                    UpdateDelta = (double) 0.3,
+                    UpdateDelta = 0.3,
                 },
-                BatteryPower = new DeviceDataProperty
+                BatteryPower = new DeviceDataProperty<Int32>
                 {
                     UnitOfMeasurement = PERCENTAGE,
                     MinValue = 0,
                     MaxValue = 100,
                     Value = 50,
                     AlarmMinThreashold = 20,
-                    AlarmMaxThreashold = null,
+                    AlarmMaxThreashold = 100,
                     InAlarm = false,
                     UpdateDelta = 1,
                 },
-                BloodPressure = new DeviceDataProperty {
+                BloodPressure = new DeviceDataProperty<Int32> {
                     UnitOfMeasurement = mmHg,
                     MinValue = 60,
                     MaxValue = 160,
@@ -49,7 +49,7 @@
                     UpdateDelta = 1,
                 },
 
-                BreathFrequency = new DeviceDataProperty
+                BreathFrequency = new DeviceDataProperty<Int32>
                 {
                     UnitOfMeasurement = RPM,
                     MinValue = 6,
@@ -60,7 +60,7 @@
                     InAlarm = false,
                     UpdateDelta = 1,
                 },
-                HeartFrequency = new DeviceDataProperty
+                HeartFrequency = new DeviceDataProperty<Int32>
                 {
                     UnitOfMeasurement = BPM,
                     MinValue = 40,
@@ -69,16 +69,16 @@
                     AlarmMinThreashold = 60,
                     AlarmMaxThreashold = 100,
                     InAlarm = false,
-                    UpdateDelta = 0.5,
+                    UpdateDelta = 1,
                 },
-                Saturation = new DeviceDataProperty
+                Saturation = new DeviceDataProperty<Int32>
                 {
                     UnitOfMeasurement = PERCENTAGE,
                     MinValue = 60,
                     MaxValue = 100,
                     Value = 98,
                     AlarmMinThreashold = 95,
-                    AlarmMaxThreashold = null,
+                    AlarmMaxThreashold = 100,
                     InAlarm = false,
                     UpdateDelta = 1,
                 },
@@ -89,12 +89,12 @@
         {
             var newData = new DeviceData
             {
-                Temperature = this.GenerateValue(deviceData.Temperature),
-                BloodPressure = this.GenerateValue(deviceData.BloodPressure),
-                BatteryPower = this.GenerateValue(deviceData.BatteryPower),
-                Saturation = this.GenerateValue(deviceData.Saturation),
-                BreathFrequency = this.GenerateValue(deviceData.BreathFrequency),
-                HeartFrequency = this.GenerateValue(deviceData.HeartFrequency)
+                Temperature = this.GenerateDoubleValue(deviceData.Temperature),
+                BloodPressure = this.GenerateIntValue(deviceData.BloodPressure),
+                BatteryPower = this.GenerateIntValue(deviceData.BatteryPower),
+                Saturation = this.GenerateIntValue(deviceData.Saturation),
+                BreathFrequency = this.GenerateIntValue(deviceData.BreathFrequency),
+                HeartFrequency = this.GenerateIntValue(deviceData.HeartFrequency)
             };
 
             this.deviceData = newData;
@@ -102,16 +102,16 @@
             return newData;
         }
 
-        private DeviceDataProperty GenerateValue(DeviceDataProperty dataProperty)
+        private DeviceDataProperty<double> GenerateDoubleValue(DeviceDataProperty<double> dataProperty)
         {
-            var oldValue = (double) dataProperty.Value;
+            var oldValue = dataProperty.Value;
             var random = new Random();
-            var delta = (double) dataProperty.UpdateDelta;
+            var delta = (double)dataProperty.UpdateDelta;
 
-            var newValue = oldValue + random.NextDouble() * (2 * delta ) - delta;
-            if (newValue < (double) dataProperty.MinValue)
+            var newValue = oldValue + random.NextDouble() * (2 * delta) - delta;
+            if (newValue < (double)dataProperty.MinValue)
             {
-                newValue = (double) dataProperty.MinValue;
+                newValue = (double)dataProperty.MinValue;
             }
 
             if (newValue > (double)dataProperty.MaxValue)
@@ -120,7 +120,29 @@
             }
 
             dataProperty.InAlarm = newValue <= (double)dataProperty.AlarmMinThreashold || newValue >= (double)dataProperty.AlarmMaxThreashold;
-            dataProperty.Value = dataProperty.Value is int ? newValue : (double)newValue;
+            dataProperty.Value = newValue;
+
+            return dataProperty;
+        }
+        private DeviceDataProperty<int> GenerateIntValue(DeviceDataProperty<int> dataProperty)
+        {
+            var oldValue = dataProperty.Value;
+            var random = new Random();
+            var delta = dataProperty.UpdateDelta;
+
+            var newValue = oldValue + random.Next() * (2 * delta) - delta;
+            if (newValue < dataProperty.MinValue)
+            {
+                newValue = dataProperty.MinValue;
+            }
+
+            if (newValue > dataProperty.MaxValue)
+            {
+                newValue = dataProperty.MaxValue;
+            }
+
+            dataProperty.InAlarm = newValue <= dataProperty.AlarmMinThreashold || newValue >= (double)dataProperty.AlarmMaxThreashold;
+            dataProperty.Value = newValue;
 
             return dataProperty;
         }

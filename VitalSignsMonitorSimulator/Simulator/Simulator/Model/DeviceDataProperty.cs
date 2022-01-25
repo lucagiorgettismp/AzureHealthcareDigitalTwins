@@ -1,21 +1,21 @@
 ﻿namespace Simulator.Simulator.Model
 {
-    class DeviceDataProperty
+    class DeviceDataProperty<T>
     {
-        public object Value { get; set; }
+        public T Value { get; set; }
         
         public bool InAlarm { get; set; }
         
         public string UnitOfMeasurement { get; set; }
         
-        public object MinValue { get; set; }
+        public T MinValue { get; set; }
         
-        public object MaxValue { get; set; }
+        public T MaxValue { get; set; }
         
-        public object AlarmMinThreashold { get; set; }
+        public T AlarmMinThreashold { get; set; }
 
-        public object AlarmMaxThreashold { get; set; }
+        public T AlarmMaxThreashold { get; set; }
         
-        public object UpdateDelta { get; set; }
+        public T UpdateDelta { get; set; }
     }
 }

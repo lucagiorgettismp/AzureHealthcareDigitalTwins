@@ -2,16 +2,16 @@
 {
     class DeviceData
     {
-        public DeviceDataProperty Temperature { get; set; }
+        public DeviceDataProperty<double> Temperature { get; set; }
         
-        public DeviceDataProperty BloodPressure { get; set; }
+        public DeviceDataProperty<int> BloodPressure { get; set; }
         
-        public DeviceDataProperty Saturation { get; set; }
+        public DeviceDataProperty<int> Saturation { get; set; }
         
-        public DeviceDataProperty BreathFrequency { get; set; }
+        public DeviceDataProperty<int> BreathFrequency { get; set; }
         
-        public DeviceDataProperty HeartFrequency { get; set; }
+        public DeviceDataProperty<int> HeartFrequency { get; set; }
         
-        public DeviceDataProperty BatteryPower { get; set; }
+        public DeviceDataProperty<int> BatteryPower { get; set; }
     }
 }
