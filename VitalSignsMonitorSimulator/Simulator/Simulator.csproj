@@ -263,13 +263,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AzureApi\AuthenticationApi.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="PatientForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="PatientForm.Designer.cs">
+      <DependentUpon>PatientForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AzureApi\DigitalTwinOperations.cs" />
+    <Compile Include="SimulationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SimulationForm.Designer.cs">
+      <DependentUpon>SimulationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AzureApi\TwinOperationsApi.cs" />
+    <Compile Include="Simulator\Controller\Client.cs" />
     <Compile Include="Simulator\Controller\Device.cs" />
     <Compile Include="Simulator\Model\AzurePayloads\ViitalSignsMonitorPayload.cs" />
     <Compile Include="Simulator\Model\AzurePayloads\VitalSignsMonitorPayloadData.cs" />
@@ -282,8 +289,8 @@
     <Compile Include="Utils\Log.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="SimulationForm.resx">
+      <DependentUpon>SimulationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
