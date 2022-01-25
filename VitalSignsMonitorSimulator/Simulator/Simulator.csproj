@@ -271,6 +271,11 @@
     </Compile>
     <Compile Include="AzureApi\DigitalTwinOperations.cs" />
     <Compile Include="Simulator\Controller\Device.cs" />
+    <Compile Include="Simulator\Model\AzurePayloads\ViitalSignsMonitorPayload.cs" />
+    <Compile Include="Simulator\Model\AzurePayloads\VitalSignsMonitorPayloadData.cs" />
+    <Compile Include="Simulator\Model\AzurePayloads\ViitalSignsMonitorPayloadParameter.cs" />
+    <Compile Include="Simulator\Model\AzurePayloads\PatientPayload.cs" />
+    <Compile Include="Simulator\Model\CrudMode.cs" />
     <Compile Include="Simulator\Model\DeviceDataProperty.cs" />
     <Compile Include="Simulator\Model\DeviceData.cs" />
     <Compile Include="Simulator\Utils\DeviceDataGenerator.cs" />
