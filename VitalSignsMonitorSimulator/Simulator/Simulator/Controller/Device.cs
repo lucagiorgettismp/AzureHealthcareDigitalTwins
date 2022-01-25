@@ -1,4 +1,4 @@
-﻿using Microsoft.Azure.Devices.Client;
+using Microsoft.Azure.Devices.Client;
 using Newtonsoft.Json;
 using Simulator.Simulator.Model;
 using System;
@@ -20,7 +20,7 @@ namespace Simulator.Simulator
             this.dataGenerator = new DeviceDataGenerator();
         }
 
-        public async Task SendMessageToIoTHub(CancellationToken token)
+        public async Task SendMessageToIoTHub(CancellationToken token, CrudMode mode)
         {
             int msgCounter = 1;
 
@@ -28,7 +28,7 @@ namespace Simulator.Simulator
             {
                 var deviceData = dataGenerator.GetUpdatedDeviceData();
 
-                var json = CreateJSON(deviceData);
+                var json = CreateJSON(deviceData, mode);
                 var message = CreateMessage(json);
 
                 await deviceClient.SendEventAsync(message);
@@ -40,16 +40,38 @@ namespace Simulator.Simulator
             }
         }
 
-        private string CreateJSON(DeviceData deviceData)
+        private string CreateJSON(DeviceData deviceData, CrudMode mode)
         {
-            var data = new
+            var data = new VitalSignsMonitorPayload
             {
-                temperature = Math.Round(value: Convert.ToDouble(deviceData.Temperature.Value), 1),
-                bloodPressure = Convert.ToInt64(deviceData.BloodPressure.Value),
-                saturation = Convert.ToInt64(deviceData.Saturation.Value),
-                breathFrequency = Convert.ToInt64(deviceData.BreathFrequency.Value),
-                heartFrequency = Convert.ToInt64(deviceData.HeartFrequency.Value),
-                batteryPower = Convert.ToInt64(deviceData.BatteryPower.Value)
+                Mode = mode,
+                Data = new VitalSignsMonitorPayloadData
+                {
+                    Temperature = new VitalSignsMonitorPayloadParameter(deviceData.Temperature, mode)
+                    {
+                        Value = Math.Round(value: Convert.ToDouble(deviceData.Temperature.Value), 1),
+                    },
+                    BloodPressure = new VitalSignsMonitorPayloadParameter(deviceData.BloodPressure, mode)
+                    {
+                        Value = Convert.ToInt64(deviceData.BloodPressure.Value),
+                    },
+                    Saturation = new VitalSignsMonitorPayloadParameter(deviceData.Saturation, mode)
+                    {
+                        Value = Convert.ToInt64(deviceData.Saturation.Value),
+                    },
+                    BreathFrequency = new VitalSignsMonitorPayloadParameter(deviceData.BreathFrequency, mode)
+                    {
+                        Value = Convert.ToInt64(deviceData.BreathFrequency.Value),
+                    },
+                    HeartFrequency = new VitalSignsMonitorPayloadParameter(deviceData.HeartFrequency, mode)
+                    {
+                        Value = Convert.ToInt64(deviceData.HeartFrequency.Value),
+                    },
+                    BatteryPower = new VitalSignsMonitorPayloadParameter(deviceData.BatteryPower, mode)
+                    {
+                        Value = Convert.ToInt64(deviceData.BatteryPower.Value)
+                    }              
+                }
             };
 
             return JsonConvert.SerializeObject(data);
