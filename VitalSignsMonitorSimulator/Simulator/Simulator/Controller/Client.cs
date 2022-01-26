@@ -1,4 +1,5 @@
 ﻿using Azure.DigitalTwins.Core;
+using Simulator.AzureApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Simulator.Simulator.Controller
 {
-    class Client
+    public class Client
     {
         private DigitalTwinsClient twinClient;
         private TwinOperationsApi op;
@@ -22,17 +23,9 @@ namespace Simulator.Simulator.Controller
             return await this.op.getTwins(this.twinClient);
         }
 
-        public async void createPatientTwin(
-            string name,
-            string surname,
-            int age,
-            string gender,
-            double height,
-            double weight,
-            string description,
-            double bmi)
+        public async void createPatientTwin(PatientModel model)
         {
-            await this.op.createPatientTwin(twinClient, name, surname, age, gender, height, weight, description, bmi);
+            await this.op.createPatientTwin(twinClient, model);
         }
     }
 }

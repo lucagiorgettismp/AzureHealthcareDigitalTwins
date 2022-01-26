@@ -51,7 +51,7 @@ namespace Simulator
         }
         private void create_button_Click(object sender, EventArgs e)
         {
-            PatientForm patientForm = new PatientForm();
+            PatientForm patientForm = new PatientForm(this.clientTwins);
             patientForm.Text = "Patient";
             patientForm.Show();
         }

@@ -46,8 +46,8 @@ namespace Simulator
             this.patient_body_mass_index = new System.Windows.Forms.TextBox();
             this.patient_name = new System.Windows.Forms.TextBox();
             this.save_patient_button = new System.Windows.Forms.Button();
-            this.title = new System.Windows.Forms.Label();
             this.patient_gender = new System.Windows.Forms.ComboBox();
+            this.title = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,8 +72,8 @@ namespace Simulator
             this.tableLayoutPanel1.Controls.Add(this.patient_body_mass_index, 1, 8);
             this.tableLayoutPanel1.Controls.Add(this.patient_name, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.save_patient_button, 1, 9);
-            this.tableLayoutPanel1.Controls.Add(this.title, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.patient_gender, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.title, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -280,18 +280,6 @@ namespace Simulator
             this.save_patient_button.UseVisualStyleBackColor = true;
             this.save_patient_button.Click += new System.EventHandler(this.save_patient_button_Click);
             // 
-            // title
-            // 
-            this.title.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.title.AutoSize = true;
-            this.title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.title.Location = new System.Drawing.Point(396, 10);
-            this.title.Margin = new System.Windows.Forms.Padding(15, 0, 15, 15);
-            this.title.Name = "title";
-            this.title.Size = new System.Drawing.Size(160, 20);
-            this.title.TabIndex = 18;
-            this.title.Text = "Create a new patient:";
-            // 
             // patient_gender
             // 
             this.patient_gender.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -300,10 +288,23 @@ namespace Simulator
             this.patient_gender.Items.AddRange(new object[] {
             "Male",
             "Female"});
-            this.patient_gender.Location = new System.Drawing.Point(156, 194);
+            this.patient_gender.Location = new System.Drawing.Point(156, 198);
             this.patient_gender.Name = "patient_gender";
             this.patient_gender.Size = new System.Drawing.Size(537, 24);
             this.patient_gender.TabIndex = 19;
+            this.patient_gender.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.patient_gender_KeyPress);
+            // 
+            // title
+            // 
+            this.title.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.title.AutoSize = true;
+            this.title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.title.Location = new System.Drawing.Point(168, 10);
+            this.title.Margin = new System.Windows.Forms.Padding(15, 0, 15, 15);
+            this.title.Name = "title";
+            this.title.Size = new System.Drawing.Size(160, 20);
+            this.title.TabIndex = 18;
+            this.title.Text = "Create a new patient:";
             // 
             // PatientForm
             // 

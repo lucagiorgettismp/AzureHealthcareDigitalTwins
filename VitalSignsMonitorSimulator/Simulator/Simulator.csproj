@@ -263,6 +263,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AzureApi\AuthenticationApi.cs" />
+    <Compile Include="AzureApi\Models\PatientModel.cs" />
     <Compile Include="PatientForm.cs">
       <SubType>Form</SubType>
     </Compile>

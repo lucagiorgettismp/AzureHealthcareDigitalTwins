@@ -1,5 +1,6 @@
 ﻿using Azure;
 using Azure.DigitalTwins.Core;
+using Simulator.AzureApi.Models;
 using Simulator.Simulator.Controller;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,25 @@ namespace Simulator
 {
     class TwinOperationsApi
     {
+        // Query
         private const string QUERY_GET_TWINS = "SELECT * FROM digitaltwins";
 
-        // TODO Sarebbe meglio scaricarli da cloud invece di hard coded
-        private const string MODEL_PATIENT = "dtmi:healthCareDT:Patient;1";
-        private const string MODEL_MONITOR = "dtmi:healthCareDT:VitalParametersMonitor;1";
+        // Models name
+        private const string PATIENT = "Patient";
+        private const string VITAL_PARAMETERS_MONITOR = "VitalParametersMonitor";
+
+        // Name relationship
+        private const string NAME_RELATIONSHIP = "rel_has_monitor";
+
+        // Parameter patient twin
+        private const string NAME = "name";
+        private const string SURNAME = "surname";
+        private const string AGE = "age";
+        private const string GENDER = "gender";
+        private const string DESCRIPTION = "description";
+        private const string HEIGHT = "weight"
+;       private const string WEIGHT = "height";
+        private const string BODY_MASS_INDEX = "bmi";
 
         public async Task<List<string>> getTwins(DigitalTwinsClient client)
         {
@@ -25,7 +40,8 @@ namespace Simulator
             Log.Ok("Get all DT...");
             await foreach (BasicDigitalTwin twin in queryResult)
             {
-                if(twin.Metadata.ModelId == MODEL_PATIENT)
+                string modelPatient = await getModel(client, PATIENT);
+                if(twin.Metadata.ModelId == modelPatient)
                 {
                     IdTwins.Add(twin.Id);
                     Log.Ok("Digital twins: " + twin.Id);
@@ -39,49 +55,58 @@ namespace Simulator
         }
 
         public async Task createPatientTwin(
-            DigitalTwinsClient client,
-            string name, 
-            string surname, 
-            int age,
-            string gender, 
-            double height,
-            double weight, 
-            string description,
-            double bmi)
+            DigitalTwinsClient client, PatientModel model)
         {
-            var twinData = new BasicDigitalTwin();
+            var patientTwin = new BasicDigitalTwin();
 
-            twinData.Metadata.ModelId = MODEL_PATIENT;
-            twinData.Contents.Add("name", name);
-            twinData.Contents.Add("surname", surname);
-            twinData.Contents.Add("age", age);
-            twinData.Contents.Add("gender", gender);
-            twinData.Contents.Add("description", description);
-            twinData.Contents.Add("weight", weight);
-            twinData.Contents.Add("height", height);
-            twinData.Contents.Add("bmi/value", bmi);
-            twinData.Id = $"{name}Twin";
+            patientTwin.Metadata.ModelId = await getModel(client, PATIENT);
+            patientTwin.Contents.Add(NAME, model.Name);
+            patientTwin.Contents.Add(SURNAME, model.Surname);
+            patientTwin.Contents.Add(AGE, model.Age);
+            patientTwin.Contents.Add(GENDER, model.Gender);
+            patientTwin.Contents.Add(DESCRIPTION, model.Description);
+            patientTwin.Contents.Add(WEIGHT, model.Weight);
+            patientTwin.Contents.Add(HEIGHT, model.Height);
+            patientTwin.Contents.Add(BODY_MASS_INDEX, model.BodyMassIndex);
+            patientTwin.Id = $"{model.Name}Twin";
 
-            Log.Ok($"Create twin with..\nName: {name},\nSurname: {surname}\nAge: {age}\nGender: {gender}\nDescription: {description}" +
-                $"\nWeight: {weight}\nHeight: {height}\nBmi: {bmi}");
+            Log.Ok($"Create twin with..\nName: {model.Name},\nSurname: {model.Surname}\nAge: {model.Age}\nGender: {model.Gender}" +
+                $"\nDescription: {model.Description}\nWeight: {model.Weight}\nHeight: {model.Height}\nBmi: {model.BodyMassIndex}");
 
             try
             {
-                await client.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>(twinData.Id, twinData);
-                Log.Ok($"- Created twin {twinData.Id} successfully!");
+                // Create patient twin
+                await client.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>(patientTwin.Id, patientTwin);
+                Log.Ok($"- Created twin {patientTwin.Id} successfully!");
 
-                //createMonitorTwin()
-                //create a relationship
+                // Create monitor twin
+                string idMonitorTwin = $"Monitor{model.Name}";
+                await createMonitorTwin(client, idMonitorTwin);
+
+                // Create a relationship
+                await createRelationship(client, patientTwin.Id, idMonitorTwin, NAME_RELATIONSHIP);
             }
             catch (RequestFailedException e) {
-                Log.Error($"Create twin error: {e.Status}: {e.Message}");
+                Log.Error($"Create patient twin error: {e.Status}: {e.Message}");
             }
             Console.WriteLine();
         }
 
-        private async Task createMonitorTwin() {
-            var twinData = new BasicDigitalTwin();
-            twinData.Metadata.ModelId = MODEL_MONITOR;
+        private async Task createMonitorTwin(DigitalTwinsClient client, string id) {
+
+            try
+            {
+                var monitorTwin = new BasicDigitalTwin();
+
+                monitorTwin.Id = id;
+                monitorTwin.Metadata.ModelId = await getModel(client, VITAL_PARAMETERS_MONITOR);
+                await client.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>(monitorTwin.Id, monitorTwin);
+                Log.Ok($"- Created twin {monitorTwin.Id} successfully!");
+            }
+            catch (RequestFailedException e)
+            {
+                Log.Error($"Create monitor twin error: {e.Status}: {e.Message}");
+            }
         }
 
         public async Task createRelationship(DigitalTwinsClient client, string srcId, string targetId, string nameRel) {
@@ -94,13 +119,29 @@ namespace Simulator
             {
                 string relId = $"{srcId}-contains->{targetId}";
                 await client.CreateOrReplaceRelationshipAsync(srcId, relId, relationship);
-                Console.WriteLine("- Created relationship successfully");
-
+                Log.Ok($"Create relationship between {srcId} / {targetId} successfully!");
             }
             catch (RequestFailedException e)
             {
-                Console.WriteLine($"+ Create relationship error: {e.Status}: {e.Message}");
+                Log.Error($"Create relationship error: {e.Status}: {e.Message}");
             }
+        }
+
+        private async Task<string> getModel(DigitalTwinsClient client, string modelName)
+        {
+            AsyncPageable<DigitalTwinsModelData> modelDataList = client.GetModelsAsync();
+
+            string modelId = null;
+
+            await foreach (var model in modelDataList)
+            {
+                if (model.Id.Contains(modelName)){
+                    modelId = model.Id;
+                    break;
+                }
+                
+            }
+            return modelId;
         }
     }
 }

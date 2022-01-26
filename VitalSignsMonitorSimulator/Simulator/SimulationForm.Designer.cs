@@ -113,7 +113,7 @@ namespace Simulator
             this.patients_twins_collections.ItemHeight = 15;
             this.patients_twins_collections.Location = new System.Drawing.Point(0, 0);
             this.patients_twins_collections.Name = "patients_twins_collections";
-            this.patients_twins_collections.Size = new System.Drawing.Size(120, 304);
+            this.patients_twins_collections.Size = new System.Drawing.Size(120, 319);
             this.patients_twins_collections.TabIndex = 1;
             this.patients_twins_collections.SelectedIndexChanged += new System.EventHandler(this.patients_twins_collections_SelectedIndexChanged);
             // 
