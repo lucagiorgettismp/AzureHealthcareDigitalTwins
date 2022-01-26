@@ -1,5 +1,6 @@
 ﻿using Azure;
 using Azure.DigitalTwins.Core;
+using Newtonsoft.Json;
 using Simulator.AzureApi.Models;
 using Simulator.Simulator.Controller;
 using System;
@@ -21,15 +22,24 @@ namespace Simulator
         // Name relationship
         private const string NAME_RELATIONSHIP = "rel_has_monitor";
 
-        // Parameter patient twin
+        // Parameters patient twin
         private const string NAME = "name";
         private const string SURNAME = "surname";
         private const string AGE = "age";
         private const string GENDER = "gender";
         private const string DESCRIPTION = "description";
-        private const string HEIGHT = "weight"
-;       private const string WEIGHT = "height";
+        private const string WEIGHT = "weight";
+        private const string HEIGHT = "height";
         private const string BODY_MASS_INDEX = "bmi";
+        private const string UNIT_BODY_MASS_INDEX = "Kg/m2";
+
+        // Paramters vital signs monitor
+        private const string TEMPERATURE = "temperature";
+        private const string BATTERY = "battery";
+        private const string BLOOD_PRESSURE = "blood_pressure";
+        private const string HEART_FREQUENCY = "heart_frequency";
+        private const string BREATH_FREQUENCY = "breath_frequency";
+        private const string SATURATION = "saturation";
 
         public async Task<List<string>> getTwins(DigitalTwinsClient client)
         {
@@ -58,7 +68,7 @@ namespace Simulator
             DigitalTwinsClient client, PatientModel model)
         {
             var patientTwin = new BasicDigitalTwin();
-
+            
             patientTwin.Metadata.ModelId = await getModel(client, PATIENT);
             patientTwin.Contents.Add(NAME, model.Name);
             patientTwin.Contents.Add(SURNAME, model.Surname);
@@ -67,7 +77,12 @@ namespace Simulator
             patientTwin.Contents.Add(DESCRIPTION, model.Description);
             patientTwin.Contents.Add(WEIGHT, model.Weight);
             patientTwin.Contents.Add(HEIGHT, model.Height);
-            patientTwin.Contents.Add(BODY_MASS_INDEX, model.BodyMassIndex);
+
+            var bmi = new BodyMassIndex();
+            bmi.value = model.BodyMassIndex;
+            bmi.unit = UNIT_BODY_MASS_INDEX;
+            patientTwin.Contents.Add(BODY_MASS_INDEX, bmi);
+
             patientTwin.Id = $"{model.Name}Twin";
 
             Log.Ok($"Create twin with..\nName: {model.Name},\nSurname: {model.Surname}\nAge: {model.Age}\nGender: {model.Gender}" +
@@ -80,7 +95,7 @@ namespace Simulator
                 Log.Ok($"- Created twin {patientTwin.Id} successfully!");
 
                 // Create monitor twin
-                string idMonitorTwin = $"Monitor{model.Name}";
+                string idMonitorTwin = $"VitalSignsMonitor{model.Name}";
                 await createMonitorTwin(client, idMonitorTwin);
 
                 // Create a relationship
@@ -98,8 +113,23 @@ namespace Simulator
             {
                 var monitorTwin = new BasicDigitalTwin();
 
+                // Component
+                var temperatureComponent = new BasicDigitalTwinComponent();
+                var bloodPressureComponent = new BasicDigitalTwinComponent();
+                var breathFrequencyComponent = new BasicDigitalTwinComponent();
+                var heartFrequencyComponent = new BasicDigitalTwinComponent();
+                var saturationComponent = new BasicDigitalTwinComponent();
+                var batteryComponent = new BasicDigitalTwinComponent();
+
                 monitorTwin.Id = id;
                 monitorTwin.Metadata.ModelId = await getModel(client, VITAL_PARAMETERS_MONITOR);
+                monitorTwin.Contents.Add(TEMPERATURE, temperatureComponent);
+                monitorTwin.Contents.Add(BLOOD_PRESSURE, bloodPressureComponent);
+                monitorTwin.Contents.Add(BATTERY, batteryComponent);
+                monitorTwin.Contents.Add(HEART_FREQUENCY, heartFrequencyComponent);
+                monitorTwin.Contents.Add(BREATH_FREQUENCY, breathFrequencyComponent);
+                monitorTwin.Contents.Add(SATURATION, saturationComponent);
+
                 await client.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>(monitorTwin.Id, monitorTwin);
                 Log.Ok($"- Created twin {monitorTwin.Id} successfully!");
             }
@@ -117,7 +147,7 @@ namespace Simulator
 
             try
             {
-                string relId = $"{srcId}-contains->{targetId}";
+                string relId = $"{srcId}-{nameRel}->{targetId}";
                 await client.CreateOrReplaceRelationshipAsync(srcId, relId, relationship);
                 Log.Ok($"Create relationship between {srcId} / {targetId} successfully!");
             }
@@ -139,7 +169,6 @@ namespace Simulator
                     modelId = model.Id;
                     break;
                 }
-                
             }
             return modelId;
         }
