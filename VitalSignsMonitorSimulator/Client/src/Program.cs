@@ -1,0 +1,24 @@
+﻿using System;
+using System.Windows.Forms;
+using View;
+
+namespace Simulator
+{
+    static class Program
+    {
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            ClientForm form = new ClientForm();
+            form.Text = "Client";
+
+            Application.Run(form);
+        }
+    }
+}
