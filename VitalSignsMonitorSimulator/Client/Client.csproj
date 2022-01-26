@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{8384297D-654B-477E-9847-9DE66B8D7801}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Simulator</RootNamespace>
-    <AssemblyName>Simulator</AssemblyName>
+    <RootNamespace>Client</RootNamespace>
+    <AssemblyName>Client</AssemblyName>
     <LangVersion>8.0</LangVersion>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

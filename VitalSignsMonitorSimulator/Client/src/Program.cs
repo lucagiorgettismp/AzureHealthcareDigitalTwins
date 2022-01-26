@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using View;
 
-namespace Simulator
+namespace Client
 {
     static class Program
     {
