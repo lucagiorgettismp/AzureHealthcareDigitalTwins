@@ -1,11 +1,11 @@
-﻿namespace AzureApi
+﻿namespace Client.AzureApi
 {
     using System;
     using System.IO;
     using Azure.DigitalTwins.Core;
     using Azure.Identity;
+    using Common.Utils;
     using Microsoft.Extensions.Configuration;
-    using Utils;
 
     class AuthenticationApi
     {

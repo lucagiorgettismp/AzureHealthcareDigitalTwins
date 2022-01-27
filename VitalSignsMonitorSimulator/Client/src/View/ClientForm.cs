@@ -1,9 +1,9 @@
-﻿namespace View
+﻿namespace Client.View
 {
+    using Common.Utils;
     using Controller;
     using System;
     using System.Windows.Forms;
-    using Utils;
 
     public partial class ClientForm : Form
     {

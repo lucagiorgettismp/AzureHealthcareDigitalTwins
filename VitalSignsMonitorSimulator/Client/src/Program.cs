@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using View;
+using Client.View;
 
 namespace Client
 {

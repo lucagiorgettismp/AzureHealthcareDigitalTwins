@@ -1,10 +1,10 @@
-﻿using Azure;
-using Azure.DigitalTwins.Core;
-using Microsoft.Extensions.Logging;
-using System.Threading.Tasks;
-
-namespace SampleFunctionsApp
+﻿namespace AppFunctions
 {
+    using Azure;
+    using Azure.DigitalTwins.Core;
+    using Microsoft.Extensions.Logging;
+    using System.Threading.Tasks;
+
     internal static class AdtUtilities
     {
         public static async Task<string> FindParentAsync(DigitalTwinsClient client, string child, string relname, ILogger log)

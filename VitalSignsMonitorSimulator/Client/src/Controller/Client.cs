@@ -1,4 +1,4 @@
-﻿namespace Controller
+﻿namespace Client.Controller
 {
     using Azure.DigitalTwins.Core;
     using AzureApi;

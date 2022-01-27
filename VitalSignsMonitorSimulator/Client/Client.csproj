@@ -174,7 +174,6 @@
     <Compile Include="src\AzureApi\TwinOperationsApi.cs" />
     <Compile Include="src\Controller\Client.cs" />
     <Compile Include="src\Program.cs" />
-    <Compile Include="src\Utils\Log.cs" />
     <Compile Include="src\View\ClientForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -216,6 +215,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{c13843bd-98cc-4a34-90dd-fd9402b9822d}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Text.Json.6.0.0\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.0\build\System.Text.Json.targets')" />

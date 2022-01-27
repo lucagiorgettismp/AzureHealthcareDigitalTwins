@@ -1,10 +1,10 @@
-﻿namespace AzureApi
+﻿namespace Simulator.AzureApi
 {
     using System;
     using System.IO;
+    using Common.Utils;
     using Microsoft.Azure.Devices.Client;
     using Microsoft.Extensions.Configuration;
-    using Utils;
 
     class AuthenticationApi
     {

@@ -1,4 +1,4 @@
-﻿namespace AzureApi.Models
+﻿namespace Client.AzureApi.Models
 {
 
     class BodyMassIndex

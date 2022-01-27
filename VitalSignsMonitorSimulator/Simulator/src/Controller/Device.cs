@@ -1,15 +1,17 @@
-namespace Controller
+namespace Simulator.Controller
 {
     using AzureApi;
     using Microsoft.Azure.Devices.Client;
     using Model;
-    using Model.AzurePayloads;
+    using AppFunctions.Model.AzurePayloads;
     using Newtonsoft.Json;
     using System;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
     using Utils;
+    using Common.Enums;
+    using Common.Utils;
 
     class Device
     {
@@ -49,16 +51,26 @@ namespace Controller
                 Mode = mode,
                 Data = mode != CrudMode.Delete ? new VitalSignsMonitorPayloadData
                 {
-                    Temperature = new VitalSignsMonitorPayloadParameter<double>(deviceData.Temperature, mode),
-                    BloodPressure = new VitalSignsMonitorPayloadParameter<int>(deviceData.BloodPressure, mode),
-                    Saturation = new VitalSignsMonitorPayloadParameter<int>(deviceData.Saturation, mode),
-                    BreathFrequency = new VitalSignsMonitorPayloadParameter<int>(deviceData.BreathFrequency, mode),
-                    HeartFrequency = new VitalSignsMonitorPayloadParameter<int>(deviceData.HeartFrequency, mode),
-                    BatteryPower = new VitalSignsMonitorPayloadParameter<int>(deviceData.BatteryPower, mode)
+                    Temperature = GetVitalSignsMonitorPayloadParameterFromParam<double>(deviceData.Temperature, mode),
+                    BloodPressure = GetVitalSignsMonitorPayloadParameterFromParam<int>(deviceData.BloodPressure, mode),
+                    Saturation = GetVitalSignsMonitorPayloadParameterFromParam<int>(deviceData.Saturation, mode),
+                    BreathFrequency = GetVitalSignsMonitorPayloadParameterFromParam<int>(deviceData.BreathFrequency, mode),
+                    HeartFrequency = GetVitalSignsMonitorPayloadParameterFromParam<int>(deviceData.HeartFrequency, mode),
+                    BatteryPower = GetVitalSignsMonitorPayloadParameterFromParam<int>(deviceData.BatteryPower, mode)
                 } : null
             };
 
             return JsonConvert.SerializeObject(data);
+        }
+
+        private VitalSignsMonitorPayloadParameter<T> GetVitalSignsMonitorPayloadParameterFromParam<T>(DeviceDataProperty<T> property, CrudMode mode)
+        {
+            return new VitalSignsMonitorPayloadParameter<T>
+            {
+                Value = property.Value,
+                InAlarm = property.InAlarm,
+                UnitOfMeasurement = mode == CrudMode.Create ? property.UnitOfMeasurement : null
+            };
         }
 
         private static Message CreateMessage(string jsonObject)

@@ -1,5 +1,4 @@
-﻿
-namespace View
+﻿namespace Simulator.View
 {
     partial class SimulationForm
     {

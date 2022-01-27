@@ -1,4 +1,4 @@
-﻿namespace Model
+﻿namespace Simulator.Model
 {
     class DeviceData
     {

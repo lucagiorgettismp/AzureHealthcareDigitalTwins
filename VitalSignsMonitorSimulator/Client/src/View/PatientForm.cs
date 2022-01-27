@@ -1,4 +1,4 @@
-﻿namespace View
+﻿namespace Client.View
 {
     using AzureApi.Models;
     using Controller;
