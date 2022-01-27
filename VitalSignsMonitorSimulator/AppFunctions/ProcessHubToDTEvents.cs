@@ -2,7 +2,7 @@ using Azure;
 using Azure.Core.Pipeline;
 using Azure.DigitalTwins.Core;
 using Azure.Identity;
-using Microsoft.Azure.EventGrid.Models;
+using Azure.Messaging.EventGrid;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.EventGrid;
 using Microsoft.Extensions.Logging;
@@ -18,7 +18,7 @@ namespace SampleFunctionsApp
     public class ProcessHubToDTEvents
     {
         private static readonly HttpClient httpClient = new HttpClient();
-        private static string adtServiceUrl = Environment.GetEnvironmentVariable("ADT_SERVICE_URL");
+        private static readonly string adtServiceUrl = Environment.GetEnvironmentVariable("ADT_SERVICE_URL");
 
         [FunctionName("ProcessHubToDTEvents")]
         public async void Run([EventGridTrigger]EventGridEvent eventGridEvent, ILogger log)

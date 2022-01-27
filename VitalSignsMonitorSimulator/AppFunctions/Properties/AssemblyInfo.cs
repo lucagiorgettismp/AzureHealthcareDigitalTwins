@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Le informazioni generali relative a un assembly sono controllate dal seguente 
 // set di attributi. Modificare i valori di questi attributi per modificare le informazioni
 // associate a un assembly.
-[assembly: AssemblyTitle("Simulator")]
+[assembly: AssemblyTitle("AppFunctions")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Simulator")]
+[assembly: AssemblyProduct("AppFunctions")]
 [assembly: AssemblyCopyright("Copyright ©  2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Se il progetto viene esposto a COM, il GUID seguente verrà utilizzato come ID della libreria dei tipi
-[assembly: Guid("b69b2f00-1e0d-469d-a41e-d1cca848938f")]
+[assembly: Guid("4db8f3ea-101d-4685-a7a7-1baefaae75d9")]
 
 // Le informazioni sulla versione di un assembly sono costituite dai seguenti quattro valori:
 //
