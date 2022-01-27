@@ -1,4 +1,4 @@
-﻿namespace AppFunctions.Model.AzurePayloads
+﻿namespace Simulator.Model.AzurePayloads
 {
     using Common.Enums;
     using Newtonsoft.Json;
