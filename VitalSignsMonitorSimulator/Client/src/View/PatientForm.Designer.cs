@@ -1,5 +1,4 @@
-﻿
-namespace View
+﻿namespace Client.View
 {
     partial class PatientForm
     {

@@ -1,12 +1,12 @@
-﻿namespace AzureApi
+﻿namespace Client.AzureApi
 {
     using Azure;
     using Azure.DigitalTwins.Core;
     using AzureApi.Models;
+    using Common.Utils;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Utils;
 
     class TwinOperationsApi
     {

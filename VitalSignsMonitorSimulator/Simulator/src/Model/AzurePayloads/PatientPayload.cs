@@ -1,4 +1,4 @@
-﻿namespace Model.AzurePayloads
+﻿namespace Simulator.Model.AzurePayloads
 {
     class PatientPayload
     {

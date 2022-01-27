@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using View;
+using Client.View;
 
-namespace Simulator
+namespace Client
 {
     static class Program
     {

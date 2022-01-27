@@ -1,8 +1,8 @@
-﻿namespace Model.AzurePayloads
+﻿namespace Simulator.Model.AzurePayloads
 {
     using Newtonsoft.Json;
 
-    class VitalSignsMonitorPayloadData
+    public class VitalSignsMonitorPayloadData
     {
         [JsonProperty("temperature")]
         public VitalSignsMonitorPayloadParameter<double> Temperature { get; set; }

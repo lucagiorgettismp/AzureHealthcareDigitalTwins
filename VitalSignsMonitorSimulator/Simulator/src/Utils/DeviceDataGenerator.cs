@@ -1,4 +1,4 @@
-﻿namespace Utils
+﻿namespace Simulator.Utils
 {
     using Model;
     using System;

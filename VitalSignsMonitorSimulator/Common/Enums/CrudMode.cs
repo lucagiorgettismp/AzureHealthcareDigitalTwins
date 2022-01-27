@@ -1,6 +1,6 @@
-﻿namespace Model
+﻿namespace Common.Enums
 {
-    enum CrudMode
+    public enum CrudMode
     {
        Create = 0,
        Update = 1,

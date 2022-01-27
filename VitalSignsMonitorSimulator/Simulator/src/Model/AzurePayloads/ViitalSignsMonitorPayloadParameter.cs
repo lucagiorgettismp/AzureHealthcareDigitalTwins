@@ -1,16 +1,9 @@
-﻿namespace Model.AzurePayloads
+﻿namespace Simulator.Model.AzurePayloads
 {
     using Newtonsoft.Json;
 
-    class VitalSignsMonitorPayloadParameter<T>
+    public class VitalSignsMonitorPayloadParameter<T>
     {
-        public VitalSignsMonitorPayloadParameter(DeviceDataProperty<T> property, CrudMode mode)
-        {
-            this.Value = property.Value;
-            this.InAlarm = property.InAlarm;
-            this.UnitOfMeasurement = mode == CrudMode.Create ? property.UnitOfMeasurement : null;
-        }
-
         [JsonProperty("value")]
         public T Value { get; set; }
 

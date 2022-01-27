@@ -1,11 +1,11 @@
-﻿namespace View
+﻿namespace Simulator.View
 {
+    using Common.Enums;
+    using Common.Utils;
     using Controller;
-    using Model;
     using System;
     using System.Threading;
     using System.Windows.Forms;
-    using Utils;
 
     public partial class SimulationForm : Form
     {
