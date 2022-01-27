@@ -1,17 +1,17 @@
 namespace Simulator.Controller
 {
     using AzureApi;
+    using Common.Enums;
+    using Common.Utils;
     using Microsoft.Azure.Devices.Client;
     using Model;
-    using AppFunctions.Model.AzurePayloads;
     using Newtonsoft.Json;
+    using Simulator.Model.AzurePayloads;
     using System;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
     using Utils;
-    using Common.Enums;
-    using Common.Utils;
 
     class Device
     {

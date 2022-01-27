@@ -281,6 +281,10 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\AzureApi\AuthenticationApi.cs" />
+    <Compile Include="src\Model\AzurePayloads\PatientPayload.cs" />
+    <Compile Include="src\Model\AzurePayloads\ViitalSignsMonitorPayload.cs" />
+    <Compile Include="src\Model\AzurePayloads\ViitalSignsMonitorPayloadParameter.cs" />
+    <Compile Include="src\Model\AzurePayloads\VitalSignsMonitorPayloadData.cs" />
     <Compile Include="src\Controller\Device.cs" />
     <Compile Include="src\Model\DeviceData.cs" />
     <Compile Include="src\Model\DeviceDataProperty.cs" />
@@ -329,10 +333,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AppFunctions.Model\AppFunctions.Model.csproj">
-      <Project>{dbc96167-5003-4b7f-b29d-33138814361f}</Project>
-      <Name>AppFunctions.Model</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{c13843bd-98cc-4a34-90dd-fd9402b9822d}</Project>
       <Name>Common</Name>
