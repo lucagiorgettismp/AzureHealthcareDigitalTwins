@@ -115,8 +115,17 @@ namespace Simulator.src
             // 
             // HeartFrequency
             // 
+            chartArea1.AxisX.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea1.AxisX.MajorGrid.Enabled = false;
+            chartArea1.AxisX.MajorTickMark.Enabled = false;
+            chartArea1.AxisY.InterlacedColor = System.Drawing.Color.White;
+            chartArea1.BackColor = System.Drawing.Color.Black;
             chartArea1.Name = "ChartArea1";
+            chartArea1.Position.Auto = false;
+            chartArea1.Position.Height = 100F;
+            chartArea1.Position.Width = 100F;
             this.HeartFrequency.ChartAreas.Add(chartArea1);
+            legend1.Enabled = false;
             legend1.Name = "Legend1";
             this.HeartFrequency.Legends.Add(legend1);
             this.HeartFrequency.Location = new System.Drawing.Point(3, 27);
@@ -137,8 +146,18 @@ namespace Simulator.src
             // 
             // BreathFrequency
             // 
+            chartArea2.AxisX.IsLabelAutoFit = false;
+            chartArea2.AxisX.IsMarginVisible = false;
+            chartArea2.AxisX.IsMarksNextToAxis = false;
+            chartArea2.AxisX.MajorGrid.Enabled = false;
+            chartArea2.AxisX.MajorTickMark.Enabled = false;
+            chartArea2.BackColor = System.Drawing.Color.Black;
             chartArea2.Name = "ChartArea1";
+            chartArea2.Position.Auto = false;
+            chartArea2.Position.Height = 100F;
+            chartArea2.Position.Width = 100F;
             this.BreathFrequency.ChartAreas.Add(chartArea2);
+            legend2.Enabled = false;
             legend2.Name = "Legend1";
             this.BreathFrequency.Legends.Add(legend2);
             this.BreathFrequency.Location = new System.Drawing.Point(3, 127);
@@ -157,8 +176,13 @@ namespace Simulator.src
             // 
             // Saturation
             // 
+            chartArea3.BackColor = System.Drawing.Color.Black;
             chartArea3.Name = "ChartArea1";
+            chartArea3.Position.Auto = false;
+            chartArea3.Position.Height = 100F;
+            chartArea3.Position.Width = 100F;
             this.Saturation.ChartAreas.Add(chartArea3);
+            legend3.Enabled = false;
             legend3.Name = "Legend1";
             this.Saturation.Legends.Add(legend3);
             this.Saturation.Location = new System.Drawing.Point(3, 227);
@@ -186,8 +210,12 @@ namespace Simulator.src
             chartArea4.AxisY2.LineColor = System.Drawing.Color.White;
             chartArea4.BackColor = System.Drawing.Color.Black;
             chartArea4.Name = "ChartArea1";
+            chartArea4.Position.Auto = false;
+            chartArea4.Position.Height = 100F;
+            chartArea4.Position.Width = 100F;
             this.BloodPressure.ChartAreas.Add(chartArea4);
             this.BloodPressure.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend4.Enabled = false;
             legend4.Name = "Legend1";
             this.BloodPressure.Legends.Add(legend4);
             this.BloodPressure.Location = new System.Drawing.Point(3, 327);
