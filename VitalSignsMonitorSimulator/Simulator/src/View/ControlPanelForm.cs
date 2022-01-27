@@ -3,18 +3,19 @@
     using Common.Enums;
     using Common.Utils;
     using Controller;
+    using Simulator.src;
     using System;
     using System.Threading;
     using System.Windows.Forms;
 
-    public partial class SimulationForm : Form
+    public partial class ControlPanelForm : Form
     {
         Device deviceHub;
         CancellationTokenSource tokenSource;
 
         bool simulatorIsInRunning;
 
-        public SimulationForm()
+        public ControlPanelForm()
         {
             InitializeComponent();
             this.deviceHub = new Device();
@@ -30,6 +31,10 @@
                 this.simulatorIsInRunning = true;
                 Log.Ok("Start simulation!");
                 Console.WriteLine();
+
+                Form simulationForm = new SimulationForm();
+                simulationForm.Text = "Simulation";
+                simulationForm.Show();
 
                 this.tokenSource = new CancellationTokenSource();
                 await this.deviceHub.SendMessageToIoTHub(this.tokenSource.Token, CrudMode.Update);
