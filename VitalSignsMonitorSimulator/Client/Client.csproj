@@ -176,7 +176,7 @@
     <Compile Include="src\AzureApi\Models\PatientModel.cs" />
     <Compile Include="src\AzureApi\TwinOperationsApi.cs" />
     <Compile Include="src\Controller\Client.cs" />
-    <Compile Include="src\Program.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="src\View\ClientForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -214,7 +214,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="src\appsettings.json">
+    <None Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
