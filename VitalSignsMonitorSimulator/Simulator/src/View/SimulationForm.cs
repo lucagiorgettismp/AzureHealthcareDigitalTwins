@@ -43,13 +43,17 @@ namespace Simulator.src
         Chart chartSaturation;
         Chart chartBloodPressure;
 
-        public SimulationForm()
+        int maxPointsInGraph;
+
+        public SimulationForm(int maxPointsInGraph = 20)
         {
             InitializeComponent();
 
             timerHour.Interval = 1000;
             timerHour.Tick += new EventHandler(timer_Tick);
             timerHour.Start();
+
+            this.maxPointsInGraph = maxPointsInGraph;
         }
 
         private void SimulationForm_Load(object sender, EventArgs e)
@@ -109,10 +113,22 @@ namespace Simulator.src
             this.labBattery.Text = data.BatteryPower.Value.ToString() + " %";
 
             // Charts
-            this.chartHeartFrequency.Series[0].Points.AddXY(0, Convert.ToInt32(data.HeartFrequency.Value));
-            this.chartBreathFrequency.Series[0].Points.AddXY(0, Convert.ToInt32(data.BreathFrequency.Value));
-            this.chartSaturation.Series[0].Points.AddXY(0, Convert.ToInt32(data.Saturation.Value));
-            this.chartBloodPressure.Series[0].Points.AddXY(0, Convert.ToInt32(data.BloodPressure.Value));
+            const int position = 0;
+
+            this.chartHeartFrequency.Series[position].Points.AddXY(position, Convert.ToInt32(data.HeartFrequency.Value));
+            this.chartBreathFrequency.Series[position].Points.AddXY(position, Convert.ToInt32(data.BreathFrequency.Value));
+            this.chartSaturation.Series[position].Points.AddXY(position, Convert.ToInt32(data.Saturation.Value));
+            this.chartBloodPressure.Series[position].Points.AddXY(position, Convert.ToInt32(data.BloodPressure.Value));
+
+            int numItems = this.chartBloodPressure.Series[0].Points.Count();
+            if(numItems == this.maxPointsInGraph)
+            {
+                // Remove first point
+                this.chartHeartFrequency.Series[position].Points.RemoveAt(position);
+                this.chartBreathFrequency.Series[position].Points.RemoveAt(position);
+                this.chartSaturation.Series[position].Points.RemoveAt(position);
+                this.chartBloodPressure.Series[position].Points.RemoveAt(position);
+            }
         }
     }
 }
