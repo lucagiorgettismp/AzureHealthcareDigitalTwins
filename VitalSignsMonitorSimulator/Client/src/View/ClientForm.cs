@@ -19,11 +19,15 @@
         {
             PatientForm patientForm = new PatientForm(this.clientTwins);
             patientForm.Text = "Patient";
+            patientForm.FormBorderStyle = FormBorderStyle.FixedDialog;
+
             patientForm.Show();
         }
 
         private async void get_twins_button_Click(object sender, EventArgs e)
         {
+            this.patients_twins_collections.Items.Clear();
+
             var twins = await this.clientTwins.getTwins();
             for(int i = 0; i < twins.Count; i++)
             {

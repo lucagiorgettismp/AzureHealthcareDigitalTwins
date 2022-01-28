@@ -15,10 +15,11 @@ namespace Client
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            ClientForm form = new ClientForm();
-            form.Text = "Client";
+            ClientForm clientForm = new ClientForm();
+            clientForm.Text = "Client";
+            clientForm.FormBorderStyle = FormBorderStyle.FixedDialog;
 
-            Application.Run(form);
+            Application.Run(clientForm);
         }
     }
 }

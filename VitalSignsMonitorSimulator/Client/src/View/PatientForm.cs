@@ -145,6 +145,7 @@
                 };
 
                 this.clientTwins.createPatientTwin(modelPatient);
+                this.Close();
             }
         }
 
