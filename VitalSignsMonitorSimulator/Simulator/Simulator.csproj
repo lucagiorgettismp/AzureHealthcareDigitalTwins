@@ -289,10 +289,10 @@
     <Compile Include="src\Model\DeviceData.cs" />
     <Compile Include="src\Model\DeviceDataProperty.cs" />
     <Compile Include="src\Program.cs" />
-    <Compile Include="src\SimulationForm.cs">
+    <Compile Include="src\View\SimulationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="src\SimulationForm.Designer.cs">
+    <Compile Include="src\View\SimulationForm.Designer.cs">
       <DependentUpon>SimulationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="src\Utils\DeviceDataGenerator.cs" />
@@ -311,7 +311,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="src\SimulationForm.resx">
+    <EmbeddedResource Include="src\View\SimulationForm.resx">
       <DependentUpon>SimulationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\View\ControlPanelForm.resx">
