@@ -13,13 +13,13 @@
         Device deviceHub;
         CancellationTokenSource tokenSource;
 
+        SimulationForm simulationForm;
         bool simulatorIsInRunning;
 
         public ControlPanelForm()
         {
             InitializeComponent();
             this.deviceHub = new Device();
-
             this.simulatorIsInRunning = false;
         }
 
@@ -32,12 +32,13 @@
                 Log.Ok("Start simulation!");
                 Console.WriteLine();
 
-                Form simulationForm = new SimulationForm();
-                simulationForm.Text = "Simulation";
-                simulationForm.Show();
+                this.simulationForm = new SimulationForm();
+                this.simulationForm.Text = "Simulation";
+                this.simulationForm.FormBorderStyle = FormBorderStyle.FixedDialog;
+                this.simulationForm.Show();
 
                 this.tokenSource = new CancellationTokenSource();
-                await this.deviceHub.SendMessageToIoTHub(this.tokenSource.Token, CrudMode.Update);
+                await this.deviceHub.SendMessageToIoTHub(this.simulationForm, this.tokenSource.Token, CrudMode.Update);
             }
         }
 
@@ -50,6 +51,7 @@
                 Log.Ok("Stop simulation!");
                 Console.WriteLine();
 
+                this.simulationForm.Close();
                 this.tokenSource.Cancel();
             }
         }

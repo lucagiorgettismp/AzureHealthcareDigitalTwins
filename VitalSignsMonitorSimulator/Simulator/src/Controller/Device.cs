@@ -7,11 +7,14 @@ namespace Simulator.Controller
     using Model;
     using Newtonsoft.Json;
     using Simulator.Model.AzurePayloads;
+    using Simulator.src;
     using System;
+    using System.Linq;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
     using Utils;
+    using System.Windows.Forms;
 
     class Device
     {
@@ -24,13 +27,14 @@ namespace Simulator.Controller
             this.dataGenerator = new DeviceDataGenerator();
         }
 
-        public async Task SendMessageToIoTHub(CancellationToken token, CrudMode mode)
+        public async Task SendMessageToIoTHub(SimulationForm form, CancellationToken token, CrudMode mode)
         {
             int msgCounter = 1;
 
             while (!token.IsCancellationRequested)
             {
                 var deviceData = dataGenerator.GetUpdatedDeviceData();
+                form.updateValues(deviceData);
 
                 var json = CreateJSON(deviceData, mode);
                 var message = CreateMessage(json);
@@ -73,9 +77,9 @@ namespace Simulator.Controller
             };
         }
 
-        private static Message CreateMessage(string jsonObject)
+        private static Microsoft.Azure.Devices.Client.Message CreateMessage(string jsonObject)
         {
-            var message = new Message(Encoding.ASCII.GetBytes(jsonObject));
+            var message = new Microsoft.Azure.Devices.Client.Message(Encoding.ASCII.GetBytes(jsonObject));
 
             message.ContentType = "application/json";
             message.ContentEncoding = "UTF-8";

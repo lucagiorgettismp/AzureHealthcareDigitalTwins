@@ -1,6 +1,6 @@
 ﻿namespace Simulator.Model
 {
-    class DeviceData
+    public class DeviceData
     {
         public DeviceDataProperty<double> Temperature { get; set; }
         

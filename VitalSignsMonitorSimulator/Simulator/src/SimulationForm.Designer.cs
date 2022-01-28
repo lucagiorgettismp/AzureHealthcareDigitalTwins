@@ -43,10 +43,10 @@ namespace Simulator.src
             System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SimulationForm));
             this.MainTable = new System.Windows.Forms.TableLayoutPanel();
-            this.HeartFrequency = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.BreathFrequency = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.Saturation = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.BloodPressure = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.HeartFrequencyChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.BreathFrequencyChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.SaturationChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.BloodPressureChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.TableDateHour = new System.Windows.Forms.TableLayoutPanel();
             this.DateLabel = new System.Windows.Forms.Label();
             this.HourLabel = new System.Windows.Forms.Label();
@@ -60,20 +60,23 @@ namespace Simulator.src
             this.LabelUnitTemperature = new System.Windows.Forms.Label();
             this.ValueTemperatureLabel = new System.Windows.Forms.Label();
             this.TableSaturation = new System.Windows.Forms.TableLayoutPanel();
-            this.LabelValueSaturation = new System.Windows.Forms.Label();
+            this.ValueSaturationLabel = new System.Windows.Forms.Label();
             this.LabelUnitSaturation = new System.Windows.Forms.Label();
             this.LabelPatientMonitor = new System.Windows.Forms.Label();
             this.TableBloodPressure = new System.Windows.Forms.TableLayoutPanel();
-            this.LabelValueBloodPressure = new System.Windows.Forms.Label();
+            this.ValueBloodPressureLabel = new System.Windows.Forms.Label();
             this.LabelUnitBloodPressure = new System.Windows.Forms.Label();
             this.TableBreathFrequency = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.ValueBreathFrequencyLabel = new System.Windows.Forms.Label();
             this.LabelBreathFrequency = new System.Windows.Forms.Label();
+            this.TableBattery = new System.Windows.Forms.TableLayoutPanel();
+            this.BatteryLabel = new System.Windows.Forms.Label();
+            this.ValueBatteryLabel = new System.Windows.Forms.Label();
             this.MainTable.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.HeartFrequency)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BreathFrequency)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Saturation)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BloodPressure)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HeartFrequencyChart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BreathFrequencyChart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SaturationChart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BloodPressureChart)).BeginInit();
             this.TableDateHour.SuspendLayout();
             this.TableValuesHeartFrequency.SuspendLayout();
             this.TableUpHeartFrequency.SuspendLayout();
@@ -82,6 +85,7 @@ namespace Simulator.src
             this.TableSaturation.SuspendLayout();
             this.TableBloodPressure.SuspendLayout();
             this.TableBreathFrequency.SuspendLayout();
+            this.TableBattery.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainTable
@@ -90,10 +94,10 @@ namespace Simulator.src
             this.MainTable.ColumnCount = 2;
             this.MainTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 641F));
             this.MainTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 159F));
-            this.MainTable.Controls.Add(this.HeartFrequency, 0, 1);
-            this.MainTable.Controls.Add(this.BreathFrequency, 0, 2);
-            this.MainTable.Controls.Add(this.Saturation, 0, 3);
-            this.MainTable.Controls.Add(this.BloodPressure, 0, 4);
+            this.MainTable.Controls.Add(this.HeartFrequencyChart, 0, 1);
+            this.MainTable.Controls.Add(this.BreathFrequencyChart, 0, 2);
+            this.MainTable.Controls.Add(this.SaturationChart, 0, 3);
+            this.MainTable.Controls.Add(this.BloodPressureChart, 0, 4);
             this.MainTable.Controls.Add(this.TableDateHour, 1, 0);
             this.MainTable.Controls.Add(this.MonitorLabel, 0, 0);
             this.MainTable.Controls.Add(this.TableValuesHeartFrequency, 1, 1);
@@ -101,6 +105,7 @@ namespace Simulator.src
             this.MainTable.Controls.Add(this.LabelPatientMonitor, 0, 5);
             this.MainTable.Controls.Add(this.TableBloodPressure, 1, 4);
             this.MainTable.Controls.Add(this.TableBreathFrequency, 1, 2);
+            this.MainTable.Controls.Add(this.TableBattery, 1, 5);
             this.MainTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainTable.Location = new System.Drawing.Point(0, 0);
             this.MainTable.Name = "MainTable";
@@ -114,9 +119,9 @@ namespace Simulator.src
             this.MainTable.Size = new System.Drawing.Size(800, 450);
             this.MainTable.TabIndex = 0;
             // 
-            // HeartFrequency
+            // HeartFrequencyChart
             // 
-            this.HeartFrequency.BackColor = System.Drawing.Color.Black;
+            this.HeartFrequencyChart.BackColor = System.Drawing.Color.Black;
             chartArea1.AxisX.IsMarginVisible = false;
             chartArea1.AxisX.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
             chartArea1.AxisX.MajorGrid.Enabled = false;
@@ -127,13 +132,13 @@ namespace Simulator.src
             chartArea1.Position.Auto = false;
             chartArea1.Position.Height = 100F;
             chartArea1.Position.Width = 100F;
-            this.HeartFrequency.ChartAreas.Add(chartArea1);
+            this.HeartFrequencyChart.ChartAreas.Add(chartArea1);
             legend1.Enabled = false;
             legend1.Name = "Legend1";
-            this.HeartFrequency.Legends.Add(legend1);
-            this.HeartFrequency.Location = new System.Drawing.Point(3, 27);
-            this.HeartFrequency.Name = "HeartFrequency";
-            this.HeartFrequency.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
+            this.HeartFrequencyChart.Legends.Add(legend1);
+            this.HeartFrequencyChart.Location = new System.Drawing.Point(3, 27);
+            this.HeartFrequencyChart.Name = "HeartFrequencyChart";
+            this.HeartFrequencyChart.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
             series1.BackImageTransparentColor = System.Drawing.Color.White;
             series1.BorderWidth = 3;
             series1.ChartArea = "HeartFrequencyChartArea";
@@ -143,15 +148,15 @@ namespace Simulator.src
             series1.Legend = "Legend1";
             series1.Name = "Heart Frequency";
             series1.ShadowColor = System.Drawing.Color.Gray;
-            this.HeartFrequency.Series.Add(series1);
-            this.HeartFrequency.Size = new System.Drawing.Size(635, 94);
-            this.HeartFrequency.TabIndex = 0;
-            this.HeartFrequency.Text = "Heart Frequency";
+            this.HeartFrequencyChart.Series.Add(series1);
+            this.HeartFrequencyChart.Size = new System.Drawing.Size(635, 94);
+            this.HeartFrequencyChart.TabIndex = 0;
+            this.HeartFrequencyChart.Text = "Heart Frequency";
             // 
-            // BreathFrequency
+            // BreathFrequencyChart
             // 
-            this.BreathFrequency.BackColor = System.Drawing.Color.Black;
-            this.BreathFrequency.BorderlineColor = System.Drawing.Color.Black;
+            this.BreathFrequencyChart.BackColor = System.Drawing.Color.Black;
+            this.BreathFrequencyChart.BorderlineColor = System.Drawing.Color.Black;
             chartArea2.AxisX.IsLabelAutoFit = false;
             chartArea2.AxisX.IsMarginVisible = false;
             chartArea2.AxisX.IsMarksNextToAxis = false;
@@ -162,40 +167,40 @@ namespace Simulator.src
             chartArea2.Position.Auto = false;
             chartArea2.Position.Height = 100F;
             chartArea2.Position.Width = 100F;
-            this.BreathFrequency.ChartAreas.Add(chartArea2);
+            this.BreathFrequencyChart.ChartAreas.Add(chartArea2);
             legend2.Enabled = false;
             legend2.Name = "Legend1";
-            this.BreathFrequency.Legends.Add(legend2);
-            this.BreathFrequency.Location = new System.Drawing.Point(3, 127);
-            this.BreathFrequency.Name = "BreathFrequency";
-            this.BreathFrequency.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
+            this.BreathFrequencyChart.Legends.Add(legend2);
+            this.BreathFrequencyChart.Location = new System.Drawing.Point(3, 127);
+            this.BreathFrequencyChart.Name = "BreathFrequencyChart";
+            this.BreathFrequencyChart.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
             series2.BorderWidth = 3;
             series2.ChartArea = "BreathFrequencyChartArea";
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             series2.Legend = "Legend1";
             series2.Name = "Breath Frequency";
-            this.BreathFrequency.Series.Add(series2);
-            this.BreathFrequency.Size = new System.Drawing.Size(635, 94);
-            this.BreathFrequency.TabIndex = 1;
-            this.BreathFrequency.Text = "Breath Frequency";
+            this.BreathFrequencyChart.Series.Add(series2);
+            this.BreathFrequencyChart.Size = new System.Drawing.Size(635, 94);
+            this.BreathFrequencyChart.TabIndex = 1;
+            this.BreathFrequencyChart.Text = "Breath Frequency";
             // 
-            // Saturation
+            // SaturationChart
             // 
-            this.Saturation.BackColor = System.Drawing.Color.Black;
+            this.SaturationChart.BackColor = System.Drawing.Color.Black;
             chartArea3.AxisX.IsMarginVisible = false;
             chartArea3.BackColor = System.Drawing.Color.Black;
             chartArea3.Name = "SaturationChartArea";
             chartArea3.Position.Auto = false;
             chartArea3.Position.Height = 100F;
             chartArea3.Position.Width = 100F;
-            this.Saturation.ChartAreas.Add(chartArea3);
+            this.SaturationChart.ChartAreas.Add(chartArea3);
             legend3.Enabled = false;
             legend3.Name = "Legend1";
-            this.Saturation.Legends.Add(legend3);
-            this.Saturation.Location = new System.Drawing.Point(3, 227);
-            this.Saturation.Name = "Saturation";
-            this.Saturation.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Light;
+            this.SaturationChart.Legends.Add(legend3);
+            this.SaturationChart.Location = new System.Drawing.Point(3, 227);
+            this.SaturationChart.Name = "SaturationChart";
+            this.SaturationChart.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Light;
             series3.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.LeftRight;
             series3.BorderColor = System.Drawing.Color.Transparent;
             series3.BorderWidth = 3;
@@ -206,16 +211,16 @@ namespace Simulator.src
             series3.LabelBorderColor = System.Drawing.Color.Black;
             series3.Legend = "Legend1";
             series3.Name = "Saturation";
-            this.Saturation.Series.Add(series3);
-            this.Saturation.Size = new System.Drawing.Size(635, 94);
-            this.Saturation.TabIndex = 2;
-            this.Saturation.Text = "Saturation";
+            this.SaturationChart.Series.Add(series3);
+            this.SaturationChart.Size = new System.Drawing.Size(635, 94);
+            this.SaturationChart.TabIndex = 2;
+            this.SaturationChart.Text = "Saturation";
             // 
-            // BloodPressure
+            // BloodPressureChart
             // 
-            this.BloodPressure.BackColor = System.Drawing.Color.Black;
-            this.BloodPressure.BorderlineColor = System.Drawing.Color.Black;
-            this.BloodPressure.BorderSkin.PageColor = System.Drawing.Color.Turquoise;
+            this.BloodPressureChart.BackColor = System.Drawing.Color.Black;
+            this.BloodPressureChart.BorderlineColor = System.Drawing.Color.Black;
+            this.BloodPressureChart.BorderSkin.PageColor = System.Drawing.Color.Turquoise;
             chartArea4.AxisX.IsMarginVisible = false;
             chartArea4.AxisY2.LineColor = System.Drawing.Color.White;
             chartArea4.BackColor = System.Drawing.Color.Black;
@@ -223,25 +228,24 @@ namespace Simulator.src
             chartArea4.Position.Auto = false;
             chartArea4.Position.Height = 100F;
             chartArea4.Position.Width = 100F;
-            this.BloodPressure.ChartAreas.Add(chartArea4);
-            this.BloodPressure.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BloodPressureChart.ChartAreas.Add(chartArea4);
+            this.BloodPressureChart.Dock = System.Windows.Forms.DockStyle.Fill;
             legend4.Enabled = false;
             legend4.Name = "Legend1";
-            this.BloodPressure.Legends.Add(legend4);
-            this.BloodPressure.Location = new System.Drawing.Point(3, 327);
-            this.BloodPressure.Name = "BloodPressure";
-            this.BloodPressure.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
+            this.BloodPressureChart.Legends.Add(legend4);
+            this.BloodPressureChart.Location = new System.Drawing.Point(3, 327);
+            this.BloodPressureChart.Name = "BloodPressureChart";
+            this.BloodPressureChart.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
             series4.BorderWidth = 3;
             series4.ChartArea = "BloodPressureChartArea";
             series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series4.Color = System.Drawing.Color.Yellow;
             series4.Legend = "Legend1";
             series4.Name = "Blood Pressure";
-            this.BloodPressure.Series.Add(series4);
-            this.BloodPressure.Size = new System.Drawing.Size(635, 94);
-            this.BloodPressure.TabIndex = 3;
-            this.BloodPressure.Text = "Blood Pressure";
-            this.BloodPressure.Visible = false;
+            this.BloodPressureChart.Series.Add(series4);
+            this.BloodPressureChart.Size = new System.Drawing.Size(635, 94);
+            this.BloodPressureChart.TabIndex = 3;
+            this.BloodPressureChart.Text = "Blood Pressure";
             // 
             // TableDateHour
             // 
@@ -265,7 +269,7 @@ namespace Simulator.src
             this.DateLabel.AutoSize = true;
             this.DateLabel.BackColor = System.Drawing.SystemColors.Desktop;
             this.DateLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DateLabel.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.DateLabel.Location = new System.Drawing.Point(2, 2);
             this.DateLabel.Margin = new System.Windows.Forms.Padding(2);
@@ -273,14 +277,14 @@ namespace Simulator.src
             this.DateLabel.Size = new System.Drawing.Size(75, 20);
             this.DateLabel.TabIndex = 0;
             this.DateLabel.Text = "Date";
-            this.DateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.DateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // HourLabel
             // 
             this.HourLabel.AutoSize = true;
             this.HourLabel.BackColor = System.Drawing.SystemColors.ControlText;
             this.HourLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.HourLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.HourLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.HourLabel.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.HourLabel.Location = new System.Drawing.Point(81, 2);
             this.HourLabel.Margin = new System.Windows.Forms.Padding(2);
@@ -288,18 +292,18 @@ namespace Simulator.src
             this.HourLabel.Size = new System.Drawing.Size(76, 20);
             this.HourLabel.TabIndex = 1;
             this.HourLabel.Text = "Hour";
-            this.HourLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.HourLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // MonitorLabel
             // 
+            this.MonitorLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.MonitorLabel.AutoSize = true;
             this.MonitorLabel.BackColor = System.Drawing.Color.Black;
-            this.MonitorLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MonitorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MonitorLabel.ForeColor = System.Drawing.Color.White;
-            this.MonitorLabel.Location = new System.Drawing.Point(3, 0);
+            this.MonitorLabel.Location = new System.Drawing.Point(278, 0);
             this.MonitorLabel.Name = "MonitorLabel";
-            this.MonitorLabel.Size = new System.Drawing.Size(635, 24);
+            this.MonitorLabel.Size = new System.Drawing.Size(84, 24);
             this.MonitorLabel.TabIndex = 5;
             this.MonitorLabel.Text = "Monitor";
             this.MonitorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -345,7 +349,7 @@ namespace Simulator.src
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ValueHeartFrequency.AutoSize = true;
-            this.ValueHeartFrequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ValueHeartFrequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ValueHeartFrequency.ForeColor = System.Drawing.Color.Green;
             this.ValueHeartFrequency.Location = new System.Drawing.Point(60, 0);
             this.ValueHeartFrequency.Name = "ValueHeartFrequency";
@@ -428,7 +432,7 @@ namespace Simulator.src
             this.TableSaturation.ColumnCount = 2;
             this.TableSaturation.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.TableSaturation.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 93F));
-            this.TableSaturation.Controls.Add(this.LabelValueSaturation, 1, 0);
+            this.TableSaturation.Controls.Add(this.ValueSaturationLabel, 1, 0);
             this.TableSaturation.Controls.Add(this.LabelUnitSaturation, 0, 0);
             this.TableSaturation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TableSaturation.ForeColor = System.Drawing.SystemColors.HotTrack;
@@ -440,20 +444,20 @@ namespace Simulator.src
             this.TableSaturation.Size = new System.Drawing.Size(153, 94);
             this.TableSaturation.TabIndex = 7;
             // 
-            // LabelValueSaturation
+            // ValueSaturationLabel
             // 
-            this.LabelValueSaturation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.ValueSaturationLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.LabelValueSaturation.AutoSize = true;
-            this.LabelValueSaturation.Font = new System.Drawing.Font("Microsoft Sans Serif", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelValueSaturation.ForeColor = System.Drawing.Color.Red;
-            this.LabelValueSaturation.Location = new System.Drawing.Point(63, 0);
-            this.LabelValueSaturation.Name = "LabelValueSaturation";
-            this.LabelValueSaturation.Size = new System.Drawing.Size(87, 94);
-            this.LabelValueSaturation.TabIndex = 0;
-            this.LabelValueSaturation.Text = "Value";
-            this.LabelValueSaturation.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ValueSaturationLabel.AutoSize = true;
+            this.ValueSaturationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ValueSaturationLabel.ForeColor = System.Drawing.Color.Red;
+            this.ValueSaturationLabel.Location = new System.Drawing.Point(63, 0);
+            this.ValueSaturationLabel.Name = "ValueSaturationLabel";
+            this.ValueSaturationLabel.Size = new System.Drawing.Size(87, 94);
+            this.ValueSaturationLabel.TabIndex = 0;
+            this.ValueSaturationLabel.Text = "Value";
+            this.ValueSaturationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // LabelUnitSaturation
             // 
@@ -486,7 +490,7 @@ namespace Simulator.src
             this.TableBloodPressure.ColumnCount = 2;
             this.TableBloodPressure.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 38.56209F));
             this.TableBloodPressure.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 61.43791F));
-            this.TableBloodPressure.Controls.Add(this.LabelValueBloodPressure, 1, 0);
+            this.TableBloodPressure.Controls.Add(this.ValueBloodPressureLabel, 1, 0);
             this.TableBloodPressure.Controls.Add(this.LabelUnitBloodPressure, 0, 0);
             this.TableBloodPressure.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TableBloodPressure.ForeColor = System.Drawing.SystemColors.HighlightText;
@@ -498,20 +502,20 @@ namespace Simulator.src
             this.TableBloodPressure.Size = new System.Drawing.Size(153, 94);
             this.TableBloodPressure.TabIndex = 9;
             // 
-            // LabelValueBloodPressure
+            // ValueBloodPressureLabel
             // 
-            this.LabelValueBloodPressure.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.ValueBloodPressureLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.LabelValueBloodPressure.AutoSize = true;
-            this.LabelValueBloodPressure.Font = new System.Drawing.Font("Microsoft Sans Serif", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelValueBloodPressure.ForeColor = System.Drawing.Color.Yellow;
-            this.LabelValueBloodPressure.Location = new System.Drawing.Point(62, 0);
-            this.LabelValueBloodPressure.Name = "LabelValueBloodPressure";
-            this.LabelValueBloodPressure.Size = new System.Drawing.Size(88, 94);
-            this.LabelValueBloodPressure.TabIndex = 0;
-            this.LabelValueBloodPressure.Text = "Value";
-            this.LabelValueBloodPressure.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ValueBloodPressureLabel.AutoSize = true;
+            this.ValueBloodPressureLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ValueBloodPressureLabel.ForeColor = System.Drawing.Color.Yellow;
+            this.ValueBloodPressureLabel.Location = new System.Drawing.Point(62, 0);
+            this.ValueBloodPressureLabel.Name = "ValueBloodPressureLabel";
+            this.ValueBloodPressureLabel.Size = new System.Drawing.Size(88, 94);
+            this.ValueBloodPressureLabel.TabIndex = 0;
+            this.ValueBloodPressureLabel.Text = "Value";
+            this.ValueBloodPressureLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // LabelUnitBloodPressure
             // 
@@ -530,7 +534,7 @@ namespace Simulator.src
             this.TableBreathFrequency.ColumnCount = 2;
             this.TableBreathFrequency.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.TableBreathFrequency.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 93F));
-            this.TableBreathFrequency.Controls.Add(this.label1, 1, 0);
+            this.TableBreathFrequency.Controls.Add(this.ValueBreathFrequencyLabel, 1, 0);
             this.TableBreathFrequency.Controls.Add(this.LabelBreathFrequency, 0, 0);
             this.TableBreathFrequency.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TableBreathFrequency.ForeColor = System.Drawing.SystemColors.HotTrack;
@@ -542,20 +546,20 @@ namespace Simulator.src
             this.TableBreathFrequency.Size = new System.Drawing.Size(153, 94);
             this.TableBreathFrequency.TabIndex = 10;
             // 
-            // label1
+            // ValueBreathFrequencyLabel
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.ValueBreathFrequencyLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Green;
-            this.label1.Location = new System.Drawing.Point(63, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(87, 94);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Value";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ValueBreathFrequencyLabel.AutoSize = true;
+            this.ValueBreathFrequencyLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ValueBreathFrequencyLabel.ForeColor = System.Drawing.Color.Green;
+            this.ValueBreathFrequencyLabel.Location = new System.Drawing.Point(63, 0);
+            this.ValueBreathFrequencyLabel.Name = "ValueBreathFrequencyLabel";
+            this.ValueBreathFrequencyLabel.Size = new System.Drawing.Size(87, 94);
+            this.ValueBreathFrequencyLabel.TabIndex = 0;
+            this.ValueBreathFrequencyLabel.Text = "Value";
+            this.ValueBreathFrequencyLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // LabelBreathFrequency
             // 
@@ -567,6 +571,52 @@ namespace Simulator.src
             this.LabelBreathFrequency.TabIndex = 1;
             this.LabelBreathFrequency.Text = "RPM";
             // 
+            // TableBattery
+            // 
+            this.TableBattery.ColumnCount = 2;
+            this.TableBattery.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40.52288F));
+            this.TableBattery.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 59.47712F));
+            this.TableBattery.Controls.Add(this.BatteryLabel, 0, 0);
+            this.TableBattery.Controls.Add(this.ValueBatteryLabel, 1, 0);
+            this.TableBattery.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TableBattery.Location = new System.Drawing.Point(644, 427);
+            this.TableBattery.Name = "TableBattery";
+            this.TableBattery.RowCount = 1;
+            this.TableBattery.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.TableBattery.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.TableBattery.Size = new System.Drawing.Size(153, 20);
+            this.TableBattery.TabIndex = 11;
+            // 
+            // BatteryLabel
+            // 
+            this.BatteryLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BatteryLabel.AutoSize = true;
+            this.BatteryLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BatteryLabel.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.BatteryLabel.Location = new System.Drawing.Point(3, 0);
+            this.BatteryLabel.Name = "BatteryLabel";
+            this.BatteryLabel.Size = new System.Drawing.Size(56, 20);
+            this.BatteryLabel.TabIndex = 0;
+            this.BatteryLabel.Text = "Battery";
+            this.BatteryLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // ValueBatteryLabel
+            // 
+            this.ValueBatteryLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ValueBatteryLabel.AutoSize = true;
+            this.ValueBatteryLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ValueBatteryLabel.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.ValueBatteryLabel.Location = new System.Drawing.Point(65, 0);
+            this.ValueBatteryLabel.Name = "ValueBatteryLabel";
+            this.ValueBatteryLabel.Size = new System.Drawing.Size(85, 20);
+            this.ValueBatteryLabel.TabIndex = 1;
+            this.ValueBatteryLabel.Text = "Value";
+            this.ValueBatteryLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // SimulationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -575,12 +625,13 @@ namespace Simulator.src
             this.Controls.Add(this.MainTable);
             this.Name = "SimulationForm";
             this.Text = "SimulationForm";
+            this.Load += new System.EventHandler(this.SimulationForm_Load);
             this.MainTable.ResumeLayout(false);
             this.MainTable.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.HeartFrequency)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BreathFrequency)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Saturation)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BloodPressure)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HeartFrequencyChart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BreathFrequencyChart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SaturationChart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BloodPressureChart)).EndInit();
             this.TableDateHour.ResumeLayout(false);
             this.TableDateHour.PerformLayout();
             this.TableValuesHeartFrequency.ResumeLayout(false);
@@ -595,6 +646,8 @@ namespace Simulator.src
             this.TableBloodPressure.PerformLayout();
             this.TableBreathFrequency.ResumeLayout(false);
             this.TableBreathFrequency.PerformLayout();
+            this.TableBattery.ResumeLayout(false);
+            this.TableBattery.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -602,10 +655,10 @@ namespace Simulator.src
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel MainTable;
-        private System.Windows.Forms.DataVisualization.Charting.Chart HeartFrequency;
-        private System.Windows.Forms.DataVisualization.Charting.Chart BreathFrequency;
-        private System.Windows.Forms.DataVisualization.Charting.Chart Saturation;
-        private System.Windows.Forms.DataVisualization.Charting.Chart BloodPressure;
+        private System.Windows.Forms.DataVisualization.Charting.Chart HeartFrequencyChart;
+        private System.Windows.Forms.DataVisualization.Charting.Chart BreathFrequencyChart;
+        private System.Windows.Forms.DataVisualization.Charting.Chart SaturationChart;
+        private System.Windows.Forms.DataVisualization.Charting.Chart BloodPressureChart;
         private System.Windows.Forms.TableLayoutPanel TableDateHour;
         private System.Windows.Forms.Label DateLabel;
         private System.Windows.Forms.Label HourLabel;
@@ -619,14 +672,17 @@ namespace Simulator.src
         private System.Windows.Forms.Label LabelUnitTemperature;
         private System.Windows.Forms.Label ValueTemperatureLabel;
         private System.Windows.Forms.TableLayoutPanel TableSaturation;
-        private System.Windows.Forms.Label LabelValueSaturation;
+        private System.Windows.Forms.Label ValueSaturationLabel;
         private System.Windows.Forms.Label LabelUnitSaturation;
         private System.Windows.Forms.Label LabelPatientMonitor;
         private System.Windows.Forms.TableLayoutPanel TableBloodPressure;
-        private System.Windows.Forms.Label LabelValueBloodPressure;
+        private System.Windows.Forms.Label ValueBloodPressureLabel;
         private System.Windows.Forms.Label LabelUnitBloodPressure;
         private System.Windows.Forms.TableLayoutPanel TableBreathFrequency;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label ValueBreathFrequencyLabel;
         private System.Windows.Forms.Label LabelBreathFrequency;
+        private System.Windows.Forms.TableLayoutPanel TableBattery;
+        private System.Windows.Forms.Label BatteryLabel;
+        private System.Windows.Forms.Label ValueBatteryLabel;
     }
 }
