@@ -41,6 +41,11 @@ jobs:
       - name: Build
         run: msbuild ${{ env.SIMULATOR_SOLUTION_PATH }} /p:Configuration=Release
         
+      - uses: actions/upload-artifact@master
+        with:
+          name: Simulator
+          path: .\VitalSignsMonitorSimulator\Simulator\bin\Release\Simulator.exe 
+        
   build-client:
     # The type of runner that the job will run on
     runs-on: [windows-latest]
@@ -62,3 +67,8 @@ jobs:
         
       - name: Build
         run: msbuild ${{ env.CLIENT_SOLUTION_PATH }} /p:Configuration=Release
+        
+      - uses: actions/upload-artifact@master
+        with:
+          name: Client
+          path: .\VitalSignsMonitorSimulator\Client\bin\Release\Client.exe 
