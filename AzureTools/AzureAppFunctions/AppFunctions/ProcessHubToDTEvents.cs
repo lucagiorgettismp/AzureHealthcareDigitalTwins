@@ -1,24 +1,24 @@
-using Azure;
-using Azure.Core.Pipeline;
-using Azure.DigitalTwins.Core;
-using Azure.Identity;
-using Microsoft.Azure.EventGrid.Models;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.EventGrid;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Net.Http;
-
-namespace SampleFunctionsApp
+namespace AppFunctions
 {
+    using AppFunctions.Model.Payload;
+    using Azure;
+    using Azure.Core.Pipeline;
+    using Azure.DigitalTwins.Core;
+    using Azure.Identity;
+    using Microsoft.Azure.EventGrid.Models;
+    using Microsoft.Azure.WebJobs;
+    using Microsoft.Azure.WebJobs.Extensions.EventGrid;
+    using Microsoft.Extensions.Logging;
+    using Newtonsoft.Json;
+    using System;
+    using System.Net.Http;
+
     // This class processes telemetry events from IoT Hub, reads temperature of a device
     // and sets the "Temperature" property of the device with the value of the telemetry.
     public class ProcessHubToDTEvents
     {
         private static readonly HttpClient httpClient = new HttpClient();
-        private static string adtServiceUrl = Environment.GetEnvironmentVariable("ADT_SERVICE_URL");
+        private static readonly string adtServiceUrl = Environment.GetEnvironmentVariable("ADT_SERVICE_URL");
 
         [FunctionName("ProcessHubToDTEvents")]
         public async void Run([EventGridTrigger]EventGridEvent eventGridEvent, ILogger log)
@@ -39,38 +39,85 @@ namespace SampleFunctionsApp
                 log.LogInformation(eventGridEvent.Data.ToString());
 
                 // Reading deviceId and temperature for IoT Hub JSON
-                JObject deviceMessage = (JObject)JsonConvert.DeserializeObject(eventGridEvent.Data.ToString());
-                string deviceId = (string)deviceMessage["systemProperties"]["iothub-connection-device-id"];
+                var payload = JsonConvert.DeserializeObject<EventGridMessagePayload>(eventGridEvent.Data.ToString());
                 
-                var temperature = deviceMessage["body"]["temperature"];
-                var bloodPressure = deviceMessage["body"]["bloodPressure"];
-                var saturation = deviceMessage["body"]["saturation"];
-                var breathFrequency = deviceMessage["body"]["breathFrequency"];
-                var heartFrequency = deviceMessage["body"]["heartFrequency"];
-                var batteryPower = deviceMessage["body"]["batteryPower"];
+                string deviceId = payload.SystemProperties.IothubConnectionDeviceId;
 
-                log.LogInformation($"Device:{deviceId} Temperature is:{temperature.Value<double>()}");
-                log.LogInformation($"Device:{deviceId} BloodPressure is:{bloodPressure.Value<int>()}");
-                log.LogInformation($"Device:{deviceId} Saturation is:{saturation.Value<int>()}");
-                log.LogInformation($"Device:{deviceId} BreathFrequency is:{breathFrequency.Value<int>()}");
-                log.LogInformation($"Device:{deviceId} HeartFrequency is:{heartFrequency.Value<int>()}");
-                log.LogInformation($"Device:{deviceId} BatteryPower is:{batteryPower.Value<int>()}");
+                JsonPatchDocument updateTwinData;
 
-                log.LogInformation("Terminata fase di lettura dei dati");
+                switch (payload.Body.Mode)
+                {
+                    case CrudMode.Create:
+                        updateTwinData = BuildCraetePatchJson(payload.Body.Data);
+                        await client.UpdateDigitalTwinAsync(deviceId, updateTwinData);
+                        break;
+                    case CrudMode.Update:
+                        updateTwinData = BuildUpdatePatchJson(payload.Body.Data);
+                        await client.UpdateDigitalTwinAsync(deviceId, updateTwinData);
+                        break;
+                    default:
+                        throw new CrudOperationNotAvailableException();
+                }
 
                 //Update twin using device temperature
-                var updateTwinData = new JsonPatchDocument();
-                updateTwinData.AppendReplace("/temperature/value", temperature.Value<double>());
-                updateTwinData.AppendReplace("/battery/value", batteryPower.Value<int>());
-                updateTwinData.AppendReplace("/saturation/value", saturation.Value<int>());
-                updateTwinData.AppendReplace("/blood_pressure/value", bloodPressure.Value<int>());
-                updateTwinData.AppendReplace("/breath_frequency/value", breathFrequency.Value<int>());
-                updateTwinData.AppendReplace("/heart_frequency/value", heartFrequency.Value<int>());
 
-                await client.UpdateDigitalTwinAsync(deviceId, updateTwinData);
-
-                log.LogInformation("ADT updated.");
             }
+        }
+
+        private JsonPatchDocument BuildCraetePatchJson(Data data)
+        {
+            var updateTwinData = new JsonPatchDocument();
+
+            updateTwinData.AppendAdd<double>("/temperature/value", data.Temperature.Value);
+            updateTwinData.AppendAdd<bool>("/temperature/alarm", data.Temperature.Alarm);
+            updateTwinData.AppendAdd<string>("/temperature/unit", data.Temperature.Unit);
+
+            updateTwinData.AppendAdd<int>("/battery/value", data.BatteryPower.Value);
+            updateTwinData.AppendAdd<bool>("/battery/alarm", data.BatteryPower.Alarm);
+            updateTwinData.AppendAdd<string>("/battery/unit", data.BatteryPower.Unit);
+
+            updateTwinData.AppendAdd<int>("/saturation/value", data.Saturation.Value);
+            updateTwinData.AppendAdd<bool>("/saturation/alarm", data.Saturation.Alarm);
+            updateTwinData.AppendAdd<string>("/saturation/unit", data.Saturation.Unit);
+
+            updateTwinData.AppendAdd<int>("/heart_frequency/value", data.HeartFrequency.Value);
+            updateTwinData.AppendAdd<bool>("/heart_frequency/alarm", data.HeartFrequency.Alarm);
+            updateTwinData.AppendAdd<string>("/heart_frequency/unit", data.HeartFrequency.Unit);
+
+            updateTwinData.AppendAdd<int>("/breath_frequency/value", data.BreathFrequency.Value);
+            updateTwinData.AppendAdd<bool>("/breath_frequency/alarm", data.BreathFrequency.Alarm);
+            updateTwinData.AppendAdd<string>("/breath_frequency/unit", data.BreathFrequency.Unit);
+
+            updateTwinData.AppendAdd<int>("/blood_pressure/value", data.BloodPressure.Value);
+            updateTwinData.AppendAdd<bool>("/blood_pressure/alarm", data.BloodPressure.Alarm);
+            updateTwinData.AppendAdd<string>("/blood_pressure/unit", data.BloodPressure.Unit);
+
+            return updateTwinData;
+        }
+
+        private JsonPatchDocument BuildUpdatePatchJson(Data data)
+        {
+            var updateTwinData = new JsonPatchDocument();
+
+            updateTwinData.AppendReplace<double>("/temperature/value", data.Temperature.Value);
+            updateTwinData.AppendReplace<bool>("/temperature/alarm", data.Temperature.Alarm);
+
+            updateTwinData.AppendReplace<int>("/battery/value", data.BatteryPower.Value);
+            updateTwinData.AppendReplace<bool>("/battery/alarm", data.BatteryPower.Alarm);
+
+            updateTwinData.AppendReplace<int>("/saturation/value", data.Saturation.Value);
+            updateTwinData.AppendReplace<bool>("/saturation/alarm", data.Saturation.Alarm);
+
+            updateTwinData.AppendReplace<int>("/heart_frequency/value", data.HeartFrequency.Value);
+            updateTwinData.AppendReplace<bool>("/heart_frequency/alarm", data.HeartFrequency.Alarm);
+
+            updateTwinData.AppendReplace<int>("/breath_frequency/value", data.BreathFrequency.Value);
+            updateTwinData.AppendReplace<bool>("/breath_frequency/alarm", data.BreathFrequency.Alarm);
+
+            updateTwinData.AppendReplace<int>("/blood_pressure/value", data.BloodPressure.Value);
+            updateTwinData.AppendReplace<bool>("/blood_pressure/alarm", data.BloodPressure.Alarm);
+
+            return updateTwinData;
         }
     }
 }
