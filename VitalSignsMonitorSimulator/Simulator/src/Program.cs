@@ -15,10 +15,11 @@
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            SimulationForm form = new SimulationForm();
-            form.Text = "Simulator";
+            ControlPanelForm controlPanel = new ControlPanelForm();
+            controlPanel.Text = "Control Panel";
+            controlPanel.FormBorderStyle = FormBorderStyle.FixedDialog;
 
-            Application.Run(form);
+            Application.Run(controlPanel);
         }
     }
 }
