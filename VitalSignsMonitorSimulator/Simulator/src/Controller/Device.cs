@@ -1,6 +1,5 @@
 namespace Simulator.Controller
 {
-    using AzureApi;
     using Common.Enums;
     using Common.Utils;
     using Microsoft.Azure.Devices.Client;
@@ -9,21 +8,19 @@ namespace Simulator.Controller
     using Simulator.Model.AzurePayloads;
     using Simulator.src;
     using System;
-    using System.Linq;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
     using Utils;
-    using System.Windows.Forms;
 
     class Device
     {
         DeviceClient deviceClient;
         DeviceDataGenerator dataGenerator;
 
-        public Device()
+        public Device(string connection)
         {
-            this.deviceClient = AuthenticationApi.GetDevice();
+            this.deviceClient = DeviceClient.CreateFromConnectionString(connection);
             this.dataGenerator = new DeviceDataGenerator();
         }
 
@@ -77,9 +74,9 @@ namespace Simulator.Controller
             };
         }
 
-        private static Microsoft.Azure.Devices.Client.Message CreateMessage(string jsonObject)
+        private static Message CreateMessage(string jsonObject)
         {
-            var message = new Microsoft.Azure.Devices.Client.Message(Encoding.ASCII.GetBytes(jsonObject));
+            var message = new Message(Encoding.ASCII.GetBytes(jsonObject));
 
             message.ContentType = "application/json";
             message.ContentEncoding = "UTF-8";

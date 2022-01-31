@@ -13,7 +13,7 @@
 
     public partial class ControlPanelForm : Form
     {
-        Device deviceHub;
+        Device deviceHub = null;
         CancellationTokenSource tokenSource;
 
         SimulationForm simulationForm;
@@ -22,14 +22,13 @@
         public ControlPanelForm()
         {
             InitializeComponent();
-            this.deviceHub = new Device();
             this.simulatorIsInRunning = false;
         }
 
         // Start button simulator 
         private async void start_button_click(object sender, EventArgs e)
         {
-            if (!this.simulatorIsInRunning)
+            if (!this.simulatorIsInRunning && this.deviceHub != null)
             {
                 this.simulatorIsInRunning = true;
                 Log.Ok("Start simulation!");
@@ -69,16 +68,18 @@
             this.listbox_devices.Items.Clear();
 
             Log.Ok("Get all devices...");
-            List<JObject> devices = await DeviceOperationsApi.getDevices();
+            List<JObject> devices = await DeviceOperationsApi.GetDevices();
             foreach (var device in devices)
             {
                 this.listbox_devices.Items.Add(device["deviceId"]);
             }
         }
 
-        private void listbox_devices_SelectedIndexChanged(object sender, EventArgs e)
+        private async void listbox_devices_SelectedIndexChanged(object sender, EventArgs e)
         {
             Log.Ok("Click on: " + this.listbox_devices.SelectedItem.ToString());
+            string connection = await DeviceOperationsApi.GetStringConnection(this.listbox_devices.SelectedItem.ToString());
+            this.deviceHub = new Device(connection);
         }
     }
 }
