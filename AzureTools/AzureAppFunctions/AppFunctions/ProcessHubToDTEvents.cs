@@ -70,7 +70,6 @@ namespace AppFunctions
 
             updateTwinData.AppendAdd<double>("/temperature/value", data.Temperature.Value);
             updateTwinData.AppendAdd<bool>("/temperature/alarm", data.Temperature.Alarm);
-            updateTwinData.AppendAdd<string>("/temperature/unit", data.Temperature.Unit);
 
             updateTwinData.AppendAdd<int>("/battery/value", data.BatteryPower.Value);
             updateTwinData.AppendAdd<bool>("/battery/alarm", data.BatteryPower.Alarm);
