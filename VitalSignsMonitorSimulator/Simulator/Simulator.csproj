@@ -12,8 +12,9 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-	<DependsOnNETStandard>true</DependsOnNETStandard>
-	<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <DependsOnNETStandard>true</DependsOnNETStandard>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <UseNETCoreGenerator>true</UseNETCoreGenerator>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
