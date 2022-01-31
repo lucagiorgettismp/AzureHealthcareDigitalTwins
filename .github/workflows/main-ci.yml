@@ -99,9 +99,9 @@ jobs:
           path: .\VitalSignsMonitorSimulator\Client\bin\Release\Client.exe
           
   release:
-    runs-on: []
+    runs-on: ubuntu-latest
     steps:
-      - name: Tag/Release on Push Action
+      #- name: Tag/Release on Push Action
       # You may pin to the exact commit or the version.
       # uses: rymndhng/release-on-push-action@c76a55ddd0cbd67485bd5f9e133c553b2e48dfe2
       - uses: rymndhng/release-on-push-action@v0.23.1
