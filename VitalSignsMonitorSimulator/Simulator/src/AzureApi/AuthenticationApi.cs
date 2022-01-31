@@ -3,6 +3,7 @@
     using System;
     using System.IO;
     using Common.Utils;
+    using Microsoft.Azure.Devices;
     using Microsoft.Azure.Devices.Client;
     using Microsoft.Extensions.Configuration;
 
@@ -11,6 +12,7 @@
         const string HOST = "host";
         const string DEVICE_ID = "deviceId";
         const string SHARED_ACCESS_KEY = "sharedAccesKey";
+        const string IOTHUB = "connectionIoTHub";
         private static IConfiguration readConfig()
         {
             IConfiguration config;
@@ -55,6 +57,20 @@
                 Console.WriteLine();
             }
             return deviceClient;
+        }
+
+        public static RegistryManager GetRegistryManager()
+        {
+            RegistryManager rm = null;
+            IConfiguration config = readConfig();
+
+            if (config != null)
+            {
+                rm = RegistryManager.CreateFromConnectionString(config[IOTHUB]);
+                Log.Ok("Iot Hub authenticating successfully!");
+                Console.WriteLine();
+            }
+            return rm;
         }
     }
 }

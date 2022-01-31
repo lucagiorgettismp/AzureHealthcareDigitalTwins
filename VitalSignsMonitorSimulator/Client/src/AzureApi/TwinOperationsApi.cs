@@ -12,7 +12,7 @@
     class TwinOperationsApi
     {
         // Query
-        private const string QUERY_GET_TWINS = "SELECT * FROM digitaltwins";
+        private const string QUERY_GET_ALL_TWINS = "SELECT * FROM digitaltwins";
 
         // Models name
         private const string PATIENT = "Patient";
@@ -40,7 +40,6 @@
         private const string BREATH_FREQUENCY = "breath_frequency";
         private const string SATURATION = "saturation";
 
-
         private async Task createDeviceHub(string deviceId)
         {
             try
@@ -61,7 +60,7 @@
         {
             List<string> IdTwins = new List<string>();
 
-            AsyncPageable<BasicDigitalTwin> queryResult = client.QueryAsync<BasicDigitalTwin>(QUERY_GET_TWINS);
+            AsyncPageable<BasicDigitalTwin> queryResult = client.QueryAsync<BasicDigitalTwin>(QUERY_GET_ALL_TWINS);
 
             Log.Ok("Get all DT...");
             await foreach (BasicDigitalTwin twin in queryResult)

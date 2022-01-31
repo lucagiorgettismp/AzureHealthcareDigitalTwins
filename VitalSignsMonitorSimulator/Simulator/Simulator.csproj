@@ -281,6 +281,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\AzureApi\AuthenticationApi.cs" />
+    <Compile Include="src\AzureApi\DeviceOperationsApi.cs" />
     <Compile Include="src\Model\AzurePayloads\PatientPayload.cs" />
     <Compile Include="src\Model\AzurePayloads\ViitalSignsMonitorPayload.cs" />
     <Compile Include="src\Model\AzurePayloads\ViitalSignsMonitorPayloadParameter.cs" />
