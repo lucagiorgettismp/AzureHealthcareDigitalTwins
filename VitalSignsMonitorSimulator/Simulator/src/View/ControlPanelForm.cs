@@ -3,14 +3,17 @@
     using Common.Enums;
     using Common.Utils;
     using Controller;
+    using Newtonsoft.Json.Linq;
+    using Simulator.AzureApi;
     using Simulator.src;
     using System;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Windows.Forms;
 
     public partial class ControlPanelForm : Form
     {
-        Device deviceHub;
+        Device deviceHub = null;
         CancellationTokenSource tokenSource;
 
         SimulationForm simulationForm;
@@ -19,14 +22,13 @@
         public ControlPanelForm()
         {
             InitializeComponent();
-            this.deviceHub = new Device();
             this.simulatorIsInRunning = false;
         }
 
         // Start button simulator 
         private async void start_button_click(object sender, EventArgs e)
         {
-            if (!this.simulatorIsInRunning)
+            if (!this.simulatorIsInRunning && this.deviceHub != null)
             {
                 this.simulatorIsInRunning = true;
                 Log.Ok("Start simulation!");
@@ -43,7 +45,7 @@
         }
 
         // Stop button simulator
-        private void stop_button_Click(object sender, EventArgs e)
+        private void stop_button_click(object sender, EventArgs e)
         {
             if (this.simulatorIsInRunning)
             {
@@ -56,9 +58,28 @@
             }
         }
 
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        private void tableMain_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private async void devices_button_Click(object sender, EventArgs e)
+        {
+            this.listbox_devices.Items.Clear();
+
+            Log.Ok("Get all devices...");
+            List<JObject> devices = await DeviceOperationsApi.GetDevices();
+            foreach (var device in devices)
+            {
+                this.listbox_devices.Items.Add(device["deviceId"]);
+            }
+        }
+
+        private async void listbox_devices_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Log.Ok("Click on: " + this.listbox_devices.SelectedItem.ToString());
+            string connection = await DeviceOperationsApi.GetStringConnection(this.listbox_devices.SelectedItem.ToString());
+            this.deviceHub = new Device(connection);
         }
     }
 }

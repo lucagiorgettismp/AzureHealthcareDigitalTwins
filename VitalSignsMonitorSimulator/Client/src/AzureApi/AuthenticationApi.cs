@@ -5,11 +5,15 @@
     using Azure.DigitalTwins.Core;
     using Azure.Identity;
     using Common.Utils;
+    using Microsoft.Azure.Devices;
     using Microsoft.Extensions.Configuration;
 
     class AuthenticationApi
     {
-        private static IConfiguration readConfig()
+
+        const string HOST = "host";
+        const string IOTHUB = "connectionIoTHub";
+        private static IConfiguration ReadConfig()
         {
             IConfiguration config;
 
@@ -34,11 +38,11 @@
             Uri adtInstanceUrl;
 
             DigitalTwinsClient twinClient = null;
-            IConfiguration config = readConfig();
+            IConfiguration config = ReadConfig();
 
             if (config != null)
             {
-                adtInstanceUrl = new Uri(config["instanceUrl"]);
+                adtInstanceUrl = new Uri(config[HOST]);
                 Log.Ok("Twin client authenticating...");
                 var credential = new DefaultAzureCredential();
                 twinClient = new DigitalTwinsClient(adtInstanceUrl, credential);
@@ -47,6 +51,20 @@
                 Console.WriteLine();
             }
             return twinClient;
+        }
+
+        public static RegistryManager GetRegistryManager()
+        {
+            RegistryManager rm = null;
+            IConfiguration config = ReadConfig();
+
+            if (config != null)
+            {
+                rm = RegistryManager.CreateFromConnectionString(config[IOTHUB]);
+                Log.Ok("Iot Hub authenticating successfully!");
+                Console.WriteLine();
+            }
+            return rm;
         }
     }
 }

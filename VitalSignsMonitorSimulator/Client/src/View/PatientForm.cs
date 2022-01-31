@@ -144,7 +144,7 @@
                     BodyMassIndex = Convert.ToDouble(this.patient_body_mass_index.Text)
                 };
 
-                this.clientTwins.createPatientTwin(modelPatient);
+                this.clientTwins.CreatePatientTwin(modelPatient);
                 this.Close();
             }
         }
