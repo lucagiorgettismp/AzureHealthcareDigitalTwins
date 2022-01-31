@@ -8,6 +8,9 @@
 
     class AuthenticationApi
     {
+        const string HOST = "host";
+        const string DEVICE_ID = "deviceId";
+        const string SHARED_ACCESS_KEY = "sharedAccesKey";
         private static IConfiguration readConfig()
         {
             IConfiguration config;
@@ -39,9 +42,9 @@
 
             if(config != null)
             {
-                host = config["host"];
-                deviceId = config["deviceId"];
-                sharedAccessKey = config["sharedAccesKey"];
+                host = config[HOST];
+                deviceId = config[DEVICE_ID];
+                sharedAccessKey = config[SHARED_ACCESS_KEY];
 
                 Log.Ok("Device client authenticating...");
 
