@@ -13,7 +13,7 @@
 
         const string HOST = "host";
         const string IOTHUB = "connectionIoTHub";
-        private static IConfiguration readConfig()
+        private static IConfiguration ReadConfig()
         {
             IConfiguration config;
 
@@ -38,7 +38,7 @@
             Uri adtInstanceUrl;
 
             DigitalTwinsClient twinClient = null;
-            IConfiguration config = readConfig();
+            IConfiguration config = ReadConfig();
 
             if (config != null)
             {
@@ -56,7 +56,7 @@
         public static RegistryManager GetRegistryManager()
         {
             RegistryManager rm = null;
-            IConfiguration config = readConfig();
+            IConfiguration config = ReadConfig();
 
             if (config != null)
             {

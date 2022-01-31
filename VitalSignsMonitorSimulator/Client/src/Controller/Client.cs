@@ -17,13 +17,13 @@
             this.op = new TwinOperationsApi();
         }
 
-        public async Task<List<string>> getTwins() {
-            return await this.op.getTwins(this.twinClient);
+        public async Task<List<string>> GetTwins() {
+            return await this.op.GetTwins(this.twinClient);
         }
 
-        public async void createPatientTwin(PatientModel model)
+        public async void CreatePatientTwin(PatientModel model)
         {
-            await this.op.createPatientTwin(twinClient, model);
+            await this.op.CreatePatientTwin(twinClient, model);
         }
     }
 }

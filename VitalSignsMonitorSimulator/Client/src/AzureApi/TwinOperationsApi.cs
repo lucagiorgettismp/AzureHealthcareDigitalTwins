@@ -40,7 +40,7 @@
         private const string BREATH_FREQUENCY = "breath_frequency";
         private const string SATURATION = "saturation";
 
-        private async Task createDeviceHub(string deviceId)
+        private async Task CreateDeviceHub(string deviceId)
         {
             try
             {
@@ -56,7 +56,7 @@
             Console.WriteLine();
         }
 
-        public async Task<List<string>> getTwins(DigitalTwinsClient client)
+        public async Task<List<string>> GetTwins(DigitalTwinsClient client)
         {
             List<string> IdTwins = new List<string>();
 
@@ -65,7 +65,7 @@
             Log.Ok("Get all DT...");
             await foreach (BasicDigitalTwin twin in queryResult)
             {
-                string modelPatient = await getModel(client, PATIENT);
+                string modelPatient = await GetModel(client, PATIENT);
                 if(twin.Metadata.ModelId == modelPatient)
                 {
                     IdTwins.Add(twin.Id);
@@ -79,13 +79,13 @@
             return IdTwins;
         }
 
-        public async Task createPatientTwin(
+        public async Task CreatePatientTwin(
             DigitalTwinsClient client, PatientModel model)
         {
             // Create a patient twin
             var patientTwin = new BasicDigitalTwin();
             
-            patientTwin.Metadata.ModelId = await getModel(client, PATIENT);
+            patientTwin.Metadata.ModelId = await GetModel(client, PATIENT);
             patientTwin.Contents.Add(NAME, model.Name);
             patientTwin.Contents.Add(SURNAME, model.Surname);
             patientTwin.Contents.Add(AGE, model.Age);
@@ -107,7 +107,7 @@
             try
             {
                 // Create a device in iot hub
-                await createDeviceHub($"{model.Name}VitalSignsMonitor");
+                await CreateDeviceHub($"{model.Name}VitalSignsMonitor");
 
                 // Create patient twin
                 await client.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>(patientTwin.Id, patientTwin);
@@ -115,10 +115,10 @@
 
                 // Create monitor twin
                 string idMonitorTwin = $"{model.Name}VitalSignsMonitor";
-                await createMonitorTwin(client, idMonitorTwin);
+                await CreateMonitorTwin(client, idMonitorTwin);
 
                 // Create a relationship between patient twin and monitor twin
-                await createRelationship(client, patientTwin.Id, idMonitorTwin, NAME_RELATIONSHIP);
+                await CreateRelationship(client, idMonitorTwin, patientTwin.Id, NAME_RELATIONSHIP);
             }
             catch (RequestFailedException e) {
                 Log.Error($"Create patient twin error: {e.Status}: {e.Message}");
@@ -126,7 +126,7 @@
             Console.WriteLine();
         }
 
-        private async Task createMonitorTwin(DigitalTwinsClient client, string id) {
+        private async Task CreateMonitorTwin(DigitalTwinsClient client, string id) {
 
             try
             {
@@ -141,7 +141,7 @@
                 var batteryComponent = new BasicDigitalTwinComponent();
 
                 monitorTwin.Id = id;
-                monitorTwin.Metadata.ModelId = await getModel(client, VITAL_PARAMETERS_MONITOR);
+                monitorTwin.Metadata.ModelId = await GetModel(client, VITAL_PARAMETERS_MONITOR);
                 monitorTwin.Contents.Add(TEMPERATURE, temperatureComponent);
                 monitorTwin.Contents.Add(BLOOD_PRESSURE, bloodPressureComponent);
                 monitorTwin.Contents.Add(BATTERY, batteryComponent);
@@ -158,7 +158,7 @@
             }
         }
 
-        public async Task createRelationship(DigitalTwinsClient client, string srcId, string targetId, string nameRel) {
+        public async Task CreateRelationship(DigitalTwinsClient client, string srcId, string targetId, string nameRel) {
 
             var relationship = new BasicRelationship();
             relationship.TargetId = targetId;
@@ -176,7 +176,7 @@
             }
         }
 
-        private async Task<string> getModel(DigitalTwinsClient client, string modelName)
+        private async Task<string> GetModel(DigitalTwinsClient client, string modelName)
         {
             AsyncPageable<DigitalTwinsModelData> modelDataList = client.GetModelsAsync();
 

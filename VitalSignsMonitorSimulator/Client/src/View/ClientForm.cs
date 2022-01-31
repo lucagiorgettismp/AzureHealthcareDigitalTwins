@@ -28,7 +28,7 @@
         {
             this.patients_twins_collections.Items.Clear();
 
-            var twins = await this.clientTwins.getTwins();
+            var twins = await this.clientTwins.GetTwins();
             for(int i = 0; i < twins.Count; i++)
             {
                 this.patients_twins_collections.Items.Add(twins[i]);
