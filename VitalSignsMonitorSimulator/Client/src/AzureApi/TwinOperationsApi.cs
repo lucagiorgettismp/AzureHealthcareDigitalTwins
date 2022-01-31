@@ -4,6 +4,7 @@
     using Azure.DigitalTwins.Core;
     using AzureApi.Models;
     using Common.Utils;
+    using Microsoft.Azure.Devices;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -39,6 +40,23 @@
         private const string BREATH_FREQUENCY = "breath_frequency";
         private const string SATURATION = "saturation";
 
+
+        private async Task createDeviceHub(string deviceId)
+        {
+            try
+            {
+                var registryManager = AuthenticationApi.GetRegistryManager();
+                var deviceHub = new Device(deviceId);
+                await registryManager.AddDeviceAsync(deviceHub);
+                Log.Ok($"Device {deviceId} created succesfully in iot hub!");
+            }
+            catch (RequestFailedException e)
+            {
+                Log.Error($"Create device error: {e.Status}: {e.Message}");
+            }
+            Console.WriteLine();
+        }
+
         public async Task<List<string>> getTwins(DigitalTwinsClient client)
         {
             List<string> IdTwins = new List<string>();
@@ -65,6 +83,7 @@
         public async Task createPatientTwin(
             DigitalTwinsClient client, PatientModel model)
         {
+            // Create a patient twin
             var patientTwin = new BasicDigitalTwin();
             
             patientTwin.Metadata.ModelId = await getModel(client, PATIENT);
@@ -88,15 +107,18 @@
 
             try
             {
+                // Create a device in iot hub
+                await createDeviceHub($"{model.Name}VitalSignsMonitor");
+
                 // Create patient twin
                 await client.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>(patientTwin.Id, patientTwin);
                 Log.Ok($"- Created twin {patientTwin.Id} successfully!");
 
                 // Create monitor twin
-                string idMonitorTwin = $"VitalSignsMonitor{model.Name}";
+                string idMonitorTwin = $"{model.Name}VitalSignsMonitor";
                 await createMonitorTwin(client, idMonitorTwin);
 
-                // Create a relationship
+                // Create a relationship between patient twin and monitor twin
                 await createRelationship(client, patientTwin.Id, idMonitorTwin, NAME_RELATIONSHIP);
             }
             catch (RequestFailedException e) {
