@@ -1,0 +1,51 @@
+{
+ "@id": "dtmi:healthCareDT:VitalParametersMonitor;1",
+ "@type": "Interface",
+ "@context": "dtmi:dtdl:context;2",
+ "displayName": "Vital Parameters Monitor",
+  "contents": [
+    {
+      "@type": "Component",
+      "name": "temperature",
+      "displayName": "Temperature Sensor",
+      "schema": "dtmi:healthCareDT:TemperatureParam;1"
+    },
+    {
+      "@type": "Component",
+      "name": "blood_pressure",
+      "displayName": "Blood Pressure Sensor",
+      "schema": "dtmi:healthCareDT:BloodPressureParam;1"
+    },
+    {
+      "@type": "Component",
+      "name": "battery",
+      "displayName": "Battery",
+      "schema": "dtmi:healthCareDT:BatteryParam;1"
+    },
+    {
+      "@type": "Component",
+      "name": "heart_frequency",
+      "displayName": "Heart Frequency",
+      "schema": "dtmi:healthCareDT:HeartFrequencyParam;1"
+    },
+    {
+      "@type": "Component",
+      "name": "breath_frequency",
+      "displayName": "Breath Frequency",
+      "schema": "dtmi:healthCareDT:BreathFrequencyParam;1"
+    },
+    {
+      "@type": "Component",
+      "name": "saturation",
+      "displayName": "Saturation",
+      "schema": "dtmi:healthCareDT:SaturationParam;1"
+    },
+    {
+      "@type": "Relationship",
+      "@id": "dtmi:healthCareDT:VitalParametersMonitor:rel_has_monitor;1",
+      "name": "rel_has_monitor",
+      "displayName": "Patient has a monitor",
+      "target": "dtmi:healthCareDT:Patient;1"
+    }
+  ]
+}
