@@ -96,4 +96,33 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: Client
-          path: .\VitalSignsMonitorSimulator\Client\bin\Release\Client.exe 
+          path: .\VitalSignsMonitorSimulator\Client\bin\Release\Client.exe
+          
+  release:
+    runs-on: []
+    steps:
+      - name: Tag/Release on Push Action
+      # You may pin to the exact commit or the version.
+      # uses: rymndhng/release-on-push-action@c76a55ddd0cbd67485bd5f9e133c553b2e48dfe2
+      - uses: rymndhng/release-on-push-action@v0.23.1
+        with:
+          # The bumping scheme to use by default. One of minor|major|patch|norelease
+          bump_version_scheme: minor
+          # Additional text to insert into the release's body.
+          release_body: Vital signs monitor simulator and backend client.
+          # Prefix to append to git tags. To unset this, set version_prefix to an empty string.
+          #tag_prefix: # optional, default is v
+          # Maximum number of commits to add to release body
+          # max_commits: # optional, default is 50
+          # When set to 'true', uses Github's Generated Release Notes instead of this plugin's release notes
+          # use_github_release_notes: # optional, default is false
+          release_name: "Release <RELEASE_VERSION>"
+      - uses: actions/upload-artifact@master
+        with:
+          name: Simulator
+          path: .\VitalSignsMonitorSimulator\Simulator\bin\Release\Simulator.exe
+      - uses: actions/upload-artifact@master
+        with:
+          name: Client
+          path: .\VitalSignsMonitorSimulator\Client\bin\Release\Client.exe
+  
