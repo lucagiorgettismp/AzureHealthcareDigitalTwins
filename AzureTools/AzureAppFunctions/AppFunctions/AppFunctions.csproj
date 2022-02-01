@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Azure.DigitalTwins.Core" Version="1.2.2" />
     <PackageReference Include="Azure.Identity" Version="1.5.0" />
+    <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.5.1" />
     <PackageReference Include="Microsoft.Azure.EventHubs" Version="4.3.2" />
     <PackageReference Include="Microsoft.Azure.Services.AppAuthentication" Version="1.6.2" />
     <PackageReference Include="Microsoft.Azure.WebJobs" Version="3.0.31" />
