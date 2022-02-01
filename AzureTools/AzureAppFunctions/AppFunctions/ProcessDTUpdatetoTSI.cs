@@ -1,6 +1,5 @@
 namespace AppFunctions
 {
-    using Microsoft.Azure.EventHubs;
     using Microsoft.Azure.WebJobs;
     using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
@@ -8,6 +7,7 @@ namespace AppFunctions
     using System.Collections.Generic;
     using System.Text;
     using System.Threading.Tasks;
+    using Azure.Messaging.EventHubs;
 
     // This class processes telemetry events from IoT Hub, reads temperature of a device
     // and sets the "Temperature" property of the device with the value of the telemetry.
@@ -20,7 +20,7 @@ namespace AppFunctions
                     [EventHub("healthcaretimeserieshub", Connection = "EventHubAppSetting-TSI")] IAsyncCollector<string> outputEvents,
                     ILogger log)
         {
-            JObject message = (JObject)JsonConvert.DeserializeObject(Encoding.UTF8.GetString(myEventHubMessage.Body));
+            JObject message = (JObject)JsonConvert.DeserializeObject(Encoding.UTF8.GetString(myEventHubMessage.EventBody));
             log.LogInformation($"Reading event: {message}");
 
             // Read values that are replaced or added
