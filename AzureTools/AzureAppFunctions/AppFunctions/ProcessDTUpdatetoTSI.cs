@@ -16,8 +16,8 @@ namespace AppFunctions
 
         [FunctionName("ProcessDTUpdatetoTSI")]
         public static async Task Run(
-                    [EventHubTrigger("twins-event-hub", Connection = "EventHubAppSetting-Twins")] EventData myEventHubMessage,
-                    [EventHub("tsi-event-hub", Connection = "EventHubAppSetting-TSI")] IAsyncCollector<string> outputEvents,
+                    [EventHubTrigger("healthcaretwinseventhub", Connection = "EventHubAppSetting-Twins")] EventData myEventHubMessage,
+                    [EventHub("healthcaretimeserieshub", Connection = "EventHubAppSetting-TSI")] IAsyncCollector<string> outputEvents,
                     ILogger log)
         {
             JObject message = (JObject)JsonConvert.DeserializeObject(Encoding.UTF8.GetString(myEventHubMessage.Body));
