@@ -34,12 +34,13 @@ namespace AppFunctions
             ILogger log)
         {
             SignalREventGridPayload payload = JsonConvert.DeserializeObject<SignalREventGridPayload>(eventGridEvent.Data.ToString());
-            
+
             var message = new Dictionary<object, object>();
 
             payload.Data.Patch.ForEach(p =>
             {
-                message.Add(p.Path, p.Value);
+                var chunks = p.Path.Split("/");
+                message.Add($"{chunks[1]}_{chunks[2]}", p.Value);
                 /*
                 switch (p.Path)
                 {
