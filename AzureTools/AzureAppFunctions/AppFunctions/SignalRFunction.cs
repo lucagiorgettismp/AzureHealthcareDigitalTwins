@@ -19,7 +19,7 @@ namespace AppFunctions
     {
         public static double temperature;
 
-        [FunctionName("NegotiateSignalR")]
+        [FunctionName("negotiate")]
         public static SignalRConnectionInfo GetSignalRInfo(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequest req,
             [SignalRConnectionInfo(HubName = "healthcareSignalR")] SignalRConnectionInfo connectionInfo)
@@ -27,7 +27,7 @@ namespace AppFunctions
             return connectionInfo;
         }
 
-        [FunctionName("SendBroadcastSignalRMessage")]
+        [FunctionName("broadcast")]
         public static Task SendMessage(
             [EventGridTrigger] EventGridEvent eventGridEvent,
             [SignalR(HubName = "healthcareSignalR")] IAsyncCollector<SignalRMessage> signalRMessages,
