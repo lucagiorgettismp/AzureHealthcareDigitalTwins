@@ -32,7 +32,7 @@
         public const int MIN_BATTERY = 0;
         public const int MAX_BATTERY = 100;
 
-        Random random = new Random();
+        private Random random = new Random();
 
         public DeviceDataGenerator()
         {
@@ -156,13 +156,6 @@
             
             else if (newValue > dataProperty.MaxValue)
                 newValue = dataProperty.MaxValue;
-
-            //else
-            //{
-            //    var r = new Random();
-            //    var condition = Convert.ToBoolean(r.Next(-1, 1));
-            //    if (condition) newValue = -newValue;
-            //}
 
             dataProperty.InAlarm = newValue <= dataProperty.AlarmMinThreashold || newValue >= (double)dataProperty.AlarmMaxThreashold;
             dataProperty.Value = newValue;
