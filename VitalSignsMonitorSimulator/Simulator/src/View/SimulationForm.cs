@@ -1,7 +1,7 @@
-﻿using Common.Utils;
-using Simulator.Model;
+﻿using Simulator.Model;
 using Simulator.Utils;
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -13,18 +13,8 @@ namespace Simulator.src
         private Timer timerHour = new Timer();
         private DateTimePicker datePicker = new DateTimePicker();
 
-        private const string ID_LABEL_DATE= "DateLabel";
-        private const string ID_LABEL_HOUR = "HourLabel";
-
         Label labDate;
         Label labHour;
-
-        private const string ID_LABEL_TEMPERATURE = "ValueTemperatureLabel";
-        private const string ID_LABEL_SATURATION = "ValueSaturationLabel";
-        private const string ID_LABEL_BLOOD_PRESSURE = "ValueBloodPressureLabel";
-        private const string ID_LABEL_HEART_FREQUENCY = "ValueHeartFrequency";
-        private const string ID_LABEL_BREATH_FREQUENCY = "ValueBreathFrequencyLabel";
-        private const string ID_LABEL_BATTERY = "ValueBatteryLabel";
 
         Label labTemperature;
         Label labSaturation;
@@ -33,15 +23,39 @@ namespace Simulator.src
         Label labBreathFrequency;
         Label labBattery;
 
-        private const string ID_CHART_HEART_FREQUENCY = "HeartFrequencyChart";
-        private const string ID_CHART_BREATH_FREQUENCY = "BreathFrequencyChart";
-        private const string ID_CHART_SATURATION = "SaturationChart";
-        private const string ID_CHART_BLOOD_PRESSURE = "BloodPressureChart";
+        TableLayoutPanel alarmHeartFrequency;
+        TableLayoutPanel alarmBreathFrequency;
+        TableLayoutPanel alarmBloodPressure;
+        TableLayoutPanel alarmSaturation;
 
         Chart chartHeartFrequency;
         Chart chartBreathFrequency;
         Chart chartSaturation;
         Chart chartBloodPressure;
+
+        // Date and hour
+        private const string ID_LABEL_DATE = "DateLabel";
+        private const string ID_LABEL_HOUR = "HourLabel";
+
+        // Id Sensor
+        private const string ID_LABEL_TEMPERATURE = "ValueTemperatureLabel";
+        private const string ID_LABEL_SATURATION = "ValueSaturationLabel";
+        private const string ID_LABEL_BLOOD_PRESSURE = "ValueBloodPressureLabel";
+        private const string ID_LABEL_HEART_FREQUENCY = "ValueHeartFrequency";
+        private const string ID_LABEL_BREATH_FREQUENCY = "ValueBreathFrequencyLabel";
+        private const string ID_LABEL_BATTERY = "ValueBatteryLabel";
+
+        // Id Alarm
+        private const string ID_ALARM_SATURATION = "AlarmSaturation";
+        private const string ID_ALARM_BLOOD_PRESSURE = "AlarmBloodPressure";
+        private const string ID_ALARM_HEART_FREQUENCY = "AlarmHeartFrequency";
+        private const string ID_ALARM_BREATH_FREQUENCY = "AlarmBreathFrequency";
+
+        // Id chart
+        private const string ID_CHART_HEART_FREQUENCY = "HeartFrequencyChart";
+        private const string ID_CHART_BREATH_FREQUENCY = "BreathFrequencyChart";
+        private const string ID_CHART_SATURATION = "SaturationChart";
+        private const string ID_CHART_BLOOD_PRESSURE = "BloodPressureChart";
 
         int maxPointsInGraph;
 
@@ -69,6 +83,12 @@ namespace Simulator.src
             this.labBloodPressure = this.Controls.Find(ID_LABEL_BLOOD_PRESSURE, true).FirstOrDefault() as Label;
             this.labBreathFrequency = this.Controls.Find(ID_LABEL_BREATH_FREQUENCY, true).FirstOrDefault() as Label;
             this.labBattery = this.Controls.Find(ID_LABEL_BATTERY, true).FirstOrDefault() as Label;
+
+            // Table panel sensor
+            this.alarmBloodPressure = this.Controls.Find(ID_ALARM_BLOOD_PRESSURE, true).FirstOrDefault() as TableLayoutPanel;
+            this.alarmSaturation = this.Controls.Find(ID_ALARM_SATURATION, true).FirstOrDefault() as TableLayoutPanel;
+            this.alarmHeartFrequency = this.Controls.Find(ID_ALARM_HEART_FREQUENCY, true).FirstOrDefault() as TableLayoutPanel;
+            this.alarmBreathFrequency = this.Controls.Find(ID_ALARM_BREATH_FREQUENCY, true).FirstOrDefault() as TableLayoutPanel;
 
             // Charts sensor
             this.chartHeartFrequency = this.Controls.Find(ID_CHART_HEART_FREQUENCY, true).FirstOrDefault() as Chart;
@@ -111,6 +131,19 @@ namespace Simulator.src
             this.labBloodPressure.Text = data.BloodPressure.Value.ToString();
             this.labBreathFrequency.Text = data.BreathFrequency.Value.ToString();
             this.labBattery.Text = data.BatteryPower.Value.ToString() + " %";
+
+            // Alarm
+            if (data.HeartFrequency.InAlarm) this.alarmHeartFrequency.BackColor = Color.Red;
+            else this.alarmHeartFrequency.BackColor = Color.Black;
+
+            if (data.BreathFrequency.InAlarm) this.alarmBreathFrequency.BackColor = Color.Red;
+            else this.alarmBreathFrequency.BackColor = Color.Black;
+
+            if (data.Saturation.InAlarm) this.alarmSaturation.BackColor = Color.Red;
+            else this.alarmSaturation.BackColor = Color.Black;
+
+            if (data.BloodPressure.InAlarm) this.alarmBloodPressure.BackColor = Color.Red;
+            else this.alarmBloodPressure.BackColor = Color.Black;
 
             // Charts
             const int position = 0;

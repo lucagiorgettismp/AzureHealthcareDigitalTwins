@@ -18,7 +18,7 @@
         public const int MAX_TEMPERATURE = 45;
 
         public const int MIN_SATURATION = 60;
-        public const int MAX_SATURATION = 160;
+        public const int MAX_SATURATION = 100;
 
         public const int MIN_HEART = 40;
         public const int MAX_HEART = 140;
