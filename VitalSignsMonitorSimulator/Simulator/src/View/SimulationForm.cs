@@ -27,6 +27,8 @@ namespace Simulator.src
         TableLayoutPanel alarmBreathFrequency;
         TableLayoutPanel alarmBloodPressure;
         TableLayoutPanel alarmSaturation;
+        TableLayoutPanel alarmTemperature;
+        TableLayoutPanel alarmBattery;
 
         Chart chartHeartFrequency;
         Chart chartBreathFrequency;
@@ -50,6 +52,8 @@ namespace Simulator.src
         private const string ID_ALARM_BLOOD_PRESSURE = "AlarmBloodPressure";
         private const string ID_ALARM_HEART_FREQUENCY = "AlarmHeartFrequency";
         private const string ID_ALARM_BREATH_FREQUENCY = "AlarmBreathFrequency";
+        private const string ID_ALARM_TEMPERATURE = "AlarmTemperature";
+        private const string ID_ALARM_BATTERY = "AlarmBattery";
 
         // Id chart
         private const string ID_CHART_HEART_FREQUENCY = "HeartFrequencyChart";
@@ -89,6 +93,8 @@ namespace Simulator.src
             this.alarmSaturation = this.Controls.Find(ID_ALARM_SATURATION, true).FirstOrDefault() as TableLayoutPanel;
             this.alarmHeartFrequency = this.Controls.Find(ID_ALARM_HEART_FREQUENCY, true).FirstOrDefault() as TableLayoutPanel;
             this.alarmBreathFrequency = this.Controls.Find(ID_ALARM_BREATH_FREQUENCY, true).FirstOrDefault() as TableLayoutPanel;
+            this.alarmTemperature = this.Controls.Find(ID_ALARM_TEMPERATURE, true).FirstOrDefault() as TableLayoutPanel;
+            this.alarmBattery = this.Controls.Find(ID_ALARM_BATTERY, true).FirstOrDefault() as TableLayoutPanel;
 
             // Charts sensor
             this.chartHeartFrequency = this.Controls.Find(ID_CHART_HEART_FREQUENCY, true).FirstOrDefault() as Chart;
@@ -144,6 +150,12 @@ namespace Simulator.src
 
             if (data.BloodPressure.InAlarm) this.alarmBloodPressure.BackColor = Color.Red;
             else this.alarmBloodPressure.BackColor = Color.Black;
+
+            if (data.Temperature.InAlarm) this.alarmTemperature.BackColor = Color.Red;
+            else this.alarmTemperature.BackColor = Color.Black;
+
+            if (data.BatteryPower.InAlarm) this.alarmBattery.BackColor = Color.Red;
+            else this.alarmBattery.BackColor = Color.Black;
 
             // Charts
             const int position = 0;
