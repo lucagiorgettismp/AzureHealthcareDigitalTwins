@@ -32,6 +32,7 @@
         public const int MIN_BATTERY = 0;
         public const int MAX_BATTERY = 100;
 
+        Random random = new Random();
 
         public DeviceDataGenerator()
         {
@@ -126,14 +127,13 @@
         private DeviceDataProperty<double> GenerateDoubleValue(DeviceDataProperty<double> dataProperty)
         {
             var oldValue = dataProperty.Value;
-            var random = new Random();
             var delta = (double)dataProperty.UpdateDelta;
 
-            var newValue = oldValue + random.NextDouble() * (2 * delta ) - delta;
+            var newValue = oldValue + this.random.NextDouble() * (2 * delta ) - delta;
             if (newValue < (double)dataProperty.MinValue)
                 newValue = (double)dataProperty.MinValue;
-            
-            if (newValue > (double)dataProperty.MaxValue)
+
+            else if (newValue > (double)dataProperty.MaxValue)
                 newValue = (double)dataProperty.MaxValue;
            
             dataProperty.InAlarm = newValue <= (double)dataProperty.AlarmMinThreashold || newValue >= (double)dataProperty.AlarmMaxThreashold;
@@ -144,19 +144,25 @@
         private DeviceDataProperty<int> GenerateIntValue(DeviceDataProperty<int> dataProperty, bool isBattery)
         {
             var oldValue = dataProperty.Value;
-            var random = new Random();
             var delta = dataProperty.UpdateDelta;
-
             int maxValue = 2;
-            if (isBattery)maxValue = 1;
-         
 
-            var newValue = oldValue + random.Next(-1, maxValue) * delta;
+            if (isBattery) maxValue = 1;
+         
+            var newValue = oldValue + this.random.Next(-1, maxValue) * delta;
+
             if (newValue < dataProperty.MinValue)
                 newValue = dataProperty.MinValue;
             
-            if (newValue > dataProperty.MaxValue)
+            else if (newValue > dataProperty.MaxValue)
                 newValue = dataProperty.MaxValue;
+
+            //else
+            //{
+            //    var r = new Random();
+            //    var condition = Convert.ToBoolean(r.Next(-1, 1));
+            //    if (condition) newValue = -newValue;
+            //}
 
             dataProperty.InAlarm = newValue <= dataProperty.AlarmMinThreashold || newValue >= (double)dataProperty.AlarmMaxThreashold;
             dataProperty.Value = newValue;
