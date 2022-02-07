@@ -21,7 +21,7 @@
             {
                 // Read configuration data from the 
                 config = new ConfigurationBuilder()
-                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false)
+                    .AddJsonFile(".src/appsettings.json", optional: false, reloadOnChange: false)
                     .Build();
             }
             catch (Exception ex) when (ex is FileNotFoundException || ex is UriFormatException)
