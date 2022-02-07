@@ -9,33 +9,21 @@ public class SignalRConnector
 {
     public Action<Message> OnMessageReceived;
     private HubConnection connection;
+
     public async Task InitAsync()
     {
-
         string host = "http://localhost:3000";
 
         connection = new HubConnectionBuilder().WithUrl(host).Build();
-        connection.On<string, string>("ReceiveMessage", (user, message) =>
+        connection.On<Message>("newMessage", (message) =>
         {
             OnMessageReceived?.Invoke(new Message
             {
-                UserName = user,
-                Text = message,
-            });
+              temperature_value = message.temperature_value,
+              temperature_alarm = message.temperature_alarm
+            });           
         });
         await StartConnectionAsync();
-    }
-
-    public async Task SendMessageAsync(Message message)
-    {
-        try
-        {
-            await connection.InvokeAsync("SendMessage", message.UserName, message.Text);
-        }
-        catch (Exception ex)
-        {
-            UnityEngine.Debug.LogError($"Error {ex.Message}");
-        }
     }
 
     private async Task StartConnectionAsync()
