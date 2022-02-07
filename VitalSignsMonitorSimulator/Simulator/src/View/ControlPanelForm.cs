@@ -76,12 +76,6 @@
 
         private async void devices_button_Click(object sender, EventArgs e)
         {
-
-            ErrorForm errorForm = new ErrorForm();
-            errorForm.Text = "Error";
-            errorForm.FormBorderStyle = FormBorderStyle.FixedDialog;
-            errorForm.setSext("Error null pointer");
-
             this.listbox_devices.Items.Clear();
 
             Log.Ok("Get all devices...");
