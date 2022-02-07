@@ -1,6 +1,5 @@
 ﻿namespace Simulator.Utils
 {
-    using Common.Utils;
     using Model;
     using System;
 
