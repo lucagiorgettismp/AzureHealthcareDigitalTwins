@@ -1,5 +1,6 @@
 ﻿namespace Simulator.View
 {
+    using Common;
     using Common.Enums;
     using Common.Utils;
     using Controller;
@@ -8,31 +9,47 @@
     using Simulator.src;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading;
     using System.Windows.Forms;
 
     public partial class ControlPanelForm : Form
     {
-        Device deviceHub = null;
-        CancellationTokenSource tokenSource;
+        private Device deviceHub = null;
+        private CancellationTokenSource tokenSource;
 
-        SimulationForm simulationForm;
-        bool simulatorIsInRunning;
+        private SimulationForm simulationForm;
+
+        private Button startButton;
+        private Button stopButton;
+
+        private const string ID_START_BUTTON = "start_button";
+        private const string ID_STOP_BUTTON = "stop_button";
 
         public ControlPanelForm()
         {
             InitializeComponent();
-            this.simulatorIsInRunning = false;
+        }
+
+        private void ControlPanelForm_Load(object sender, EventArgs e)
+        {
+            this.startButton = this.Controls.Find(ID_START_BUTTON, true).FirstOrDefault() as Button;
+            this.startButton.Enabled = false;
+
+            this.stopButton = this.Controls.Find(ID_STOP_BUTTON, true).FirstOrDefault() as Button;
+            this.stopButton.Enabled = false;
         }
 
         // Start button simulator 
         private async void start_button_click(object sender, EventArgs e)
         {
-            if (!this.simulatorIsInRunning && this.deviceHub != null)
+            if (this.deviceHub != null)
             {
-                this.simulatorIsInRunning = true;
                 Log.Ok("Start simulation!");
                 Console.WriteLine();
+
+                this.stopButton.Enabled = true;
+                this.startButton.Enabled = false;
 
                 this.simulationForm = new SimulationForm();
                 this.simulationForm.Text = "Simulation";
@@ -47,24 +64,24 @@
         // Stop button simulator
         private void stop_button_click(object sender, EventArgs e)
         {
-            if (this.simulatorIsInRunning)
-            {
-                this.simulatorIsInRunning = false;
-                Log.Ok("Stop simulation!");
-                Console.WriteLine();
+            Log.Ok("Stop simulation!");
+            Console.WriteLine();
 
-                this.simulationForm.Close();
-                this.tokenSource.Cancel();
-            }
-        }
+            this.stopButton.Enabled = false;
+            this.startButton.Enabled = true;
 
-        private void tableMain_Paint(object sender, PaintEventArgs e)
-        {
-
+            this.simulationForm.Close();
+            this.tokenSource.Cancel();
         }
 
         private async void devices_button_Click(object sender, EventArgs e)
         {
+
+            ErrorForm errorForm = new ErrorForm();
+            errorForm.Text = "Error";
+            errorForm.FormBorderStyle = FormBorderStyle.FixedDialog;
+            errorForm.setSext("Error null pointer");
+
             this.listbox_devices.Items.Clear();
 
             Log.Ok("Get all devices...");
@@ -77,9 +94,20 @@
 
         private async void listbox_devices_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Log.Ok("Click on: " + this.listbox_devices.SelectedItem.ToString());
-            string connection = await DeviceOperationsApi.GetStringConnection(this.listbox_devices.SelectedItem.ToString());
-            this.deviceHub = new Device(connection);
+            if (this.listbox_devices.Items.Count > 0)
+            {
+                Log.Ok("Click on: " + this.listbox_devices.SelectedItem.ToString());
+          
+                string connection = await DeviceOperationsApi.GetStringConnection(this.listbox_devices.SelectedItem.ToString());
+                this.deviceHub = new Device(connection);
+
+                this.startButton.Enabled = true;
+            }
+        }
+
+        private void DevicesTable_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

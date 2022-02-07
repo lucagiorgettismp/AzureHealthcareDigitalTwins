@@ -55,7 +55,6 @@
             this.TableMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 85.91549F));
             this.TableMain.Size = new System.Drawing.Size(442, 284);
             this.TableMain.TabIndex = 0;
-            this.TableMain.Paint += new System.Windows.Forms.PaintEventHandler(this.tableMain_Paint);
             // 
             // ButtonTable
             // 
@@ -110,6 +109,7 @@
             this.DevicesTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 188F));
             this.DevicesTable.Size = new System.Drawing.Size(436, 238);
             this.DevicesTable.TabIndex = 1;
+            this.DevicesTable.Paint += new System.Windows.Forms.PaintEventHandler(this.DevicesTable_Paint);
             // 
             // devices_button
             // 
@@ -142,6 +142,7 @@
             this.Controls.Add(this.TableMain);
             this.Name = "ControlPanelForm";
             this.Text = "Control Panel";
+            this.Load += new System.EventHandler(this.ControlPanelForm_Load);
             this.TableMain.ResumeLayout(false);
             this.ButtonTable.ResumeLayout(false);
             this.DevicesTable.ResumeLayout(false);

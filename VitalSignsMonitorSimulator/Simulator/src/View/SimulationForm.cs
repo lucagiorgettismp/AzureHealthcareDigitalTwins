@@ -13,27 +13,27 @@ namespace Simulator.src
         private Timer timerHour = new Timer();
         private DateTimePicker datePicker = new DateTimePicker();
 
-        Label labDate;
-        Label labHour;
+        private Label labDate;
+        private Label labHour;
 
-        Label labTemperature;
-        Label labSaturation;
-        Label labBloodPressure;
-        Label labHeartFrequency;
-        Label labBreathFrequency;
-        Label labBattery;
+        private Label labTemperature;
+        private Label labSaturation;
+        private Label labBloodPressure;
+        private Label labHeartFrequency;
+        private Label labBreathFrequency;
+        private Label labBattery;
 
-        TableLayoutPanel alarmHeartFrequency;
-        TableLayoutPanel alarmBreathFrequency;
-        TableLayoutPanel alarmBloodPressure;
-        TableLayoutPanel alarmSaturation;
-        TableLayoutPanel alarmTemperature;
-        TableLayoutPanel alarmBattery;
+        private TableLayoutPanel alarmHeartFrequency;
+        private TableLayoutPanel alarmBreathFrequency;
+        private TableLayoutPanel alarmBloodPressure;
+        private TableLayoutPanel alarmSaturation;
+        private TableLayoutPanel alarmTemperature;
+        private TableLayoutPanel alarmBattery;
 
-        Chart chartHeartFrequency;
-        Chart chartBreathFrequency;
-        Chart chartSaturation;
-        Chart chartBloodPressure;
+        private Chart chartHeartFrequency;
+        private Chart chartBreathFrequency;
+        private Chart chartSaturation;
+        private Chart chartBloodPressure;
 
         // Date and hour
         private const string ID_LABEL_DATE = "DateLabel";
