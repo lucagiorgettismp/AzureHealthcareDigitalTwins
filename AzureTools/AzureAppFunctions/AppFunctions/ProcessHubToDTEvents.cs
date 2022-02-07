@@ -5,7 +5,7 @@ namespace AppFunctions
     using Azure.Core.Pipeline;
     using Azure.DigitalTwins.Core;
     using Azure.Identity;
-    using Microsoft.Azure.EventGrid.Models;
+    using Azure.Messaging.EventGrid;
     using Microsoft.Azure.WebJobs;
     using Microsoft.Azure.WebJobs.Extensions.EventGrid;
     using Microsoft.Extensions.Logging;
@@ -47,10 +47,12 @@ namespace AppFunctions
 
                 switch (payload.Body.Mode)
                 {
+                    /*
                     case CrudMode.Create:
                         updateTwinData = BuildCraetePatchJson(payload.Body.Data);
                         await client.UpdateDigitalTwinAsync(deviceId, updateTwinData);
                         break;
+                    */
                     case CrudMode.Update:
                         updateTwinData = BuildUpdatePatchJson(payload.Body.Data);
                         await client.UpdateDigitalTwinAsync(deviceId, updateTwinData);
@@ -64,13 +66,14 @@ namespace AppFunctions
             }
         }
 
+        [Obsolete("Actually DT is initialized by backend client.")]
+
         private JsonPatchDocument BuildCraetePatchJson(Data data)
         {
             var updateTwinData = new JsonPatchDocument();
 
             updateTwinData.AppendAdd<double>("/temperature/value", data.Temperature.Value);
             updateTwinData.AppendAdd<bool>("/temperature/alarm", data.Temperature.Alarm);
-            updateTwinData.AppendAdd<string>("/temperature/unit", data.Temperature.Unit);
 
             updateTwinData.AppendAdd<int>("/battery/value", data.BatteryPower.Value);
             updateTwinData.AppendAdd<bool>("/battery/alarm", data.BatteryPower.Alarm);

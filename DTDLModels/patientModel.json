@@ -1,0 +1,72 @@
+{
+  "@id": "dtmi:healthCareDT:Patient;1",
+  "@type": "Interface",
+  "@context": "dtmi:dtdl:context;2",
+  "displayName": "Patient",
+  "contents": [
+    {
+      "@type": "Property",
+      "name": "name",
+      "displayName": "Name",
+      "schema": "string"
+    },
+    {
+      "@type": "Property",
+      "name": "surname",
+      "displayName": "Surname",
+      "schema": "string"
+    },
+    {
+      "@type": "Property",
+      "name": "age",
+      "displayName": "Age",
+      "schema": "integer"
+    },
+    {
+      "@type": "Property",
+      "name": "gender",
+      "displayName": "Gender",
+      "schema": "string"
+    },
+    {
+      "@type": "Property",
+      "name": "description",
+      "displayName": "Description",
+      "schema": "string"
+    },
+    {
+      "@type": [ "Property", "Mass" ],
+      "name": "weight",
+      "displayName": "Weight",
+      "unit": "kilogram",
+      "schema": "double"
+    },
+    {
+      "@type": [ "Property", "Length" ],
+      "name": "height",
+      "displayName": "Height",
+      "unit": "metre",
+      "schema": "double"
+    },
+    {
+      "@type": "Property",
+      "name": "bmi",
+      "displayName": "Body Mass Index",
+      "schema": {
+        "@type": "Object",
+        "fields": [
+          {
+            "name": "value",
+            "displayName": "Value",
+            "schema": "double"
+          },
+          {
+            "name": "unit",
+            "displayName": "Unit of measurement",
+            "schema": "string"
+          }
+        ]
+      }
+    }
+  ]
+}
