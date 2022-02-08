@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using Microsoft.AspNetCore.SignalR.Client;
@@ -12,17 +10,17 @@ public class SignalRConnector
 
     public async Task InitAsync()
     {
-        string host = "http://localhost:3000";
+        string host = "https://healthcareiothubtodt.azurewebsites.net/api";
 
-        connection = new HubConnectionBuilder().WithUrl(host).Build();
+        connection = new HubConnectionBuilder()
+            .WithUrl(host)
+            .Build();
+
         connection.On<Message>("newMessage", (message) =>
         {
-            OnMessageReceived?.Invoke(new Message
-            {
-              temperature_value = message.temperature_value,
-              temperature_alarm = message.temperature_alarm
-            });           
+            OnMessageReceived?.Invoke(message);
         });
+
         await StartConnectionAsync();
     }
 
@@ -34,7 +32,7 @@ public class SignalRConnector
         }
         catch (Exception ex)
         {
-            UnityEngine.Debug.LogError($"Error {ex.Message}");
+            Debug.LogError($"Error: {ex.Message}");
         }
     }
 }
