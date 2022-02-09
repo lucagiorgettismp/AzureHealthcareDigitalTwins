@@ -57,7 +57,7 @@ namespace AppFunctions
             });
 
 
-            log.LogInformation($"Message we are going to send: {message.ToString()}");
+            log.LogInformation($"Message: {string.Join(Environment.NewLine, message)}");
 
             return signalRMessages.AddAsync(
                 new SignalRMessage
