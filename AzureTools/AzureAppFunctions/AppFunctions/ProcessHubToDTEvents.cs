@@ -84,14 +84,17 @@ namespace AppFunctions
         {
             updateTwinData.AppendReplace<string>($"/{path}/sensor_name", sensor.SensorName);
             updateTwinData.AppendReplace<bool>($"/{path}/alarm", sensor.Alarm);
+            updateTwinData.AppendReplaceRaw($"/{path}/sensor_value", JsonConvert.SerializeObject(sensor.SensorValue));
 
-            updateTwinData = AppendValueProperties(updateTwinData, sensor.SensorValue, $"{path}/sensor_value");
+            //updateTwinData = AppendValueProperties(updateTwinData, sensor.SensorValue, $"{path}/sensor_value");
 
             return updateTwinData;
         }
 
+        /*
         private JsonPatchDocument AppendValueProperties(JsonPatchDocument updateTwinData, SensorValue sensorValue, string path)
         {
+            updateTwinData.AppendReplace
             updateTwinData.AppendReplace<string>($"{path}/unit", sensorValue.UnitOfMeasurement);
             updateTwinData.AppendReplace<string>($"{path}/type", sensorValue.Type);
             updateTwinData.AppendReplace<string>($"{path}/symbol", sensorValue.Symbol);
@@ -109,5 +112,6 @@ namespace AppFunctions
             }
             return updateTwinData;
         }
+        */
     }
 }
