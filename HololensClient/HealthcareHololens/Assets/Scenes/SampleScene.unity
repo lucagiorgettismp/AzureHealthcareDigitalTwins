@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -209,7 +209,6 @@ GameObject:
   m_Component:
   - component: {fileID: 312752969}
   - component: {fileID: 312752970}
-  - component: {fileID: 312752971}
   m_Layer: 0
   m_Name: VitalSignsMonitorModel
   m_TagString: Untagged
@@ -240,19 +239,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 312752968}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c0c73e791ee7444dab60f36e9167772, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &312752971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 312752968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dde00346bfeb3c54e9a03f00cf59a3b0, type: 3}
+  m_Script: {fileID: 11500000, guid: 39c63d5e3007b7a41b2ebc77498404a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &442840585
@@ -533,7 +520,6 @@ GameObject:
   m_Component:
   - component: {fileID: 576775823}
   - component: {fileID: 576775824}
-  - component: {fileID: 576775825}
   m_Layer: 0
   m_Name: VitalSignsMonitorController
   m_TagString: Untagged
@@ -564,19 +550,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 576775822}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 823e3f840295b1f439e28c80e66cbcdd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &576775825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 576775822}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd2cfdd97cbc25b4381eb22fbf236845, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e13a39ddb0dbb140abaf6ce5c634843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &705507993
@@ -1679,7 +1653,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1496898492}
   - component: {fileID: 1496898491}
-  - component: {fileID: 1496898493}
   m_Layer: 0
   m_Name: Application
   m_TagString: Untagged
@@ -1696,9 +1669,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1496898490}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7ffddd61ca64b14fb83a1cc12857d8c, type: 3}
+  m_Script: {fileID: 11500000, guid: e68fc7935a43aaa468ff19cbed48546f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Model: {fileID: 0}
+  View: {fileID: 0}
+  Controller: {fileID: 0}
 --- !u!4 &1496898492
 Transform:
   m_ObjectHideFlags: 0
@@ -1716,21 +1692,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1496898493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1496898490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5da65d276a35f74b8ba2098e4c51940, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Model: {fileID: 312752971}
-  View: {fileID: 2145438311}
-  Controller: {fileID: 576775825}
 --- !u!1 &2145438308
 GameObject:
   m_ObjectHideFlags: 0
@@ -1741,7 +1702,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2145438310}
   - component: {fileID: 2145438309}
-  - component: {fileID: 2145438311}
   m_Layer: 0
   m_Name: VitalSignsMonitorView
   m_TagString: Untagged
@@ -1758,9 +1718,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2145438308}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e58b490c6e3cdae45a0b2238e6259813, type: 3}
+  m_Script: {fileID: 11500000, guid: 2fe2fd9054d3ad1408707aaa20c614da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TemperatureValue: {fileID: 557327703}
+  SaturationValue: {fileID: 1492835306}
+  BloodPressureValue: {fileID: 442840587}
+  HeartFrequencyValue: {fileID: 758737179}
+  BreathFrequencyValue: {fileID: 710974109}
+  BatteryValue: {fileID: 879189445}
 --- !u!4 &2145438310
 Transform:
   m_ObjectHideFlags: 0
@@ -1776,21 +1742,3 @@ Transform:
   m_Father: {fileID: 1496898492}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2145438311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2145438308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a8209c48d0c0ba43a4375c04b8161cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TemperatureValue: {fileID: 1492835306}
-  SaturationValue: {fileID: 1492835306}
-  BloodPressureValue: {fileID: 442840587}
-  HeartFrequencyValue: {fileID: 758737179}
-  BreathFrequencyValue: {fileID: 710974109}
-  BatteryValue: {fileID: 879189445}
