@@ -2,12 +2,12 @@ using Newtonsoft.Json;
 namespace AppFunctions.Model.Payload
 {
 
-    public class Body
+    public class EventGridMessagePayloadBody
     {
         [JsonProperty("mode")]
         public CrudMode Mode { get; set; }
 
         [JsonProperty("data")]
-        public Data Data { get; set; }
+        public EventGridMessagePayloadData Data { get; set; }
     }
 }

@@ -1,14 +1,14 @@
-﻿namespace Simulator.Model.AzurePayloads
+namespace Simulator.Model.Payload
 {
     using Common.Enums;
     using Newtonsoft.Json;
 
-    public class VitalSignsMonitorPayload
+    public class EventGridMessagePayloadBody
     {
         [JsonProperty("mode")]
         public CrudMode Mode { get; set; }
 
         [JsonProperty("data")]
-        public VitalSignsMonitorPayloadData Data { get; set; }
+        public EventGridMessagePayloadData Data { get; set; }
     }
 }

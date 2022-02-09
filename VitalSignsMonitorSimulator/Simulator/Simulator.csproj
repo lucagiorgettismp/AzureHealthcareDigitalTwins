@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -289,14 +289,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\AzureApi\AuthenticationApi.cs" />
     <Compile Include="src\AzureApi\DeviceOperationsApi.cs" />
-    <Compile Include="src\Model\AzurePayloads\PatientPayload.cs" />
-    <Compile Include="src\Model\AzurePayloads\ViitalSignsMonitorPayload.cs" />
-    <Compile Include="src\Model\AzurePayloads\ViitalSignsMonitorPayloadParameter.cs" />
-    <Compile Include="src\Model\AzurePayloads\VitalSignsMonitorPayloadData.cs" />
     <Compile Include="src\Controller\Device.cs" />
+    <Compile Include="src\Controller\VitalSignsMonitorPayloadParameter.cs" />
     <Compile Include="src\Model\DeviceData.cs" />
     <Compile Include="src\Model\DeviceDataProperty.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="src\Model\Payload\EventGridMessagePayload.cs" />
+    <Compile Include="src\Model\Payload\EventGridMessagePayloadBody.cs" />
+    <Compile Include="src\Model\Payload\EventGridMessagePayloadData.cs" />
+    <Compile Include="src\Model\Payload\Sensor.cs" />
+    <Compile Include="src\Model\Payload\SensorValue.cs" />
     <Compile Include="src\View\SimulationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -349,7 +351,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="resources\heart.jpg" />
+    <Content Include="resources\heart.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

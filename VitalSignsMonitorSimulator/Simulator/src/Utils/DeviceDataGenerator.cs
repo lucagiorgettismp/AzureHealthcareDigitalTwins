@@ -9,9 +9,9 @@
 
         private const string CELSIUS = "Celsius";
         private const string PERCENTAGE = "Percentage";
-        private const string mmHg = "mmHg";
-        private const string BPM = "bpm";
-        private const string RPM = "rpm";
+        private const string mmHg = "Millimeters of mercury";
+        private const string RPM = "Revolutions per minute";
+        private const string BPM = "Beats per minute";
 
         public const int MIN_TEMPERATURE = 35;
         public const int MAX_TEMPERATURE = 45;
@@ -47,6 +47,9 @@
                     AlarmMaxThreashold = 37.2,
                     InAlarm = false,
                     UpdateDelta = 0.3,
+                    SensorName = "Temperature",
+                    Symbol = "°C",
+                    Type = "double"
                 },
                 BatteryPower = new DeviceDataProperty<Int32>
                 {
@@ -58,6 +61,9 @@
                     AlarmMaxThreashold = 100,
                     InAlarm = false,
                     UpdateDelta = 1,
+                    SensorName = "Battery",
+                    Symbol = "%",
+                    Type = "int"
                 },
                 BloodPressure = new DeviceDataProperty<Int32> {
                     UnitOfMeasurement = mmHg,
@@ -68,6 +74,9 @@
                     AlarmMaxThreashold = 140,
                     InAlarm = false,
                     UpdateDelta = 1,
+                    SensorName = "Blood pressure",
+                    Symbol = "mmHg",
+                    Type = "int"
                 },
 
                 BreathFrequency = new DeviceDataProperty<Int32>
@@ -80,6 +89,9 @@
                     AlarmMaxThreashold = 20,
                     InAlarm = false,
                     UpdateDelta = 1,
+                    SensorName = "Breath frequency",
+                    Symbol = "RPM",
+                    Type = "int"
                 },
                 HeartFrequency = new DeviceDataProperty<Int32>
                 {
@@ -91,6 +103,9 @@
                     AlarmMaxThreashold = 100,
                     InAlarm = false,
                     UpdateDelta = 1,
+                    SensorName = "Heart freqency",
+                    Symbol = "BPM",
+                    Type = "int"
                 },
                 Saturation = new DeviceDataProperty<Int32>
                 {
@@ -102,6 +117,9 @@
                     AlarmMaxThreashold = 100,
                     InAlarm = false,
                     UpdateDelta = 1,
+                    SensorName = "Saturation",
+                    Symbol = "%",
+                    Type = "int"
                 },
             };
         }
@@ -140,13 +158,13 @@
 
             return dataProperty;
         }
-        private DeviceDataProperty<int> GenerateIntValue(DeviceDataProperty<int> dataProperty, bool isBattery)
+        private DeviceDataProperty<int> GenerateIntValue(DeviceDataProperty<int> dataProperty, bool canIncrease)
         {
             var oldValue = dataProperty.Value;
             var delta = dataProperty.UpdateDelta;
             int maxValue = 2;
 
-            if (isBattery) maxValue = 1;
+            if (!canIncrease) maxValue = 1;
          
             var newValue = oldValue + this.random.Next(-1, maxValue) * delta;
 

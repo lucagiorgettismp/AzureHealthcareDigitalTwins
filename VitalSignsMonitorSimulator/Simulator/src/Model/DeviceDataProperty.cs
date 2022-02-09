@@ -7,6 +7,10 @@
         public bool InAlarm { get; set; }
         
         public string UnitOfMeasurement { get; set; }
+
+        public string Symbol { get; set; }
+
+        public string SensorName{ get; set; }
         
         public T MinValue { get; set; }
         
@@ -17,5 +21,7 @@
         public T AlarmMaxThreashold { get; set; }
         
         public T UpdateDelta { get; set; }
+
+        public string Type { get; set; }
     }
 }
