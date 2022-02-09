@@ -14,22 +14,22 @@ namespace Client.src.AzureApi.DTLDModels
         public VitalSignsMonitorMetadata Metadata { get; set; } = new VitalSignsMonitorMetadata();
 
         [JsonPropertyName("temperature")]
-        public TemperatureComponent Temperature { get; set; }
+        public SensorComponent Temperature { get; set; }
 
         [JsonPropertyName("blood_pressure")]
-        public BloodPressureComponent BloodPressure { get; set; }
+        public SensorComponent BloodPressure { get; set; }
 
         [JsonPropertyName("battery")]
-        public BatteryComponent Battery { get; set; }
+        public SensorComponent Battery { get; set; }
 
         [JsonPropertyName("heart_frequency")]
-        public HeartFrequencyComponent HeartFrequency { get; set; }
+        public SensorComponent HeartFrequency { get; set; }
 
         [JsonPropertyName("breath_frequency")]
-        public BreathFrequencyComponent BreathFrequency { get; set; }
+        public SensorComponent BreathFrequency { get; set; }
 
         [JsonPropertyName("saturation")]
-        public SaturationComponent Saturation { get; set; }
+        public SensorComponent Saturation { get; set; }
     }
     internal class VitalSignsMonitorMetadata
     {
