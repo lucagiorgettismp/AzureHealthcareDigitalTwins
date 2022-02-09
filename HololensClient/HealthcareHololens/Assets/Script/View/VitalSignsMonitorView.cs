@@ -15,15 +15,15 @@ public class VitalSignsMonitorView : VitalSignsMonitorElement
     {
         try
         {
-            TemperatureValue.text = "Temp: " + Math.Round(message.TemperatureValue, 1).ToString();
-            SaturationValue.text = "Sat: " + message.SaturationValue.ToString();
-            BloodPressureValue.text = "Blood: " + message.BloodPressureValue.ToString();
-            HeartFrequencyValue.text = "Heart: " + message.HeartFrequencyValue.ToString();
-            BreathFrequencyValue.text = "Breath: " + message.BreathFrequencyValue.ToString();
-            BatteryValue.text = "Battery: " + message.BatteryValue.ToString();
+            TemperatureValue.text = message.TemperatureSensorName + ": " + Math.Round(message.TemperatureSensorValue.Value, 1);
+            SaturationValue.text = message.SaturationSensorName + ": " + message.SaturationSensorValue.Value;
+            BloodPressureValue.text = message.BloodPressureSensorName + ": " + message.BloodPressureSensorValue.Value;
+            HeartFrequencyValue.text = message.HeartFrequencySensorName + ": " + message.HeartFrequencySensorValue.Value;
+            BreathFrequencyValue.text = message.BreathFrequencySensorName + ": " + message.BreathFrequencySensorValue.Value;
+            BatteryValue.text = message.BatterySensorName + ": " + message.BatterySensorValue.Value;
         }catch(Exception e)
         {
-            Debug.LogError("Error: "+e.Message);
+            Debug.LogError("Error: " + e.Message);
         }
     }
 }

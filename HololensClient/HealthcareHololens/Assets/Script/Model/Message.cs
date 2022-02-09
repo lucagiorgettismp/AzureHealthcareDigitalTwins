@@ -2,39 +2,62 @@ using Newtonsoft.Json;
 
 public class Message
 {
-    [JsonProperty("temperature_value")]
-    public double TemperatureValue { get; set; }
+    [JsonProperty("temperature_sensor_name")]
+    public string TemperatureSensorName { get; set; }
 
     [JsonProperty("temperature_alarm")]
-    public bool TemperatureAlarm { get; set; }
+    public bool TemperatureSensorAlarm { get; set; }
 
-    [JsonProperty("battery_value")]
-    public int BatteryValue { get; set; }
+    [JsonProperty("temperature_sensor_value")]
+    public SensorValue TemperatureSensorValue { get; set; }
 
-    [JsonProperty("battery_alarm")]
-    public bool BatteryAlarm { get; set; }
 
-    [JsonProperty("saturation_value")]
-    public int SaturationValue { get; set; }
-
-    [JsonProperty("saturation_alarm")]
-    public bool SaturationAlarm { get; set; }
-
-    [JsonProperty("heart_frequency_value")]
-    public int HeartFrequencyValue { get; set; }
-
-    [JsonProperty("heart_frequency_alarm")]
-    public bool HeartFrequencyAlarm { get; set; }
-
-    [JsonProperty("blood_pressure_value")]
-    public int BloodPressureValue { get; set; }
+    [JsonProperty("blood_pressure_sensor_name")]
+    public string BloodPressureSensorName { get; set; }
 
     [JsonProperty("blood_pressure_alarm")]
-    public bool BloodPressureAlarm { get; set; }
+    public bool BloodPressureSensorAlarm { get; set; }
+
+    [JsonProperty("blood_pressure_sensor_value")]
+    public SensorValue BloodPressureSensorValue { get; set; }
+
+
+    [JsonProperty("battery_sensor_name")]
+    public string BatterySensorName { get; set; }
+
+    [JsonProperty("battery_alarm")]
+    public bool BatterySensorAlarm { get; set; }
+
+    [JsonProperty("battery_sensor_value")]
+    public SensorValue BatterySensorValue { get; set; }  
+
+    
+    [JsonProperty("heart_frequency_sensor_name")]
+    public string HeartFrequencySensorName { get; set; }
+
+    [JsonProperty("heart_frequency_alarm")]
+    public bool HeartFrequencySensorAlarm { get; set; }
+
+    [JsonProperty("heart_frequency_sensor_value")]
+    public SensorValue HeartFrequencySensorValue { get; set; } 
+
+    
+    [JsonProperty("breath_frequency_sensor_name")]
+    public string BreathFrequencySensorName { get; set; }
 
     [JsonProperty("breath_frequency_alarm")]
-    public bool BreathFrequencyAlarm { get; set; }
+    public bool BreathFrequencySensorAlarm { get; set; }
 
-    [JsonProperty("breath_frequency_value")]
-    public int BreathFrequencyValue { get; set; }
+    [JsonProperty("breath_frequency_sensor_value")]
+    public SensorValue BreathFrequencySensorValue { get; set; }
+
+
+    [JsonProperty("saturation_sensor_name")]
+    public string SaturationSensorName { get; set; }
+
+    [JsonProperty("saturation_alarm")]
+    public bool SaturationSensorAlarm { get; set; }
+
+    [JsonProperty("saturation_sensor_value")]
+    public SensorValue SaturationSensorValue { get; set; }
 }
