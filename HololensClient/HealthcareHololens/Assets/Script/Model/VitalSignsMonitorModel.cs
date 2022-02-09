@@ -9,8 +9,6 @@ public class VitalSignsMonitorModel : VitalSignsMonitorElement
     {
         try
         {
-            Debug.Log("Hello " + gameObject);
-
             connector = new SignalRConnector(new Callback(App.Controller));
             await connector.InitAsync();
         }catch(Exception e)
