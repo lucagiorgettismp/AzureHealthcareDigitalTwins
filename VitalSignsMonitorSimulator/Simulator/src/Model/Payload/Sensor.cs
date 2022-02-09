@@ -14,4 +14,3 @@ namespace Simulator.Model.Payload
         public SensorValue<T> SensorValue { get; set; }
     }
 }
-}
