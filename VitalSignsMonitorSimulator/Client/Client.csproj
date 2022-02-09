@@ -255,14 +255,10 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\AzureApi\AuthenticationApi.cs" />
-    <Compile Include="src\AzureApi\DTLDModels\BatteryComponent.cs" />
-    <Compile Include="src\AzureApi\DTLDModels\BloodPressureComponent.cs" />
+    <Compile Include="src\AzureApi\DTLDModels\SensorValueComponent.cs" />
     <Compile Include="src\AzureApi\DTLDModels\BodyMassIndexComponent.cs" />
-    <Compile Include="src\AzureApi\DTLDModels\BreathFrequencyComponent.cs" />
-    <Compile Include="src\AzureApi\DTLDModels\HeartComponent.cs" />
     <Compile Include="src\AzureApi\DTLDModels\PatientTwin.cs" />
-    <Compile Include="src\AzureApi\DTLDModels\SaturationComponent.cs" />
-    <Compile Include="src\AzureApi\DTLDModels\TemperatureComponent.cs" />
+    <Compile Include="src\AzureApi\DTLDModels\SensorComponent.cs" />
     <Compile Include="src\AzureApi\DTLDModels\VitalSignsMonitor.cs" />
     <Compile Include="src\Models\PatientModel.cs" />
     <Compile Include="src\AzureApi\TwinOperationsApi.cs" />
@@ -305,7 +301,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="appsettings.json">
+    <None Include="src\AzureApi\appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

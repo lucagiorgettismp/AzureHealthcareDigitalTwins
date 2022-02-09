@@ -11,6 +11,6 @@ namespace AppFunctions.Model.Payload
         public SystemProperties SystemProperties { get; set; }
 
         [JsonProperty("body")]
-        public Body Body { get; set; }
+        public EventGridMessagePayloadBody Body { get; set; }
     }
 }

@@ -123,59 +123,15 @@
             {
                 string monitorId = id;
 
-                // Components
-                var temperatureComponent = new TemperatureComponent
-                {
-                    Value = 0,
-                    Alarm = false
-                };
-
-
-                var bloodPressureComponent = new BloodPressureComponent
-                {
-                    Value = 0,
-                    Alarm = false,
-                    Unit = UNIT_BLOOD_PRESSURE
-                };
-
-
-                var breathFrequencyComponent = new BreathFrequencyComponent
-                { 
-                    Value = 0,
-                    Alarm = false,
-                    Unit = UNIT_BREATH_FREQUENCY
-                };
-
-                var heartFrequencyComponent = new HeartFrequencyComponent
-                {
-                    Value = 0,
-                    Alarm = false,
-                    Unit = UNIT_HEART_FREQUENCY
-                };
-
-                var saturationComponent = new SaturationComponent
-                {
-                    Value = 0,
-                    Alarm = false,
-                    Unit = PERCENTAGE
-                };
-
-                var batteryComponent = new BatteryComponent
-                {
-                    Value = 0,
-                    Alarm = false,
-                    Unit = PERCENTAGE
-                };
-
                 var monitorTwin = new VitalSignsMonitor
                 {
                     Metadata = { ModelId = "dtmi:healthCareDT:VitalParametersMonitor;1" },
-                    Temperature = temperatureComponent,
-                    BloodPressure = bloodPressureComponent,
-                    Battery = batteryComponent,
-                    HeartFrequency = heartFrequencyComponent,
-                    BreathFrequency = breathFrequencyComponent,
-                    Saturation = saturationComponent
+                    Temperature = GetEmptySensorComponent(),
+                    BloodPressure = GetEmptySensorComponent(),
+                    Battery = GetEmptySensorComponent(),
+                    HeartFrequency = GetEmptySensorComponent(),
+                    BreathFrequency = GetEmptySensorComponent(),
+                    Saturation = GetEmptySensorComponent()
                 };
 
                 await client.CreateOrReplaceDigitalTwinAsync(monitorId, monitorTwin);
@@ -185,6 +141,22 @@
             {
                 Log.Error($"Create monitor twin error: {e.Status}: {e.Message}");
             }
+        }
+
+        private SensorComponent GetEmptySensorComponent()
+        {
+            return new SensorComponent
+            {
+                SensorName = "",
+                Alarm = false,
+                SensorValue = new SensorValueComponent
+                {
+                    Value = 0,
+                    Symbol = "",
+                    Type = "",
+                    Unit = ""
+                }
+            };
         }
 
         public async Task CreateRelationship(DigitalTwinsClient client, string srcId, string targetId, string nameRel) {

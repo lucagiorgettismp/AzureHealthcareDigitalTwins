@@ -13,6 +13,7 @@ namespace AppFunctions
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
     using System.Threading.Tasks;
 
     public class SignalRFunction
@@ -39,30 +40,24 @@ namespace AppFunctions
 
             payload.Data.Patch.ForEach(p =>
             {
-                var chunks = p.Path.Split("/");
-                message.Add($"{chunks[1]}_{chunks[2]}", p.Value);
-                /*
-                switch (p.Path)
+                var builder = new StringBuilder();
+
+                var chunks = p.Path.Split("/").ToList();
+
+                chunks.RemoveAt(0);
+                builder.Append(chunks[0]);
+                chunks.RemoveAt(0);
+
+                foreach (string chunk in chunks)
                 {
-                    case "/temperature/value":
-                    case "/temperature/alarm":
-                    case "/battery/value":
-                    case "/battery/alarm":
-                    case "/saturation/value":
-                    case "/saturation/alarm":
-                    case "/heart_frequency/value":
-                    case "/heart_frequency/alarm":
-                    case "/breath_frequency/value":
-                    case "/breath_frequency/alarm":
-                    case "/blood_pressure/value":
-                    case "/blood_pressure/alarm":
-                    default:
+                    builder.Append($"_{chunk}");
                 }
-                */
+
+                message.Add(builder.ToString(), p.Value);              
             });
 
 
-            log.LogInformation($"Message we are going to send: {message.ToString()}");
+            log.LogInformation($"Message: {string.Join(Environment.NewLine, message)}");
 
             return signalRMessages.AddAsync(
                 new SignalRMessage

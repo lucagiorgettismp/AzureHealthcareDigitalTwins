@@ -66,61 +66,52 @@ namespace AppFunctions
             }
         }
 
-        [Obsolete("Actually DT is initialized by backend client.")]
-
-        private JsonPatchDocument BuildCraetePatchJson(Data data)
+        private JsonPatchDocument BuildUpdatePatchJson(EventGridMessagePayloadData data)
         {
             var updateTwinData = new JsonPatchDocument();
 
-            updateTwinData.AppendAdd<double>("/temperature/value", data.Temperature.Value);
-            updateTwinData.AppendAdd<bool>("/temperature/alarm", data.Temperature.Alarm);
-
-            updateTwinData.AppendAdd<int>("/battery/value", data.BatteryPower.Value);
-            updateTwinData.AppendAdd<bool>("/battery/alarm", data.BatteryPower.Alarm);
-            updateTwinData.AppendAdd<string>("/battery/unit", data.BatteryPower.Unit);
-
-            updateTwinData.AppendAdd<int>("/saturation/value", data.Saturation.Value);
-            updateTwinData.AppendAdd<bool>("/saturation/alarm", data.Saturation.Alarm);
-            updateTwinData.AppendAdd<string>("/saturation/unit", data.Saturation.Unit);
-
-            updateTwinData.AppendAdd<int>("/heart_frequency/value", data.HeartFrequency.Value);
-            updateTwinData.AppendAdd<bool>("/heart_frequency/alarm", data.HeartFrequency.Alarm);
-            updateTwinData.AppendAdd<string>("/heart_frequency/unit", data.HeartFrequency.Unit);
-
-            updateTwinData.AppendAdd<int>("/breath_frequency/value", data.BreathFrequency.Value);
-            updateTwinData.AppendAdd<bool>("/breath_frequency/alarm", data.BreathFrequency.Alarm);
-            updateTwinData.AppendAdd<string>("/breath_frequency/unit", data.BreathFrequency.Unit);
-
-            updateTwinData.AppendAdd<int>("/blood_pressure/value", data.BloodPressure.Value);
-            updateTwinData.AppendAdd<bool>("/blood_pressure/alarm", data.BloodPressure.Alarm);
-            updateTwinData.AppendAdd<string>("/blood_pressure/unit", data.BloodPressure.Unit);
+            updateTwinData = AppendProperties(updateTwinData, data.Temperature, "temperature");
+            updateTwinData = AppendProperties(updateTwinData, data.BatteryPower, "battery");
+            updateTwinData = AppendProperties(updateTwinData, data.Saturation, "saturation");
+            updateTwinData = AppendProperties(updateTwinData, data.HeartFrequency, "heart_frequency");
+            updateTwinData = AppendProperties(updateTwinData, data.BreathFrequency, "breath_frequency");
+            updateTwinData = AppendProperties(updateTwinData, data.BloodPressure, "blood_pressure");
 
             return updateTwinData;
         }
 
-        private JsonPatchDocument BuildUpdatePatchJson(Data data)
+        private JsonPatchDocument AppendProperties(JsonPatchDocument updateTwinData, Sensor sensor, string path)
         {
-            var updateTwinData = new JsonPatchDocument();
+            updateTwinData.AppendReplace<string>($"/{path}/sensor_name", sensor.SensorName);
+            updateTwinData.AppendReplace<bool>($"/{path}/alarm", sensor.Alarm);
+            updateTwinData.AppendReplaceRaw($"/{path}/sensor_value", JsonConvert.SerializeObject(sensor.SensorValue));
 
-            updateTwinData.AppendReplace<double>("/temperature/value", data.Temperature.Value);
-            updateTwinData.AppendReplace<bool>("/temperature/alarm", data.Temperature.Alarm);
-
-            updateTwinData.AppendReplace<int>("/battery/value", data.BatteryPower.Value);
-            updateTwinData.AppendReplace<bool>("/battery/alarm", data.BatteryPower.Alarm);
-
-            updateTwinData.AppendReplace<int>("/saturation/value", data.Saturation.Value);
-            updateTwinData.AppendReplace<bool>("/saturation/alarm", data.Saturation.Alarm);
-
-            updateTwinData.AppendReplace<int>("/heart_frequency/value", data.HeartFrequency.Value);
-            updateTwinData.AppendReplace<bool>("/heart_frequency/alarm", data.HeartFrequency.Alarm);
-
-            updateTwinData.AppendReplace<int>("/breath_frequency/value", data.BreathFrequency.Value);
-            updateTwinData.AppendReplace<bool>("/breath_frequency/alarm", data.BreathFrequency.Alarm);
-
-            updateTwinData.AppendReplace<int>("/blood_pressure/value", data.BloodPressure.Value);
-            updateTwinData.AppendReplace<bool>("/blood_pressure/alarm", data.BloodPressure.Alarm);
+            //updateTwinData = AppendValueProperties(updateTwinData, sensor.SensorValue, $"{path}/sensor_value");
 
             return updateTwinData;
         }
+
+        /*
+        private JsonPatchDocument AppendValueProperties(JsonPatchDocument updateTwinData, SensorValue sensorValue, string path)
+        {
+            updateTwinData.AppendReplace
+            updateTwinData.AppendReplace<string>($"{path}/unit", sensorValue.UnitOfMeasurement);
+            updateTwinData.AppendReplace<string>($"{path}/type", sensorValue.Type);
+            updateTwinData.AppendReplace<string>($"{path}/symbol", sensorValue.Symbol);
+
+            switch (sensorValue.Type)
+            {
+                case "int":
+                    updateTwinData.AppendReplace<int>($"{path}/value", (int)sensorValue.Value);
+                    break;
+                case "double":
+                    updateTwinData.AppendReplace<double>($"{path}/value", sensorValue.Value);
+                    break;
+                default:
+                    throw new UnsupportedValueTypeException();
+            }
+            return updateTwinData;
+        }
+        */
     }
 }

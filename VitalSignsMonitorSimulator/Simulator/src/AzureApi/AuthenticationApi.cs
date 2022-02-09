@@ -4,14 +4,11 @@
     using System.IO;
     using Common.Utils;
     using Microsoft.Azure.Devices;
-    using Microsoft.Azure.Devices.Client;
     using Microsoft.Extensions.Configuration;
 
     class AuthenticationApi
     {
         const string HOST = "host";
-        const string DEVICE_ID = "deviceId";
-        const string SHARED_ACCESS_KEY = "sharedAccesKey";
         const string IOTHUB = "connectionIoTHub";
         private static IConfiguration ReadConfig()
         {
