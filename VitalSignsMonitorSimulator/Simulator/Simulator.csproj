@@ -294,7 +294,6 @@
     <Compile Include="src\Model\DeviceData.cs" />
     <Compile Include="src\Model\DeviceDataProperty.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="src\Model\Payload\EventGridMessagePayload.cs" />
     <Compile Include="src\Model\Payload\EventGridMessagePayloadBody.cs" />
     <Compile Include="src\Model\Payload\EventGridMessagePayloadData.cs" />
     <Compile Include="src\Model\Payload\Sensor.cs" />
