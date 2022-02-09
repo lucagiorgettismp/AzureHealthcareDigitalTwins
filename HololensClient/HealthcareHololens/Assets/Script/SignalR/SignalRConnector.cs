@@ -5,8 +5,13 @@ using Microsoft.AspNetCore.SignalR.Client;
 
 public class SignalRConnector
 {
-    public Action<Message> OnMessageReceived;
     private HubConnection connection;
+    private Callback callback;
+
+    public SignalRConnector(Callback callback)
+    {
+        this.callback = callback;
+    }
 
     public async Task InitAsync()
     {
@@ -18,7 +23,7 @@ public class SignalRConnector
 
         connection.On<Message>("newMessage", (message) =>
         {
-            OnMessageReceived?.Invoke(message);
+            this.callback.OnMessageReceived(message);
         });
 
         await StartConnectionAsync();

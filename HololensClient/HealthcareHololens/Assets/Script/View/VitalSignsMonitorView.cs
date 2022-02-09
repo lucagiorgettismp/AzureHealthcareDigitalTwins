@@ -15,7 +15,7 @@ public class VitalSignsMonitorView : VitalSignsMonitorElement
         try
         {
             Debug.Log("Update text view");
-            TemperatureValue.text = Math.Round(message.temperature_value, 2).ToString();
+            TemperatureValue.text = Math.Round(message.TemperatureValue, 1).ToString();
         }catch(Exception e)
         {
             Debug.LogError("Error: "+e.Message);

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class VitalSignsMonitorElement : MonoBehaviour
 {
-    public Application app { get { return GameObject.FindObjectOfType<Application>(); } }
+    public Application App { get { return GameObject.FindObjectOfType<Application>(); } }
 }
 
 public class Application : MonoBehaviour
@@ -12,13 +12,5 @@ public class Application : MonoBehaviour
     public VitalSignsMonitorController Controller;
 
     void Start()
-    {
-        //Debug.Log("Hello " + gameObject.name);
-
-        //Controller = new VitalSignsMonitorController();
-        //View = new VitalSignsMonitorView();
-
-        //Model = new VitalSignsMonitorModel();
-        //Model.Start();
-    }
+    {}
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class VitalSignsMonitorModel : VitalSignsMonitorElement
@@ -6,8 +7,34 @@ public class VitalSignsMonitorModel : VitalSignsMonitorElement
 
     public async void Start()
     {
-        connector = new SignalRConnector();
-        connector.OnMessageReceived += app.Controller.OnDataReceived;
-        await connector.InitAsync();
+        try
+        {
+            Debug.Log("Hello " + gameObject);
+
+            connector = new SignalRConnector(new Callback(App.Controller));
+            await connector.InitAsync();
+        }catch(Exception e)
+        {
+            Debug.LogError("Error model: "+ e.Message);
+        }
+    }
+}
+
+public interface ICallback {
+    public void OnMessageReceived(Message message);  
+}
+
+public class Callback : ICallback
+{
+    VitalSignsMonitorController controller;
+    public Callback(VitalSignsMonitorController controller)
+    {
+        this.controller = controller;
+    }
+
+    public void OnMessageReceived(Message message)
+    {
+
+        this.controller.OnDataReceived(message);
     }
 }
