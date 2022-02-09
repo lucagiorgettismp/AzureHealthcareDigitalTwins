@@ -2,8 +2,8 @@ using Newtonsoft.Json;
 
 public class Message
 {
-    //[JsonProperty("temperature_value")]
-    public double temperature_value { get; set; }
+    [JsonProperty("temperature_value")]
+    public double TemperatureValue { get; set; }
 
     [JsonProperty("temperature_alarm")]
     public bool TemperatureAlarm { get; set; }

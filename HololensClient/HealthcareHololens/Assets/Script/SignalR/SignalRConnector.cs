@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.DependencyInjection;
 
 public class SignalRConnector
 {
@@ -19,6 +20,7 @@ public class SignalRConnector
 
         connection = new HubConnectionBuilder()
             .WithUrl(host)
+            .AddNewtonsoftJsonProtocol()
             .Build();
 
         connection.On<Message>("newMessage", (message) =>
