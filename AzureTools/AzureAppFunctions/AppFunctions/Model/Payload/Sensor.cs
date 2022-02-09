@@ -14,4 +14,3 @@ namespace AppFunctions.Model.Payload
         public SensorValue SensorValue { get; set; }
     }
 }
-}
