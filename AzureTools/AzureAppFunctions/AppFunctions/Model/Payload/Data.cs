@@ -5,22 +5,22 @@ namespace AppFunctions.Model.Payload
     public class Data
     {
         [JsonProperty("temperature")]
-        public Temperature Temperature { get; set; }
+        public Sensor Temperature { get; set; }
 
         [JsonProperty("blood_pressure")]
-        public BloodPressure BloodPressure { get; set; }
+        public Sensor BloodPressure { get; set; }
 
         [JsonProperty("saturation")]
-        public Saturation Saturation { get; set; }
+        public Sensor Saturation { get; set; }
 
         [JsonProperty("breath_frequency")]
-        public BreathFrequency BreathFrequency { get; set; }
+        public Sensor BreathFrequency { get; set; }
 
         [JsonProperty("heart_frequency")]
-        public HeartFrequency HeartFrequency { get; set; }
+        public Sensor HeartFrequency { get; set; }
 
         [JsonProperty("battery_power")]
-        public BatteryPower BatteryPower { get; set; }
+        public Sensor BatteryPower { get; set; }
     }
 
 }
