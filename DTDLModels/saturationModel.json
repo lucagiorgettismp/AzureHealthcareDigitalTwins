@@ -3,19 +3,5 @@
   "@type": "Interface",
   "@context": "dtmi:dtdl:context;2",
   "displayName": "Saturation Sensor",
-  "extends": "dtmi:healthCareDT:BaseParamContent;1",
-  "contents": [
-    {
-      "@type": "Property",
-      "name": "value",
-      "displayName": "Value",
-      "schema": "double"
-    },
-    {
-      "@type": "Property",
-      "name": "unit",
-      "displayName": "Unit of measurement",
-      "schema": "string"
-    }
-  ]
+  "extends": "dtmi:healthCareDT:BaseParamContent;1"
 }
