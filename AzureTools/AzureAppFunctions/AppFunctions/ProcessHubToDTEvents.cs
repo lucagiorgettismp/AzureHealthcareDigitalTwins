@@ -66,7 +66,7 @@ namespace AppFunctions
             }
         }
 
-        private JsonPatchDocument BuildUpdatePatchJson(Data data)
+        private JsonPatchDocument BuildUpdatePatchJson(EventGridMessagePayloadData data)
         {
             var updateTwinData = new JsonPatchDocument();
 
