@@ -7,7 +7,7 @@
     {
         private DeviceData deviceData;
 
-        // Sensor name
+        /* Sensor name */
         private const string TEMPERATURE = "Temperature";
         private const string BLOOD_PRESSURE = "Blood Pressure";
         private const string SATURATION = "Saturation";
@@ -15,7 +15,7 @@
         private const string BREATH_FREQUENCY = "Breath Frequency";
         private const string BATTERY = "Battery";
 
-        // Unit of measurement
+        /* Unit of measurement */
         private const string UNIT_CELSIUS = "Celsius";
         private const string UNIT_PERCENTAGE = "Percentage";
         private const string UNIT_BLOOD_PRESSURE = "Millimeters of mercury";
@@ -33,37 +33,37 @@
 
         // Sensor range and threshold
 
-        /** Temperature **/
+        /* Temperature */
         public const double MIN_TEMPERATURE = 35;
         public const double MAX_TEMPERATURE = 45;
         public const double ALARM_MIN_TEMPERATURE = 36.4;
         public const double ALARM_MAX_TEMPERATURE = 37.2;
 
-        /** Saturation **/
+        /* Saturation */
         public const int MIN_SATURATION = 60;
         public const int MAX_SATURATION = 100;
         public const int ALARM_MIN_SATURATION = 95;
         public const int ALARM_MAX_SATURATION = 100;
 
-        /** Heart Frequency **/
+        /* Heart Frequency */
         public const int MIN_HEART = 40;
         public const int MAX_HEART = 140;
         public const int ALARM_MIN_HEART = 60;
         public const int ALARM_MAX_HEART = 100;
 
-        /** Breath frequency **/
+        /* Breath frequency */
         public const int MIN_BREATH = 6;
         public const int MAX_BREATH = 30;
         public const int ALARM_MIN_BREATH = 12;
         public const int ALARM_MAX_BREATH = 20;
 
-        /** Blood Pressure **/
+        /* Blood Pressure */
         public const int MIN_BLOOD_PRESSURE = 60;
         public const int MAX_BLOOD_PRESSURE = 160;
         public const int ALARM_MIN_BLOOD_PRESSURE = 90;
         public const int ALARM_MAX_BLOOD_PRESSURE = 140;
 
-        /** Battery **/
+        /* Battery */
         public const int MIN_BATTERY = 0;
         public const int MAX_BATTERY = 100;
         public const int ALARM_MIN_BATTERY = 20;
