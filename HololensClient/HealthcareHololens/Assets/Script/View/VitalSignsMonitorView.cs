@@ -112,9 +112,16 @@ public class VitalSignsMonitorView : VitalSignsMonitorElement
 
     private void UpdateLineCharts(Message message)
     {
-        this.HeartFrequencyDataDiagram.InputPoint(this.HeartLine, new Vector2(1, (float) message.HeartFrequencySensorValue.Value));
-        this.BreathFrequencyDataDiagram.InputPoint(this.BreathLine, new Vector2(1, (float) message.BreathFrequencySensorValue.Value));
-        this.SaturationDataDiagram.InputPoint(this.SaturationLine, new Vector2(1, (float) message.SaturationSensorValue.Value));
-        this.BloodPressureDataDiagram.InputPoint(this.BloodPressureLine, new Vector2(1, (float) message.BloodPressureSensorValue.Value));
+        try
+        {
+            this.HeartFrequencyDataDiagram.InputPoint(this.HeartLine, new Vector2(1, 0));
+            this.BreathFrequencyDataDiagram.InputPoint(this.BreathLine, new Vector2(1, (float)message.BreathFrequencySensorValue.Value));
+            this.SaturationDataDiagram.InputPoint(this.SaturationLine, new Vector2(1, (float)message.SaturationSensorValue.Value));
+            this.BloodPressureDataDiagram.InputPoint(this.BloodPressureLine, new Vector2(1, (float)message.BloodPressureSensorValue.Value));
+
+        }catch(Exception e)
+        {
+            Debug.LogError("Error update charts: " + e.Message);
+        }
     }
 }
