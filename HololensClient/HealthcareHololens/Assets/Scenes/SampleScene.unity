@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 11604412}
   - component: {fileID: 11604411}
   m_Layer: 0
-  m_Name: SaturationUnitTMP
+  m_Name: SaturationSymbolTMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -153,7 +153,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 568479661}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1129,7 +1129,7 @@ GameObject:
   - component: {fileID: 236756030}
   - component: {fileID: 236756029}
   m_Layer: 0
-  m_Name: HeartFrequencyUnitTMP
+  m_Name: HeartFrequencySymbolTMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1328,7 +1328,9 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1375036835}
+  - {fileID: 1496898492}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1441,7 +1443,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 963194228}
-  - {fileID: 1375036835}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1540,7 +1541,7 @@ GameObject:
   - component: {fileID: 418283177}
   - component: {fileID: 418283176}
   m_Layer: 0
-  m_Name: BloodPressureNameTMP
+  m_Name: BloodPressureSensorNameTMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1558,11 +1559,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 799231752}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.01, y: -0.015}
+  m_AnchoredPosition: {x: -0.03, y: -0.015}
   m_SizeDelta: {x: 0.005, y: 0.005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &418283176
@@ -1585,7 +1586,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Blood pressure:'
+  m_text: Blood pressure
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1844,7 +1845,7 @@ GameObject:
   - component: {fileID: 454200222}
   - component: {fileID: 454200221}
   m_Layer: 0
-  m_Name: BloodPressureUnitTMP
+  m_Name: BloodPressureSymbolTMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1862,7 +1863,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 568479661}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2059,7 +2060,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 6
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2639,7 +2640,7 @@ GameObject:
   - component: {fileID: 558490435}
   - component: {fileID: 558490434}
   m_Layer: 0
-  m_Name: BreathFrequencyNameTMP
+  m_Name: BreathFrequencySensorNameTMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2661,7 +2662,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.01, y: 0.015}
+  m_AnchoredPosition: {x: -0.03, y: 0.015}
   m_SizeDelta: {x: 0.005, y: 0.005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &558490434
@@ -2684,7 +2685,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Breath frequency:'
+  m_text: Breath frequency
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2808,7 +2809,7 @@ GameObject:
   - component: {fileID: 568479661}
   - component: {fileID: 568479662}
   m_Layer: 0
-  m_Name: ColumnUnita
+  m_Name: SymbolColumn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2827,8 +2828,8 @@ Transform:
   m_Children:
   - {fileID: 236756028}
   - {fileID: 1179359716}
-  - {fileID: 454200220}
   - {fileID: 11604410}
+  - {fileID: 454200220}
   m_Father: {fileID: 385391197}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3610,7 +3611,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1489809288}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3637,7 +3638,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 67
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3954,10 +3955,10 @@ Transform:
   m_GameObject: {fileID: 685174392}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.044999998, z: 0}
-  m_LocalScale: {x: 0.005, y: 0.02, z: 0.002}
+  m_LocalScale: {x: 0.005, y: 0.02, z: 0.001}
   m_Children: []
   m_Father: {fileID: 1274563794}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &685174394
 MonoBehaviour:
@@ -3990,7 +3991,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 12c70bb04aa0cbb45a01ce47b8bb1848, type: 2}
+  - {fileID: 2100000, guid: d4cb4d0e46423ae44b891aaa42a3465c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5143,7 +5144,7 @@ Transform:
   m_GameObject: {fileID: 788816790}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.015, z: 0}
-  m_LocalScale: {x: 0.005, y: 0.02, z: 0.002}
+  m_LocalScale: {x: 0.005, y: 0.02, z: 0.001}
   m_Children: []
   m_Father: {fileID: 1274563794}
   m_RootOrder: 1
@@ -5179,7 +5180,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 12c70bb04aa0cbb45a01ce47b8bb1848, type: 2}
+  - {fileID: 2100000, guid: d4cb4d0e46423ae44b891aaa42a3465c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5246,7 +5247,7 @@ RectTransform:
   - {fileID: 758737178}
   - {fileID: 879189444}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5356,7 +5357,7 @@ GameObject:
   - component: {fileID: 799231752}
   - component: {fileID: 799231753}
   m_Layer: 0
-  m_Name: ColumnMisure
+  m_Name: SensorNameColumn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5375,8 +5376,8 @@ Transform:
   m_Children:
   - {fileID: 1972221770}
   - {fileID: 558490433}
-  - {fileID: 418283175}
   - {fileID: 1020949106}
+  - {fileID: 418283175}
   m_Father: {fileID: 385391197}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5417,7 +5418,7 @@ MonoBehaviour:
   sortType: 0
   surfaceType: 1
   orientType: 0
-  layout: 1
+  layout: 0
   anchor: 5
   anchorAlongAxis: 0
   columnAlignment: 0
@@ -6036,7 +6037,7 @@ Transform:
   m_GameObject: {fileID: 908045877}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.044999998, z: 0}
-  m_LocalScale: {x: 0.005, y: 0.02, z: 0.002}
+  m_LocalScale: {x: 0.005, y: 0.02, z: 0.001}
   m_Children: []
   m_Father: {fileID: 1274563794}
   m_RootOrder: 0
@@ -6072,7 +6073,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 12c70bb04aa0cbb45a01ce47b8bb1848, type: 2}
+  - {fileID: 2100000, guid: d4cb4d0e46423ae44b891aaa42a3465c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6612,7 +6613,7 @@ GameObject:
   - component: {fileID: 1020949108}
   - component: {fileID: 1020949107}
   m_Layer: 0
-  m_Name: SaturationNameTMP
+  m_Name: SaturationSensorNameTMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6630,11 +6631,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 799231752}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.01, y: -0.044999998}
+  m_AnchoredPosition: {x: -0.03, y: -0.044999998}
   m_SizeDelta: {x: 0.005, y: 0.005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1020949107
@@ -6657,7 +6658,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Saturation:'
+  m_text: Saturation
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7848,7 +7849,7 @@ GameObject:
   - component: {fileID: 1179359718}
   - component: {fileID: 1179359717}
   m_Layer: 0
-  m_Name: BreathFrequencyUnitTMP
+  m_Name: BreathFrequencySymbolTMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8590,7 +8591,7 @@ GameObject:
   - component: {fileID: 1274563794}
   - component: {fileID: 1274563795}
   m_Layer: 0
-  m_Name: ColumnAllerta
+  m_Name: AlertColumn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8609,8 +8610,8 @@ Transform:
   m_Children:
   - {fileID: 908045878}
   - {fileID: 788816791}
-  - {fileID: 1432338971}
   - {fileID: 685174393}
+  - {fileID: 1432338971}
   m_Father: {fileID: 385391197}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8882,7 +8883,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1489809288}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8909,7 +8910,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 82
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9111,7 +9112,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 44
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9400,7 +9401,7 @@ GameObject:
   - component: {fileID: 1375036832}
   - component: {fileID: 1375036831}
   m_Layer: 0
-  m_Name: NearMenu4x2(Clone)
+  m_Name: VitalSignsMonitorView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9586,8 +9587,8 @@ Transform:
   - {fileID: 794153153}
   - {fileID: 385391197}
   - {fileID: 946133712}
-  m_Father: {fileID: 286488242}
-  m_RootOrder: 1
+  m_Father: {fileID: 257456634}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1412533812
 GameObject:
@@ -9711,10 +9712,10 @@ Transform:
   m_GameObject: {fileID: 1432338970}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.015, z: 0}
-  m_LocalScale: {x: 0.005, y: 0.02, z: 0.002}
+  m_LocalScale: {x: 0.005, y: 0.02, z: 0.001}
   m_Children: []
   m_Father: {fileID: 1274563794}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1432338972
 MonoBehaviour:
@@ -9747,7 +9748,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 12c70bb04aa0cbb45a01ce47b8bb1848, type: 2}
+  - {fileID: 2100000, guid: d4cb4d0e46423ae44b891aaa42a3465c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10328,7 +10329,7 @@ GameObject:
   - component: {fileID: 1489809288}
   - component: {fileID: 1489809289}
   m_Layer: 0
-  m_Name: ColumnValori
+  m_Name: ValueColumn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10347,8 +10348,8 @@ Transform:
   m_Children:
   - {fileID: 1307143938}
   - {fileID: 459805569}
-  - {fileID: 1286571700}
   - {fileID: 642513406}
+  - {fileID: 1286571700}
   m_Father: {fileID: 385391197}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10565,6 +10566,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5da65d276a35f74b8ba2098e4c51940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Model: {fileID: 312752971}
+  View: {fileID: 2145438311}
+  Controller: {fileID: 576775825}
 --- !u!4 &1496898492
 Transform:
   m_ObjectHideFlags: 0
@@ -10572,15 +10576,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1496898490}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -20.867147, y: 15.028839, z: 54.238617}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2145438310}
   - {fileID: 576775823}
   - {fileID: 312752969}
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 257456634}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1508359909
 GameObject:
@@ -11389,7 +11393,7 @@ GameObject:
   - component: {fileID: 1777000717}
   - component: {fileID: 1777000718}
   m_Layer: 0
-  m_Name: ColumnGrafici
+  m_Name: GraphColumn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13181,7 +13185,7 @@ GameObject:
   - component: {fileID: 1972221772}
   - component: {fileID: 1972221771}
   m_Layer: 0
-  m_Name: HeartFrequencyNameTMP
+  m_Name: HeartFrequencySensorNameTMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13203,7 +13207,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.01, y: 0.044999998}
+  m_AnchoredPosition: {x: -0.03, y: 0.044999998}
   m_SizeDelta: {x: 0.005, y: 0.005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1972221771
@@ -13226,7 +13230,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Heart frequency:'
+  m_text: Heart freqency
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -14287,3 +14291,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a8209c48d0c0ba43a4375c04b8161cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TemperatureValue: {fileID: 0}
+  SaturationValue: {fileID: 642513407}
+  BloodPressureValue: {fileID: 1286571701}
+  HeartFrequencyValue: {fileID: 1307143939}
+  BreathFrequencyValue: {fileID: 459805570}
+  BatteryValue: {fileID: 0}
+  TemperatureSensorName: {fileID: 0}
+  SaturationSensorName: {fileID: 1020949107}
+  BloodPressureSensorName: {fileID: 418283176}
+  HeartFrequencySensorName: {fileID: 1972221771}
+  BreathFrequencySensorName: {fileID: 558490434}
+  BatterySensorName: {fileID: 0}
+  TemperatureSymbol: {fileID: 0}
+  SaturationSymbol: {fileID: 11604411}
+  BloodPressureSymbol: {fileID: 454200221}
+  HeartFrequencySymbol: {fileID: 236756029}
+  BreathFrequencySymbol: {fileID: 1179359717}
+  BatterySymbol: {fileID: 0}
+  TemperatureAlert: {fileID: 0}
+  SaturationAlert: {fileID: 685174392}
+  BloodPressureAlert: {fileID: 1432338970}
+  HeartFrequencyAlert: {fileID: 908045877}
+  BreathFrequencyAlert: {fileID: 788816790}
+  BatteryAlert: {fileID: 0}
