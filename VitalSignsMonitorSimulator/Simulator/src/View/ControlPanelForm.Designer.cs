@@ -80,7 +80,7 @@
             this.stop_button.TabIndex = 0;
             this.stop_button.Text = "Stop";
             this.stop_button.UseVisualStyleBackColor = true;
-            this.stop_button.Click += new System.EventHandler(this.stop_button_click);
+            this.stop_button.Click += new System.EventHandler(this.StopButtonClick);
             // 
             // start_button
             // 
@@ -91,7 +91,7 @@
             this.start_button.TabIndex = 1;
             this.start_button.Text = "Start";
             this.start_button.UseVisualStyleBackColor = true;
-            this.start_button.Click += new System.EventHandler(this.start_button_click);
+            this.start_button.Click += new System.EventHandler(this.StartButtonClick);
             // 
             // DevicesTable
             // 
@@ -109,7 +109,6 @@
             this.DevicesTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 188F));
             this.DevicesTable.Size = new System.Drawing.Size(436, 238);
             this.DevicesTable.TabIndex = 1;
-            this.DevicesTable.Paint += new System.Windows.Forms.PaintEventHandler(this.DevicesTable_Paint);
             // 
             // devices_button
             // 
@@ -120,7 +119,7 @@
             this.devices_button.TabIndex = 0;
             this.devices_button.Text = "Devices";
             this.devices_button.UseVisualStyleBackColor = true;
-            this.devices_button.Click += new System.EventHandler(this.devices_button_Click);
+            this.devices_button.Click += new System.EventHandler(this.DevicesButtonClick);
             // 
             // listbox_devices
             // 
@@ -132,7 +131,7 @@
             this.listbox_devices.Name = "listbox_devices";
             this.listbox_devices.Size = new System.Drawing.Size(430, 183);
             this.listbox_devices.TabIndex = 1;
-            this.listbox_devices.SelectedIndexChanged += new System.EventHandler(this.listbox_devices_SelectedIndexChanged);
+            this.listbox_devices.SelectedIndexChanged += new System.EventHandler(this.SelectedIndexDevices);
             // 
             // ControlPanelForm
             // 
@@ -142,7 +141,7 @@
             this.Controls.Add(this.TableMain);
             this.Name = "ControlPanelForm";
             this.Text = "Control Panel";
-            this.Load += new System.EventHandler(this.ControlPanelForm_Load);
+            this.Load += new System.EventHandler(this.ControlPanelFormLoad);
             this.TableMain.ResumeLayout(false);
             this.ButtonTable.ResumeLayout(false);
             this.DevicesTable.ResumeLayout(false);

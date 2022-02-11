@@ -7,31 +7,69 @@
     {
         private DeviceData deviceData;
 
-        private const string CELSIUS = "Celsius";
-        private const string PERCENTAGE = "Percentage";
-        private const string mmHg = "Millimeters of mercury";
-        private const string RPM = "Revolutions per minute";
-        private const string BPM = "Beats per minute";
+        // Sensor name
+        private const string TEMPERATURE = "Temperature";
+        private const string BLOOD_PRESSURE = "Blood Pressure";
+        private const string SATURATION = "Saturation";
+        private const string HEART_FREQUENCY = "Heart Frequency";
+        private const string BREATH_FREQUENCY = "Breath Frequency";
+        private const string BATTERY = "Battery";
 
-        public const int MIN_TEMPERATURE = 35;
-        public const int MAX_TEMPERATURE = 45;
+        // Unit of measurement
+        private const string UNIT_CELSIUS = "Celsius";
+        private const string UNIT_PERCENTAGE = "Percentage";
+        private const string UNIT_BLOOD_PRESSURE = "Millimeters of mercury";
+        private const string UNIT_BREATH_FREQUENCY = "Revolutions per minute";
+        private const string UNIT_HEART_FREQUENCY = "Beats per minute";
 
+        private const string SYMBOL_TEMPERATURE = "°C";
+        private const string SYMBOL_PERCENTAGE = "%";
+        private const string SYMBOL_BLOOD_PRESSURE = "mmHg";
+        private const string SYMBOL_HEART_FREQUENCY = "bpm";
+        private const string SYMBOL_BREATH_FREQUENCY = "rpm";
+
+        private const string TYPE_INT = "int";
+        private const string TYPE_DOUBLE = "double";
+
+        // Sensor range and threshold
+
+        /** Temperature **/
+        public const double MIN_TEMPERATURE = 35;
+        public const double MAX_TEMPERATURE = 45;
+        public const double ALARM_MIN_TEMPERATURE = 36.4;
+        public const double ALARM_MAX_TEMPERATURE = 37.2;
+
+        /** Saturation **/
         public const int MIN_SATURATION = 60;
         public const int MAX_SATURATION = 100;
+        public const int ALARM_MIN_SATURATION = 95;
+        public const int ALARM_MAX_SATURATION = 100;
 
+        /** Heart Frequency **/
         public const int MIN_HEART = 40;
         public const int MAX_HEART = 140;
+        public const int ALARM_MIN_HEART = 60;
+        public const int ALARM_MAX_HEART = 100;
 
+        /** Breath frequency **/
         public const int MIN_BREATH = 6;
         public const int MAX_BREATH = 30;
+        public const int ALARM_MIN_BREATH = 12;
+        public const int ALARM_MAX_BREATH = 20;
 
+        /** Blood Pressure **/
         public const int MIN_BLOOD_PRESSURE = 60;
         public const int MAX_BLOOD_PRESSURE = 160;
+        public const int ALARM_MIN_BLOOD_PRESSURE = 90;
+        public const int ALARM_MAX_BLOOD_PRESSURE = 140;
 
+        /** Battery **/
         public const int MIN_BATTERY = 0;
         public const int MAX_BATTERY = 100;
+        public const int ALARM_MIN_BATTERY = 20;
+        public const int ALARM_MAX_BATTERY = 100;
 
-        private Random random = new Random();
+        private readonly Random random = new Random();
 
         public DeviceDataGenerator()
         {
@@ -39,87 +77,87 @@
             {
                 Temperature = new DeviceDataProperty<Double>
                 {
-                    UnitOfMeasurement = CELSIUS,
+                    UnitOfMeasurement = UNIT_CELSIUS,
                     MinValue = MIN_TEMPERATURE,
                     MaxValue = MAX_TEMPERATURE,
                     Value = 36.6,
-                    AlarmMinThreashold = 36.4,
-                    AlarmMaxThreashold = 37.2,
+                    AlarmMinThreashold = ALARM_MIN_TEMPERATURE,
+                    AlarmMaxThreashold = ALARM_MAX_TEMPERATURE,
                     InAlarm = false,
                     UpdateDelta = 0.3,
-                    SensorName = "Temperature",
-                    Symbol = "°C",
-                    Type = "double"
+                    SensorName = TEMPERATURE,
+                    Symbol = SYMBOL_TEMPERATURE,
+                    Type = TYPE_DOUBLE
                 },
                 BatteryPower = new DeviceDataProperty<Int32>
                 {
-                    UnitOfMeasurement = PERCENTAGE,
+                    UnitOfMeasurement = UNIT_PERCENTAGE,
                     MinValue = MIN_BATTERY,
                     MaxValue = MAX_BATTERY,
                     Value = 100,
-                    AlarmMinThreashold = 20,
-                    AlarmMaxThreashold = 100,
+                    AlarmMinThreashold = ALARM_MIN_BATTERY,
+                    AlarmMaxThreashold = ALARM_MAX_BATTERY,
                     InAlarm = false,
                     UpdateDelta = 1,
-                    SensorName = "Battery",
-                    Symbol = "%",
-                    Type = "int"
+                    SensorName = BATTERY,
+                    Symbol = SYMBOL_PERCENTAGE,
+                    Type = TYPE_INT
                 },
                 BloodPressure = new DeviceDataProperty<Int32> {
-                    UnitOfMeasurement = mmHg,
+                    UnitOfMeasurement = UNIT_BLOOD_PRESSURE,
                     MinValue = MIN_BLOOD_PRESSURE,
                     MaxValue = MAX_BLOOD_PRESSURE,
                     Value = 115,
-                    AlarmMinThreashold = 90,
-                    AlarmMaxThreashold = 140,
+                    AlarmMinThreashold = ALARM_MIN_BLOOD_PRESSURE,
+                    AlarmMaxThreashold = ALARM_MAX_BLOOD_PRESSURE,
                     InAlarm = false,
                     UpdateDelta = 1,
-                    SensorName = "Blood pressure",
-                    Symbol = "mmHg",
-                    Type = "int"
+                    SensorName = BLOOD_PRESSURE,
+                    Symbol = SYMBOL_BLOOD_PRESSURE,
+                    Type = TYPE_INT
                 },
 
                 BreathFrequency = new DeviceDataProperty<Int32>
                 {
-                    UnitOfMeasurement = RPM,
+                    UnitOfMeasurement = UNIT_BREATH_FREQUENCY,
                     MinValue = MIN_BREATH,
                     MaxValue = MAX_BREATH,
                     Value = 14,
-                    AlarmMinThreashold = 12,
-                    AlarmMaxThreashold = 20,
+                    AlarmMinThreashold = ALARM_MIN_BREATH,
+                    AlarmMaxThreashold = ALARM_MAX_BREATH,
                     InAlarm = false,
                     UpdateDelta = 1,
-                    SensorName = "Breath frequency",
-                    Symbol = "RPM",
-                    Type = "int"
+                    SensorName = BREATH_FREQUENCY,
+                    Symbol = SYMBOL_BREATH_FREQUENCY,
+                    Type = TYPE_INT
                 },
                 HeartFrequency = new DeviceDataProperty<Int32>
                 {
-                    UnitOfMeasurement = BPM,
+                    UnitOfMeasurement = UNIT_HEART_FREQUENCY,
                     MinValue = MIN_HEART,
                     MaxValue = MAX_HEART,
                     Value = 80,
-                    AlarmMinThreashold = 60,
-                    AlarmMaxThreashold = 100,
+                    AlarmMinThreashold = ALARM_MIN_HEART,
+                    AlarmMaxThreashold = ALARM_MAX_HEART,
                     InAlarm = false,
                     UpdateDelta = 1,
-                    SensorName = "Heart freqency",
-                    Symbol = "BPM",
-                    Type = "int"
+                    SensorName = HEART_FREQUENCY,
+                    Symbol = SYMBOL_HEART_FREQUENCY,
+                    Type = TYPE_INT
                 },
                 Saturation = new DeviceDataProperty<Int32>
                 {
-                    UnitOfMeasurement = PERCENTAGE,
+                    UnitOfMeasurement = UNIT_PERCENTAGE,
                     MinValue = MIN_SATURATION,
                     MaxValue = MAX_SATURATION,
                     Value = 98,
-                    AlarmMinThreashold = 95,
-                    AlarmMaxThreashold = 100,
+                    AlarmMinThreashold = ALARM_MIN_SATURATION,
+                    AlarmMaxThreashold = ALARM_MAX_SATURATION,
                     InAlarm = false,
                     UpdateDelta = 1,
-                    SensorName = "Saturation",
-                    Symbol = "%",
-                    Type = "int"
+                    SensorName = SATURATION,
+                    Symbol = SYMBOL_PERCENTAGE,
+                    Type = TYPE_INT
                 },
             };
         }

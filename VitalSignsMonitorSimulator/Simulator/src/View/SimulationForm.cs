@@ -61,20 +61,20 @@ namespace Simulator.src
         private const string ID_CHART_SATURATION = "SaturationChart";
         private const string ID_CHART_BLOOD_PRESSURE = "BloodPressureChart";
 
-        int maxPointsInGraph;
+        int MaxPointsInGraph;
 
         public SimulationForm(int maxPointsInGraph = 20)
         {
             InitializeComponent();
 
             timerHour.Interval = 1000;
-            timerHour.Tick += new EventHandler(timer_Tick);
+            timerHour.Tick += new EventHandler(TimerTick);
             timerHour.Start();
 
-            this.maxPointsInGraph = maxPointsInGraph;
+            this.MaxPointsInGraph = maxPointsInGraph;
         }
 
-        private void SimulationForm_Load(object sender, EventArgs e)
+        private void SimulationFormLoad(object sender, EventArgs e)
         {
             // Hour and date
             this.labDate = this.Controls.Find(ID_LABEL_DATE, true).FirstOrDefault() as Label;
@@ -122,13 +122,13 @@ namespace Simulator.src
             chartAreaBloodPressure.AxisY.Maximum = DeviceDataGenerator.MAX_BLOOD_PRESSURE;
         }
 
-        private void timer_Tick(object sender, EventArgs e)
+        private void TimerTick(object sender, EventArgs e)
         {
             this.labHour.Text = datePicker.Value.ToShortDateString();
             this.labDate.Text = DateTime.Now.ToLongTimeString();
         }
 
-        public void updateValues(DeviceData data)
+        public void UpdateValues(DeviceData data)
         {
             // Labels
             this.labTemperature.Text = Math.Round(data.Temperature.Value, 1).ToString();
@@ -166,7 +166,7 @@ namespace Simulator.src
             this.chartBloodPressure.Series[position].Points.AddXY(position, Convert.ToInt32(data.BloodPressure.Value));
 
             int numItems = this.chartBloodPressure.Series[0].Points.Count();
-            if(numItems == this.maxPointsInGraph)
+            if(numItems == this.MaxPointsInGraph)
             {
                 // Remove first point
                 this.chartHeartFrequency.Series[position].Points.RemoveAt(position);

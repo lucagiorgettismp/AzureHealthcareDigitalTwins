@@ -10,6 +10,7 @@
     {
         const string HOST = "host";
         const string IOTHUB = "connectionIoTHub";
+        const string SETTING_FILE = "appsettings.json";
         private static IConfiguration ReadConfig()
         {
             IConfiguration config = null;
@@ -18,7 +19,7 @@
             {
                 // Read configuration data from the 
                 config = new ConfigurationBuilder()
-                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false)
+                    .AddJsonFile(SETTING_FILE, optional: false, reloadOnChange: false)
                     .Build();
             }
             catch (Exception ex) when (ex is FileNotFoundException || ex is UriFormatException)

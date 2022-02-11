@@ -817,7 +817,7 @@ namespace Simulator.src
             this.Controls.Add(this.MainTable);
             this.Name = "SimulationForm";
             this.Text = "SimulationForm";
-            this.Load += new System.EventHandler(this.SimulationForm_Load);
+            this.Load += new System.EventHandler(this.SimulationFormLoad);
             this.MainTable.ResumeLayout(false);
             this.MainTable.PerformLayout();
             this.TableDateHour.ResumeLayout(false);

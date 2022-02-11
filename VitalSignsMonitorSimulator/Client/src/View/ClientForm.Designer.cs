@@ -52,7 +52,6 @@ namespace Client.View
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 85.623F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(508, 313);
             this.tableLayoutPanel1.TabIndex = 0;
-            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
             // create_patient_button
             // 
@@ -65,7 +64,7 @@ namespace Client.View
             this.create_patient_button.TabIndex = 1;
             this.create_patient_button.Text = "Add Patient";
             this.create_patient_button.UseVisualStyleBackColor = true;
-            this.create_patient_button.Click += new System.EventHandler(this.create_button_Click);
+            this.create_patient_button.Click += new System.EventHandler(this.CreateButtonClick);
             // 
             // get_twins_button
             // 
@@ -77,7 +76,7 @@ namespace Client.View
             this.get_twins_button.TabIndex = 3;
             this.get_twins_button.Text = "Get Twins";
             this.get_twins_button.UseVisualStyleBackColor = true;
-            this.get_twins_button.Click += new System.EventHandler(this.get_twins_button_Click);
+            this.get_twins_button.Click += new System.EventHandler(this.GetTwinsButtonClick);
             // 
             // patients_twins_collections
             // 
@@ -88,7 +87,7 @@ namespace Client.View
             this.patients_twins_collections.Name = "patients_twins_collections";
             this.patients_twins_collections.Size = new System.Drawing.Size(120, 319);
             this.patients_twins_collections.TabIndex = 1;
-            this.patients_twins_collections.SelectedIndexChanged += new System.EventHandler(this.patients_twins_collections_SelectedIndexChanged);
+            this.patients_twins_collections.SelectedIndexChanged += new System.EventHandler(this.SelectedIndexPatients);
             // 
             // ClientForm
             // 

@@ -81,7 +81,7 @@ namespace Common
             this.ButtonConfirmation.TabIndex = 0;
             this.ButtonConfirmation.Text = "OK";
             this.ButtonConfirmation.UseVisualStyleBackColor = true;
-            this.ButtonConfirmation.Click += new System.EventHandler(this.ButtonConfirmation_Click);
+            this.ButtonConfirmation.Click += new System.EventHandler(this.ButtonConfirmationClick);
             // 
             // TableTextError
             // 
