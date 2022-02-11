@@ -6,17 +6,17 @@ namespace Common.View
 {
     public partial class SuccessForm : Form
     {
-        private const string ID_LABEL = "LabelTextError";
+        private const string ID_LABEL = "LabelTextSuccess";
 
         public SuccessForm()
         {
             InitializeComponent();
         }
 
-        public void SetSext(string textError)
+        public void SetSext(string text)
         {
-            Label errorLabel = this.Controls.Find(ID_LABEL, true).FirstOrDefault() as Label;
-            errorLabel.Text = textError;
+            Label successLabel = this.Controls.Find(ID_LABEL, true).FirstOrDefault() as Label;
+            successLabel.Text = text;
             this.Show();
         }
 
