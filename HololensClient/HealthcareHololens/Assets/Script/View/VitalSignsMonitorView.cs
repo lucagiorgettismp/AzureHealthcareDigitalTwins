@@ -42,7 +42,6 @@ public class VitalSignsMonitorView : VitalSignsMonitorElement
     public GameObject SaturationDiagram;
     public GameObject BloodPressureDiagram;
 
-    /* Line Chart*/
     private DD_DataDiagram HeartFrequencyDataDiagram;
     private DD_DataDiagram BreathFrequencyDataDiagram;
     private DD_DataDiagram SaturationDataDiagram;
