@@ -64,7 +64,7 @@ public class VitalSignsMonitorView : VitalSignsMonitorElement
         this.SaturationValue        = GameObject.Find("SaturationValue").GetComponent<TextMeshPro>();
         this.HeartFrequencyValue    = GameObject.Find("HeartFrequencyValue").GetComponent<TextMeshPro>();
         this.BloodPressureValue     = GameObject.Find("BloodPressureValue").GetComponent<TextMeshPro>();
-        //this.TemperatureValue     = GameObject.Find("TemperatureValue").GetComponent<TextMeshPro>();
+        this.TemperatureValue       = GameObject.Find("TemperatureValue").GetComponent<TextMeshPro>();
         //this.BatteryValue         = GameObject.Find("BatteryValue").GetComponent<TextMeshPro>();
 
 
@@ -74,7 +74,7 @@ public class VitalSignsMonitorView : VitalSignsMonitorElement
         this.SaturationSymbol       = GameObject.Find("SaturationSymbol").GetComponent<TextMeshPro>();
         this.HeartFrequencySymbol   = GameObject.Find("HeartFrequencySymbol").GetComponent<TextMeshPro>();
         this.BloodPressureSymbol    = GameObject.Find("BloodPressureSymbol").GetComponent<TextMeshPro>();
-        //this.TemperatureSymbol    = GameObject.Find("TemperatureSymbol").GetComponent<TextMeshPro>();
+        this.TemperatureSymbol      = GameObject.Find("TemperatureSymbol").GetComponent<TextMeshPro>();
         //this.BatterySymbol        = GameObject.Find("BatterySymbol").GetComponent<TextMeshPro>();
 
         /* Sensor name components */
@@ -83,16 +83,15 @@ public class VitalSignsMonitorView : VitalSignsMonitorElement
         this.SaturationSensorName       = GameObject.Find("SaturationSensorName").GetComponent<TextMeshPro>();
         this.HeartFrequencySensorName   = GameObject.Find("HeartFrequencySensorName").GetComponent<TextMeshPro>();
         this.BloodPressureSensorName    = GameObject.Find("BloodPressureSensorName").GetComponent<TextMeshPro>();
-        //this.TemperatureSensorName    = GameObject.Find("TemperatureSensorName").GetComponent<TextMeshPro>();
+        this.TemperatureSensorName      = GameObject.Find("TemperatureSensorName").GetComponent<TextMeshPro>();
         //this.BatterySensorName        = GameObject.Find("BatterySensorName").GetComponent<TextMeshPro>();
 
         /* Alert components */
         this.HeartFrequencyAlert    = GameObject.Find("HeartFrequencyAlert");
         this.BreathFrequencyAlert   = GameObject.Find("BreathFrequencyAlert");
         this.SaturationAlert        = GameObject.Find("SaturationAlert");
-        this.HeartFrequencyAlert    = GameObject.Find("HeartFrequencyAlert");
         this.BloodPressureAlert     = GameObject.Find("BloodPressureAlert");
-        //this.TemperatureAlert     = GameObject.Find("TemperatureAlert");
+        this.TemperatureAlert       = GameObject.Find("TemperatureAlert");
         //this.BatteryAlert         = GameObject.Find("BatteryAlert");
 
         Material whiteColor = Resources.Load(WHITE_COLOR, typeof(Material)) as Material;
@@ -100,6 +99,8 @@ public class VitalSignsMonitorView : VitalSignsMonitorElement
         this.BloodPressureAlert.GetComponent<Renderer>().material = whiteColor;
         this.HeartFrequencyAlert.GetComponent<Renderer>().material = whiteColor;
         this.BreathFrequencyAlert.GetComponent<Renderer>().material = whiteColor;
+        this.TemperatureAlert.GetComponent<Renderer>().material = whiteColor;
+        //this.BatteryAlert.GetComponent<Renderer>().material = whiteColor;
 
         /* Line chart components */
 
@@ -130,7 +131,7 @@ public class VitalSignsMonitorView : VitalSignsMonitorElement
     }
 
     private void UpdateSensorSymbols(Message message) {
-        //this.TemperatureSymbol.text   = message.TemperatureSensorValue.Symbol;
+        this.TemperatureSymbol.text     = message.TemperatureSensorValue.Symbol;
         this.SaturationSymbol.text      = message.SaturationSensorValue.Symbol;
         this.BloodPressureSymbol.text   = message.BloodPressureSensorValue.Symbol;
         this.HeartFrequencySymbol.text  = message.HeartFrequencySensorValue.Symbol;
@@ -139,7 +140,7 @@ public class VitalSignsMonitorView : VitalSignsMonitorElement
     }
 
     private void UpdateSensorValues(Message message) {
-        //this.TemperatureValue.text    = Math.Round(message.TemperatureSensorValue.Value, 1).ToString();
+        this.TemperatureValue.text      = Math.Round(message.TemperatureSensorValue.Value, 1).ToString();
         this.SaturationValue.text       =  message.SaturationSensorValue.Value.ToString();
         this.BloodPressureValue.text    = message.BloodPressureSensorValue.Value.ToString();
         this.HeartFrequencyValue.text   = message.HeartFrequencySensorValue.Value.ToString();
@@ -149,7 +150,7 @@ public class VitalSignsMonitorView : VitalSignsMonitorElement
 
     private void UpdateSensorNames(Message message)
     {
-        //this.TemperatureSensorName.text   = message.TemperatureSensorName;
+        this.TemperatureSensorName.text     = message.TemperatureSensorName;
         this.SaturationSensorName.text      = message.SaturationSensorName;
         this.BloodPressureSensorName.text   = message.BloodPressureSensorName;
         this.HeartFrequencySensorName.text  = message.HeartFrequencySensorName;
@@ -161,7 +162,7 @@ public class VitalSignsMonitorView : VitalSignsMonitorElement
         Material redColor = Resources.Load(RED_COLOR, typeof(Material)) as Material;
         Material whiteColor = Resources.Load(WHITE_COLOR, typeof(Material)) as Material;
 
-        //this.TemperatureAlert.GetComponent<Renderer>().material   = message.TemperatureSensorAlarm ? redColor : whiteColor;
+        this.TemperatureAlert.GetComponent<Renderer>().material     = message.TemperatureSensorAlarm ? redColor : whiteColor;
         this.SaturationAlert.GetComponent<Renderer>().material      = message.SaturationSensorAlarm ? redColor : whiteColor;
         this.BloodPressureAlert.GetComponent<Renderer>().material   = message.BloodPressureSensorAlarm ? redColor : whiteColor;
         this.HeartFrequencyAlert.GetComponent<Renderer>().material  = message.HeartFrequencySensorAlarm ? redColor : whiteColor;
