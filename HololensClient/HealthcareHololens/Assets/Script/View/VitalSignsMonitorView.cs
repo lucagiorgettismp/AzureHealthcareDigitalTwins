@@ -37,10 +37,16 @@ public class VitalSignsMonitorView : VitalSignsMonitorElement
     public GameObject BatteryAlert;
 
     /* Line Chart*/
-    public DD_DataDiagram HeartFrequencyDataDiagram;
-    public DD_DataDiagram BreathFrequencyDataDiagram;
-    public DD_DataDiagram SaturationDataDiagram;
-    public DD_DataDiagram BloodPressureDataDiagram;
+    public GameObject HeartFrequencyDiagram;
+    public GameObject BreathFrequencyDiagram;
+    public GameObject SaturationDiagram;
+    public GameObject BloodPressureDiagram;
+
+    /* Line Chart*/
+    private DD_DataDiagram HeartFrequencyDataDiagram;
+    private DD_DataDiagram BreathFrequencyDataDiagram;
+    private DD_DataDiagram SaturationDataDiagram;
+    private DD_DataDiagram BloodPressureDataDiagram;
 
     private GameObject HeartLine;
     private GameObject BreathLine;
@@ -49,6 +55,11 @@ public class VitalSignsMonitorView : VitalSignsMonitorElement
 
     public void Start()
     {
+        HeartFrequencyDataDiagram = HeartFrequencyDiagram.GetComponent<DD_DataDiagram>();
+        BreathFrequencyDataDiagram = BreathFrequencyDiagram.GetComponent<DD_DataDiagram>();
+        SaturationDataDiagram = SaturationDiagram.GetComponent<DD_DataDiagram>();
+        BloodPressureDataDiagram = BloodPressureDiagram.GetComponent<DD_DataDiagram>();
+    
         this.HeartLine = this.HeartFrequencyDataDiagram.AddLine("HeartFrequency", Color.green);
         this.BreathLine = this.BreathFrequencyDataDiagram.AddLine("BreathFrequency", Color.green);
         this.SaturationLine = this.SaturationDataDiagram.AddLine("Saturation", Color.red);
@@ -114,12 +125,12 @@ public class VitalSignsMonitorView : VitalSignsMonitorElement
     {
         try
         {
-            this.HeartFrequencyDataDiagram.InputPoint(this.HeartLine, new Vector2(1, 0));
+            this.HeartFrequencyDataDiagram.InputPoint(this.HeartLine, new Vector2(1, (float)message.HeartFrequencySensorValue.Value));
             this.BreathFrequencyDataDiagram.InputPoint(this.BreathLine, new Vector2(1, (float)message.BreathFrequencySensorValue.Value));
             this.SaturationDataDiagram.InputPoint(this.SaturationLine, new Vector2(1, (float)message.SaturationSensorValue.Value));
             this.BloodPressureDataDiagram.InputPoint(this.BloodPressureLine, new Vector2(1, (float)message.BloodPressureSensorValue.Value));
-
-        }catch(Exception e)
+        }
+        catch (Exception e)
         {
             Debug.LogError("Error update charts: " + e.Message);
         }
