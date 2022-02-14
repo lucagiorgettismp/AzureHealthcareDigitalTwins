@@ -4,6 +4,10 @@ using System;
 
 public class VitalSignsMonitorView : VitalSignsMonitorElement
 {
+    /* Datetime */
+    private TextMeshPro Date;
+    private TextMeshPro Hour;
+
     /* Value */
     private TextMeshPro TemperatureValue;
     private TextMeshPro SaturationValue;
@@ -56,8 +60,19 @@ public class VitalSignsMonitorView : VitalSignsMonitorElement
         InitializedComponent();
     }
 
+    public void Update()
+    {   
+        var dateTime = DateTime.Now;
+        this.Hour.text = dateTime.ToShortDateString();
+        this.Date.text = dateTime.ToLongTimeString();
+    }
+
     private void InitializedComponent()
     {
+        /* Datetime components */
+        this.Date = GameObject.Find("Date").GetComponent<TextMeshPro>();
+        this.Hour = GameObject.Find("Hour").GetComponent<TextMeshPro>();
+
         /* Value components */
         this.HeartFrequencyValue    = GameObject.Find("HeartFrequencyValue").GetComponent<TextMeshPro>();
         this.BreathFrequencyValue   = GameObject.Find("BreathFrequencyValue").GetComponent<TextMeshPro>();
