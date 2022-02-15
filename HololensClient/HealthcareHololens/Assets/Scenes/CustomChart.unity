@@ -767,6 +767,9 @@ MonoBehaviour:
   yAxisMax: 130
   ySeparators: 5
   xPoints: 18
+  R: 255
+  G: 0
+  B: 0
 --- !u!1 &1582771295
 GameObject:
   m_ObjectHideFlags: 0
