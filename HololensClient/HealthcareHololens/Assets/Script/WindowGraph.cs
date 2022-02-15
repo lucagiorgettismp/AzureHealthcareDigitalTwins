@@ -137,7 +137,7 @@ public class WindowGraph : MonoBehaviour
             labelY.SetParent(graphContainer, false);
             labelY.gameObject.SetActive(true);
             float normalizedValue = i * 1f / ySeparators;
-            labelY.anchoredPosition = new Vector2(-0.002f, normalizedValue * graphHeight);
+            labelY.anchoredPosition = new Vector2(-0.006f, normalizedValue * graphHeight);
             labelY.GetComponent<TextMeshPro>().text = Convert.ToInt32(yAxisMin + (normalizedValue * (yAxisMax - yAxisMin))).ToString();
 
             var dashY = Instantiate(dashTemplateY);
