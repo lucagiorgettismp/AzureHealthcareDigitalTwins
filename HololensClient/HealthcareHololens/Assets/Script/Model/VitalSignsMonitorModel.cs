@@ -1,4 +1,4 @@
-    using System;
+using System;
 using UnityEngine;
 
 public class VitalSignsMonitorModel : VitalSignsMonitorElement
@@ -32,7 +32,6 @@ public class Callback : ICallback
 
     public void OnMessageReceived(Message message)
     {
-
         this.controller.OnDataReceived(message);
     }
 }
