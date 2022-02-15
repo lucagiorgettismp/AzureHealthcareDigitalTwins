@@ -1,5 +1,6 @@
 ﻿namespace Simulator.Utils
 {
+    using Common.Utils;
     using Model;
     using System;
 
@@ -198,13 +199,13 @@
         }
         private DeviceDataProperty<int> GenerateIntValue(DeviceDataProperty<int> dataProperty, bool canIncrease)
         {
-            var oldValue = dataProperty.Value;
-            var delta = dataProperty.UpdateDelta;
+            int oldValue = dataProperty.Value;
+            int delta = dataProperty.UpdateDelta;
             int maxValue = 2;
 
-            if (!canIncrease) maxValue = 1;
-         
-            var newValue = oldValue + this.random.Next(-1, maxValue) * delta;
+            if (canIncrease) maxValue = 1;
+
+            int newValue = oldValue + this.random.Next(-1, maxValue) * delta;
 
             if (newValue < dataProperty.MinValue)
                 newValue = dataProperty.MinValue;
@@ -212,7 +213,11 @@
             else if (newValue > dataProperty.MaxValue)
                 newValue = dataProperty.MaxValue;
 
-            dataProperty.InAlarm = newValue <= dataProperty.AlarmMinThreashold || newValue >= (double)dataProperty.AlarmMaxThreashold;
+            if (dataProperty.SensorName == BATTERY || dataProperty.SensorName == SATURATION)
+                dataProperty.InAlarm = newValue <= dataProperty.AlarmMinThreashold; 
+            else
+                dataProperty.InAlarm = newValue <= dataProperty.AlarmMinThreashold || newValue >= dataProperty.AlarmMaxThreashold;
+
             dataProperty.Value = newValue;
 
             return dataProperty;
