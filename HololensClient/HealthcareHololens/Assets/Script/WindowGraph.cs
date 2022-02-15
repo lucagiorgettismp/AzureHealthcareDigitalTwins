@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using TMPro;
 
 public class WindowGraph : MonoBehaviour
 {
@@ -46,7 +47,7 @@ public class WindowGraph : MonoBehaviour
             pointList.Add(null);
         }
 
-        PaintAxes();
+        PaintAxis();
     }
 
     void Start()
@@ -77,7 +78,7 @@ public class WindowGraph : MonoBehaviour
 
         RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
         rectTransform.anchoredPosition = position;
-        rectTransform.sizeDelta = new Vector2(5, 5);
+        rectTransform.sizeDelta = new Vector2(0.0005f, 0.0005f);
         rectTransform.anchorMin = new Vector2(0, 0);
         rectTransform.anchorMax = new Vector2(0, 0);
 
@@ -126,7 +127,7 @@ public class WindowGraph : MonoBehaviour
         children.ForEach(child => Destroy(child));
     }
 
-    private void PaintAxes()
+    private void PaintAxis()
     {
         float graphHeight = graphContainer.sizeDelta.y;
 
@@ -136,13 +137,13 @@ public class WindowGraph : MonoBehaviour
             labelY.SetParent(graphContainer, false);
             labelY.gameObject.SetActive(true);
             float normalizedValue = i * 1f / ySeparators;
-            labelY.anchoredPosition = new Vector2(-10f, normalizedValue * graphHeight);
-            labelY.GetComponent<Text>().text = Convert.ToInt32(yAxisMin + (normalizedValue * (yAxisMax - yAxisMin))).ToString();
+            labelY.anchoredPosition = new Vector2(-0.002f, normalizedValue * graphHeight);
+            labelY.GetComponent<TextMeshPro>().text = Convert.ToInt32(yAxisMin + (normalizedValue * (yAxisMax - yAxisMin))).ToString();
 
             var dashY = Instantiate(dashTemplateY);
             dashY.SetParent(graphContainer, false);
             dashY.gameObject.SetActive(true);
-            dashY.anchoredPosition = new Vector2(-4f, normalizedValue * graphHeight);
+            dashY.anchoredPosition = new Vector2(0f, normalizedValue * graphHeight);
         }
     }
 
@@ -159,7 +160,7 @@ public class WindowGraph : MonoBehaviour
       
         rectTransform.anchorMin = new Vector2(0, 0);
         rectTransform.anchorMax = new Vector2(0, 0);
-        rectTransform.sizeDelta = new Vector2(distance, 3f);
+        rectTransform.sizeDelta = new Vector2(distance, 0.0008f);
         rectTransform.anchoredPosition = dotA + 0.5f * distance * direction;
 
         rectTransform.localEulerAngles = new Vector3(0, 0, GetAngleFromVectorFloat(direction));

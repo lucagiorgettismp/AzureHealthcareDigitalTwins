@@ -41,15 +41,11 @@ public class VitalSignsMonitorView : VitalSignsMonitorElement
     private GameObject BatteryAlert;
 
     /* Line Chart*/
-    private DD_DataDiagram HeartFrequencyDataDiagram;
-    private DD_DataDiagram BreathFrequencyDataDiagram;
-    private DD_DataDiagram SaturationDataDiagram;
-    private DD_DataDiagram BloodPressureDataDiagram;
+    private WindowGraph HeartFrequencyGraph;
+    //private DD_DataDiagram BreathFrequencyDataDiagram;
+    //private DD_DataDiagram SaturationDataDiagram;
+    //private DD_DataDiagram BloodPressureDataDiagram;
 
-    private GameObject HeartLine;
-    private GameObject BreathLine;
-    private GameObject BloodPressureLine;
-    private GameObject SaturationLine;
 
     /* Colors */
     const string RED_COLOR = "Materials/RedColor";
@@ -119,15 +115,10 @@ public class VitalSignsMonitorView : VitalSignsMonitorElement
 
         /* Line chart components */
 
-        this.HeartFrequencyDataDiagram  = GameObject.Find("HeartFrequencyLineChart").GetComponent<DD_DataDiagram>();
-        this.BreathFrequencyDataDiagram = GameObject.Find("BreathFrequencyLineChart").GetComponent<DD_DataDiagram>();
-        this.SaturationDataDiagram      = GameObject.Find("SaturationLineChart").GetComponent<DD_DataDiagram>();
-        this.BloodPressureDataDiagram   = GameObject.Find("BloodPressureLineChart").GetComponent<DD_DataDiagram>();
-
-        this.HeartLine          = this.HeartFrequencyDataDiagram.AddLine("HeartFrequency", Color.green);
-        this.BreathLine         = this.BreathFrequencyDataDiagram.AddLine("BreathFrequency", Color.green);
-        this.SaturationLine     = this.SaturationDataDiagram.AddLine("Saturation", Color.red);
-        this.BloodPressureLine  = this.BloodPressureDataDiagram.AddLine("BloodPressure", Color.yellow);
+        this.HeartFrequencyGraph  = GameObject.Find("HeartFrequencyLineChart").GetComponent<WindowGraph>();
+      //  this.BreathFrequencyDataDiagram = GameObject.Find("BreathFrequencyLineChart").GetComponent<DD_DataDiagram>();
+      //  this.SaturationDataDiagram      = GameObject.Find("SaturationLineChart").GetComponent<DD_DataDiagram>();
+       // this.BloodPressureDataDiagram   = GameObject.Find("BloodPressureLineChart").GetComponent<DD_DataDiagram>();
     }
 
     public void UpdateView(Message message)
@@ -189,10 +180,7 @@ public class VitalSignsMonitorView : VitalSignsMonitorElement
     {
         try
         {
-            this.HeartFrequencyDataDiagram.InputPoint(this.HeartLine, new Vector2(1, (float)message.HeartFrequencySensorValue.Value));
-            this.BreathFrequencyDataDiagram.InputPoint(this.BreathLine, new Vector2(1, (float)message.BreathFrequencySensorValue.Value));
-            this.SaturationDataDiagram.InputPoint(this.SaturationLine, new Vector2(1, (float)message.SaturationSensorValue.Value));
-            this.BloodPressureDataDiagram.InputPoint(this.BloodPressureLine, new Vector2(1, (float)message.BloodPressureSensorValue.Value));
+            this.HeartFrequencyGraph.AddPoint((float) message.HeartFrequencySensorValue.Value);
         }
         catch (Exception e)
         {
