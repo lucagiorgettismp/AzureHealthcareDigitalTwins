@@ -42,7 +42,10 @@ namespace AppFunctions
             {
                 var builder = new StringBuilder();
 
-                var chunks = p.Path.Split("/").ToList();
+                log.LogInformation($"Patch: {p.Path}");
+                byte[] bytes = Encoding.Default.GetBytes(p.Path);
+                string payload = Encoding.UTF8.GetString(bytes);
+                var chunks = payload.Split("/").ToList();
 
                 chunks.RemoveAt(0);
                 builder.Append(chunks[0]);
@@ -53,9 +56,7 @@ namespace AppFunctions
                     builder.Append($"_{chunk}");
                 }
 
-                byte[] bytes = Encoding.Default.GetBytes(builder.ToString());
-                string payload  = Encoding.UTF8.GetString(bytes);
-                message.Add(payload, p.Value);              
+                message.Add(builder.ToString(), p.Value);              
             });
 
 
