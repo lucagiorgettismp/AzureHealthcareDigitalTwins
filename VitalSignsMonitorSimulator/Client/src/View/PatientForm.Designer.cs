@@ -96,7 +96,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.117554F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 450);
             this.tableLayoutPanel1.TabIndex = 0;
-            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
+       
             // 
             // label_name
             // 
@@ -109,7 +109,6 @@
             this.label_name.Size = new System.Drawing.Size(55, 20);
             this.label_name.TabIndex = 1;
             this.label_name.Text = "Name:";
-            this.label_name.Click += new System.EventHandler(this.label_name_Click);
             // 
             // label_surname
             // 
@@ -122,7 +121,6 @@
             this.label_surname.Size = new System.Drawing.Size(78, 20);
             this.label_surname.TabIndex = 2;
             this.label_surname.Text = "Surname:";
-            this.label_surname.Click += new System.EventHandler(this.label_surname_Click);
             // 
             // patient_surname
             // 
@@ -132,7 +130,6 @@
             this.patient_surname.Name = "patient_surname";
             this.patient_surname.Size = new System.Drawing.Size(254, 23);
             this.patient_surname.TabIndex = 3;
-            this.patient_surname.TextChanged += new System.EventHandler(this.patient_surname_TextChanged);
             // 
             // label_age
             // 
@@ -145,7 +142,6 @@
             this.label_age.Size = new System.Drawing.Size(38, 20);
             this.label_age.TabIndex = 4;
             this.label_age.Text = "Age";
-            this.label_age.Click += new System.EventHandler(this.label_age_Click);
             // 
             // label_gender
             // 
@@ -158,7 +154,6 @@
             this.label_gender.Size = new System.Drawing.Size(63, 20);
             this.label_gender.TabIndex = 5;
             this.label_gender.Text = "Gender";
-            this.label_gender.Click += new System.EventHandler(this.label_gender_Click);
             // 
             // label_height
             // 
@@ -207,7 +202,6 @@
             this.label_body_mass_index.Size = new System.Drawing.Size(130, 20);
             this.label_body_mass_index.TabIndex = 9;
             this.label_body_mass_index.Text = "Body Mass Index";
-            this.label_body_mass_index.Click += new System.EventHandler(this.label_body_mass_index_Click);
             // 
             // patient_age
             // 
@@ -218,8 +212,7 @@
             this.patient_age.Name = "patient_age";
             this.patient_age.Size = new System.Drawing.Size(254, 23);
             this.patient_age.TabIndex = 10;
-            this.patient_age.TextChanged += new System.EventHandler(this.patient_age_TextChanged);
-            this.patient_age.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.patient_age_KeyPress);
+            this.patient_age.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PatientAgeKeyPress);
             // 
             // patient_height
             // 
@@ -230,8 +223,7 @@
             this.patient_height.Name = "patient_height";
             this.patient_height.Size = new System.Drawing.Size(254, 23);
             this.patient_height.TabIndex = 12;
-            this.patient_height.TextChanged += new System.EventHandler(this.patient_height_TextChanged);
-            this.patient_height.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.patient_height_KeyPress);
+            this.patient_height.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PatientHeightKeyPress);
             // 
             // patient_weight
             // 
@@ -242,7 +234,7 @@
             this.patient_weight.Name = "patient_weight";
             this.patient_weight.Size = new System.Drawing.Size(254, 23);
             this.patient_weight.TabIndex = 13;
-            this.patient_weight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.patient_weight_KeyPress);
+            this.patient_weight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PatientWeightKeyPress);
             // 
             // patient_description
             // 
@@ -263,7 +255,7 @@
             this.patient_body_mass_index.Name = "patient_body_mass_index";
             this.patient_body_mass_index.Size = new System.Drawing.Size(254, 23);
             this.patient_body_mass_index.TabIndex = 15;
-            this.patient_body_mass_index.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.patient_body_mass_index_KeyPress);
+            this.patient_body_mass_index.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PatientBodyMassIndexKeyPress);
             // 
             // patient_name
             // 
@@ -273,7 +265,6 @@
             this.patient_name.Name = "patient_name";
             this.patient_name.Size = new System.Drawing.Size(254, 23);
             this.patient_name.TabIndex = 16;
-            this.patient_name.TextChanged += new System.EventHandler(this.patient_name_TextChanged_1);
             // 
             // save_patient_button
             // 
@@ -285,7 +276,7 @@
             this.save_patient_button.TabIndex = 17;
             this.save_patient_button.Text = "Save";
             this.save_patient_button.UseVisualStyleBackColor = true;
-            this.save_patient_button.Click += new System.EventHandler(this.save_patient_button_Click);
+            this.save_patient_button.Click += new System.EventHandler(this.SavePatientButtonClick);
             // 
             // patient_gender
             // 
@@ -299,7 +290,7 @@
             this.patient_gender.Name = "patient_gender";
             this.patient_gender.Size = new System.Drawing.Size(254, 24);
             this.patient_gender.TabIndex = 19;
-            this.patient_gender.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.patient_gender_KeyPress);
+            this.patient_gender.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PatientGenderKeyPress);
             // 
             // title
             // 
@@ -359,7 +350,6 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "PatientForm";
             this.Text = "PatientForm";
-            this.Load += new System.EventHandler(this.PatientForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

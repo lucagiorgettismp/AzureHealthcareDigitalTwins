@@ -1,13 +1,13 @@
-﻿using Simulator.Model;
-using Simulator.Utils;
-using System;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
-
-namespace Simulator.src
+﻿namespace Simulator
 {
+    using Simulator.Model;
+    using System;
+    using System.Configuration;
+    using System.Drawing;
+    using System.Linq;
+    using System.Windows.Forms;
+    using System.Windows.Forms.DataVisualization.Charting;
+
     public partial class SimulationForm : Form
     {
         private Timer timerHour = new Timer();
@@ -61,21 +61,23 @@ namespace Simulator.src
         private const string ID_CHART_SATURATION = "SaturationChart";
         private const string ID_CHART_BLOOD_PRESSURE = "BloodPressureChart";
 
-        int maxPointsInGraph;
+        int MaxPointsInGraph;
 
         public SimulationForm(int maxPointsInGraph = 20)
         {
             InitializeComponent();
 
             timerHour.Interval = 1000;
-            timerHour.Tick += new EventHandler(timer_Tick);
+            timerHour.Tick += new EventHandler(TimerTick);
             timerHour.Start();
 
-            this.maxPointsInGraph = maxPointsInGraph;
+            this.MaxPointsInGraph = maxPointsInGraph;
         }
 
-        private void SimulationForm_Load(object sender, EventArgs e)
+        private void SimulationFormLoad(object sender, EventArgs e)
         {
+            var appSettings = ConfigurationManager.AppSettings;
+
             // Hour and date
             this.labDate = this.Controls.Find(ID_LABEL_DATE, true).FirstOrDefault() as Label;
             this.labHour = this.Controls.Find(ID_LABEL_HOUR, true).FirstOrDefault() as Label;
@@ -100,35 +102,36 @@ namespace Simulator.src
             this.chartHeartFrequency = this.Controls.Find(ID_CHART_HEART_FREQUENCY, true).FirstOrDefault() as Chart;
             ChartArea chartAreaHeartFrequency = chartHeartFrequency.ChartAreas[0];
             chartAreaHeartFrequency.AxisY.IntervalType = DateTimeIntervalType.Number;
-            chartAreaHeartFrequency.AxisY.Minimum = DeviceDataGenerator.MIN_HEART;
-            chartAreaHeartFrequency.AxisY.Maximum = DeviceDataGenerator.MAX_HEART;
+            chartAreaHeartFrequency.AxisY.Minimum = Convert.ToInt32(appSettings["HeartFrequencyMinValue"]);
+            chartAreaHeartFrequency.AxisY.Maximum = Convert.ToInt32(appSettings["HeartFrequencyMaxValue"]);
+
 
             this.chartBreathFrequency = this.Controls.Find(ID_CHART_BREATH_FREQUENCY, true).FirstOrDefault() as Chart;
             ChartArea chartAreaBreathFrequency = chartBreathFrequency.ChartAreas[0];
             chartAreaBreathFrequency.AxisY.IntervalType = DateTimeIntervalType.Number;
-            chartAreaBreathFrequency.AxisY.Minimum = DeviceDataGenerator.MIN_BREATH;
-            chartAreaBreathFrequency.AxisY.Maximum = DeviceDataGenerator.MAX_BREATH;
+            chartAreaBreathFrequency.AxisY.Minimum = Convert.ToInt32(appSettings["BreathFrequencyMinValue"]);
+            chartAreaBreathFrequency.AxisY.Maximum = Convert.ToInt32(appSettings["BreathFrequencyMaxValue"]);
 
             this.chartSaturation = this.Controls.Find(ID_CHART_SATURATION, true).FirstOrDefault() as Chart;
             ChartArea chartAreaSaturation = chartSaturation.ChartAreas[0];
             chartAreaSaturation.AxisY.IntervalType = DateTimeIntervalType.Number;
-            chartAreaSaturation.AxisY.Minimum = DeviceDataGenerator.MIN_SATURATION;
-            chartAreaSaturation.AxisY.Maximum = DeviceDataGenerator.MAX_SATURATION;
+            chartAreaSaturation.AxisY.Minimum = Convert.ToInt32(appSettings["SaturationMinValue"]);
+            chartAreaSaturation.AxisY.Maximum = Convert.ToInt32(appSettings["SaturationMaxValue"]);
 
             this.chartBloodPressure = this.Controls.Find(ID_CHART_BLOOD_PRESSURE, true).FirstOrDefault() as Chart;
             ChartArea chartAreaBloodPressure = chartBloodPressure.ChartAreas[0];
             chartAreaBloodPressure.AxisY.IntervalType = DateTimeIntervalType.Number;
-            chartAreaBloodPressure.AxisY.Minimum = DeviceDataGenerator.MIN_BLOOD_PRESSURE;
-            chartAreaBloodPressure.AxisY.Maximum = DeviceDataGenerator.MAX_BLOOD_PRESSURE;
+            chartAreaBloodPressure.AxisY.Minimum = Convert.ToInt32(appSettings["BloodPressureMinValue"]);
+            chartAreaBloodPressure.AxisY.Maximum = Convert.ToInt32(appSettings["BloodPressureMaxValue"]);
         }
 
-        private void timer_Tick(object sender, EventArgs e)
+        private void TimerTick(object sender, EventArgs e)
         {
             this.labHour.Text = datePicker.Value.ToShortDateString();
             this.labDate.Text = DateTime.Now.ToLongTimeString();
         }
 
-        public void updateValues(DeviceData data)
+        public void UpdateValues(DeviceData data)
         {
             // Labels
             this.labTemperature.Text = Math.Round(data.Temperature.Value, 1).ToString();
@@ -166,7 +169,7 @@ namespace Simulator.src
             this.chartBloodPressure.Series[position].Points.AddXY(position, Convert.ToInt32(data.BloodPressure.Value));
 
             int numItems = this.chartBloodPressure.Series[0].Points.Count();
-            if(numItems == this.maxPointsInGraph)
+            if(numItems == this.MaxPointsInGraph)
             {
                 // Remove first point
                 this.chartHeartFrequency.Series[position].Points.RemoveAt(position);

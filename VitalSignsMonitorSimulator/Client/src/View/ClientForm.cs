@@ -15,16 +15,18 @@
             this.clientTwins = new Client();
         }
 
-        private void create_button_Click(object sender, EventArgs e)
+        private void CreateButtonClick(object sender, EventArgs e)
         {
-            PatientForm patientForm = new PatientForm(this.clientTwins);
-            patientForm.Text = "Patient";
-            patientForm.FormBorderStyle = FormBorderStyle.FixedDialog;
+            PatientForm patientForm = new PatientForm(this.clientTwins)
+            {
+                Text = "Patient",
+                FormBorderStyle = FormBorderStyle.FixedDialog
+            };
 
             patientForm.Show();
         }
 
-        private async void get_twins_button_Click(object sender, EventArgs e)
+        private async void GetTwinsButtonClick(object sender, EventArgs e)
         {
             this.patients_twins_collections.Items.Clear();
 
@@ -35,12 +37,7 @@
             }
         }
 
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void patients_twins_collections_SelectedIndexChanged(object sender, EventArgs e)
+        private void SelectedIndexPatients(object sender, EventArgs e)
         {
             Log.Ok("Click on: " + patients_twins_collections.SelectedItem.ToString());
         }
