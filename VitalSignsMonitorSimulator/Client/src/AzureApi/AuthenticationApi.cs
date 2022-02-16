@@ -1,7 +1,6 @@
 ﻿namespace Client.AzureApi
 {
     using System;
-    using System.IO;
     using Azure.DigitalTwins.Core;
     using Azure.Identity;
     using Common.Utils;
@@ -13,32 +12,13 @@
 
         const string HOST = "host";
         const string IOTHUB = "connectionIoTHub";
-        private static IConfiguration ReadConfig()
-        {
-            IConfiguration config;
-
-            try
-            {
-                // Read configuration data from the 
-                config = new ConfigurationBuilder()
-                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false)
-                    .Build();
-            }
-            catch (Exception ex) when (ex is FileNotFoundException || ex is UriFormatException)
-            {
-                Log.Error($"Could not read the client twin configuration.\n\nException message: {ex.Message}");
-                return null;
-            }
-
-            return config;
-        }
 
         public static DigitalTwinsClient GetClient()
         {
             Uri adtInstanceUrl;
 
             DigitalTwinsClient twinClient = null;
-            IConfiguration config = ReadConfig();
+            IConfiguration config = Setting.ReadConfig();
 
             if (config != null)
             {
@@ -56,7 +36,7 @@
         public static RegistryManager GetRegistryManager()
         {
             RegistryManager rm = null;
-            IConfiguration config = ReadConfig();
+            IConfiguration config = Setting.ReadConfig();
 
             if (config != null)
             {
