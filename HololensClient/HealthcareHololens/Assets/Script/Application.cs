@@ -11,6 +11,9 @@ public class Application : MonoBehaviour
     public VitalSignsMonitorController Controller;
     public VitalSignsMonitorView View;
     public HeartFrequencyView HeartFrequencyView;
+    public BreathFrequencyView BreathFrequencyView;
+    public SaturationView SaturationView;
+    public BloodPressureView BloodPressureView;
 
     void Start()
     {}
