@@ -53,7 +53,9 @@ namespace AppFunctions
                     builder.Append($"_{chunk}");
                 }
 
-                message.Add(builder.ToString(), p.Value);              
+                byte[] bytes = Encoding.Default.GetBytes(builder.ToString());
+                string payload  = Encoding.UTF8.GetString(bytes);
+                message.Add(payload, p.Value);              
             });
 
 
