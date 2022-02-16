@@ -8,8 +8,9 @@ public class VitalSignsMonitorElement : MonoBehaviour
 public class Application : MonoBehaviour
 {
     public VitalSignsMonitorModel Model;
-    public VitalSignsMonitorView View;
     public VitalSignsMonitorController Controller;
+    public VitalSignsMonitorView View;
+    public HeartFrequencyView HeartFrequencyView;
 
     void Start()
     {}

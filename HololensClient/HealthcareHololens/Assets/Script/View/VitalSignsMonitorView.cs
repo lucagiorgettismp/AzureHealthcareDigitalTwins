@@ -180,16 +180,9 @@ public class VitalSignsMonitorView : VitalSignsMonitorElement
 
     private void UpdateLineCharts(Message message)
     {
-        try
-        {
-            this.HeartFrequencyGraph.AddPoint((float)message.HeartFrequencySensorValue.Value);
-            this.BreathFrequencyGraph.AddPoint((float)message.BreathFrequencySensorValue.Value);
-            this.SaturationGraph.AddPoint((float)message.SaturationSensorValue.Value);
-            this.BloodPressureGraph.AddPoint((float)message.BloodPressureSensorValue.Value);
-        }
-        catch (Exception e)
-        {
-            Debug.LogError("Error update charts: " + e.Message);
-        }
+        this.HeartFrequencyGraph.AddPoint((float)message.HeartFrequencySensorValue.Value);
+        this.BreathFrequencyGraph.AddPoint((float)message.BreathFrequencySensorValue.Value);
+        this.SaturationGraph.AddPoint((float)message.SaturationSensorValue.Value);
+        this.BloodPressureGraph.AddPoint((float)message.BloodPressureSensorValue.Value);
     }
 }
