@@ -82,6 +82,8 @@ namespace Simulator.Controller
             {
                 SensorName = dataProperty.SensorName,
                 Alarm = dataProperty.InAlarm,
+                MinValue = dataProperty.MinValue,
+                MaxValue = dataProperty.MaxValue,
                 SensorValue = new SensorValue<T>
                 {
                     UnitOfMeasurement = dataProperty.UnitOfMeasurement,

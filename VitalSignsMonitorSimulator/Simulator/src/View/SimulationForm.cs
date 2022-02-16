@@ -72,6 +72,7 @@
             timerHour.Start();
 
             this.MaxPointsInGraph = maxPointsInGraph;
+            this.ControlBox = false;
         }
 
         private void SimulationFormLoad(object sender, EventArgs e)

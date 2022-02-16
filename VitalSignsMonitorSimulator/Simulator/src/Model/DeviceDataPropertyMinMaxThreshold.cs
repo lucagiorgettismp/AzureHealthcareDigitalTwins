@@ -3,14 +3,9 @@
     using Simulator.Utils.Exceptions;
     public class DeviceDataPropertyMinMaxThreshold<T> : DeviceDataPropertyMinThreshold<T>
     {
-        public new bool InAlarm
-        {
-            get
-            {
-                return CheckMinThresholdAlarm(this.Value, this.AlarmMinThreashold) || CheckMaxThresholdAlarm(this.Value, this.AlarmMaxThreashold);
-            }
-
-            set { }
+        internal void SetValue(T value) {
+            this.Value = value;
+            this.InAlarm = CheckMinThresholdAlarm(value, this.AlarmMinThreashold) || CheckMaxThresholdAlarm(this.Value, this.AlarmMaxThreashold);
         }
 
         public T AlarmMaxThreashold { get; set; }

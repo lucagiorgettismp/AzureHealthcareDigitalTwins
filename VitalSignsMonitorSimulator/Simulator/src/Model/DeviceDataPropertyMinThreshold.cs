@@ -4,16 +4,12 @@
 
     public class DeviceDataPropertyMinThreshold<T> : DeviceDataProperty<T>
     {
-        public new bool InAlarm {
-
-            get
-            {
-                return CheckMinThresholdAlarm(this.Value, this.AlarmMinThreashold);
-            }
-
-            set { }
+        internal void SetValue(T value)
+        {
+            this.Value = value;
+            this.InAlarm = CheckMinThresholdAlarm(value, this.AlarmMinThreashold);
         }
-        
+
         public T AlarmMinThreashold { get; set; }
 
         protected bool CheckMinThresholdAlarm(T ta, T tb)
