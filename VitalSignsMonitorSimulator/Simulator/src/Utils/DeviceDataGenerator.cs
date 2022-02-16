@@ -42,13 +42,13 @@
 
             var batteryPower = new DeviceDataPropertyMinThreshold<int>
             {
-                UnitOfMeasurement = appSettings["BatteryUnit"],
+                UnitOfMeasurement = appSettings["PercentageUnit"],
                 MinValue = Convert.ToInt32(appSettings["BatteryMinValue"]),
                 MaxValue = Convert.ToInt32(appSettings["BatteryMaxValue"]),
                 AlarmMinThreashold = Convert.ToInt32(appSettings["BatteryMinAlarmThreasholdValue"]),
                 UpdateDelta = Convert.ToInt32(appSettings["BatteryUpdateDelta"]),
                 SensorName = appSettings["BatterySensorName"],
-                Symbol = appSettings["BatteryUnitSymbol"],
+                Symbol = appSettings["PercentageUnitSymbol"],
                 Type = IntType,
             };
             batteryPower.SetValue(Convert.ToInt32(appSettings["BatteryInitValue"]));
@@ -97,13 +97,13 @@
 
             var saturation = new DeviceDataPropertyMinThreshold<int>
             {
-                UnitOfMeasurement = appSettings["SaturationUnit"],
+                UnitOfMeasurement = appSettings["PercentageUnit"],
                 MinValue = Convert.ToInt32(appSettings["SaturationMinValue"]),
                 MaxValue = Convert.ToInt32(appSettings["SaturationMaxValue"]),
                 AlarmMinThreashold = Convert.ToInt32(appSettings["SaturationMinAlarmThreasholdValue"]),
                 UpdateDelta = Convert.ToInt32(appSettings["SaturationUpdateDelta"]),
                 SensorName = appSettings["SaturationSensorName"],
-                Symbol = appSettings["SaturationUnitSymbol"],
+                Symbol = appSettings["PercentageUnitSymbol"],
                 Type = IntType,
                 InAlarm = false
             };
