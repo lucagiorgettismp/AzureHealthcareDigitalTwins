@@ -12,5 +12,11 @@ namespace AppFunctions.Model.Payload
 
         [JsonProperty("sensor_value")]
         public SensorValue SensorValue { get; set; }
+
+        [JsonProperty("min_value")]
+        public double MinValue { get; set; }
+
+        [JsonProperty("max_value")]
+        public double MaxValue { get; set; }
     }
 }

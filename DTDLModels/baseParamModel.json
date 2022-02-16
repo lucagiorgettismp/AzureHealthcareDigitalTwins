@@ -16,6 +16,18 @@
     "displayName": "Sensor name",
     "schema": "string"
   },
+    {
+    "@type": "Property",
+    "name": "min_value",
+    "displayName": "Min value",
+    "schema": "double"
+  },
+    {
+    "@type": "Property",
+    "name": "max_value",
+    "displayName": "Max value",
+    "schema": "double"
+  },
   {
     "@type": "Property",
     "name": "sensor_value",

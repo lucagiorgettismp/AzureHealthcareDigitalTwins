@@ -18,6 +18,12 @@ namespace Client.src.AzureApi.DTLDModels
 
         [JsonPropertyName("sensor_value")]
         public SensorValueComponent SensorValue { get; set; }
+
+        [JsonPropertyName("min_value")]
+        public double MinValue { get; set; }
+
+        [JsonPropertyName("max_value")]
+        public double MaxValue { get; set; }
     }
 
     internal class TemperatureComponentMetadata
@@ -30,5 +36,11 @@ namespace Client.src.AzureApi.DTLDModels
 
         [JsonPropertyName("sensor_value")]
         public DigitalTwinPropertyMetadata SensorValue { get; set; }
+
+        [JsonPropertyName("min_value")]
+        public DigitalTwinPropertyMetadata MinValue { get; set; }
+
+        [JsonPropertyName("max_value")]
+        public DigitalTwinPropertyMetadata MaxValue { get; set; }
     }
 }
