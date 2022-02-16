@@ -41,7 +41,6 @@ namespace AppFunctions
             payload.Data.Patch.ForEach(p =>
             {
                 var builder = new StringBuilder();
-
                 var chunks = p.Path.Split("/").ToList();
 
                 chunks.RemoveAt(0);
