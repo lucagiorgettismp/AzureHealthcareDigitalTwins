@@ -6,6 +6,7 @@ public class VitalSignsMonitorController : VitalSignsMonitorElement
         App.BreathFrequencyView.UpdateView(message);
         App.SaturationView.UpdateView(message);
         App.BloodPressureView.UpdateView(message);
+        App.SensorValuesView.UpdateView(message);
     }
 }
     

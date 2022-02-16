@@ -7,6 +7,7 @@ public class ButtonMenuView : MonoBehaviour
     GameObject BreathFrequencyPanel;
     GameObject SaturationPanel;
     GameObject BloodPressurePanel;
+    GameObject SensorValuesPanel;
 
     void Start()
     {
@@ -23,6 +24,9 @@ public class ButtonMenuView : MonoBehaviour
 
         BloodPressurePanel = GameObject.Find("BloodPressurePanel");
         BloodPressurePanel.gameObject.SetActive(false);
+
+        SensorValuesPanel = GameObject.Find("SensorValuesPanel");
+        SensorValuesPanel.gameObject.SetActive(false);
     }
 
     public void OnClickHomeButton()
@@ -35,6 +39,7 @@ public class ButtonMenuView : MonoBehaviour
         BreathFrequencyPanel.gameObject.SetActive(false);
         BloodPressurePanel.gameObject.SetActive(false);
         SaturationPanel.gameObject.SetActive(false);
+        SensorValuesPanel.gameObject.SetActive(false);
     }
 
     public void OnClickHeartFrequencyButton()
@@ -46,6 +51,7 @@ public class ButtonMenuView : MonoBehaviour
         BreathFrequencyPanel.gameObject.SetActive(false);
         BloodPressurePanel.gameObject.SetActive(false);
         SaturationPanel.gameObject.SetActive(false);
+        SensorValuesPanel.gameObject.SetActive(false);
     }  
     
     public void OnClickBreathFrequencyButton()
@@ -56,7 +62,8 @@ public class ButtonMenuView : MonoBehaviour
         BreathFrequencyPanel.gameObject.SetActive(true);
         HeartFrequencyPanel.gameObject.SetActive(false);
         BloodPressurePanel.gameObject.SetActive(false);
-        SaturationPanel.gameObject.SetActive(false);
+        SaturationPanel.gameObject.SetActive(false); 
+        SensorValuesPanel.gameObject.SetActive(false);
     }  
     
     public void OnClickSaturationButton()
@@ -68,6 +75,7 @@ public class ButtonMenuView : MonoBehaviour
         HeartFrequencyPanel.gameObject.SetActive(false);
         BreathFrequencyPanel.gameObject.SetActive(false);
         BloodPressurePanel.gameObject.SetActive(false);
+        SensorValuesPanel.gameObject.SetActive(false);
     }    
     
     public void OnClickBloodPressureButton()
@@ -79,12 +87,19 @@ public class ButtonMenuView : MonoBehaviour
         HeartFrequencyPanel.gameObject.SetActive(false);
         BreathFrequencyPanel.gameObject.SetActive(false);
         SaturationPanel.gameObject.SetActive(false);
+        SensorValuesPanel.gameObject.SetActive(false);
     }    
     
     public void OnClickValuesButton()
     {
         Debug.Log("Values button has been pressed!");
+
         HideMainMonitor();
+        BloodPressurePanel.gameObject.SetActive(false);
+        HeartFrequencyPanel.gameObject.SetActive(false);
+        BreathFrequencyPanel.gameObject.SetActive(false);
+        SaturationPanel.gameObject.SetActive(false);
+        SensorValuesPanel.gameObject.SetActive(true);
     }
 
     private void HideMainMonitor()

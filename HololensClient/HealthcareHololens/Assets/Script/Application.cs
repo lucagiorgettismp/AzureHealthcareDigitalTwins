@@ -14,6 +14,7 @@ public class Application : MonoBehaviour
     public BreathFrequencyView BreathFrequencyView;
     public SaturationView SaturationView;
     public BloodPressureView BloodPressureView;
+    public SensorValuesView SensorValuesView;
 
     void Start()
     {}
