@@ -2,7 +2,7 @@
 {
     public class DeviceDataProperty<T>
     {
-        public T Value { get; set; }
+        public T Value { get; protected set; }
          
         public string UnitOfMeasurement { get; set; }
 
@@ -14,13 +14,7 @@
         
         public T MaxValue { get; set; }
 
-        public bool InAlarm { get
-            {
-                return false;
-            }
-
-            set { }
-        }
+        public bool InAlarm { get; internal set; }
 
         public T UpdateDelta { get; set; }
 
