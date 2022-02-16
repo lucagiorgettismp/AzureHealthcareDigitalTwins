@@ -338,12 +338,15 @@
     <Compile Include="src\Controller\Device.cs" />
     <Compile Include="src\Controller\VitalSignsMonitorPayloadParameter.cs" />
     <Compile Include="src\Model\DeviceData.cs" />
+    <Compile Include="src\Model\DeviceDataPropertyMinMaxThreshold.cs" />
+    <Compile Include="src\Model\DeviceDataPropertyMinThreshold.cs" />
     <Compile Include="src\Model\DeviceDataProperty.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="src\Model\Payload\EventGridMessagePayloadBody.cs" />
     <Compile Include="src\Model\Payload\EventGridMessagePayloadData.cs" />
     <Compile Include="src\Model\Payload\Sensor.cs" />
     <Compile Include="src\Model\Payload\SensorValue.cs" />
+    <Compile Include="src\Utils\Exceptions\InvalidPropertyTypeException.cs" />
     <Compile Include="src\View\SimulationForm.cs">
       <SubType>Form</SubType>
     </Compile>
