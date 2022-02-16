@@ -13,14 +13,14 @@ namespace Common
             InitializeComponent();
         }
 
-        public void setSext(string textError)
+        public void SetSext(string textError)
         {
             Label errorLabel = this.Controls.Find(ID_LABEL, true).FirstOrDefault() as Label;
             errorLabel.Text = textError;
             this.Show();
         }
 
-        private void ButtonConfirmation_Click(object sender, EventArgs e)
+        private void ButtonConfirmationClick(object sender, EventArgs e)
         {
             this.Close();
         }

@@ -1,7 +1,7 @@
 ﻿
-namespace Common
+namespace Common.View
 {
-    partial class ErrorForm
+    partial class SuccessForm
     {
         /// <summary>
         /// Required designer variable.
@@ -21,6 +21,8 @@ namespace Common
             base.Dispose(disposing);
         }
 
+
+
         #region Windows Form Designer generated code
 
         /// <summary>
@@ -29,17 +31,17 @@ namespace Common
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ErrorForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SuccessForm));
             this.TableMain = new System.Windows.Forms.TableLayoutPanel();
             this.ButtonTable = new System.Windows.Forms.TableLayoutPanel();
             this.ButtonConfirmation = new System.Windows.Forms.Button();
-            this.TableTextError = new System.Windows.Forms.TableLayoutPanel();
-            this.LabelTextError = new System.Windows.Forms.Label();
-            this.PictureError = new System.Windows.Forms.PictureBox();
+            this.TableTextSuccess = new System.Windows.Forms.TableLayoutPanel();
+            this.LabelTextSuccess = new System.Windows.Forms.Label();
+            this.PictureSuccess = new System.Windows.Forms.PictureBox();
             this.TableMain.SuspendLayout();
             this.ButtonTable.SuspendLayout();
-            this.TableTextError.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureError)).BeginInit();
+            this.TableTextSuccess.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureSuccess)).BeginInit();
             this.SuspendLayout();
             // 
             // TableMain
@@ -48,7 +50,7 @@ namespace Common
             this.TableMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.TableMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.TableMain.Controls.Add(this.ButtonTable, 0, 1);
-            this.TableMain.Controls.Add(this.TableTextError, 0, 0);
+            this.TableMain.Controls.Add(this.TableTextSuccess, 0, 0);
             this.TableMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TableMain.Location = new System.Drawing.Point(0, 0);
             this.TableMain.Name = "TableMain";
@@ -83,58 +85,58 @@ namespace Common
             this.ButtonConfirmation.UseVisualStyleBackColor = true;
             this.ButtonConfirmation.Click += new System.EventHandler(this.ButtonConfirmationClick);
             // 
-            // TableTextError
+            // TableTextSuccess
             // 
-            this.TableTextError.ColumnCount = 2;
-            this.TableTextError.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.04969F));
-            this.TableTextError.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 77.95031F));
-            this.TableTextError.Controls.Add(this.LabelTextError, 1, 0);
-            this.TableTextError.Controls.Add(this.PictureError, 0, 0);
-            this.TableTextError.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TableTextError.Location = new System.Drawing.Point(3, 3);
-            this.TableTextError.Name = "TableTextError";
-            this.TableTextError.RowCount = 1;
-            this.TableTextError.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TableTextError.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
-            this.TableTextError.Size = new System.Drawing.Size(322, 72);
-            this.TableTextError.TabIndex = 1;
+            this.TableTextSuccess.ColumnCount = 2;
+            this.TableTextSuccess.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.04969F));
+            this.TableTextSuccess.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 77.95031F));
+            this.TableTextSuccess.Controls.Add(this.LabelTextSuccess, 1, 0);
+            this.TableTextSuccess.Controls.Add(this.PictureSuccess, 0, 0);
+            this.TableTextSuccess.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TableTextSuccess.Location = new System.Drawing.Point(3, 3);
+            this.TableTextSuccess.Name = "TableTextSuccess";
+            this.TableTextSuccess.RowCount = 1;
+            this.TableTextSuccess.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.TableTextSuccess.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
+            this.TableTextSuccess.Size = new System.Drawing.Size(322, 72);
+            this.TableTextSuccess.TabIndex = 1;
             // 
-            // LabelTextError
+            // LabelTextSuccess
             // 
-            this.LabelTextError.AutoSize = true;
-            this.LabelTextError.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LabelTextError.Location = new System.Drawing.Point(81, 30);
-            this.LabelTextError.Margin = new System.Windows.Forms.Padding(10, 30, 40, 10);
-            this.LabelTextError.Name = "LabelTextError";
-            this.LabelTextError.Size = new System.Drawing.Size(201, 32);
-            this.LabelTextError.TabIndex = 0;
-            this.LabelTextError.Text = "Text Error";
+            this.LabelTextSuccess.AutoSize = true;
+            this.LabelTextSuccess.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LabelTextSuccess.Location = new System.Drawing.Point(81, 30);
+            this.LabelTextSuccess.Margin = new System.Windows.Forms.Padding(10, 30, 40, 10);
+            this.LabelTextSuccess.Name = "LabelTextSuccess";
+            this.LabelTextSuccess.Size = new System.Drawing.Size(201, 32);
+            this.LabelTextSuccess.TabIndex = 0;
+            this.LabelTextSuccess.Text = "Text";
             // 
-            // PictureError
+            // PictureSuccess
             // 
-            this.PictureError.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.PictureError.BackColor = System.Drawing.Color.White;
-            this.PictureError.ErrorImage = ((System.Drawing.Image)(resources.GetObject("PictureError.ErrorImage")));
-            this.PictureError.Image = ((System.Drawing.Image)(resources.GetObject("PictureError.Image")));
-            this.PictureError.Location = new System.Drawing.Point(21, 22);
-            this.PictureError.Name = "PictureError";
-            this.PictureError.Size = new System.Drawing.Size(29, 27);
-            this.PictureError.TabIndex = 1;
-            this.PictureError.TabStop = false;
+            this.PictureSuccess.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.PictureSuccess.BackColor = System.Drawing.Color.White;
+            this.PictureSuccess.ErrorImage = null;
+            this.PictureSuccess.Image = ((System.Drawing.Image)(resources.GetObject("PictureSuccess.Image")));
+            this.PictureSuccess.Location = new System.Drawing.Point(23, 23);
+            this.PictureSuccess.Name = "PictureSuccess";
+            this.PictureSuccess.Size = new System.Drawing.Size(24, 25);
+            this.PictureSuccess.TabIndex = 1;
+            this.PictureSuccess.TabStop = false;
             // 
-            // ErrorForm
+            // SuccessForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(328, 118);
             this.Controls.Add(this.TableMain);
-            this.Name = "ErrorForm";
-            this.Text = "ErrorForm";
+            this.Name = "SuccessForm";
+            this.Text = "SuccessForm";
             this.TableMain.ResumeLayout(false);
             this.ButtonTable.ResumeLayout(false);
-            this.TableTextError.ResumeLayout(false);
-            this.TableTextError.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureError)).EndInit();
+            this.TableTextSuccess.ResumeLayout(false);
+            this.TableTextSuccess.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureSuccess)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -144,8 +146,8 @@ namespace Common
         private System.Windows.Forms.TableLayoutPanel TableMain;
         private System.Windows.Forms.TableLayoutPanel ButtonTable;
         private System.Windows.Forms.Button ButtonConfirmation;
-        private System.Windows.Forms.TableLayoutPanel TableTextError;
-        private System.Windows.Forms.Label LabelTextError;
-        private System.Windows.Forms.PictureBox PictureError;
+        private System.Windows.Forms.TableLayoutPanel TableTextSuccess;
+        private System.Windows.Forms.Label LabelTextSuccess;
+        private System.Windows.Forms.PictureBox PictureSuccess;
     }
 }

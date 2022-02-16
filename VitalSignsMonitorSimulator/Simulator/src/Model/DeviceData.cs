@@ -2,16 +2,16 @@
 {
     public class DeviceData
     {
-        public DeviceDataProperty<double> Temperature { get; set; }
+        public DeviceDataPropertyMinMaxThreshold<double> Temperature { get; set; }
         
-        public DeviceDataProperty<int> BloodPressure { get; set; }
+        public DeviceDataPropertyMinMaxThreshold<int> BloodPressure { get; set; }
         
-        public DeviceDataProperty<int> Saturation { get; set; }
+        public DeviceDataPropertyMinThreshold<int> Saturation { get; set; }
         
-        public DeviceDataProperty<int> BreathFrequency { get; set; }
+        public DeviceDataPropertyMinMaxThreshold<int> BreathFrequency { get; set; }
         
-        public DeviceDataProperty<int> HeartFrequency { get; set; }
+        public DeviceDataPropertyMinMaxThreshold<int> HeartFrequency { get; set; }
         
-        public DeviceDataProperty<int> BatteryPower { get; set; }
+        public DeviceDataPropertyMinThreshold<int> BatteryPower { get; set; }
     }
 }

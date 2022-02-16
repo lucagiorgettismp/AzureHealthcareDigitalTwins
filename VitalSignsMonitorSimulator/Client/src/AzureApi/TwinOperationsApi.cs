@@ -21,11 +21,13 @@
         // Name relationship
         private const string NAME_RELATIONSHIP = "rel_has_monitor";
 
+        // Model id
+        private const string MONITOR_MODEL_ID = "dtmi:healthCareDT:VitalParametersMonitor;1";
+        private const string PATIENT_MODEL_ID = "dtmi:healthCareDT:Patient;1";
+
+        private const string EMPTY_VALUE = "";
+
         // Unit of measurement
-        private const string UNIT_BLOOD_PRESSURE = "mmHg";
-        private const string UNIT_HEART_FREQUENCY = "bpm";
-        private const string UNIT_BREATH_FREQUENCY = "rpm";
-        private const string PERCENTAGE = "Percentage";
         private const string UNIT_BODY_MASS_INDEX = "Kg/m2";
 
         private async Task CreateDeviceHub(string deviceId)
@@ -81,7 +83,7 @@
 
             var patientTwin = new PatientTwin
             {
-                Metadata = { ModelId = "dtmi:healthCareDT:Patient;1" },
+                Metadata = { ModelId = PATIENT_MODEL_ID },
                 Name = model.Name,
                 Surname = model.Surname,
                 Age = model.Age,
@@ -125,7 +127,7 @@
 
                 var monitorTwin = new VitalSignsMonitor
                 {
-                    Metadata = { ModelId = "dtmi:healthCareDT:VitalParametersMonitor;1" },
+                    Metadata = { ModelId = MONITOR_MODEL_ID },
                     Temperature = GetEmptySensorComponent(),
                     BloodPressure = GetEmptySensorComponent(),
                     Battery = GetEmptySensorComponent(),
@@ -147,23 +149,25 @@
         {
             return new SensorComponent
             {
-                SensorName = "",
+                SensorName = EMPTY_VALUE,
                 Alarm = false,
                 SensorValue = new SensorValueComponent
                 {
                     Value = 0,
-                    Symbol = "",
-                    Type = "",
-                    Unit = ""
+                    Symbol = EMPTY_VALUE,
+                    Type = EMPTY_VALUE,
+                    Unit = EMPTY_VALUE
                 }
             };
         }
 
         public async Task CreateRelationship(DigitalTwinsClient client, string srcId, string targetId, string nameRel) {
 
-            var relationship = new BasicRelationship();
-            relationship.TargetId = targetId;
-            relationship.Name = nameRel;
+            var relationship = new BasicRelationship
+            {
+                TargetId = targetId,
+                Name = nameRel
+            };
 
             try
             {

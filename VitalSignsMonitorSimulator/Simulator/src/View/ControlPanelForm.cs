@@ -1,12 +1,11 @@
 ﻿namespace Simulator.View
 {
-    using Common;
     using Common.Enums;
     using Common.Utils;
     using Controller;
     using Newtonsoft.Json.Linq;
     using Simulator.AzureApi;
-    using Simulator.src;
+    using Simulator;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -25,13 +24,14 @@
 
         private const string ID_START_BUTTON = "start_button";
         private const string ID_STOP_BUTTON = "stop_button";
+        private const string DEVICE_ID = "deviceId";
 
         public ControlPanelForm()
         {
             InitializeComponent();
         }
 
-        private void ControlPanelForm_Load(object sender, EventArgs e)
+        private void ControlPanelFormLoad(object sender, EventArgs e)
         {
             this.startButton = this.Controls.Find(ID_START_BUTTON, true).FirstOrDefault() as Button;
             this.startButton.Enabled = false;
@@ -41,7 +41,7 @@
         }
 
         // Start button simulator 
-        private async void start_button_click(object sender, EventArgs e)
+        private async void StartButtonClick(object sender, EventArgs e)
         {
             if (this.deviceHub != null)
             {
@@ -62,7 +62,7 @@
         }
 
         // Stop button simulator
-        private void stop_button_click(object sender, EventArgs e)
+        private void StopButtonClick(object sender, EventArgs e)
         {
             Log.Ok("Stop simulation!");
             Console.WriteLine();
@@ -74,7 +74,7 @@
             this.tokenSource.Cancel();
         }
 
-        private async void devices_button_Click(object sender, EventArgs e)
+        private async void DevicesButtonClick(object sender, EventArgs e)
         {
             this.listbox_devices.Items.Clear();
 
@@ -82,11 +82,11 @@
             List<JObject> devices = await DeviceOperationsApi.GetDevices();
             foreach (var device in devices)
             {
-                this.listbox_devices.Items.Add(device["deviceId"]);
+                this.listbox_devices.Items.Add(device[DEVICE_ID]);
             }
         }
 
-        private async void listbox_devices_SelectedIndexChanged(object sender, EventArgs e)
+        private async void SelectedIndexDevices(object sender, EventArgs e)
         {
             if (this.listbox_devices.Items.Count > 0)
             {
@@ -97,11 +97,6 @@
 
                 this.startButton.Enabled = true;
             }
-        }
-
-        private void DevicesTable_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }
