@@ -48,7 +48,7 @@
                     InAlarm = false,
                     UpdateDelta = 0.3,
                     SensorName = "Temperature",
-                    Symbol = "°C",
+                    Symbol = "\u00B0C",
                     Type = "double"
                 },
                 BatteryPower = new DeviceDataProperty<Int32>

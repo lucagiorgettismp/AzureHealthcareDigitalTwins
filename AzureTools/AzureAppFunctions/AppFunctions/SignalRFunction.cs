@@ -41,11 +41,7 @@ namespace AppFunctions
             payload.Data.Patch.ForEach(p =>
             {
                 var builder = new StringBuilder();
-
-                log.LogInformation($"Patch: {p.Path}");
-                byte[] bytes = Encoding.Default.GetBytes(p.Path);
-                string payload = Encoding.UTF8.GetString(bytes);
-                var chunks = payload.Split("/").ToList();
+                var chunks = p.Path.Split("/").ToList();
 
                 chunks.RemoveAt(0);
                 builder.Append(chunks[0]);
