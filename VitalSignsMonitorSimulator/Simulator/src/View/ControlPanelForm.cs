@@ -1,12 +1,11 @@
 ﻿namespace Simulator.View
 {
-    using Common;
     using Common.Enums;
     using Common.Utils;
     using Controller;
     using Newtonsoft.Json.Linq;
     using Simulator.AzureApi;
-    using Simulator.src;
+    using Simulator;
     using System;
     using System.Collections.Generic;
     using System.Linq;

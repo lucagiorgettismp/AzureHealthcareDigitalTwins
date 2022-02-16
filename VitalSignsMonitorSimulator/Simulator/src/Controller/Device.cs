@@ -6,7 +6,6 @@ namespace Simulator.Controller
     using Model;
     using Newtonsoft.Json;
     using Simulator.Model.Payload;
-    using Simulator.src;
     using System;
     using System.Text;
     using System.Threading;

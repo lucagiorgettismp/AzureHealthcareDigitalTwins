@@ -1,5 +1,5 @@
 ﻿
-namespace Simulator.src
+namespace Simulator
 {
     partial class SimulationForm
     {
