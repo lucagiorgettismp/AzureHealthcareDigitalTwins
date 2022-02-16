@@ -5829,8 +5829,8 @@ Transform:
   - {fileID: 1950353964}
   - {fileID: 2087708269}
   - {fileID: 330979129}
-  - {fileID: 1496898492}
   - {fileID: 1437981549}
+  - {fileID: 1496898492}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -36743,7 +36743,7 @@ Transform:
   - {fileID: 1591752040}
   - {fileID: 1952739673}
   m_Father: {fileID: 257456634}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1437981550
 AudioSource:
@@ -36900,7 +36900,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1437981548}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35811e32b86f30e48af125532e4ca5f0, type: 3}
+  m_Script: {fileID: 11500000, guid: f13e4f71ae9d6c6468c29644b4507799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1437981554
@@ -38571,7 +38571,7 @@ MonoBehaviour:
   BreathFrequencyView: {fileID: 1950353968}
   SaturationView: {fileID: 2087708273}
   BloodPressureView: {fileID: 330979133}
-  SensorValuesView: {fileID: 0}
+  SensorValuesView: {fileID: 1437981553}
 --- !u!4 &1496898492
 Transform:
   m_ObjectHideFlags: 0
@@ -38587,7 +38587,7 @@ Transform:
   - {fileID: 576775823}
   - {fileID: 312752969}
   m_Father: {fileID: 257456634}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1499666926
 GameObject:
