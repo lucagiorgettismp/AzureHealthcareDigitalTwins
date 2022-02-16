@@ -18,93 +18,105 @@
 
             random = new Random();
 
+            InitDeviceData();
+        }
+
+        private void InitDeviceData()
+        {
             var appSettings = ConfigurationManager.AppSettings;
 
+            var temperature = new DeviceDataPropertyMinMaxThreshold<double>
+            {
+                UnitOfMeasurement = appSettings["TemperatureUnit"],
+                MinValue = Convert.ToDouble(appSettings["TemperatureMinValue"]),
+                MaxValue = Convert.ToDouble(appSettings["TemperatureMaxValue"]),
+                AlarmMinThreashold = Convert.ToDouble(appSettings["TemperatureMinAlarmThreasholdValue"]),
+                AlarmMaxThreashold = Convert.ToDouble(appSettings["TemperatureMaxAlarmThreasholdValue"]),
+                UpdateDelta = Convert.ToDouble(appSettings["TemperatureUpdateDelta"]),
+                SensorName = appSettings["TemperatureSensorName"],
+                Symbol = appSettings["TemperatureUnitSymbol"],
+                Type = DoubleType,
+            };
+
+            temperature.SetValue(Convert.ToDouble(appSettings["TemperatureInitValue"]));
+
+            var batteryPower = new DeviceDataPropertyMinThreshold<int>
+            {
+                UnitOfMeasurement = appSettings["BatteryUnit"],
+                MinValue = Convert.ToInt32(appSettings["BatteryMinValue"]),
+                MaxValue = Convert.ToInt32(appSettings["BatteryMaxValue"]),
+                AlarmMinThreashold = Convert.ToInt32(appSettings["BatteryMinAlarmThreasholdValue"]),
+                UpdateDelta = Convert.ToInt32(appSettings["BatteryUpdateDelta"]),
+                SensorName = appSettings["BatterySensorName"],
+                Symbol = appSettings["BatteryUnitSymbol"],
+                Type = IntType,
+            };
+            batteryPower.SetValue(Convert.ToInt32(appSettings["BatteryInitValue"]));
+
+            var bloodPressure = new DeviceDataPropertyMinMaxThreshold<int>
+            {
+                UnitOfMeasurement = appSettings["BloodPressureUnit"],
+                MinValue = Convert.ToInt32(appSettings["BloodPressureMinValue"]),
+                MaxValue = Convert.ToInt32(appSettings["BloodPressureMaxValue"]),
+                AlarmMinThreashold = Convert.ToInt32(appSettings["BloodPressureMinAlarmThreasholdValue"]),
+                AlarmMaxThreashold = Convert.ToInt32(appSettings["BloodPressureMaxAlarmThreasholdValue"]),
+                UpdateDelta = Convert.ToInt32(appSettings["BloodPressureUpdateDelta"]),
+                SensorName = appSettings["BloodPressureSensorName"],
+                Symbol = appSettings["BloodPressureUnitSymbol"],
+                Type = IntType,
+            };
+            bloodPressure.SetValue(Convert.ToInt32(appSettings["BloodPressureInitValue"]));
+
+            var breathFrequency = new DeviceDataPropertyMinMaxThreshold<int>
+            {
+                UnitOfMeasurement = appSettings["BreathFrequencyUnit"],
+                MinValue = Convert.ToInt32(appSettings["BreathFrequencyMinValue"]),
+                MaxValue = Convert.ToInt32(appSettings["BreathFrequencyMaxValue"]),
+                AlarmMinThreashold = Convert.ToInt32(appSettings["BreathFrequencyMinAlarmThreasholdValue"]),
+                AlarmMaxThreashold = Convert.ToInt32(appSettings["BreathFrequencyMaxAlarmThreasholdValue"]),
+                UpdateDelta = Convert.ToInt32(appSettings["BreathFrequencyUpdateDelta"]),
+                SensorName = appSettings["BreathFrequencySensorName"],
+                Symbol = appSettings["BreathFrequencyUnitSymbol"],
+                Type = IntType,
+            };
+            breathFrequency.SetValue(Convert.ToInt32(appSettings["BreathFrequencyInitValue"]));
+
+            var heartFrequency = new DeviceDataPropertyMinMaxThreshold<int>
+            {
+                UnitOfMeasurement = appSettings["HeartFrequencyUnit"],
+                MinValue = Convert.ToInt32(appSettings["HeartFrequencyMinValue"]),
+                MaxValue = Convert.ToInt32(appSettings["HeartFrequencyMaxValue"]),
+                AlarmMinThreashold = Convert.ToInt32(appSettings["HeartFrequencyMinAlarmThreasholdValue"]),
+                AlarmMaxThreashold = Convert.ToInt32(appSettings["HeartFrequencyMaxAlarmThreasholdValue"]),
+                UpdateDelta = Convert.ToInt32(appSettings["HeartFrequencyUpdateDelta"]),
+                SensorName = appSettings["HeartFrequencySensorName"],
+                Symbol = appSettings["HeartFrequencyUnitSymbol"],
+                Type = IntType,
+            };
+            heartFrequency.SetValue(Convert.ToInt32(appSettings["HeartFrequencyInitValue"]));
+
+            var saturation = new DeviceDataPropertyMinThreshold<int>
+            {
+                UnitOfMeasurement = appSettings["SaturationUnit"],
+                MinValue = Convert.ToInt32(appSettings["SaturationMinValue"]),
+                MaxValue = Convert.ToInt32(appSettings["SaturationMaxValue"]),
+                AlarmMinThreashold = Convert.ToInt32(appSettings["SaturationMinAlarmThreasholdValue"]),
+                UpdateDelta = Convert.ToInt32(appSettings["SaturationUpdateDelta"]),
+                SensorName = appSettings["SaturationSensorName"],
+                Symbol = appSettings["SaturationUnitSymbol"],
+                Type = IntType,
+                InAlarm = false
+            };
+            saturation.SetValue(Convert.ToInt32(appSettings["SaturationInitValue"]));
 
             deviceData = new DeviceData
             {
-                Temperature = new DeviceDataPropertyMinMaxThreshold<double>
-                {
-                    UnitOfMeasurement = appSettings["TemperatureUnit"],
-                    MinValue = Convert.ToDouble(appSettings["TemperatureMinValue"]),
-                    MaxValue = Convert.ToDouble(appSettings["TemperatureMaxValue"]),
-                    Value = Convert.ToDouble(appSettings["TemperatureInitValue"]),
-                    AlarmMinThreashold = Convert.ToDouble(appSettings["TemperatureMinAlarmThreasholdValue"]),
-                    AlarmMaxThreashold = Convert.ToDouble(appSettings["TemperatureMaxAlarmThreasholdValue"]),
-                    UpdateDelta = Convert.ToDouble(appSettings["TemperatureUpdateDelta"]),
-                    SensorName = appSettings["TemperatureSensorName"],
-                    Symbol = appSettings["TemperatureUnitSymbol"],
-                    Type = DoubleType,
-                    InAlarm = false
-                },
-                BatteryPower = new DeviceDataPropertyMinThreshold<int>
-                {
-                    UnitOfMeasurement = appSettings["PercentageUnit"],
-                    MinValue = Convert.ToInt32(appSettings["BatteryMinValue"]),
-                    MaxValue = Convert.ToInt32(appSettings["BatteryMaxValue"]),
-                    Value = Convert.ToInt32(appSettings["BatteryInitValue"]),
-                    AlarmMinThreashold = Convert.ToInt32(appSettings["BatteryMinAlarmThreasholdValue"]),
-                    UpdateDelta = Convert.ToInt32(appSettings["BatteryUpdateDelta"]),
-                    SensorName = appSettings["BatterySensorName"],
-                    Symbol = appSettings["PercentageUnitSymbol"],
-                    Type = IntType,
-                    InAlarm = false
-                },
-                BloodPressure = new DeviceDataPropertyMinMaxThreshold<int> {
-                    UnitOfMeasurement = appSettings["BloodPressureUnit"],
-                    MinValue = Convert.ToInt32(appSettings["BloodPressureMinValue"]),
-                    MaxValue = Convert.ToInt32(appSettings["BloodPressureMaxValue"]),
-                    Value = Convert.ToInt32(appSettings["BloodPressureInitValue"]),
-                    AlarmMinThreashold = Convert.ToInt32(appSettings["BloodPressureMinAlarmThreasholdValue"]),
-                    AlarmMaxThreashold = Convert.ToInt32(appSettings["BloodPressureMaxAlarmThreasholdValue"]),
-                    UpdateDelta = Convert.ToInt32(appSettings["BloodPressureUpdateDelta"]),
-                    SensorName = appSettings["BloodPressureSensorName"],
-                    Symbol = appSettings["BloodPressureUnitSymbol"],
-                    Type = IntType,
-                    InAlarm = false
-                },
-
-                BreathFrequency = new DeviceDataPropertyMinMaxThreshold<int>
-                {
-                    UnitOfMeasurement = appSettings["BreathFrequencyUnit"],
-                    MinValue = Convert.ToInt32(appSettings["BreathFrequencyMinValue"]),
-                    MaxValue = Convert.ToInt32(appSettings["BreathFrequencyMaxValue"]),
-                    Value = Convert.ToInt32(appSettings["BreathFrequencyInitValue"]),
-                    AlarmMinThreashold = Convert.ToInt32(appSettings["BreathFrequencyMinAlarmThreasholdValue"]),
-                    AlarmMaxThreashold = Convert.ToInt32(appSettings["BreathFrequencyMaxAlarmThreasholdValue"]),
-                    UpdateDelta = Convert.ToInt32(appSettings["BreathFrequencyUpdateDelta"]),
-                    SensorName = appSettings["BreathFrequencySensorName"],
-                    Symbol = appSettings["BreathFrequencyUnitSymbol"],
-                    Type = IntType,
-                    InAlarm = false
-                },
-                HeartFrequency = new DeviceDataPropertyMinMaxThreshold<int>
-                {
-                    UnitOfMeasurement = appSettings["HeartFrequencyUnit"],
-                    MinValue = Convert.ToInt32(appSettings["HeartFrequencyMinValue"]),
-                    MaxValue = Convert.ToInt32(appSettings["HeartFrequencyMaxValue"]),
-                    Value = Convert.ToInt32(appSettings["HeartFrequencyInitValue"]),
-                    AlarmMinThreashold = Convert.ToInt32(appSettings["HeartFrequencyMinAlarmThreasholdValue"]),
-                    AlarmMaxThreashold = Convert.ToInt32(appSettings["HeartFrequencyMaxAlarmThreasholdValue"]),
-                    UpdateDelta = Convert.ToInt32(appSettings["HeartFrequencyUpdateDelta"]),
-                    SensorName = appSettings["HeartFrequencySensorName"],
-                    Symbol = appSettings["HeartFrequencyUnitSymbol"],
-                    Type = IntType,
-                    InAlarm = false
-                },
-                Saturation = new DeviceDataPropertyMinThreshold<int>
-                {
-                    UnitOfMeasurement = appSettings["PercentageUnit"],
-                    MinValue = Convert.ToInt32(appSettings["SaturationMinValue"]),
-                    MaxValue = Convert.ToInt32(appSettings["SaturationMaxValue"]),
-                    Value = Convert.ToInt32(appSettings["SaturationInitValue"]),
-                    AlarmMinThreashold = Convert.ToInt32(appSettings["SaturationMinAlarmThreasholdValue"]),
-                    UpdateDelta = Convert.ToInt32(appSettings["SaturationUpdateDelta"]),
-                    SensorName = appSettings["SaturationSensorName"],
-                    Symbol = appSettings["PercentageUnitSymbol"],
-                    Type = IntType,
-                    InAlarm = false
-                },
+                Temperature = temperature,
+                BatteryPower = batteryPower,
+                BloodPressure = bloodPressure,
+                BreathFrequency = breathFrequency,
+                HeartFrequency = heartFrequency,
+                Saturation = saturation
             };
         }
 
@@ -112,46 +124,46 @@
         {
             var newData = this.deviceData;
 
-            newData.Temperature.Value = this.GenerateDoubleValue(
+            newData.Temperature.SetValue(this.GenerateDoubleValue(
                 (double)(object)deviceData.Temperature.Value,
                 (double)(object)deviceData.Temperature.UpdateDelta,
                 (double)(object)deviceData.Temperature.MinValue,
-                (double)(object)deviceData.Temperature.MaxValue);
+                (double)(object)deviceData.Temperature.MaxValue));
 
-            newData.BloodPressure.Value = this.GenerateIntValue(
+            newData.BloodPressure.SetValue(this.GenerateIntValue(
                 deviceData.BloodPressure.Value,
                 deviceData.BloodPressure.UpdateDelta,
                 deviceData.BloodPressure.MinValue,
                 deviceData.BloodPressure.MaxValue, 
-                false);
+                false));
 
-            newData.BatteryPower.Value = this.GenerateIntValue(
+            newData.BatteryPower.SetValue(this.GenerateIntValue(
                 deviceData.BatteryPower.Value,
                 deviceData.BatteryPower.UpdateDelta,
                 deviceData.BatteryPower.MinValue,
                 deviceData.BatteryPower.MaxValue,
-                true);
+                true));
 
-            newData.Saturation.Value = this.GenerateIntValue(
+            newData.Saturation.SetValue(this.GenerateIntValue(
                 deviceData.Saturation.Value,
                 deviceData.Saturation.UpdateDelta,
                 deviceData.Saturation.MinValue,
                 deviceData.Saturation.MaxValue,
-                false);
+                false));
 
-            newData.BreathFrequency.Value = this.GenerateIntValue(
+            newData.BreathFrequency.SetValue(this.GenerateIntValue(
                 deviceData.BreathFrequency.Value,
                 deviceData.BreathFrequency.UpdateDelta,
                 deviceData.BreathFrequency.MinValue,
                 deviceData.BreathFrequency.MaxValue,
-                false);
+                false));
 
-            newData.HeartFrequency.Value = this.GenerateIntValue(
+            newData.HeartFrequency.SetValue(this.GenerateIntValue(
                 deviceData.HeartFrequency.Value,
                 deviceData.HeartFrequency.UpdateDelta,
                 deviceData.HeartFrequency.MinValue,
                 deviceData.HeartFrequency.MaxValue,
-                false);
+                false));
 
             this.deviceData = newData;
 

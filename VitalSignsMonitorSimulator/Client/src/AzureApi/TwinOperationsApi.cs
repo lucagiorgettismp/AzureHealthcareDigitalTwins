@@ -151,6 +151,8 @@
             {
                 SensorName = EMPTY_VALUE,
                 Alarm = false,
+                MinValue = 0,
+                MaxValue = 0,
                 SensorValue = new SensorValueComponent
                 {
                     Value = 0,
