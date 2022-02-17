@@ -31,7 +31,7 @@ public class HeartFrequencyView : MonoBehaviour
     const string RED_COLOR = "Materials/RedColor";
     const string WHITE_COLOR = "Materials/WhiteColor";
 
-    void Start()
+    public void Awake()
     {
         InitializedComponent();
     }

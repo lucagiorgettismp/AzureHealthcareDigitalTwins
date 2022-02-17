@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class BloodPressureView : MonoBehaviour
+public class BloodPressureView : VitalSignsMonitorElement
 {
     /* Datetime */
     private TextMeshPro Date;
@@ -31,7 +31,7 @@ public class BloodPressureView : MonoBehaviour
     const string RED_COLOR = "Materials/RedColor";
     const string WHITE_COLOR = "Materials/WhiteColor";
 
-    public void Start()
+    public void Awake()
     {
         InitializedComponent();
     }
@@ -52,7 +52,6 @@ public class BloodPressureView : MonoBehaviour
         /* Value components */
         this.BloodPressureValue = GameObject.Find("DetailBloodPressureValue").GetComponent<TextMeshPro>();
         this.BatteryValue = GameObject.Find("DetailBloodPressureBatteryValue").GetComponent<TextMeshPro>();
-
 
         /* Symbol components */
         this.BloodPressureSymbol = GameObject.Find("DetailBloodPressureSymbol").GetComponent<TextMeshPro>();

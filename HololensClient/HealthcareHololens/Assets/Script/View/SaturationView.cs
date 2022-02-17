@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class SaturationView : MonoBehaviour
+public class SaturationView : VitalSignsMonitorElement
 {
     /* Datetime */
     private TextMeshPro Date;
@@ -31,7 +31,7 @@ public class SaturationView : MonoBehaviour
     const string RED_COLOR = "Materials/RedColor";
     const string WHITE_COLOR = "Materials/WhiteColor";
 
-    public void Start()
+    public void Awake()
     {
         InitializedComponent();
     }
@@ -52,7 +52,6 @@ public class SaturationView : MonoBehaviour
         /* Value components */
         this.SaturationValue = GameObject.Find("DetailSaturationValue").GetComponent<TextMeshPro>();
         this.BatteryValue = GameObject.Find("DetailSaturationBatteryValue").GetComponent<TextMeshPro>();
-
 
         /* Symbol components */
         this.SaturationSymbol = GameObject.Find("DetailSaturationSymbol").GetComponent<TextMeshPro>();

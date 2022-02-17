@@ -50,7 +50,7 @@ public class VitalSignsMonitorView : VitalSignsMonitorElement
     const string RED_COLOR = "Materials/RedColor";
     const string WHITE_COLOR = "Materials/WhiteColor";
 
-    public void Start()
+    public void Awake()
     {
         InitializedComponent();
     }

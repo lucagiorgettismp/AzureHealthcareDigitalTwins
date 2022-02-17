@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class BreathFrequencyView : MonoBehaviour
+public class BreathFrequencyView : VitalSignsMonitorElement
 {
     /* Datetime */
     private TextMeshPro Date;
@@ -31,7 +31,7 @@ public class BreathFrequencyView : MonoBehaviour
     const string RED_COLOR = "Materials/RedColor";
     const string WHITE_COLOR = "Materials/WhiteColor";
 
-    public void Start()
+    public void Awake()
     {
         InitializedComponent();
     }
@@ -52,7 +52,6 @@ public class BreathFrequencyView : MonoBehaviour
         /* Value components */
         this.BreathFrequencyValue = GameObject.Find("DetailBreathFrequencyValue").GetComponent<TextMeshPro>();
         this.BatteryValue = GameObject.Find("DetailBreathFrequencyBatteryValue").GetComponent<TextMeshPro>();
-
 
         /* Symbol components */
         this.BreathFrequencySymbol = GameObject.Find("DetailBreathFrequencySymbol").GetComponent<TextMeshPro>();

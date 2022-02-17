@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class SensorValuesView : MonoBehaviour
+public class SensorValuesView : VitalSignsMonitorElement
 {
     /* Datetime */
     private TextMeshPro Date;
@@ -44,7 +44,7 @@ public class SensorValuesView : MonoBehaviour
     const string RED_COLOR = "Materials/RedColor";
     const string WHITE_COLOR = "Materials/WhiteColor";
 
-    public void Start()
+    public void Awake()
     {
         InitializedComponent();
     }
@@ -66,17 +66,14 @@ public class SensorValuesView : MonoBehaviour
         this.HeartFrequencyValue = GameObject.Find("DetailValueHeartFrequencyValue").GetComponent<TextMeshPro>();
         this.BreathFrequencyValue = GameObject.Find("DetailValueBreathFrequencyValue").GetComponent<TextMeshPro>();
         this.SaturationValue = GameObject.Find("DetailValueSaturationValue").GetComponent<TextMeshPro>();
-        this.HeartFrequencyValue = GameObject.Find("DetailValueHeartFrequencyValue").GetComponent<TextMeshPro>();
         this.BloodPressureValue = GameObject.Find("DetailValueBloodPressureValue").GetComponent<TextMeshPro>();
         this.TemperatureValue = GameObject.Find("DetailValueTemperatureValue").GetComponent<TextMeshPro>();
         this.BatteryValue = GameObject.Find("DetailValueBatteryValue").GetComponent<TextMeshPro>();
-
 
         /* Symbol components */
         this.HeartFrequencySymbol = GameObject.Find("DetailValueHeartFrequencySymbol").GetComponent<TextMeshPro>();
         this.BreathFrequencySymbol = GameObject.Find("DetailValueBreathFrequencySymbol").GetComponent<TextMeshPro>();
         this.SaturationSymbol = GameObject.Find("DetailValueSaturationSymbol").GetComponent<TextMeshPro>();
-        this.HeartFrequencySymbol = GameObject.Find("DetailValueHeartFrequencySymbol").GetComponent<TextMeshPro>();
         this.BloodPressureSymbol = GameObject.Find("DetailValueBloodPressureSymbol").GetComponent<TextMeshPro>();
         this.TemperatureSymbol = GameObject.Find("DetailValueTemperatureSymbol").GetComponent<TextMeshPro>();
         this.BatterySymbol = GameObject.Find("DetailValueBatterySymbol").GetComponent<TextMeshPro>();
@@ -85,7 +82,6 @@ public class SensorValuesView : MonoBehaviour
         this.HeartFrequencySensorName = GameObject.Find("DetailValueHeartFrequencySensorName").GetComponent<TextMeshPro>();
         this.BreathFrequencySensorName = GameObject.Find("DetailValueBreathFrequencySensorName").GetComponent<TextMeshPro>();
         this.SaturationSensorName = GameObject.Find("DetailValueSaturationSensorName").GetComponent<TextMeshPro>();
-        this.HeartFrequencySensorName = GameObject.Find("DetailValueHeartFrequencySensorName").GetComponent<TextMeshPro>();
         this.BloodPressureSensorName = GameObject.Find("DetailValueBloodPressureSensorName").GetComponent<TextMeshPro>();
         this.TemperatureSensorName = GameObject.Find("DetailValueTemperatureSensorName").GetComponent<TextMeshPro>();
         this.BatterySensorName = GameObject.Find("DetailValueBatterySensorName").GetComponent<TextMeshPro>();
