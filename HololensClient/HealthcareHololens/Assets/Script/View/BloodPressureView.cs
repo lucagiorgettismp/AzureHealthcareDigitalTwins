@@ -119,6 +119,9 @@ public class BloodPressureView : VitalSignsMonitorElement
 
     private void UpdateLineCharts(Message message)
     {
-        this.BloodPressureGraph.AddPoint((float)message.BloodPressureSensorValue.Value);
+        float yAxisMin  = (float)message.BloodPressureMinValue;
+        float yAxisMax  = (float)message.BloodPressureMaxValue;
+        float value     = (float)message.BloodPressureSensorValue.Value;
+        this.BloodPressureGraph.AddPoint(value, yAxisMin, yAxisMax);
     }
 }

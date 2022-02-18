@@ -7,8 +7,6 @@ using TMPro;
 public class WindowGraph : MonoBehaviour
 {
     [SerializeField] private Sprite circleSprite;
-    [SerializeField] public float yAxisMin;
-    [SerializeField] public float yAxisMax;
     [SerializeField] public int ySeparators;
     [SerializeField] public int xPoints;
 
@@ -46,8 +44,6 @@ public class WindowGraph : MonoBehaviour
         {
             pointList.Add(null);
         }
-
-        PaintAxis();
     }
 
     void Start()
@@ -61,12 +57,17 @@ public class WindowGraph : MonoBehaviour
         
     }
 
-    public void AddPoint(float point)
+    public void AddPoint(float point, float yAxisMin, float yAxisMax)
     {
+        if (pointList[pointList.Count -1] == null)
+        {
+            PaintAxis(yAxisMin, yAxisMax);
+        }
+
         pointList.RemoveAt(0);
         pointList.Add(point);
 
-        UpdateGraph(pointList);
+        UpdateGraph(pointList, yAxisMin, yAxisMax);
     }
 
 
@@ -85,7 +86,7 @@ public class WindowGraph : MonoBehaviour
         return gameObject;
     }
 
-    private void UpdateGraph(List<float?> values)
+    private void UpdateGraph(List<float?> values, float yAxisMin, float yAxisMax)
     {
         ClearGraph();
 
@@ -127,7 +128,7 @@ public class WindowGraph : MonoBehaviour
         children.ForEach(child => Destroy(child));
     }
 
-    private void PaintAxis()
+    private void PaintAxis(float yAxisMin, float yAxisMax)
     {
         float graphHeight = graphContainer.sizeDelta.y;
 

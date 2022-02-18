@@ -119,6 +119,9 @@ public class SaturationView : VitalSignsMonitorElement
 
     private void UpdateLineCharts(Message message)
     {
-        this.SaturationGraph.AddPoint((float)message.SaturationSensorValue.Value);
+        float yAxisMin = (float)message.SaturationMinValue;
+        float yAxisMax = (float)message.SaturationMaxValue;
+        float value = (float)message.SaturationSensorValue.Value;
+        this.SaturationGraph.AddPoint(value, yAxisMin, yAxisMax);
     }
 }

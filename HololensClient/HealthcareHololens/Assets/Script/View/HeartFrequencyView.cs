@@ -119,6 +119,9 @@ public class HeartFrequencyView : MonoBehaviour
 
     private void UpdateLineCharts(Message message)
     {
-        this.HeartFrequencyGraph.AddPoint((float)message.HeartFrequencySensorValue.Value);
+        float yAxisMin = (float)message.HeartFrequencyMinValue;
+        float yAxisMax = (float)message.HeartFrequencyMaxValue;
+        float value = (float)message.HeartFrequencySensorValue.Value;
+        this.HeartFrequencyGraph.AddPoint(value, yAxisMin, yAxisMax);
     }
 }

@@ -119,6 +119,9 @@ public class BreathFrequencyView : VitalSignsMonitorElement
 
     private void UpdateLineCharts(Message message)
     {
-        this.BreathFrequencyGraph.AddPoint((float)message.BreathFrequencySensorValue.Value);
+        float yAxisMin = (float)message.BreathFrequencyMinValue;
+        float yAxisMax = (float)message.BreathFrequencyMaxValue;
+        float value = (float)message.BreathFrequencySensorValue.Value;
+        this.BreathFrequencyGraph.AddPoint(value, yAxisMin, yAxisMax);
     }
 }
