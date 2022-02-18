@@ -12,7 +12,6 @@
         const string IntType = "int";
         const string DoubleType = "double";
 
-
         public DeviceDataGenerator()
         {
 
@@ -64,6 +63,7 @@
                 SensorName = appSettings["BloodPressureSensorName"],
                 Symbol = appSettings["BloodPressureUnitSymbol"],
                 Type = IntType,
+                GraphColor = (255, 255, 0)
             };
             bloodPressure.SetValue(Convert.ToInt32(appSettings["BloodPressureInitValue"]));
 
@@ -78,6 +78,7 @@
                 SensorName = appSettings["BreathFrequencySensorName"],
                 Symbol = appSettings["BreathFrequencyUnitSymbol"],
                 Type = IntType,
+                GraphColor = (0, 255, 0)
             };
             breathFrequency.SetValue(Convert.ToInt32(appSettings["BreathFrequencyInitValue"]));
 
@@ -92,6 +93,7 @@
                 SensorName = appSettings["HeartFrequencySensorName"],
                 Symbol = appSettings["HeartFrequencyUnitSymbol"],
                 Type = IntType,
+                GraphColor = (0, 255, 0)
             };
             heartFrequency.SetValue(Convert.ToInt32(appSettings["HeartFrequencyInitValue"]));
 
@@ -105,7 +107,8 @@
                 SensorName = appSettings["SaturationSensorName"],
                 Symbol = appSettings["PercentageUnitSymbol"],
                 Type = IntType,
-                InAlarm = false
+                InAlarm = false,
+                GraphColor = (255, 0, 0)
             };
             saturation.SetValue(Convert.ToInt32(appSettings["SaturationInitValue"]));
 

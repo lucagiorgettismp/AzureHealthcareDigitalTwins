@@ -82,14 +82,15 @@ namespace Simulator.Controller
             {
                 SensorName = dataProperty.SensorName,
                 Alarm = dataProperty.InAlarm,
-                MinValue = dataProperty.MinValue,
-                MaxValue = dataProperty.MaxValue,
+                GraphColor = dataProperty.GraphColor,
                 SensorValue = new SensorValue<T>
                 {
                     UnitOfMeasurement = dataProperty.UnitOfMeasurement,
                     Symbol = dataProperty.Symbol,
                     Type = dataProperty.Type,
-                    Value = dataProperty.Value
+                    Value = dataProperty.Value,
+                    MinValue = dataProperty.MinValue,
+                    MaxValue = dataProperty.MaxValue
                 }
             };
         }
