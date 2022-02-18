@@ -180,20 +180,35 @@ public class VitalSignsMonitorView : VitalSignsMonitorElement
 
     private void UpdateLineCharts(Message message)
     {
+        Color HearthFrequencyColor = SplitColor((string)message.HeartFrequencyGraphColor);
         this.HeartFrequencyGraph.AddPoint((float)message.HeartFrequencySensorValue.Value,
-                                          (float)message.HeartFrequencyMinValue,
-                                          (float)message.HeartFrequencyMaxValue);
+                                          (float)message.HeartFrequencySensorValue.MinValue,
+                                          (float)message.HeartFrequencySensorValue.MaxValue,
+                                          HearthFrequencyColor);
 
+        Color BreathFrequencyColor = SplitColor((string)message.BreathFrequencyGraphColor);
         this.BreathFrequencyGraph.AddPoint((float)message.BreathFrequencySensorValue.Value,
-                                           (float)message.BreathFrequencyMinValue,
-                                           (float)message.BreathFrequencyMaxValue);
+                                           (float)message.BreathFrequencySensorValue.MinValue,
+                                           (float)message.BreathFrequencySensorValue.MaxValue,
+                                           BreathFrequencyColor);
 
+        Color SaturationColor = SplitColor((string)message.SaturationGraphColor);
         this.SaturationGraph.AddPoint((float)message.SaturationSensorValue.Value,
-                                      (float)message.SaturationMinValue,
-                                      (float)message.SaturationMaxValue);
+                                      (float)message.SaturationSensorValue.MinValue,
+                                      (float)message.SaturationSensorValue.MaxValue,
+                                      SaturationColor);
 
+        Color BloodPressureColor = SplitColor((string)message.BloodPressureGraphColor);
         this.BloodPressureGraph.AddPoint((float)message.BloodPressureSensorValue.Value,
-                                         (float)message.BloodPressureMinValue,
-                                         (float)message.BloodPressureMaxValue);
+                                         (float)message.BloodPressureSensorValue.MinValue,
+                                         (float)message.BloodPressureSensorValue.MaxValue,
+                                         BloodPressureColor);
+    }
+    private Color SplitColor(string color)
+    {
+        int channelR = Convert.ToInt32(color.Split(',')[0]);
+        int channelG = Convert.ToInt32(color.Split(',')[1]);
+        int channelB = Convert.ToInt32(color.Split(',')[2]);
+        return new Color(channelR, channelG, channelB, 250f);
     }
 }

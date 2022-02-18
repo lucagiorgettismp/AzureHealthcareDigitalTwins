@@ -11,12 +11,6 @@ public class Message
     [JsonProperty("temperature_sensor_value")]
     public SensorValue TemperatureSensorValue { get; set; }
 
-    [JsonProperty("temperature_min_value")]
-    public float TemperatureMinValue { get; set; }
-
-    [JsonProperty("temperature_max_value")]
-    public float TemperatureMaxValue { get; set; }
-
 
     [JsonProperty("blood_pressure_sensor_name")]
     public string BloodPressureSensorName { get; set; }
@@ -27,11 +21,8 @@ public class Message
     [JsonProperty("blood_pressure_sensor_value")]
     public SensorValue BloodPressureSensorValue { get; set; }
 
-    [JsonProperty("blood_pressure_min_value")]
-    public float BloodPressureMinValue { get; set; }
-
-    [JsonProperty("blood_pressure_max_value")]
-    public float BloodPressureMaxValue { get; set; }
+    [JsonProperty("blood_pressure_graph_color")]
+    public string BloodPressureGraphColor { get; set; }
 
 
     [JsonProperty("battery_sensor_name")]
@@ -43,12 +34,6 @@ public class Message
     [JsonProperty("battery_sensor_value")]
     public SensorValue BatterySensorValue { get; set; }
 
-    [JsonProperty("battery_min_value")]
-    public float BatteryMinValue { get; set; }
-
-    [JsonProperty("battery_max_value")]
-    public float BatteryMaxValue { get; set; }
-
 
     [JsonProperty("heart_frequency_sensor_name")]
     public string HeartFrequencySensorName { get; set; }
@@ -59,11 +44,8 @@ public class Message
     [JsonProperty("heart_frequency_sensor_value")]
     public SensorValue HeartFrequencySensorValue { get; set; }
 
-    [JsonProperty("heart_frequency_min_value")]
-    public float HeartFrequencyMinValue { get; set; }
-
-    [JsonProperty("heart_frequency_max_value")]
-    public float HeartFrequencyMaxValue { get; set; }
+    [JsonProperty("heart_frequency_graph_color")]
+    public string HeartFrequencyGraphColor { get; set; }
 
 
     [JsonProperty("breath_frequency_sensor_name")]
@@ -75,11 +57,8 @@ public class Message
     [JsonProperty("breath_frequency_sensor_value")]
     public SensorValue BreathFrequencySensorValue { get; set; }
 
-    [JsonProperty("breath_frequency_min_value")]
-    public float BreathFrequencyMinValue { get; set; }
-
-    [JsonProperty("breath_frequency_max_value")]
-    public float BreathFrequencyMaxValue { get; set; }
+    [JsonProperty("breath_frequency_graph_color")]
+    public string BreathFrequencyGraphColor { get; set; }
 
 
     [JsonProperty("saturation_sensor_name")]
@@ -91,9 +70,6 @@ public class Message
     [JsonProperty("saturation_sensor_value")]
     public SensorValue SaturationSensorValue { get; set; }
 
-    [JsonProperty("saturation_min_value")]
-    public float SaturationMinValue { get; set; }
-
-    [JsonProperty("saturation_max_value")]
-    public float SaturationMaxValue { get; set; }
+    [JsonProperty("saturation_graph_color")]
+    public string SaturationGraphColor { get; set; }
 }

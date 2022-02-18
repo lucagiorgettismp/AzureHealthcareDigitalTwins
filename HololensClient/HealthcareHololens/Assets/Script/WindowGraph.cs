@@ -6,13 +6,9 @@ using TMPro;
 
 public class WindowGraph : MonoBehaviour
 {
-    [SerializeField] private Sprite circleSprite;
-    [SerializeField] public int ySeparators;
-    [SerializeField] public int xPoints;
-
-    [SerializeField] public float R;
-    [SerializeField] public float G;
-    [SerializeField] public float B;
+    private Sprite circleSprite;
+    private int ySeparators;
+    private int xPoints;
 
     // Start is called before the first frame update
     private RectTransform graphContainer;
@@ -31,10 +27,13 @@ public class WindowGraph : MonoBehaviour
 
     private void Awake()
     {
+        this.ySeparators = 5;
+        this.xPoints = 25;
+
         graphContainer = transform.Find("GraphContainer").GetComponent<RectTransform>();
         labelTemplateY = graphContainer.Find("LabelTemplateY").GetComponent<RectTransform>();
         dashTemplateY = graphContainer.Find("DashTemplateY").GetComponent<RectTransform>();
-        color = new Color(R, G, B, 250f);
+        this.circleSprite = Resources.Load<Sprite>("Sprites/circle");
         //labelTemplateX = graphContainer.Find("LabelTemplateX").GetComponent<RectTransform>();
         //dashTemplateX = graphContainer.Find("DashTemplateX").GetComponent<RectTransform>();
 
@@ -57,12 +56,14 @@ public class WindowGraph : MonoBehaviour
         
     }
 
-    public void AddPoint(float point, float yAxisMin, float yAxisMax)
+    public void AddPoint(float point, float yAxisMin, float yAxisMax, Color color)
     {
         if (pointList[pointList.Count -1] == null)
         {
             PaintAxis(yAxisMin, yAxisMax);
         }
+
+        this.color = color;
 
         pointList.RemoveAt(0);
         pointList.Add(point);
