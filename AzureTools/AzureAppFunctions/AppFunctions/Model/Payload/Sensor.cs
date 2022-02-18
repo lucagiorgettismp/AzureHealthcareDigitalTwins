@@ -14,6 +14,6 @@ namespace AppFunctions.Model.Payload
         public SensorValue SensorValue { get; set; }
 
         [JsonProperty("graph_color")]
-        public (int, int, int) GraphColor { get; set; }
+        public string GraphColor { get; set; }
     }
 }
