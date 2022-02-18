@@ -8,16 +8,16 @@ namespace AppFunctions.Model.Payload
         public Sensor Temperature { get; set; }
 
         [JsonProperty("blood_pressure")]
-        public Sensor BloodPressure { get; set; }
+        public SensorGraph BloodPressure { get; set; }
 
         [JsonProperty("saturation")]
-        public Sensor Saturation { get; set; }
+        public SensorGraph Saturation { get; set; }
 
         [JsonProperty("breath_frequency")]
-        public Sensor BreathFrequency { get; set; }
+        public SensorGraph BreathFrequency { get; set; }
 
         [JsonProperty("heart_frequency")]
-        public Sensor HeartFrequency { get; set; }
+        public SensorGraph HeartFrequency { get; set; }
 
         [JsonProperty("battery_power")]
         public Sensor BatteryPower { get; set; }
