@@ -128,12 +128,12 @@
                 var monitorTwin = new VitalSignsMonitor
                 {
                     Metadata = { ModelId = MONITOR_MODEL_ID },
-                    Temperature = GetEmptySensorComponent(),
-                    BloodPressure = GetEmptySensorComponent(),
-                    Battery = GetEmptySensorComponent(),
-                    HeartFrequency = GetEmptySensorComponent(),
-                    BreathFrequency = GetEmptySensorComponent(),
-                    Saturation = GetEmptySensorComponent()
+                    Temperature = GetSensorComponent(),
+                    BloodPressure = GetSensorGraphComponent(),
+                    Battery = GetSensorComponent(),
+                    HeartFrequency = GetSensorGraphComponent(),
+                    BreathFrequency = GetSensorGraphComponent(),
+                    Saturation = GetSensorGraphComponent()
                 };
 
                 await client.CreateOrReplaceDigitalTwinAsync(monitorId, monitorTwin);
@@ -145,17 +145,36 @@
             }
         }
 
-        private SensorComponent GetEmptySensorComponent()
+        private SensorComponent GetSensorComponent()
         {
             return new SensorComponent
             {
                 SensorName = EMPTY_VALUE,
                 Alarm = false,
-                MinValue = 0,
-                MaxValue = 0,
                 SensorValue = new SensorValueComponent
                 {
                     Value = 0,
+                    MinValue = 0,
+                    MaxValue = 0,
+                    Symbol = EMPTY_VALUE,
+                    Type = EMPTY_VALUE,
+                    Unit = EMPTY_VALUE
+                }
+            };
+        }
+
+        private SensorGraphComponent GetSensorGraphComponent()
+        {
+            return new SensorGraphComponent
+            {
+                SensorName = EMPTY_VALUE,
+                Alarm = false,
+                GraphColor = EMPTY_VALUE,
+                SensorValue = new SensorValueComponent
+                {
+                    Value = 0,
+                    MinValue = 0,
+                    MaxValue = 0,
                     Symbol = EMPTY_VALUE,
                     Type = EMPTY_VALUE,
                     Unit = EMPTY_VALUE

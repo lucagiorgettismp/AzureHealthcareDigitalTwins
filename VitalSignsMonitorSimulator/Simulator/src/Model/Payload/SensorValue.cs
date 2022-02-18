@@ -1,9 +1,14 @@
 using Newtonsoft.Json;
 namespace Simulator.Model.Payload
 {
-
     public class SensorValue<T>
     {
+        [JsonProperty("min_value")]
+        public T MinValue { get; set; }
+
+        [JsonProperty("max_value")]
+        public T MaxValue { get; set; }
+
         [JsonProperty("value")]
         public T Value { get; set; }
 

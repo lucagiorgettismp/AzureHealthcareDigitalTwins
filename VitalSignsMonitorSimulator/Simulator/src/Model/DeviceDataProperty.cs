@@ -14,6 +14,8 @@
         
         public T MaxValue { get; set; }
 
+        public string GraphColor { get; set; }
+
         public bool InAlarm { get; internal set; }
 
         public T UpdateDelta { get; set; }

@@ -8,11 +8,13 @@
     public partial class PatientForm : Form
     {
         readonly Client clientTwins;
+        readonly Form clientForm;
 
-        public PatientForm(Client client)
+        public PatientForm(Form clientForm, Client client)
         {
             InitializeComponent();
             this.clientTwins = client;
+            this.clientForm = clientForm;
         }
 
         private void PatientAgeKeyPress(object sender, KeyPressEventArgs e)
@@ -85,14 +87,15 @@
                     Surname = this.patient_surname.Text,
                     Age = Convert.ToInt32(this.patient_age.Text),
                     Gender = this.patient_gender.Text,
-                    Height = Convert.ToDouble(this.patient_height.Text),
-                    Weight = Convert.ToDouble(this.patient_weight.Text),
+                    Height = Convert.ToDouble(this.patient_height.Text.Replace(".", ",")),
+                    Weight = Convert.ToDouble(this.patient_weight.Text.Replace(".", ",")),
                     Description = this.patient_description.Text,
-                    BodyMassIndex = Convert.ToDouble(this.patient_body_mass_index.Text)
+                    BodyMassIndex = Convert.ToDouble(this.patient_body_mass_index.Text.Replace(".", ","))
                 };
 
                 this.clientTwins.CreatePatientTwin(modelPatient);
                 this.Close();
+                this.clientForm.Enabled = true;
             }
         }
 
