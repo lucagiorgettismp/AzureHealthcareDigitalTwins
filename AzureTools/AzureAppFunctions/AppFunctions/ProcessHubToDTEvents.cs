@@ -55,7 +55,13 @@ namespace AppFunctions
                     */
                     case CrudMode.Update:
                         updateTwinData = BuildUpdatePatchJson(payload.Body.Data);
-                        await client.UpdateDigitalTwinAsync(deviceId, updateTwinData);
+                        try
+                        {
+                            await client.UpdateDigitalTwinAsync(deviceId, updateTwinData);
+                        }catch(Exception e)
+                        {
+                            log.LogError(e.Message);
+                        }
                         break;
                     default:
                         throw new CrudOperationNotAvailableException();
