@@ -1,7 +1,6 @@
 using Newtonsoft.Json;
 namespace Simulator.Model.Payload
 {
-
     public class Sensor<T>
     {
         [JsonProperty("alarm")]
@@ -13,10 +12,7 @@ namespace Simulator.Model.Payload
         [JsonProperty("sensor_value")]
         public SensorValue<T> SensorValue { get; set; }
 
-        [JsonProperty("min_value")]
-        public T MinValue { get; set; }
-
-        [JsonProperty("max_value")]
-        public T MaxValue { get; set; }
+        [JsonProperty("graph_color")]
+        public (int, int, int) GraphColor { get; set; }
     }
 }

@@ -84,8 +84,7 @@ namespace AppFunctions
         {
             updateTwinData.AppendReplace<string>($"/{path}/sensor_name", sensor.SensorName);
             updateTwinData.AppendReplace<bool>($"/{path}/alarm", sensor.Alarm);
-            updateTwinData.AppendReplace<double>($"/{path}/min_value", sensor.MinValue);
-            updateTwinData.AppendReplace<double>($"/{path}/max_value", sensor.MaxValue);
+            updateTwinData.AppendReplace<(int, int, int)>($"/{path}/graph_color", sensor.GraphColor);
             updateTwinData.AppendReplaceRaw($"/{path}/sensor_value", JsonConvert.SerializeObject(sensor.SensorValue));
 
             //updateTwinData = AppendValueProperties(updateTwinData, sensor.SensorValue, $"{path}/sensor_value");
