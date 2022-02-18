@@ -119,6 +119,16 @@ public class SaturationView : VitalSignsMonitorElement
 
     private void UpdateLineCharts(Message message)
     {
-        this.SaturationGraph.AddPoint((float)message.SaturationSensorValue.Value);
+        float yAxisMin = (float)message.SaturationSensorValue.MinValue;
+        float yAxisMax = (float)message.SaturationSensorValue.MaxValue;
+        float value = (float)message.SaturationSensorValue.Value;
+
+        string graphColor = (string)message.SaturationGraphColor;
+        int channelR = Convert.ToInt32(graphColor.Split(',')[0]);
+        int channelG = Convert.ToInt32(graphColor.Split(',')[1]);
+        int channelB = Convert.ToInt32(graphColor.Split(',')[2]);
+        Color color = new Color(channelR, channelG, channelB, 250f);
+
+        this.SaturationGraph.AddPoint(value, yAxisMin, yAxisMax, color);
     }
 }

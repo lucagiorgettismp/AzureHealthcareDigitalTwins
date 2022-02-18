@@ -119,6 +119,16 @@ public class BloodPressureView : VitalSignsMonitorElement
 
     private void UpdateLineCharts(Message message)
     {
-        this.BloodPressureGraph.AddPoint((float)message.BloodPressureSensorValue.Value);
+        float yAxisMin  = (float)message.BloodPressureSensorValue.MinValue;
+        float yAxisMax  = (float)message.BloodPressureSensorValue.MaxValue;
+        float value     = (float)message.BloodPressureSensorValue.Value;
+
+        string graphColor = (string) message.BloodPressureGraphColor;
+        int channelR = Convert.ToInt32(graphColor.Split(',')[0]);
+        int channelG = Convert.ToInt32(graphColor.Split(',')[1]);
+        int channelB = Convert.ToInt32(graphColor.Split(',')[2]);
+        Color color = new Color(channelR, channelG, channelB, 250f);
+
+        this.BloodPressureGraph.AddPoint(value, yAxisMin, yAxisMax, color);
     }
 }

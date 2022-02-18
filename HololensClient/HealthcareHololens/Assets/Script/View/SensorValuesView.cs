@@ -132,10 +132,19 @@ public class SensorValuesView : VitalSignsMonitorElement
     private void UpdateSensorValues(Message message)
     {
         this.TemperatureValue.text = Math.Round(message.TemperatureSensorValue.Value, 1).ToString();
+
         this.SaturationValue.text = message.SaturationSensorValue.Value.ToString();
+        this.SaturationValue.color = SplitColor((string)message.SaturationGraphColor);
+
         this.BloodPressureValue.text = message.BloodPressureSensorValue.Value.ToString();
+        this.BloodPressureValue.color = SplitColor((string)message.BloodPressureGraphColor);
+
         this.HeartFrequencyValue.text = message.HeartFrequencySensorValue.Value.ToString();
+        this.HeartFrequencyValue.color = SplitColor((string)message.HeartFrequencyGraphColor);
+
         this.BreathFrequencyValue.text = message.BreathFrequencySensorValue.Value.ToString();
+        this.BreathFrequencyValue.color = SplitColor((string)message.BreathFrequencyGraphColor);
+
         this.BatteryValue.text = message.BatterySensorValue.Value.ToString();
     }
 
@@ -160,5 +169,13 @@ public class SensorValuesView : VitalSignsMonitorElement
         this.HeartFrequencyAlert.GetComponent<Renderer>().material = message.HeartFrequencySensorAlarm ? redColor : whiteColor;
         this.BreathFrequencyAlert.GetComponent<Renderer>().material = message.BreathFrequencySensorAlarm ? redColor : whiteColor;
         this.BatteryAlert.GetComponent<Renderer>().material = message.BatterySensorAlarm ? redColor : whiteColor;
+    }
+
+    private Color SplitColor(string color)
+    {
+        int channelR = Convert.ToInt32(color.Split(',')[0]);
+        int channelG = Convert.ToInt32(color.Split(',')[1]);
+        int channelB = Convert.ToInt32(color.Split(',')[2]);
+        return new Color(channelR, channelG, channelB, 250f);
     }
 }

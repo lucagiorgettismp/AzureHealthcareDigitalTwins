@@ -21,6 +21,9 @@ public class Message
     [JsonProperty("blood_pressure_sensor_value")]
     public SensorValue BloodPressureSensorValue { get; set; }
 
+    [JsonProperty("blood_pressure_graph_color")]
+    public string BloodPressureGraphColor { get; set; }
+
 
     [JsonProperty("battery_sensor_name")]
     public string BatterySensorName { get; set; }
@@ -29,9 +32,9 @@ public class Message
     public bool BatterySensorAlarm { get; set; }
 
     [JsonProperty("battery_sensor_value")]
-    public SensorValue BatterySensorValue { get; set; }  
+    public SensorValue BatterySensorValue { get; set; }
 
-    
+
     [JsonProperty("heart_frequency_sensor_name")]
     public string HeartFrequencySensorName { get; set; }
 
@@ -39,9 +42,12 @@ public class Message
     public bool HeartFrequencySensorAlarm { get; set; }
 
     [JsonProperty("heart_frequency_sensor_value")]
-    public SensorValue HeartFrequencySensorValue { get; set; } 
+    public SensorValue HeartFrequencySensorValue { get; set; }
 
-    
+    [JsonProperty("heart_frequency_graph_color")]
+    public string HeartFrequencyGraphColor { get; set; }
+
+
     [JsonProperty("breath_frequency_sensor_name")]
     public string BreathFrequencySensorName { get; set; }
 
@@ -50,6 +56,9 @@ public class Message
 
     [JsonProperty("breath_frequency_sensor_value")]
     public SensorValue BreathFrequencySensorValue { get; set; }
+
+    [JsonProperty("breath_frequency_graph_color")]
+    public string BreathFrequencyGraphColor { get; set; }
 
 
     [JsonProperty("saturation_sensor_name")]
@@ -60,4 +69,7 @@ public class Message
 
     [JsonProperty("saturation_sensor_value")]
     public SensorValue SaturationSensorValue { get; set; }
+
+    [JsonProperty("saturation_graph_color")]
+    public string SaturationGraphColor { get; set; }
 }

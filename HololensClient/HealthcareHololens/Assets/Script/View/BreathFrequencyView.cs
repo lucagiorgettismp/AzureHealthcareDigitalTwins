@@ -119,6 +119,16 @@ public class BreathFrequencyView : VitalSignsMonitorElement
 
     private void UpdateLineCharts(Message message)
     {
-        this.BreathFrequencyGraph.AddPoint((float)message.BreathFrequencySensorValue.Value);
+        float yAxisMin = (float)message.BreathFrequencySensorValue.MinValue;
+        float yAxisMax = (float)message.BreathFrequencySensorValue.MaxValue;
+        float value = (float)message.BreathFrequencySensorValue.Value;
+
+        string graphColor = (string)message.BreathFrequencyGraphColor;
+        int channelR = Convert.ToInt32(graphColor.Split(',')[0]);
+        int channelG = Convert.ToInt32(graphColor.Split(',')[1]);
+        int channelB = Convert.ToInt32(graphColor.Split(',')[2]);
+        Color color = new Color(channelR, channelG, channelB, 250f);
+
+        this.BreathFrequencyGraph.AddPoint(value, yAxisMin, yAxisMax, color);
     }
 }
