@@ -13,6 +13,6 @@ namespace Simulator.Model.Payload
         public SensorValue<T> SensorValue { get; set; }
 
         [JsonProperty("graph_color")]
-        public (int, int, int) GraphColor { get; set; }
+        public string GraphColor { get; set; }
     }
 }

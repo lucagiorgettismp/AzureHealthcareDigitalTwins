@@ -12,6 +12,10 @@
         const string IntType = "int";
         const string DoubleType = "double";
 
+        const string RED = "255,0,0";
+        const string GREEN = "0,255,0";
+        const string YELLOW = "255,255,0";
+
         public DeviceDataGenerator()
         {
 
@@ -63,7 +67,7 @@
                 SensorName = appSettings["BloodPressureSensorName"],
                 Symbol = appSettings["BloodPressureUnitSymbol"],
                 Type = IntType,
-                GraphColor = (255, 255, 0)
+                GraphColor = YELLOW
             };
             bloodPressure.SetValue(Convert.ToInt32(appSettings["BloodPressureInitValue"]));
 
@@ -78,7 +82,7 @@
                 SensorName = appSettings["BreathFrequencySensorName"],
                 Symbol = appSettings["BreathFrequencyUnitSymbol"],
                 Type = IntType,
-                GraphColor = (0, 255, 0)
+                GraphColor = GREEN
             };
             breathFrequency.SetValue(Convert.ToInt32(appSettings["BreathFrequencyInitValue"]));
 
@@ -93,7 +97,7 @@
                 SensorName = appSettings["HeartFrequencySensorName"],
                 Symbol = appSettings["HeartFrequencyUnitSymbol"],
                 Type = IntType,
-                GraphColor = (0, 255, 0)
+                GraphColor = GREEN
             };
             heartFrequency.SetValue(Convert.ToInt32(appSettings["HeartFrequencyInitValue"]));
 
@@ -108,7 +112,7 @@
                 Symbol = appSettings["PercentageUnitSymbol"],
                 Type = IntType,
                 InAlarm = false,
-                GraphColor = (255, 0, 0)
+                GraphColor = RED
             };
             saturation.SetValue(Convert.ToInt32(appSettings["SaturationInitValue"]));
 
