@@ -1,7 +1,7 @@
-using Newtonsoft.Json;
-namespace Simulator.Model.Payload
+﻿using Newtonsoft.Json;
+namespace AppFunctions.Model.Payload
 {
-    public class Sensor<T>
+    public class SensorGraph
     {
         [JsonProperty("alarm")]
         public bool Alarm { get; set; }
@@ -10,7 +10,7 @@ namespace Simulator.Model.Payload
         public string SensorName { get; set; }
 
         [JsonProperty("sensor_value")]
-        public SensorValue<T> SensorValue { get; set; }
+        public SensorValue SensorValue { get; set; }
 
         [JsonProperty("graph_color")]
         public string GraphColor { get; set; }
