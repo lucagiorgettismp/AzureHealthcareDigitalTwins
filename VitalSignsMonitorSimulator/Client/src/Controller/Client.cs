@@ -3,6 +3,8 @@
     using Azure.DigitalTwins.Core;
     using AzureApi;
     using AzureApi.Models;
+    using Common.Utils;
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -23,7 +25,13 @@
 
         public async void CreatePatientTwin(PatientModel model)
         {
-            await this.op.CreatePatientTwin(twinClient, model);
+            try
+            {
+                await this.op.CreatePatientTwin(twinClient, model);
+            }catch(Exception e)
+            {
+                Log.Error(e.Message);
+            }
         }
     }
 }

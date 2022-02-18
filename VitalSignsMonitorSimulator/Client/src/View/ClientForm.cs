@@ -17,13 +17,14 @@
 
         private void CreateButtonClick(object sender, EventArgs e)
         {
-            PatientForm patientForm = new PatientForm(this.clientTwins)
+            PatientForm patientForm = new PatientForm(this, this.clientTwins)
             {
                 Text = "Patient",
                 FormBorderStyle = FormBorderStyle.FixedDialog
             };
 
             patientForm.Show();
+            this.Enabled = false;
         }
 
         private async void GetTwinsButtonClick(object sender, EventArgs e)

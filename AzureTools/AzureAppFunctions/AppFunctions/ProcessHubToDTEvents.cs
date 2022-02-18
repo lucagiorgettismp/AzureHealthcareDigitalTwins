@@ -55,14 +55,17 @@ namespace AppFunctions
                     */
                     case CrudMode.Update:
                         updateTwinData = BuildUpdatePatchJson(payload.Body.Data);
-                        await client.UpdateDigitalTwinAsync(deviceId, updateTwinData);
+                        try
+                        {
+                            await client.UpdateDigitalTwinAsync(deviceId, updateTwinData);
+                        }catch(Exception e)
+                        {
+                            log.LogError(e.Message);
+                        }
                         break;
                     default:
                         throw new CrudOperationNotAvailableException();
                 }
-
-                //Update twin using device temperature
-
             }
         }
 
@@ -72,10 +75,10 @@ namespace AppFunctions
 
             updateTwinData = AppendProperties(updateTwinData, data.Temperature, "temperature");
             updateTwinData = AppendProperties(updateTwinData, data.BatteryPower, "battery");
-            updateTwinData = AppendProperties(updateTwinData, data.Saturation, "saturation");
-            updateTwinData = AppendProperties(updateTwinData, data.HeartFrequency, "heart_frequency");
-            updateTwinData = AppendProperties(updateTwinData, data.BreathFrequency, "breath_frequency");
-            updateTwinData = AppendProperties(updateTwinData, data.BloodPressure, "blood_pressure");
+            updateTwinData = AppendPropertiesGraph(updateTwinData, data.Saturation, "saturation");
+            updateTwinData = AppendPropertiesGraph(updateTwinData, data.HeartFrequency, "heart_frequency");
+            updateTwinData = AppendPropertiesGraph(updateTwinData, data.BreathFrequency, "breath_frequency");
+            updateTwinData = AppendPropertiesGraph(updateTwinData, data.BloodPressure, "blood_pressure");
 
             return updateTwinData;
         }
@@ -84,36 +87,17 @@ namespace AppFunctions
         {
             updateTwinData.AppendReplace<string>($"/{path}/sensor_name", sensor.SensorName);
             updateTwinData.AppendReplace<bool>($"/{path}/alarm", sensor.Alarm);
-            updateTwinData.AppendReplace<double>($"/{path}/min_value", sensor.MinValue);
-            updateTwinData.AppendReplace<double>($"/{path}/max_value", sensor.MaxValue);
             updateTwinData.AppendReplaceRaw($"/{path}/sensor_value", JsonConvert.SerializeObject(sensor.SensorValue));
-
-            //updateTwinData = AppendValueProperties(updateTwinData, sensor.SensorValue, $"{path}/sensor_value");
-
             return updateTwinData;
         }
 
-        /*
-        private JsonPatchDocument AppendValueProperties(JsonPatchDocument updateTwinData, SensorValue sensorValue, string path)
+        private JsonPatchDocument AppendPropertiesGraph(JsonPatchDocument updateTwinData, SensorGraph sensor, string path)
         {
-            updateTwinData.AppendReplace
-            updateTwinData.AppendReplace<string>($"{path}/unit", sensorValue.UnitOfMeasurement);
-            updateTwinData.AppendReplace<string>($"{path}/type", sensorValue.Type);
-            updateTwinData.AppendReplace<string>($"{path}/symbol", sensorValue.Symbol);
-
-            switch (sensorValue.Type)
-            {
-                case "int":
-                    updateTwinData.AppendReplace<int>($"{path}/value", (int)sensorValue.Value);
-                    break;
-                case "double":
-                    updateTwinData.AppendReplace<double>($"{path}/value", sensorValue.Value);
-                    break;
-                default:
-                    throw new UnsupportedValueTypeException();
-            }
+            updateTwinData.AppendReplace<string>($"/{path}/sensor_name", sensor.SensorName);
+            updateTwinData.AppendReplace<bool>($"/{path}/alarm", sensor.Alarm);
+            updateTwinData.AppendReplace<string>($"/{path}/graph_color", sensor.GraphColor);
+            updateTwinData.AppendReplaceRaw($"/{path}/sensor_value", JsonConvert.SerializeObject(sensor.SensorValue));
             return updateTwinData;
         }
-        */
     }
 }

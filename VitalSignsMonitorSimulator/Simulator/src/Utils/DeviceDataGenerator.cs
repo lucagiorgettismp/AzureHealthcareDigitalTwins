@@ -12,6 +12,9 @@
         const string IntType = "int";
         const string DoubleType = "double";
 
+        const string RED = "255,0,0";
+        const string GREEN = "0,255,0";
+        const string YELLOW = "255,255,0";
 
         public DeviceDataGenerator()
         {
@@ -28,17 +31,17 @@
             var temperature = new DeviceDataPropertyMinMaxThreshold<double>
             {
                 UnitOfMeasurement = appSettings["TemperatureUnit"],
-                MinValue = Convert.ToDouble(appSettings["TemperatureMinValue"]),
-                MaxValue = Convert.ToDouble(appSettings["TemperatureMaxValue"]),
-                AlarmMinThreashold = Convert.ToDouble(appSettings["TemperatureMinAlarmThreasholdValue"]),
-                AlarmMaxThreashold = Convert.ToDouble(appSettings["TemperatureMaxAlarmThreasholdValue"]),
-                UpdateDelta = Convert.ToDouble(appSettings["TemperatureUpdateDelta"]),
+                MinValue = Convert.ToDouble(appSettings["TemperatureMinValue"].Replace(".", ",")),
+                MaxValue = Convert.ToDouble(appSettings["TemperatureMaxValue"].Replace(".", ",")),
+                AlarmMinThreashold = Convert.ToDouble(appSettings["TemperatureMinAlarmThreasholdValue"].Replace(".", ",")),
+                AlarmMaxThreashold = Convert.ToDouble(appSettings["TemperatureMaxAlarmThreasholdValue"].Replace(".", ",")),
+                UpdateDelta = Convert.ToDouble(appSettings["TemperatureUpdateDelta"].Replace(".", ",")),
                 SensorName = appSettings["TemperatureSensorName"],
                 Symbol = appSettings["TemperatureUnitSymbol"],
                 Type = DoubleType,
             };
 
-            temperature.SetValue(Convert.ToDouble(appSettings["TemperatureInitValue"]));
+            temperature.SetValue(Convert.ToDouble(appSettings["TemperatureInitValue"].Replace(".", ",")));
 
             var batteryPower = new DeviceDataPropertyMinThreshold<int>
             {
@@ -64,6 +67,7 @@
                 SensorName = appSettings["BloodPressureSensorName"],
                 Symbol = appSettings["BloodPressureUnitSymbol"],
                 Type = IntType,
+                GraphColor = YELLOW
             };
             bloodPressure.SetValue(Convert.ToInt32(appSettings["BloodPressureInitValue"]));
 
@@ -78,6 +82,7 @@
                 SensorName = appSettings["BreathFrequencySensorName"],
                 Symbol = appSettings["BreathFrequencyUnitSymbol"],
                 Type = IntType,
+                GraphColor = GREEN
             };
             breathFrequency.SetValue(Convert.ToInt32(appSettings["BreathFrequencyInitValue"]));
 
@@ -92,6 +97,7 @@
                 SensorName = appSettings["HeartFrequencySensorName"],
                 Symbol = appSettings["HeartFrequencyUnitSymbol"],
                 Type = IntType,
+                GraphColor = GREEN
             };
             heartFrequency.SetValue(Convert.ToInt32(appSettings["HeartFrequencyInitValue"]));
 
@@ -105,7 +111,8 @@
                 SensorName = appSettings["SaturationSensorName"],
                 Symbol = appSettings["PercentageUnitSymbol"],
                 Type = IntType,
-                InAlarm = false
+                InAlarm = false,
+                GraphColor = RED
             };
             saturation.SetValue(Convert.ToInt32(appSettings["SaturationInitValue"]));
 

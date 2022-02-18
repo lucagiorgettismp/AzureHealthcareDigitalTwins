@@ -3,5 +3,13 @@
   "@type": "Interface",
   "@context": "dtmi:dtdl:context;2",
   "displayName": "Heart Frequency Sensor",
-  "extends": "dtmi:healthCareDT:BaseParamContent;1"
+  "extends": "dtmi:healthCareDT:BaseParamContent;1",
+  "contents": [
+    {
+      "@type": "Property",
+      "name": "graph_color",
+      "displayName": "Graph color",
+      "schema": "string"
+    }
+  ]
 }

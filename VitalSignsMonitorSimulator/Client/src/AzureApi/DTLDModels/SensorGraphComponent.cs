@@ -1,13 +1,13 @@
-﻿using Azure.DigitalTwins.Core;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using Azure.DigitalTwins.Core;
 
 namespace Client.src.AzureApi.DTLDModels
 {
-    class SensorComponent
+    class SensorGraphComponent
     {
 
         [JsonPropertyName(DigitalTwinsJsonPropertyNames.DigitalTwinMetadata)]
-        public SensorComponentMetadata Metadata { get; set; } = new SensorComponentMetadata();
+        public SensorGraphComponentMetadata Metadata { get; set; } = new SensorGraphComponentMetadata();
 
         [JsonPropertyName("alarm")]
         public bool Alarm { get; set; }
@@ -17,9 +17,12 @@ namespace Client.src.AzureApi.DTLDModels
 
         [JsonPropertyName("sensor_value")]
         public SensorValueComponent SensorValue { get; set; }
+
+        [JsonPropertyName("graph_color")]
+        public string GraphColor { get; set; }
     }
 
-    internal class SensorComponentMetadata
+    internal class SensorGraphComponentMetadata
     {
         [JsonPropertyName("alarm")]
         public DigitalTwinPropertyMetadata Alarm { get; set; }
@@ -29,5 +32,8 @@ namespace Client.src.AzureApi.DTLDModels
 
         [JsonPropertyName("sensor_value")]
         public DigitalTwinPropertyMetadata SensorValue { get; set; }
+
+        [JsonPropertyName("graph_color")]
+        public DigitalTwinPropertyMetadata GraphColor { get; set; }
     }
 }
