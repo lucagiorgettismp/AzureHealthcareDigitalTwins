@@ -96,7 +96,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.117554F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 450);
             this.tableLayoutPanel1.TabIndex = 0;
-       
             // 
             // label_name
             // 
@@ -308,26 +307,26 @@
             // 
             this.UnitHeightLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.UnitHeightLabel.AutoSize = true;
-            this.UnitHeightLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UnitHeightLabel.Location = new System.Drawing.Point(433, 246);
+            this.UnitHeightLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UnitHeightLabel.Location = new System.Drawing.Point(433, 243);
             this.UnitHeightLabel.Margin = new System.Windows.Forms.Padding(0, 3, 3, 7);
             this.UnitHeightLabel.Name = "UnitHeightLabel";
-            this.UnitHeightLabel.Size = new System.Drawing.Size(25, 17);
+            this.UnitHeightLabel.Size = new System.Drawing.Size(22, 20);
             this.UnitHeightLabel.TabIndex = 20;
-            this.UnitHeightLabel.Text = "Kg";
+            this.UnitHeightLabel.Text = "m";
             this.UnitHeightLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // UnitWeightLabel
             // 
             this.UnitWeightLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.UnitWeightLabel.AutoSize = true;
-            this.UnitWeightLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UnitWeightLabel.Location = new System.Drawing.Point(433, 288);
+            this.UnitWeightLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UnitWeightLabel.Location = new System.Drawing.Point(433, 291);
             this.UnitWeightLabel.Margin = new System.Windows.Forms.Padding(0, 0, 3, 7);
             this.UnitWeightLabel.Name = "UnitWeightLabel";
-            this.UnitWeightLabel.Size = new System.Drawing.Size(22, 20);
+            this.UnitWeightLabel.Size = new System.Drawing.Size(25, 17);
             this.UnitWeightLabel.TabIndex = 21;
-            this.UnitWeightLabel.Text = "m";
+            this.UnitWeightLabel.Text = "Kg";
             this.UnitWeightLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // UnitBodyMassIndexLabel
