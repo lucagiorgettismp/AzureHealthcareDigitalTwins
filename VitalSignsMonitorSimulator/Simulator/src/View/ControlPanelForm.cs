@@ -29,6 +29,7 @@
         public ControlPanelForm()
         {
             InitializeComponent();
+            this.ControlBox = false;
         }
 
         private void ControlPanelFormLoad(object sender, EventArgs e)
@@ -88,14 +89,20 @@
 
         private async void SelectedIndexDevices(object sender, EventArgs e)
         {
-            if (this.listbox_devices.Items.Count > 0)
+            try
             {
-                Log.Ok("Click on: " + this.listbox_devices.SelectedItem.ToString());
-          
-                string connection = await DeviceOperationsApi.GetStringConnection(this.listbox_devices.SelectedItem.ToString());
-                this.deviceHub = new Device(connection);
+                if (this.listbox_devices.SelectedItem != null)
+                {
+                    Log.Ok("Click on: " + this.listbox_devices.SelectedItem.ToString());
 
-                this.startButton.Enabled = true;
+                    string connection = await DeviceOperationsApi.GetStringConnection(this.listbox_devices.SelectedItem.ToString());
+                    this.deviceHub = new Device(connection);
+
+                    this.startButton.Enabled = true;
+                }
+            }catch(Exception ex)
+            {
+                Log.Error(ex.Message);
             }
         }
     }

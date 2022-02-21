@@ -44,13 +44,16 @@
             this.patient_description = new System.Windows.Forms.TextBox();
             this.patient_body_mass_index = new System.Windows.Forms.TextBox();
             this.patient_name = new System.Windows.Forms.TextBox();
-            this.save_patient_button = new System.Windows.Forms.Button();
             this.patient_gender = new System.Windows.Forms.ComboBox();
             this.title = new System.Windows.Forms.Label();
             this.UnitHeightLabel = new System.Windows.Forms.Label();
             this.UnitWeightLabel = new System.Windows.Forms.Label();
             this.UnitBodyMassIndexLabel = new System.Windows.Forms.Label();
+            this.ButtonTable = new System.Windows.Forms.TableLayoutPanel();
+            this.close_patient_button = new System.Windows.Forms.Button();
+            this.save_patient_button = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
+            this.ButtonTable.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -74,12 +77,12 @@
             this.tableLayoutPanel1.Controls.Add(this.patient_description, 1, 7);
             this.tableLayoutPanel1.Controls.Add(this.patient_body_mass_index, 1, 8);
             this.tableLayoutPanel1.Controls.Add(this.patient_name, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.save_patient_button, 1, 9);
             this.tableLayoutPanel1.Controls.Add(this.patient_gender, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.title, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.UnitHeightLabel, 2, 5);
             this.tableLayoutPanel1.Controls.Add(this.UnitWeightLabel, 2, 6);
             this.tableLayoutPanel1.Controls.Add(this.UnitBodyMassIndexLabel, 2, 8);
+            this.tableLayoutPanel1.Controls.Add(this.ButtonTable, 1, 9);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -265,18 +268,6 @@
             this.patient_name.Size = new System.Drawing.Size(254, 23);
             this.patient_name.TabIndex = 16;
             // 
-            // save_patient_button
-            // 
-            this.save_patient_button.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.save_patient_button.Location = new System.Drawing.Point(265, 418);
-            this.save_patient_button.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
-            this.save_patient_button.Name = "save_patient_button";
-            this.save_patient_button.Size = new System.Drawing.Size(75, 23);
-            this.save_patient_button.TabIndex = 17;
-            this.save_patient_button.Text = "Save";
-            this.save_patient_button.UseVisualStyleBackColor = true;
-            this.save_patient_button.Click += new System.EventHandler(this.SavePatientButtonClick);
-            // 
             // patient_gender
             // 
             this.patient_gender.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -341,6 +332,47 @@
             this.UnitBodyMassIndexLabel.TabIndex = 22;
             this.UnitBodyMassIndexLabel.Text = "Kg / m2";
             // 
+            // ButtonTable
+            // 
+            this.ButtonTable.ColumnCount = 2;
+            this.ButtonTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.ButtonTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.ButtonTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.ButtonTable.Controls.Add(this.close_patient_button, 0, 0);
+            this.ButtonTable.Controls.Add(this.save_patient_button, 1, 0);
+            this.ButtonTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ButtonTable.Location = new System.Drawing.Point(175, 406);
+            this.ButtonTable.Name = "ButtonTable";
+            this.ButtonTable.RowCount = 1;
+            this.ButtonTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.ButtonTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.ButtonTable.Size = new System.Drawing.Size(255, 41);
+            this.ButtonTable.TabIndex = 23;
+            // 
+            // close_patient_button
+            // 
+            this.close_patient_button.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.close_patient_button.Location = new System.Drawing.Point(26, 15);
+            this.close_patient_button.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
+            this.close_patient_button.Name = "close_patient_button";
+            this.close_patient_button.Size = new System.Drawing.Size(75, 23);
+            this.close_patient_button.TabIndex = 18;
+            this.close_patient_button.Text = "Exit";
+            this.close_patient_button.UseVisualStyleBackColor = true;
+            this.close_patient_button.Click += new System.EventHandler(this.ClosePatientButtonClick);
+            // 
+            // save_patient_button
+            // 
+            this.save_patient_button.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.save_patient_button.Location = new System.Drawing.Point(153, 15);
+            this.save_patient_button.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
+            this.save_patient_button.Name = "save_patient_button";
+            this.save_patient_button.Size = new System.Drawing.Size(75, 23);
+            this.save_patient_button.TabIndex = 17;
+            this.save_patient_button.Text = "Save";
+            this.save_patient_button.UseVisualStyleBackColor = true;
+            this.save_patient_button.Click += new System.EventHandler(this.SavePatientButtonClick);
+            // 
             // PatientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -351,6 +383,7 @@
             this.Text = "PatientForm";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.ButtonTable.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -379,5 +412,7 @@
         private System.Windows.Forms.Label UnitHeightLabel;
         private System.Windows.Forms.Label UnitWeightLabel;
         private System.Windows.Forms.Label UnitBodyMassIndexLabel;
+        private System.Windows.Forms.TableLayoutPanel ButtonTable;
+        private System.Windows.Forms.Button close_patient_button;
     }
 }
