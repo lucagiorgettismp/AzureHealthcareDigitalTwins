@@ -3,6 +3,7 @@
     using Model;
     using System;
     using System.Configuration;
+    using System.Globalization;
 
     class DeviceDataGenerator
     {
@@ -28,20 +29,27 @@
         {
             var appSettings = ConfigurationManager.AppSettings;
 
+            double.TryParse(appSettings["TemperatureMinValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out double temperatureMinValue);
+            double.TryParse(appSettings["TemperatureMaxValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out double temperatureMaxValue);
+            double.TryParse(appSettings["TemperatureMinAlarmThreasholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out double temperatureMinAlarm);
+            double.TryParse(appSettings["TemperatureMaxAlarmThreasholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out double temperatureMaxAlarm);
+            double.TryParse(appSettings["TemperatureUpdateDelta"], NumberStyles.Any, CultureInfo.CurrentCulture, out double temperatureUpdateDelta);
+            double.TryParse(appSettings["TemperatureInitValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out double temperatureInitValue);
+
             var temperature = new DeviceDataPropertyMinMaxThreshold<double>
             {
                 UnitOfMeasurement = appSettings["TemperatureUnit"],
-                MinValue = Convert.ToDouble(appSettings["TemperatureMinValue"].Replace(".", ",")),
-                MaxValue = Convert.ToDouble(appSettings["TemperatureMaxValue"].Replace(".", ",")),
-                AlarmMinThreashold = Convert.ToDouble(appSettings["TemperatureMinAlarmThreasholdValue"].Replace(".", ",")),
-                AlarmMaxThreashold = Convert.ToDouble(appSettings["TemperatureMaxAlarmThreasholdValue"].Replace(".", ",")),
-                UpdateDelta = Convert.ToDouble(appSettings["TemperatureUpdateDelta"].Replace(".", ",")),
+                MinValue = temperatureMinValue,
+                MaxValue = temperatureMaxValue,
+                AlarmMinThreashold = temperatureMinAlarm,
+                AlarmMaxThreashold = temperatureMaxAlarm,
+                UpdateDelta = temperatureUpdateDelta,
                 SensorName = appSettings["TemperatureSensorName"],
                 Symbol = appSettings["TemperatureUnitSymbol"],
                 Type = DoubleType,
             };
 
-            temperature.SetValue(Convert.ToDouble(appSettings["TemperatureInitValue"].Replace(".", ",")));
+            temperature.SetValue(temperatureInitValue);
 
             var batteryPower = new DeviceDataPropertyMinThreshold<int>
             {
