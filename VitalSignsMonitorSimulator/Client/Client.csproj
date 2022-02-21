@@ -268,7 +268,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\AzureApi\AuthenticationApi.cs" />
-    <Compile Include="src\AzureApi\DTLDModels\SensorGraphComponent.cs" />
+    <Compile Include="src\AzureApi\DTLDModels\GraphSensorComponent.cs" />
     <Compile Include="src\AzureApi\DTLDModels\SensorValueComponent.cs" />
     <Compile Include="src\AzureApi\DTLDModels\BodyMassIndexComponent.cs" />
     <Compile Include="src\AzureApi\DTLDModels\PatientTwin.cs" />

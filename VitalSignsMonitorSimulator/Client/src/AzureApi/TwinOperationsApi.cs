@@ -163,9 +163,9 @@
             };
         }
 
-        private SensorGraphComponent GetSensorGraphComponent()
+        private GraphSensorComponent GetSensorGraphComponent()
         {
-            return new SensorGraphComponent
+            return new GraphSensorComponent
             {
                 SensorName = EMPTY_VALUE,
                 Alarm = false,

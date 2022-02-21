@@ -77,10 +77,10 @@ namespace AppFunctions
 
             updateTwinData = AppendProperties(updateTwinData, data.Temperature, "temperature");
             updateTwinData = AppendProperties(updateTwinData, data.BatteryPower, "battery");
-            updateTwinData = AppendPropertiesGraph(updateTwinData, data.Saturation, "saturation");
-            updateTwinData = AppendPropertiesGraph(updateTwinData, data.HeartFrequency, "heart_frequency");
-            updateTwinData = AppendPropertiesGraph(updateTwinData, data.BreathFrequency, "breath_frequency");
-            updateTwinData = AppendPropertiesGraph(updateTwinData, data.BloodPressure, "blood_pressure");
+            updateTwinData = AppendProperties(updateTwinData, data.Saturation, "saturation");
+            updateTwinData = AppendProperties(updateTwinData, data.HeartFrequency, "heart_frequency");
+            updateTwinData = AppendProperties(updateTwinData, data.BreathFrequency, "breath_frequency");
+            updateTwinData = AppendProperties(updateTwinData, data.BloodPressure, "blood_pressure");
 
             return updateTwinData;
         }
@@ -88,12 +88,18 @@ namespace AppFunctions
         private JsonPatchDocument AppendProperties(JsonPatchDocument updateTwinData, Sensor sensor, string path)
         {
             updateTwinData.AppendReplace<string>($"/{path}/sensor_name", sensor.SensorName);
-            updateTwinData.AppendReplace<bool>($"/{path}/alarm", sensor.Alarm);
+            updateTwinData.AppendReplace<bool>($"/{path}/alarm", sensor.Alarm);   
+            
+            if(sensor is GraphSensor)
+            {
+                updateTwinData.AppendReplace<string>($"/{path}/graph_color", (sensor as GraphSensor)?.GraphColor);
+            }
+
             updateTwinData.AppendReplaceRaw($"/{path}/sensor_value", JsonConvert.SerializeObject(sensor.SensorValue));
             return updateTwinData;
         }
 
-        private JsonPatchDocument AppendPropertiesGraph(JsonPatchDocument updateTwinData, SensorGraph sensor, string path)
+        private JsonPatchDocument AppendPropertiesGraph(JsonPatchDocument updateTwinData, GraphSensor sensor, string path)
         {
             updateTwinData.AppendReplace<string>($"/{path}/sensor_name", sensor.SensorName);
             updateTwinData.AppendReplace<bool>($"/{path}/alarm", sensor.Alarm);
