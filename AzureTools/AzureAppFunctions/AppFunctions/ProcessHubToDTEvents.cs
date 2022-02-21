@@ -41,10 +41,6 @@ namespace AppFunctions
 
                 // Reading deviceId and temperature for IoT Hub JSON
                 string data = Encoding.UTF8.GetString(eventGridEvent.Data);
-                log.LogInformation($"UTF8: {Encoding.UTF8.GetString(eventGridEvent.Data)}");
-                log.LogInformation($"\n\nUTF16: {Encoding.Unicode.GetString(eventGridEvent.Data)}");
-                log.LogInformation($"ASCII: {Encoding.ASCII.GetString(eventGridEvent.Data)}");
-
                 var payload = JsonConvert.DeserializeObject<EventGridMessagePayload>(data);
                 
                 string deviceId = payload.SystemProperties.IothubConnectionDeviceId;
