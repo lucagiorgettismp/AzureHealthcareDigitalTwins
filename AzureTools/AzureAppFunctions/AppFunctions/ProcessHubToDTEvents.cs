@@ -12,6 +12,7 @@ namespace AppFunctions
     using Newtonsoft.Json;
     using System;
     using System.Net.Http;
+    using System.Text;
 
     // This class processes telemetry events from IoT Hub, reads temperature of a device
     // and sets the "Temperature" property of the device with the value of the telemetry.
@@ -39,7 +40,8 @@ namespace AppFunctions
                 log.LogInformation(eventGridEvent.Data.ToString());
 
                 // Reading deviceId and temperature for IoT Hub JSON
-                var payload = JsonConvert.DeserializeObject<EventGridMessagePayload>(eventGridEvent.Data.ToString());
+                string data = Encoding.Default.GetString(eventGridEvent.Data);
+                var payload = JsonConvert.DeserializeObject<EventGridMessagePayload>(data);
                 
                 string deviceId = payload.SystemProperties.IothubConnectionDeviceId;
 
