@@ -1,4 +1,4 @@
-public class VitalSignsMonitorController : VitalSignsMonitorElement
+public class VitalSignsMonitorController : BaseApplicationPanel
 {
     public void OnDataReceived(Message message) {
         App.View.UpdateView(message);

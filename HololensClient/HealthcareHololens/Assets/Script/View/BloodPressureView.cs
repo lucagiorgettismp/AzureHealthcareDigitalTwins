@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class BloodPressureView : VitalSignsMonitorElement
+public class BloodPressureView : BaseApplicationPanel
 {
     /* Datetime */
     private TextMeshPro Date;

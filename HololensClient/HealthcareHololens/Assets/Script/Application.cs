@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class VitalSignsMonitorElement : MonoBehaviour
+public class BaseApplicationPanel : MonoBehaviour
 {
     public Application App { get { return GameObject.FindObjectOfType<Application>(); } }
 }
@@ -16,6 +16,11 @@ public class Application : MonoBehaviour
     public BloodPressureView BloodPressureView;
     public SensorValuesView SensorValuesView;
 
-    void Start()
+    public void Start()
     {}
+
+    public void Close()
+    {
+        UnityEngine.Application.Quit();
+    }
 }

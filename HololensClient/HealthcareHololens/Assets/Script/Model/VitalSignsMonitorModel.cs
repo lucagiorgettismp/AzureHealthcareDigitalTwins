@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class VitalSignsMonitorModel : VitalSignsMonitorElement
+public class VitalSignsMonitorModel : BaseApplicationPanel
 {
     private SignalRConnector connector;
 

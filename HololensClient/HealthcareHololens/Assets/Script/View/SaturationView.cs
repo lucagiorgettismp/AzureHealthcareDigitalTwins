@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class SaturationView : VitalSignsMonitorElement
+public class SaturationView : BaseApplicationPanel
 {
     /* Datetime */
     private TextMeshPro Date;

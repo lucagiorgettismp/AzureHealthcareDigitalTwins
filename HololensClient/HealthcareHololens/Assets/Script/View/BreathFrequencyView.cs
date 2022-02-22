@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class BreathFrequencyView : VitalSignsMonitorElement
+public class BreathFrequencyView : BaseApplicationPanel
 {
     /* Datetime */
     private TextMeshPro Date;

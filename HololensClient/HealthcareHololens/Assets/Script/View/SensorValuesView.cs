@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class SensorValuesView : VitalSignsMonitorElement
+public class SensorValuesView : BaseApplicationPanel
 {
     /* Datetime */
     private TextMeshPro Date;

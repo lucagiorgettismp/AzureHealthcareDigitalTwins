@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ButtonMenuView : MonoBehaviour
+public class ButtonMenuView : BaseApplicationPanel
 {
     GameObject VitalSignsMonitorPanel;
     GameObject HeartFrequencyPanel;
@@ -100,6 +100,12 @@ public class ButtonMenuView : MonoBehaviour
         BreathFrequencyPanel.gameObject.SetActive(false);
         SaturationPanel.gameObject.SetActive(false);
         SensorValuesPanel.gameObject.SetActive(true);
+    }
+
+    public void OnClickCloseButton()
+    {
+        Debug.Log("Close button has been pressed!");
+        App.Close();
     }
 
     private void HideMainMonitor()

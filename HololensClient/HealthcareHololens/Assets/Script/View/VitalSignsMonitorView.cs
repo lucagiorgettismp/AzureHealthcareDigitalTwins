@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using System;
 
-public class VitalSignsMonitorView : VitalSignsMonitorElement
+public class VitalSignsMonitorView : BaseApplicationPanel
 {
     /* Datetime */
     private TextMeshPro Date;
