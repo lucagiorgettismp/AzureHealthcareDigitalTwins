@@ -98,14 +98,5 @@ namespace AppFunctions
             updateTwinData.AppendReplaceRaw($"/{path}/sensor_value", JsonConvert.SerializeObject(sensor.SensorValue));
             return updateTwinData;
         }
-
-        private JsonPatchDocument AppendPropertiesGraph(JsonPatchDocument updateTwinData, GraphSensor sensor, string path)
-        {
-            updateTwinData.AppendReplace<string>($"/{path}/sensor_name", sensor.SensorName);
-            updateTwinData.AppendReplace<bool>($"/{path}/alarm", sensor.Alarm);
-            updateTwinData.AppendReplace<string>($"/{path}/graph_color", sensor.GraphColor);
-            updateTwinData.AppendReplaceRaw($"/{path}/sensor_value", JsonConvert.SerializeObject(sensor.SensorValue));
-            return updateTwinData;
-        }
     }
 }
