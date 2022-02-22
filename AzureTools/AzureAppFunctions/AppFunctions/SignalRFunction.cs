@@ -18,13 +18,20 @@ namespace AppFunctions
 
     public class SignalRFunction
     {
-        public static double temperature;
 
         [FunctionName("negotiate")]
         public static SignalRConnectionInfo GetSignalRInfo(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequest req,
-            [SignalRConnectionInfo(HubName = "healthcareSignalR")] SignalRConnectionInfo connectionInfo)
+            [SignalRConnectionInfo(HubName = "healthcareSignalR")] SignalRConnectionInfo connectionInfo, ILogger log)
         {
+            try
+            {
+                log.LogInformation($"Info: {connectionInfo}");
+            }
+            catch (Exception e) {
+                log.LogError(e.Message);
+            }
+
             return connectionInfo;
         }
 
