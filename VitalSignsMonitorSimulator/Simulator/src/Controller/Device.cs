@@ -103,7 +103,7 @@ namespace Simulator.Controller
 
         private static Message CreateMessage(string jsonObject)
         {
-            var message = new Message(Encoding.ASCII.GetBytes(jsonObject))
+            var message = new Message(Encoding.UTF8.GetBytes(jsonObject))
             {
                 ContentType = "application/json",
                 ContentEncoding = "UTF-8"

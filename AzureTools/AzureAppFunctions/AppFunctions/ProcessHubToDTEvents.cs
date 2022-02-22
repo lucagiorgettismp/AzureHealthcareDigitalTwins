@@ -12,6 +12,7 @@ namespace AppFunctions
     using Newtonsoft.Json;
     using System;
     using System.Net.Http;
+    using System.Text;
 
     // This class processes telemetry events from IoT Hub, reads temperature of a device
     // and sets the "Temperature" property of the device with the value of the telemetry.
@@ -39,7 +40,8 @@ namespace AppFunctions
                 log.LogInformation(eventGridEvent.Data.ToString());
 
                 // Reading deviceId and temperature for IoT Hub JSON
-                var payload = JsonConvert.DeserializeObject<EventGridMessagePayload>(eventGridEvent.Data.ToString());
+                string data = Encoding.UTF8.GetString(eventGridEvent.Data);
+                var payload = JsonConvert.DeserializeObject<EventGridMessagePayload>(data);
                 
                 string deviceId = payload.SystemProperties.IothubConnectionDeviceId;
 
@@ -75,10 +77,10 @@ namespace AppFunctions
 
             updateTwinData = AppendProperties(updateTwinData, data.Temperature, "temperature");
             updateTwinData = AppendProperties(updateTwinData, data.BatteryPower, "battery");
-            updateTwinData = AppendPropertiesGraph(updateTwinData, data.Saturation, "saturation");
-            updateTwinData = AppendPropertiesGraph(updateTwinData, data.HeartFrequency, "heart_frequency");
-            updateTwinData = AppendPropertiesGraph(updateTwinData, data.BreathFrequency, "breath_frequency");
-            updateTwinData = AppendPropertiesGraph(updateTwinData, data.BloodPressure, "blood_pressure");
+            updateTwinData = AppendProperties(updateTwinData, data.Saturation, "saturation");
+            updateTwinData = AppendProperties(updateTwinData, data.HeartFrequency, "heart_frequency");
+            updateTwinData = AppendProperties(updateTwinData, data.BreathFrequency, "breath_frequency");
+            updateTwinData = AppendProperties(updateTwinData, data.BloodPressure, "blood_pressure");
 
             return updateTwinData;
         }
@@ -86,16 +88,13 @@ namespace AppFunctions
         private JsonPatchDocument AppendProperties(JsonPatchDocument updateTwinData, Sensor sensor, string path)
         {
             updateTwinData.AppendReplace<string>($"/{path}/sensor_name", sensor.SensorName);
-            updateTwinData.AppendReplace<bool>($"/{path}/alarm", sensor.Alarm);
-            updateTwinData.AppendReplaceRaw($"/{path}/sensor_value", JsonConvert.SerializeObject(sensor.SensorValue));
-            return updateTwinData;
-        }
+            updateTwinData.AppendReplace<bool>($"/{path}/alarm", sensor.Alarm);   
+            
+            if(sensor is GraphSensor)
+            {
+                updateTwinData.AppendReplace<string>($"/{path}/graph_color", (sensor as GraphSensor)?.GraphColor);
+            }
 
-        private JsonPatchDocument AppendPropertiesGraph(JsonPatchDocument updateTwinData, SensorGraph sensor, string path)
-        {
-            updateTwinData.AppendReplace<string>($"/{path}/sensor_name", sensor.SensorName);
-            updateTwinData.AppendReplace<bool>($"/{path}/alarm", sensor.Alarm);
-            updateTwinData.AppendReplace<string>($"/{path}/graph_color", sensor.GraphColor);
             updateTwinData.AppendReplaceRaw($"/{path}/sensor_value", JsonConvert.SerializeObject(sensor.SensorValue));
             return updateTwinData;
         }
