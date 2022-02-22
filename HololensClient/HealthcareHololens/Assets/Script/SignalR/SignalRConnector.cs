@@ -18,15 +18,23 @@ public class SignalRConnector
     {
         string host = "https://healthcareiothubtodt.azurewebsites.net/api";
 
-        connection = new HubConnectionBuilder()
-            .WithUrl(host)
-            .AddNewtonsoftJsonProtocol()
-            .Build();
-
-        connection.On<Message>("newMessage", (message) =>
+        try
         {
-            this.callback.OnMessageReceived(message);
-        });
+            connection = new HubConnectionBuilder()
+                .WithUrl(host)
+                .AddNewtonsoftJsonProtocol()
+                .Build();
+
+            connection.On<Message>("newMessage", (message) =>
+            {
+                this.callback.OnMessageReceived(message);
+            });
+        }
+        catch (Exception e)
+        {
+            this.callback.OnError("InitAsync error: " + e.Message + "\n\n" + e.StackTrace);
+        }
+
 
         await StartConnectionAsync();
     }
@@ -40,6 +48,7 @@ public class SignalRConnector
         catch (Exception ex)
         {
             Debug.LogError($"Error: {ex.Message}");
+            this.callback.OnError("StartConnectionAsync error: " + ex.Message + "\n\n" + ex.StackTrace);
         }
     }
 }

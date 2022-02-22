@@ -15,9 +15,11 @@ public class VitalSignsMonitorView : BaseApplicationPanel
     private TextMeshPro HeartFrequencyValue;
     private TextMeshPro BreathFrequencyValue;
     private TextMeshPro BatteryValue;
+    public TextMeshPro ErrorMessage;
 
     /* Sensor name */
     private TextMeshPro TemperatureSensorName;
+
     private TextMeshPro SaturationSensorName;
     private TextMeshPro BloodPressureSensorName;
     private TextMeshPro HeartFrequencySensorName;
@@ -60,6 +62,11 @@ public class VitalSignsMonitorView : BaseApplicationPanel
         var dateTime = DateTime.Now;
         this.Hour.text = dateTime.ToShortDateString();
         this.Date.text = dateTime.ToLongTimeString();
+    }
+
+    public void ShowError(string message)
+    {
+        this.ErrorMessage.text = message;
     }
 
     private void InitializedComponent()
@@ -134,6 +141,8 @@ public class VitalSignsMonitorView : BaseApplicationPanel
             Debug.LogError("Error: " + e.Message);
         }
     }
+
+
 
     private void UpdateSensorSymbols(Message message)
     {

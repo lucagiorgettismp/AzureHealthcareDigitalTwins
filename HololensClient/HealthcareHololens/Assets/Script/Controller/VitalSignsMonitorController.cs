@@ -1,3 +1,5 @@
+using System;
+
 public class VitalSignsMonitorController : BaseApplicationPanel
 {
     public void OnDataReceived(Message message) {
@@ -7,6 +9,11 @@ public class VitalSignsMonitorController : BaseApplicationPanel
         App.SaturationView.UpdateView(message);
         App.BloodPressureView.UpdateView(message);
         App.SensorValuesView.UpdateView(message);
+    }
+
+    internal void OnError(string message)
+    {
+        App.View.ShowError(message);
     }
 }
     
