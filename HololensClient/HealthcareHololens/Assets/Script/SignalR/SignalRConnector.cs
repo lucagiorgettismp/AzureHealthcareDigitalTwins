@@ -36,7 +36,7 @@ public class SignalRConnector
         }
 
 
-        await StartConnectionAsync();
+       await StartConnectionAsync();
     }
 
     private async Task StartConnectionAsync()
