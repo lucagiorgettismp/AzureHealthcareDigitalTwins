@@ -67,7 +67,7 @@ public class VitalSignsMonitorView : BaseApplicationPanel
     public void ShowError(string message)
     {
         var oldMsg = this.ErrorMessage.text;
-        this.ErrorMessage.text = oldMsg + "\n" + message;
+        this.ErrorMessage.text = /*oldMsg + "\n" + */message;
     }
 
     private void InitializedComponent()

@@ -11,7 +11,7 @@ public class VitalSignsMonitorController : BaseApplicationPanel
         App.SensorValuesView.UpdateView(message);
     }
 
-    internal void OnError(string message)
+    internal void OnLog(string message)
     {
         App.View.ShowError(message);
     }
