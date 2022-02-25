@@ -1,5 +1,6 @@
 namespace AppFunctions
 {
+    using AppFunctions.Model.Payload;
     using AppFunctions.Model.SignalREventPayload;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Azure.EventGrid.Models;
@@ -43,7 +44,9 @@ namespace AppFunctions
         {
             SignalREventGridPayload payload = JsonConvert.DeserializeObject<SignalREventGridPayload>(eventGridEvent.Data.ToString());
 
-            log.LogInformation($"Prepare message: {eventGridEvent.Data}\n\n");
+            EventGridMessagePayload _payload = JsonConvert.DeserializeObject<EventGridMessagePayload>(eventGridEvent.Data.ToString());
+            log.LogInformation($"System Properties: {_payload.SystemProperties}\n\n");
+
             var message = new Dictionary<object, object>();
 
             payload.Data.Patch.ForEach(p =>
