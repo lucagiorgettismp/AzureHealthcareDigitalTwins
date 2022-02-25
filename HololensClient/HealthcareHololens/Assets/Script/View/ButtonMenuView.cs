@@ -34,6 +34,7 @@ public class ButtonMenuView : BaseApplicationPanel
         Debug.Log("Home button has been pressed!");
 
         VitalSignsMonitorPanel.gameObject.SetActive(true);
+        VitalSignsMonitorPanel.transform.position = GetCurrentPosition();
 
         HeartFrequencyPanel.gameObject.SetActive(false);
         BreathFrequencyPanel.gameObject.SetActive(false);
@@ -46,8 +47,10 @@ public class ButtonMenuView : BaseApplicationPanel
     {
         Debug.Log("Heart frequency button has been pressed!");
 
-        HideMainMonitor();
         HeartFrequencyPanel.gameObject.SetActive(true);
+        HeartFrequencyPanel.transform.position = GetCurrentPosition();
+
+        VitalSignsMonitorPanel.gameObject.SetActive(false);
         BreathFrequencyPanel.gameObject.SetActive(false);
         BloodPressurePanel.gameObject.SetActive(false);
         SaturationPanel.gameObject.SetActive(false);
@@ -58,8 +61,10 @@ public class ButtonMenuView : BaseApplicationPanel
     {
         Debug.Log("Breath frequency button has been pressed!");
 
-        HideMainMonitor();
         BreathFrequencyPanel.gameObject.SetActive(true);
+        BreathFrequencyPanel.transform.position = GetCurrentPosition();
+
+        VitalSignsMonitorPanel.gameObject.SetActive(false);
         HeartFrequencyPanel.gameObject.SetActive(false);
         BloodPressurePanel.gameObject.SetActive(false);
         SaturationPanel.gameObject.SetActive(false); 
@@ -70,8 +75,10 @@ public class ButtonMenuView : BaseApplicationPanel
     {
         Debug.Log("Saturation button has been pressed!");
 
-        HideMainMonitor();
         SaturationPanel.gameObject.SetActive(true);
+        SaturationPanel.transform.position = GetCurrentPosition();
+
+        VitalSignsMonitorPanel.gameObject.SetActive(false);
         HeartFrequencyPanel.gameObject.SetActive(false);
         BreathFrequencyPanel.gameObject.SetActive(false);
         BloodPressurePanel.gameObject.SetActive(false);
@@ -82,8 +89,10 @@ public class ButtonMenuView : BaseApplicationPanel
     {
         Debug.Log("Blood Pressure button has been pressed!");
 
-        HideMainMonitor();
         BloodPressurePanel.gameObject.SetActive(true);
+        BloodPressurePanel.transform.position = GetCurrentPosition();
+
+        VitalSignsMonitorPanel.gameObject.SetActive(false);
         HeartFrequencyPanel.gameObject.SetActive(false);
         BreathFrequencyPanel.gameObject.SetActive(false);
         SaturationPanel.gameObject.SetActive(false);
@@ -94,12 +103,14 @@ public class ButtonMenuView : BaseApplicationPanel
     {
         Debug.Log("Values button has been pressed!");
 
-        HideMainMonitor();
+        SensorValuesPanel.gameObject.SetActive(true);
+        SensorValuesPanel.transform.position = GetCurrentPosition();
+
+        VitalSignsMonitorPanel.gameObject.SetActive(false);
         BloodPressurePanel.gameObject.SetActive(false);
         HeartFrequencyPanel.gameObject.SetActive(false);
         BreathFrequencyPanel.gameObject.SetActive(false);
         SaturationPanel.gameObject.SetActive(false);
-        SensorValuesPanel.gameObject.SetActive(true);
     }
 
     public void OnClickCloseButton()
@@ -108,8 +119,9 @@ public class ButtonMenuView : BaseApplicationPanel
         App.Close();
     }
 
-    private void HideMainMonitor()
+    private Vector3 GetCurrentPosition()
     {
-        VitalSignsMonitorPanel.gameObject.SetActive(false);
-    }
+        Vector3 currentPosition = this.transform.position;
+        return new Vector3(currentPosition.x + 0.035f, currentPosition.y + 0.15f, currentPosition.z - 0.02f);
+    } 
 }
