@@ -1,6 +1,5 @@
 namespace AppFunctions
 {
-    using AppFunctions.Model.Payload;
     using AppFunctions.Model.SignalREventPayload;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Azure.EventGrid.Models;
@@ -10,7 +9,6 @@ namespace AppFunctions
     using Microsoft.Azure.WebJobs.Extensions.SignalRService;
     using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -43,11 +41,9 @@ namespace AppFunctions
             ILogger log)
         {
             SignalREventGridPayload payload = JsonConvert.DeserializeObject<SignalREventGridPayload>(eventGridEvent.Data.ToString());
-
-            EventGridMessagePayload _payload = JsonConvert.DeserializeObject<EventGridMessagePayload>(eventGridEvent.Data.ToString());
-            log.LogInformation($"System Properties: {_payload.SystemProperties}\n\n");
-
             var message = new Dictionary<object, object>();
+
+            log.LogInformation("SignalR message: " + signalRMessages);
 
             payload.Data.Patch.ForEach(p =>
             {
