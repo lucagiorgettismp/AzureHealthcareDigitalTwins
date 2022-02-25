@@ -43,6 +43,7 @@ namespace AppFunctions
         {
             SignalREventGridPayload payload = JsonConvert.DeserializeObject<SignalREventGridPayload>(eventGridEvent.Data.ToString());
 
+            log.LogInformation($"Prepare message: {eventGridEvent.Data}\n\n");
             var message = new Dictionary<object, object>();
 
             payload.Data.Patch.ForEach(p =>
@@ -62,8 +63,7 @@ namespace AppFunctions
                 message.Add(builder.ToString(), p.Value);              
             });
 
-
-            log.LogInformation($"Message: {string.Join(Environment.NewLine, message)}");
+            log.LogInformation($"Message to send: {string.Join(Environment.NewLine, message)}");
 
             return signalRMessages.AddAsync(
                 new SignalRMessage
