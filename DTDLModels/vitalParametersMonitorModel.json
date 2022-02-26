@@ -5,6 +5,12 @@
  "displayName": "Vital Parameters Monitor",
   "contents": [
     {
+      "@type": "Property",
+      "name": "device_id",
+      "displayName": "Device id",
+      "schema": "string"
+    },
+    {
       "@type": "Component",
       "name": "temperature",
       "displayName": "Temperature Sensor",

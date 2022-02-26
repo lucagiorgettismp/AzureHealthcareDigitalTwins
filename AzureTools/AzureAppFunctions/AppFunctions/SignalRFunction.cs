@@ -9,7 +9,6 @@ namespace AppFunctions
     using Microsoft.Azure.WebJobs.Extensions.SignalRService;
     using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -42,7 +41,6 @@ namespace AppFunctions
             ILogger log)
         {
             SignalREventGridPayload payload = JsonConvert.DeserializeObject<SignalREventGridPayload>(eventGridEvent.Data.ToString());
-
             var message = new Dictionary<object, object>();
 
             payload.Data.Patch.ForEach(p =>
@@ -62,13 +60,12 @@ namespace AppFunctions
                 message.Add(builder.ToString(), p.Value);              
             });
 
-
-            log.LogInformation($"Message: {string.Join(Environment.NewLine, message)}");
+            log.LogInformation($"Message to send: {string.Join(Environment.NewLine, message)}");
 
             return signalRMessages.AddAsync(
                 new SignalRMessage
                 {
-                    Target = "newMessage",
+                    Target = (string)message["device_id"],
                     Arguments = new[] { message }
                 });
         }

@@ -14,8 +14,6 @@ namespace AppFunctions
     using System.Net.Http;
     using System.Text;
 
-    // This class processes telemetry events from IoT Hub, reads temperature of a device
-    // and sets the "Temperature" property of the device with the value of the telemetry.
     public class ProcessHubToDTEvents
     {
         private static readonly HttpClient httpClient = new HttpClient();
@@ -24,15 +22,14 @@ namespace AppFunctions
         [FunctionName("ProcessHubToDTEvents")]
         public async void Run([EventGridTrigger]EventGridEvent eventGridEvent, ILogger log)
         {
-            // After this is deployed, you need to turn the Managed Identity Status to "On",
-            // Grab Object Id of the function and assigned "Azure Digital Twins Owner (Preview)" role
-            // to this function identity in order for this function to be authorized on ADT APIs.
-
             //Authenticate with Digital Twins
             var credentials = new DefaultAzureCredential();
-            DigitalTwinsClient client = new DigitalTwinsClient(
-                new Uri(adtServiceUrl), credentials, new DigitalTwinsClientOptions
-                { Transport = new HttpClientTransport(httpClient) });
+            DigitalTwinsClient client = new DigitalTwinsClient(new Uri(adtServiceUrl), credentials, new DigitalTwinsClientOptions
+            { 
+                Transport = new HttpClientTransport(httpClient)
+            });
+
+
             log.LogInformation($"ADT service client connection created.");
 
             if (eventGridEvent != null && eventGridEvent.Data != null)
@@ -57,6 +54,10 @@ namespace AppFunctions
                     */
                     case CrudMode.Update:
                         updateTwinData = BuildUpdatePatchJson(payload.Body.Data);
+
+                        updateTwinData.AppendReplace($"/device_id", deviceId);
+                        log.LogInformation(updateTwinData.ToString());
+
                         try
                         {
                             await client.UpdateDigitalTwinAsync(deviceId, updateTwinData);
@@ -64,7 +65,9 @@ namespace AppFunctions
                         {
                             log.LogError(e.Message);
                         }
+
                         break;
+
                     default:
                         throw new CrudOperationNotAvailableException();
                 }
