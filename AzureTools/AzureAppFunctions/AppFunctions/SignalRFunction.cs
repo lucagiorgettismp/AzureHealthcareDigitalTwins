@@ -61,7 +61,7 @@ namespace AppFunctions
             });
 
             log.LogInformation($"Message to send: {string.Join(Environment.NewLine, message)}");
-
+            log.LogInformation($"Device id is: {message["device_id"]}");
             return signalRMessages.AddAsync(
                 new SignalRMessage
                 {
