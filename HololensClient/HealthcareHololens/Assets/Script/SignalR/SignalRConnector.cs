@@ -23,7 +23,7 @@ public class SignalRConnector
             .AddNewtonsoftJsonProtocol()
             .Build();
 
-        connection.On<Message>("newMessage", (message) =>
+        connection.On<Message>("PGNLNZ97M18G479M", (message) =>
         {
             this.callback.OnMessageReceived(message);
         });
