@@ -13,6 +13,9 @@ namespace Client.src.AzureApi.DTLDModels
         [JsonPropertyName(DigitalTwinsJsonPropertyNames.DigitalTwinMetadata)]
         public VitalSignsMonitorMetadata Metadata { get; set; } = new VitalSignsMonitorMetadata();
 
+        [JsonPropertyName("device_id")]
+        public string DeviceId { get; set; }
+
         [JsonPropertyName("temperature")]
         public SensorComponent Temperature { get; set; }
 
@@ -35,6 +38,9 @@ namespace Client.src.AzureApi.DTLDModels
     {
         [JsonPropertyName(DigitalTwinsJsonPropertyNames.MetadataModel)]
         public string ModelId { get; set; }
+
+        [JsonPropertyName("device_id")]
+        public DigitalTwinPropertyMetadata DeviceId { get; set; }
 
         [JsonPropertyName("temperature")]
         public DigitalTwinPropertyMetadata Temperature { get; set; }

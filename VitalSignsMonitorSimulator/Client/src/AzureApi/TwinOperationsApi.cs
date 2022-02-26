@@ -15,13 +15,10 @@
         // Query
         private const string QUERY_GET_ALL_TWINS = "SELECT * FROM digitaltwins";
 
-        // Models name
-        private const string PATIENT = "Patient";
-
         // Name relationship
         private const string NAME_RELATIONSHIP = "rel_has_monitor";
 
-        // Model id
+        // Model devideId
         private const string MONITOR_MODEL_ID = "dtmi:healthCareDT:VitalParametersMonitor;1";
         private const string PATIENT_MODEL_ID = "dtmi:healthCareDT:Patient;1";
 
@@ -55,7 +52,7 @@
             Log.Ok("Get all DT...");
             await foreach (BasicDigitalTwin twin in queryResult)
             {
-                string modelPatient = await GetModel(client, PATIENT);
+                string modelPatient = await GetModel(client, PATIENT_MODEL_ID);
                 if(twin.Metadata.ModelId == modelPatient)
                 {
                     IdTwins.Add(twin.Id);
@@ -91,27 +88,28 @@
                 Description = model.Description,
                 Weight = model.Weight,
                 Height = model.Height,
-                BodyMassIndex = bmi
+                BodyMassIndex = bmi,
+                FiscalCode = model.FiscalCode
             };
 
             Log.Ok($"Create twin with..\nName: {model.Name},\nSurname: {model.Surname}\nAge: {model.Age}\nGender: {model.Gender}" +
-                $"\nDescription: {model.Description}\nWeight: {model.Weight}\nHeight: {model.Height}\nBmi: {model.BodyMassIndex}");
+                $"\nDescription: {model.Description}\nWeight: {model.Weight}\nHeight: {model.Height}\nBmi: {model.BodyMassIndex}" +
+                $"\nFiscal code: {model.FiscalCode}");
 
             try
             {
                 // Create a device in iot hub
-                await CreateDeviceHub($"{model.Name}VitalSignsMonitor");
+                await CreateDeviceHub(model.FiscalCode);
 
                 // Create patient twin
                 await client.CreateOrReplaceDigitalTwinAsync(patientId, patientTwin);
                 Log.Ok($"- Created twin {patientId} successfully!");
 
                 // Create monitor twin
-                string idMonitorTwin = $"{model.Name}VitalSignsMonitor";
-                await CreateMonitorTwin(client, idMonitorTwin);
+                await CreateMonitorTwin(client, model.FiscalCode);
 
                 // Create a relationship between patient twin and monitor twin
-                await CreateRelationship(client, idMonitorTwin, patientId, NAME_RELATIONSHIP);
+                await CreateRelationship(client, model.FiscalCode, patientId, NAME_RELATIONSHIP);
             }
             catch (RequestFailedException e) {
                 Log.Error($"Create patient twin error: {e.Status}: {e.Message}");
@@ -119,15 +117,14 @@
             Console.WriteLine();
         }
 
-        private async Task CreateMonitorTwin(DigitalTwinsClient client, string id) {
+        private async Task CreateMonitorTwin(DigitalTwinsClient client, string idMonitorTwin) {
 
             try
             {
-                string monitorId = id;
-
                 var monitorTwin = new VitalSignsMonitor
                 {
                     Metadata = { ModelId = MONITOR_MODEL_ID },
+                    DeviceId = idMonitorTwin,
                     Temperature = GetSensorComponent(),
                     BloodPressure = GetSensorGraphComponent(),
                     Battery = GetSensorComponent(),
@@ -136,8 +133,8 @@
                     Saturation = GetSensorGraphComponent()
                 };
 
-                await client.CreateOrReplaceDigitalTwinAsync(monitorId, monitorTwin);
-                Log.Ok($"- Created twin {monitorId} successfully!");
+                await client.CreateOrReplaceDigitalTwinAsync(idMonitorTwin, monitorTwin);
+                Log.Ok($"- Created twin {idMonitorTwin} successfully!");
             }
             catch (RequestFailedException e)
             {

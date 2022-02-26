@@ -15,9 +15,11 @@
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            ControlPanelForm controlPanel = new ControlPanelForm();
-            controlPanel.Text = "Control Panel";
-            controlPanel.FormBorderStyle = FormBorderStyle.FixedDialog;
+            ControlPanelForm controlPanel = new ControlPanelForm
+            {
+                Text = "Control Panel",
+                FormBorderStyle = FormBorderStyle.FixedDialog
+            };
 
             Application.Run(controlPanel);
         }
