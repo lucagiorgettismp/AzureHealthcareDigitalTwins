@@ -128,6 +128,7 @@
                 var monitorTwin = new VitalSignsMonitor
                 {
                     Metadata = { ModelId = MONITOR_MODEL_ID },
+                    DeviceId = id,
                     Temperature = GetSensorComponent(),
                     BloodPressure = GetSensorGraphComponent(),
                     Battery = GetSensorComponent(),
