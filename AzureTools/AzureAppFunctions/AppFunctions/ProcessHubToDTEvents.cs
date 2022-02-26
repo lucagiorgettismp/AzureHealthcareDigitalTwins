@@ -57,6 +57,10 @@ namespace AppFunctions
                     */
                     case CrudMode.Update:
                         updateTwinData = BuildUpdatePatchJson(payload.Body.Data);
+
+                        updateTwinData.AppendReplace($"/device_id", deviceId);
+                        log.LogInformation(updateTwinData.ToString());
+
                         try
                         {
                             await client.UpdateDigitalTwinAsync(deviceId, updateTwinData);
@@ -64,7 +68,9 @@ namespace AppFunctions
                         {
                             log.LogError(e.Message);
                         }
+
                         break;
+
                     default:
                         throw new CrudOperationNotAvailableException();
                 }
@@ -75,7 +81,6 @@ namespace AppFunctions
         {
             var updateTwinData = new JsonPatchDocument();
 
-            updateTwinData.AppendReplace<string>($"/device_id", data.DeviceId);
             updateTwinData = AppendProperties(updateTwinData, data.Temperature, "temperature");
             updateTwinData = AppendProperties(updateTwinData, data.BatteryPower, "battery");
             updateTwinData = AppendProperties(updateTwinData, data.Saturation, "saturation");
