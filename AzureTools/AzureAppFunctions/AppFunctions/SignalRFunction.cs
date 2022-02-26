@@ -43,8 +43,6 @@ namespace AppFunctions
             SignalREventGridPayload payload = JsonConvert.DeserializeObject<SignalREventGridPayload>(eventGridEvent.Data.ToString());
             var message = new Dictionary<object, object>();
 
-            log.LogInformation("SignalR message: " + signalRMessages);
-
             payload.Data.Patch.ForEach(p =>
             {
                 var builder = new StringBuilder();
@@ -67,7 +65,7 @@ namespace AppFunctions
             return signalRMessages.AddAsync(
                 new SignalRMessage
                 {
-                    Target = "newMessage",
+                    Target = (string)message["device_id"],
                     Arguments = new[] { message }
                 });
         }

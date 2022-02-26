@@ -75,6 +75,7 @@ namespace AppFunctions
         {
             var updateTwinData = new JsonPatchDocument();
 
+            updateTwinData.AppendReplace<string>($"/device_id", data.DeviceId);
             updateTwinData = AppendProperties(updateTwinData, data.Temperature, "temperature");
             updateTwinData = AppendProperties(updateTwinData, data.BatteryPower, "battery");
             updateTwinData = AppendProperties(updateTwinData, data.Saturation, "saturation");
