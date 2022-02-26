@@ -31,6 +31,9 @@ namespace Client.src.AzureApi.DTLDModels
 
         [JsonPropertyName("bmi")]
         public BodyMassIndexComponent BodyMassIndex { get; set; }
+
+        [JsonPropertyName("fiscal_code")]
+        public string FiscalCode { get; set; }
     }
 
     internal class PatientTwinMetadata
@@ -61,5 +64,8 @@ namespace Client.src.AzureApi.DTLDModels
 
         [JsonPropertyName("bmi")]
         public DigitalTwinPropertyMetadata BodyMassIndex { get; set; }
+
+        [JsonPropertyName("fiscal_code")]
+        public DigitalTwinPropertyMetadata FiscalCode { get; set; }
     }
 }
