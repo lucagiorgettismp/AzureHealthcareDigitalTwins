@@ -24,6 +24,12 @@
     },
     {
       "@type": "Property",
+      "name": "fiscal_code",
+      "displayName": "Fiscal Code",
+      "schema": "string"
+    },
+    {
+      "@type": "Property",
       "name": "gender",
       "displayName": "Gender",
       "schema": "string"
