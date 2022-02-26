@@ -15,9 +15,6 @@
         // Query
         private const string QUERY_GET_ALL_TWINS = "SELECT * FROM digitaltwins";
 
-        // Models name
-        private const string PATIENT = "Patient";
-
         // Name relationship
         private const string NAME_RELATIONSHIP = "rel_has_monitor";
 
@@ -55,7 +52,7 @@
             Log.Ok("Get all DT...");
             await foreach (BasicDigitalTwin twin in queryResult)
             {
-                string modelPatient = await GetModel(client, PATIENT);
+                string modelPatient = await GetModel(client, PATIENT_MODEL_ID);
                 if(twin.Metadata.ModelId == modelPatient)
                 {
                     IdTwins.Add(twin.Id);
