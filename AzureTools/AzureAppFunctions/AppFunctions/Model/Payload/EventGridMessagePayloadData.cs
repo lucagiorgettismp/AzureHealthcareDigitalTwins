@@ -3,7 +3,7 @@ namespace AppFunctions.Model.Payload
 {
 
     public class EventGridMessagePayloadData
-    {
+    { 
         [JsonProperty("temperature")]
         public Sensor Temperature { get; set; }
 

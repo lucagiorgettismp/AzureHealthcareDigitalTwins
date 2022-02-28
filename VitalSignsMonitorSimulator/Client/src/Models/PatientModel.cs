@@ -17,5 +17,7 @@
         public string Description { get; set; }
 
         public double BodyMassIndex { get; set; }
+
+        public string FiscalCode { get; set; }
     }
 }

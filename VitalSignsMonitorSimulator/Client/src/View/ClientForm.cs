@@ -13,6 +13,7 @@
         {
             InitializeComponent();
             this.clientTwins = new Client();
+            this.ControlBox = false;
         }
 
         private void CreateButtonClick(object sender, EventArgs e)
@@ -40,7 +41,22 @@
 
         private void SelectedIndexPatients(object sender, EventArgs e)
         {
-            Log.Ok("Click on: " + patients_twins_collections.SelectedItem.ToString());
+            try
+            {
+                if (this.patients_twins_collections.SelectedItem != null)
+                {
+                    Log.Ok("Click on: " + patients_twins_collections.SelectedItem.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
+            }
+        }
+
+        private void CloseButtonClick(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
