@@ -57,17 +57,26 @@ namespace AppFunctions
                     builder.Append($"_{chunk}");
                 }
 
-                message.Add(builder.ToString(), p.Value);              
+                message.Add(builder.ToString(), p.Value);
             });
 
             log.LogInformation($"Message to send: {string.Join(Environment.NewLine, message)}");
 
+            /*
             return signalRMessages.AddAsync(
                 new SignalRMessage
                 {
                     Target = (string)message["device_id"],
                     Arguments = new[] { message }
                 });
+            */
+            return signalRMessages.AddAsync(
+                 new SignalRMessage
+                 {
+                     Target = (string)message["device_id"],
+                     Arguments = new[] { "Ciaooo" }
+                });
+
         }
     }
 }
