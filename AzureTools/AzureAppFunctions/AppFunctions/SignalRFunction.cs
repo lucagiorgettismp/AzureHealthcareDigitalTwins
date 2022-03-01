@@ -25,7 +25,7 @@ namespace AppFunctions
         {
             try
             {
-                log.LogInformation($"Info: {connectionInfo}");
+                log.LogInformation($"Info: url: {connectionInfo.Url}, token: {connectionInfo.AccessToken}");
             }
             catch (Exception e) {
                 log.LogError(e.Message);

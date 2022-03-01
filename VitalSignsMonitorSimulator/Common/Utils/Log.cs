@@ -2,29 +2,28 @@
 {
     using System;
 
-    public static class Log
+    static public class Log
     {
-        static public void Out(string s, ConsoleColor col = ConsoleColor.White)
+        static public void Out(string msg, ConsoleColor color = ConsoleColor.White)
         {
-            Console.ForegroundColor = col;
-            Console.WriteLine(s);
+            Console.ForegroundColor = color;
+            Console.WriteLine(msg);
             Console.ResetColor();
         }
 
-        static public void Error(string s)
-        {
-            Out(s, ConsoleColor.DarkRed);
+        static public void Error(string error)
+        { 
+            Out(error, ConsoleColor.DarkRed);
         }
 
-        static public void Alert(string s)
+        static public void Alert(string alert)
         {
-            Out(s, ConsoleColor.DarkYellow);
+            Out(alert, ConsoleColor.DarkYellow);
         }
 
-        static public void Ok(string s)
+        static public void Ok(string ok)
         {
-            Out(s, ConsoleColor.DarkGreen);
+            Out(ok, ConsoleColor.DarkGreen);
         }
-
     }
 }

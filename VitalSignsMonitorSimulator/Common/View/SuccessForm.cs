@@ -11,9 +11,10 @@ namespace Common.View
         public SuccessForm()
         {
             InitializeComponent();
+            this.ControlBox = false;
         }
 
-        public void SetSext(string text)
+        public void SetText(string text)
         {
             Label successLabel = this.Controls.Find(ID_LABEL, true).FirstOrDefault() as Label;
             successLabel.Text = text;
@@ -22,7 +23,7 @@ namespace Common.View
 
         private void ButtonConfirmationClick(object sender, EventArgs e)
         {
-            this.Close();
+            this.Hide();
         }
     }
 }
