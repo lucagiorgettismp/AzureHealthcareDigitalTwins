@@ -75,7 +75,7 @@
             }
         }
 
-        private void SavePatientButtonClick(object sender, EventArgs e)
+        private async void SavePatientButtonClick(object sender, EventArgs e)
         {
 
             if (this.patient_name.Text.Trim() != "" && this.patient_surname.Text.Trim() != "" &&
@@ -98,9 +98,12 @@
                     FiscalCode = this.patient_fiscal_code.Text
                 };
 
-                this.clientTwins.CreatePatientTwin(modelPatient);
-                this.Close();
-                this.clientForm.Enabled = true;
+                bool patientCreated = await this.clientTwins.CreatePatientTwin(modelPatient);
+                if (patientCreated)
+                {
+                    this.Close();
+                    this.clientForm.Enabled = true;
+                }
             }
         }
 
