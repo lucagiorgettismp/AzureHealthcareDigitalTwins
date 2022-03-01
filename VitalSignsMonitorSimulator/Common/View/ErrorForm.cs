@@ -11,9 +11,10 @@ namespace Common
         public ErrorForm()
         {
             InitializeComponent();
+            this.ControlBox = false;
         }
 
-        public void SetSext(string textError)
+        public void SetText(string textError)
         {
             Label errorLabel = this.Controls.Find(ID_LABEL, true).FirstOrDefault() as Label;
             errorLabel.Text = textError;
@@ -22,7 +23,7 @@ namespace Common
 
         private void ButtonConfirmationClick(object sender, EventArgs e)
         {
-            this.Close();
+            this.Hide();
         }
     }
 }
