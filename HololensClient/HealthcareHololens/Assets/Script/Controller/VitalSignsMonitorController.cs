@@ -10,10 +10,5 @@ public class VitalSignsMonitorController : BaseApplicationPanel
         App.BloodPressureView.UpdateView(message);
         App.SensorValuesView.UpdateView(message);
     }
-
-    internal void OnLog(string message)
-    {
-        App.View.ShowError(message);
-    }
 }
     

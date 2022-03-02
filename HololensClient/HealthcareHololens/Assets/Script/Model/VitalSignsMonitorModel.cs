@@ -28,17 +28,10 @@ public class Callback : ICallback
     public Callback(VitalSignsMonitorController controller)
     {
         this.controller = controller;
-        this.controller.OnLog("Callback - Setup controller into callback");
     }
 
     public void OnMessageReceived(Message message)
     {
         this.controller.OnDataReceived(message);
-        this.OnLog("Message successfully received");
-    }
-
-    internal void OnLog(string message)
-    {
-        this.controller.OnLog("Callback - Log:" + message);
     }
 }
