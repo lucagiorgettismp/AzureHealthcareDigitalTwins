@@ -92,20 +92,20 @@ public class HeartFrequencyView : MonoBehaviour
 
     private void UpdateSensorSymbols(Message message)
     {
-        this.HeartFrequencySymbol.text = message.HeartFrequencySensorValue.Symbol;
-        this.BatterySymbol.text = message.BatterySensorValue.Symbol;
+        this.HeartFrequencySymbol.text = message.heart_frequency_sensor_value.symbol;
+        this.BatterySymbol.text = message.battery_sensor_value.symbol;
     }
 
     private void UpdateSensorValues(Message message)
     {
-        this.HeartFrequencyValue.text = message.HeartFrequencySensorValue.Value.ToString();
-        this.BatteryValue.text = message.BatterySensorValue.Value.ToString();
+        this.HeartFrequencyValue.text = message.heart_frequency_sensor_value.value.ToString();
+        this.BatteryValue.text = message.battery_sensor_value.value.ToString();
     }
 
     private void UpdateSensorNames(Message message)
     {
-        this.HeartFrequencySensorName.text = message.HeartFrequencySensorName;
-        this.BatterySensorName.text = message.BatterySensorName;
+        this.HeartFrequencySensorName.text = message.heart_frequency_sensor_name;
+        this.BatterySensorName.text = message.battery_sensor_name;
     }
 
     private void UpdateSensorAlerts(Message message)
@@ -113,17 +113,17 @@ public class HeartFrequencyView : MonoBehaviour
         Material redColor = Resources.Load(RED_COLOR, typeof(Material)) as Material;
         Material whiteColor = Resources.Load(WHITE_COLOR, typeof(Material)) as Material;
 
-        this.HeartFrequencyAlert.GetComponent<Renderer>().material = message.HeartFrequencySensorAlarm ? redColor : whiteColor;
-        this.BatteryAlert.GetComponent<Renderer>().material = message.BatterySensorAlarm ? redColor : whiteColor;
+        this.HeartFrequencyAlert.GetComponent<Renderer>().material = message.heart_frequency_alarm ? redColor : whiteColor;
+        this.BatteryAlert.GetComponent<Renderer>().material = message.battery_alarm ? redColor : whiteColor;
     }
 
     private void UpdateLineCharts(Message message)
     {
-        float yAxisMin = (float)message.HeartFrequencySensorValue.MinValue;
-        float yAxisMax = (float)message.HeartFrequencySensorValue.MaxValue;
-        float value = (float)message.HeartFrequencySensorValue.Value;
+        float yAxisMin = (float)message.heart_frequency_sensor_value.min_value;
+        float yAxisMax = (float)message.heart_frequency_sensor_value.max_value;
+        float value = (float)message.heart_frequency_sensor_value.value;
 
-        string graphColor = (string)message.HeartFrequencyGraphColor;
+        string graphColor = (string)message.heart_frequency_graph_color;
         int channelR = Convert.ToInt32(graphColor.Split(',')[0]);
         int channelG = Convert.ToInt32(graphColor.Split(',')[1]);
         int channelB = Convert.ToInt32(graphColor.Split(',')[2]);

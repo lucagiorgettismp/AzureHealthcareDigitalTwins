@@ -1,3 +1,5 @@
+using System;
+
 public class VitalSignsMonitorController : BaseApplicationPanel
 {
     public void OnDataReceived(Message message) {

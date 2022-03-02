@@ -1,75 +1,40 @@
-using Newtonsoft.Json;
+using System;
 
+[Serializable]
 public class Message
 {
-    [JsonProperty("temperature_sensor_name")]
-    public string TemperatureSensorName { get; set; }
 
-    [JsonProperty("temperature_alarm")]
-    public bool TemperatureSensorAlarm { get; set; }
+    /* Temperature */
+    public string temperature_sensor_name { get; set; }
+    public bool temperature_alarm { get; set; }
+    public SensorValue temperature_sensor_value { get; set; }
 
-    [JsonProperty("temperature_sensor_value")]
-    public SensorValue TemperatureSensorValue { get; set; }
+    /* Blood Pressure */
+    public string blood_pressure_sensor_name { get; set; }
+    public bool blood_pressure_alarm { get; set; }
+    public SensorValue blood_pressure_sensor_value { get; set; }
+    public string blood_pressure_graph_color { get; set; }
 
+    /* Battery */
+    public string battery_sensor_name { get; set; }
+    public bool battery_alarm { get; set; }
+    public SensorValue battery_sensor_value { get; set; }
 
-    [JsonProperty("blood_pressure_sensor_name")]
-    public string BloodPressureSensorName { get; set; }
+    /* Heart Frequency */
+    public string heart_frequency_sensor_name { get; set; }
+    public bool heart_frequency_alarm { get; set; }
+    public SensorValue heart_frequency_sensor_value { get; set; }
+    public string heart_frequency_graph_color { get; set; }
 
-    [JsonProperty("blood_pressure_alarm")]
-    public bool BloodPressureSensorAlarm { get; set; }
+    /* Breath Frequency */
+    public string breath_frequency_sensor_name { get; set; }
+    public bool breath_frequency_alarm { get; set; }
+    public SensorValue breath_frequency_sensor_value { get; set; }
+    public string breath_frequency_graph_color { get; set; }
 
-    [JsonProperty("blood_pressure_sensor_value")]
-    public SensorValue BloodPressureSensorValue { get; set; }
-
-    [JsonProperty("blood_pressure_graph_color")]
-    public string BloodPressureGraphColor { get; set; }
-
-
-    [JsonProperty("battery_sensor_name")]
-    public string BatterySensorName { get; set; }
-
-    [JsonProperty("battery_alarm")]
-    public bool BatterySensorAlarm { get; set; }
-
-    [JsonProperty("battery_sensor_value")]
-    public SensorValue BatterySensorValue { get; set; }
-
-
-    [JsonProperty("heart_frequency_sensor_name")]
-    public string HeartFrequencySensorName { get; set; }
-
-    [JsonProperty("heart_frequency_alarm")]
-    public bool HeartFrequencySensorAlarm { get; set; }
-
-    [JsonProperty("heart_frequency_sensor_value")]
-    public SensorValue HeartFrequencySensorValue { get; set; }
-
-    [JsonProperty("heart_frequency_graph_color")]
-    public string HeartFrequencyGraphColor { get; set; }
-
-
-    [JsonProperty("breath_frequency_sensor_name")]
-    public string BreathFrequencySensorName { get; set; }
-
-    [JsonProperty("breath_frequency_alarm")]
-    public bool BreathFrequencySensorAlarm { get; set; }
-
-    [JsonProperty("breath_frequency_sensor_value")]
-    public SensorValue BreathFrequencySensorValue { get; set; }
-
-    [JsonProperty("breath_frequency_graph_color")]
-    public string BreathFrequencyGraphColor { get; set; }
-
-
-    [JsonProperty("saturation_sensor_name")]
-    public string SaturationSensorName { get; set; }
-
-    [JsonProperty("saturation_alarm")]
-    public bool SaturationSensorAlarm { get; set; }
-
-    [JsonProperty("saturation_sensor_value")]
-    public SensorValue SaturationSensorValue { get; set; }
-
-    [JsonProperty("saturation_graph_color")]
-    public string SaturationGraphColor { get; set; }
+    /* Saturation */
+    public string saturation_sensor_name { get; set; }
+    public bool saturation_alarm { get; set; }
+    public SensorValue saturation_sensor_value { get; set; }
+    public string saturation_graph_color { get; set; }
 }
