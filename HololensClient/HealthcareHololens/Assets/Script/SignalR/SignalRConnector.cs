@@ -22,38 +22,18 @@ public class SignalRConnector
         {
             connection = new HubConnectionBuilder()
                 .WithUrl(host)
-                .AddNewtonsoftJsonProtocol()
                 .Build();
 
             connection.On<Message>("PGNLNZ97M18G479M", (message) =>
                 {
                     this.callback.OnMessageReceived(message);
-                    this.callback.OnLog("Connector - new message: " + message.ToString());
                 });
         }
         catch (Exception e)
         {
-            this.callback.OnLog("InitAsync error: " + e.Message + "\n\n" + e.StackTrace);
+            Debug.LogError("Error in connection signalR: " + e.Message);
         }
 
-       await StartConnectionAsync();
-    }
-
-    private async Task StartConnectionAsync()
-    {
-        try
-        {
-            this.callback.OnLog($"StartConnectionAsync - started");
-            await connection.StartAsync();
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"Error: {ex.Message}");
-            this.callback.OnLog("StartConnectionAsync error: " + ex.Message + "\n\n" + ex.StackTrace);
-        } finally
-        {
-            this.callback.OnLog($"StartConnectionAsync - connectionId: {connection.ConnectionId}, connState: {connection.State}");
-
-        }
+        await connection.StartAsync();
     }
 }
