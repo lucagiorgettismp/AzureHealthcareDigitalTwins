@@ -92,20 +92,20 @@ public class BloodPressureView : BaseApplicationPanel
 
     private void UpdateSensorSymbols(Message message)
     {
-        this.BloodPressureSymbol.text = message.BloodPressureSensorValue.Symbol;
-        this.BatterySymbol.text = message.BatterySensorValue.Symbol;
+        this.BloodPressureSymbol.text = message.blood_pressure_sensor_value.symbol;
+        this.BatterySymbol.text = message.battery_sensor_value.symbol;
     }
 
     private void UpdateSensorValues(Message message)
     {
-        this.BloodPressureValue.text = message.BloodPressureSensorValue.Value.ToString();
-        this.BatteryValue.text = message.BatterySensorValue.Value.ToString();
+        this.BloodPressureValue.text = message.blood_pressure_sensor_value.value.ToString();
+        this.BatteryValue.text = message.battery_sensor_value.value.ToString();
     }
 
     private void UpdateSensorNames(Message message)
     {
-        this.BloodPressureSensorName.text = message.BloodPressureSensorName;
-        this.BatterySensorName.text = message.BatterySensorName;
+        this.BloodPressureSensorName.text = message.blood_pressure_sensor_name;
+        this.BatterySensorName.text = message.battery_sensor_name;
     }
 
     private void UpdateSensorAlerts(Message message)
@@ -113,17 +113,17 @@ public class BloodPressureView : BaseApplicationPanel
         Material redColor = Resources.Load(RED_COLOR, typeof(Material)) as Material;
         Material whiteColor = Resources.Load(WHITE_COLOR, typeof(Material)) as Material;
 
-        this.BloodPressureAlert.GetComponent<Renderer>().material = message.BloodPressureSensorAlarm ? redColor : whiteColor;
-        this.BatteryAlert.GetComponent<Renderer>().material = message.BatterySensorAlarm ? redColor : whiteColor;
+        this.BloodPressureAlert.GetComponent<Renderer>().material = message.blood_pressure_alarm ? redColor : whiteColor;
+        this.BatteryAlert.GetComponent<Renderer>().material = message.battery_alarm ? redColor : whiteColor;
     }
 
     private void UpdateLineCharts(Message message)
     {
-        float yAxisMin  = (float)message.BloodPressureSensorValue.MinValue;
-        float yAxisMax  = (float)message.BloodPressureSensorValue.MaxValue;
-        float value     = (float)message.BloodPressureSensorValue.Value;
+        float yAxisMin  = (float)message.blood_pressure_sensor_value.min_value;
+        float yAxisMax  = (float)message.blood_pressure_sensor_value.max_value;
+        float value     = (float)message.blood_pressure_sensor_value.value;
 
-        string graphColor = (string) message.BloodPressureGraphColor;
+        string graphColor = (string) message.blood_pressure_graph_color;
         int channelR = Convert.ToInt32(graphColor.Split(',')[0]);
         int channelG = Convert.ToInt32(graphColor.Split(',')[1]);
         int channelB = Convert.ToInt32(graphColor.Split(',')[2]);

@@ -92,20 +92,20 @@ public class BreathFrequencyView : BaseApplicationPanel
 
     private void UpdateSensorSymbols(Message message)
     { 
-        this.BreathFrequencySymbol.text = message.BreathFrequencySensorValue.Symbol;
-        this.BatterySymbol.text = message.BatterySensorValue.Symbol;
+        this.BreathFrequencySymbol.text = message.breath_frequency_sensor_value.symbol;
+        this.BatterySymbol.text = message.battery_sensor_value.symbol;
     }
 
     private void UpdateSensorValues(Message message)
     {
-        this.BreathFrequencyValue.text = message.BreathFrequencySensorValue.Value.ToString();
-        this.BatteryValue.text = message.BatterySensorValue.Value.ToString();
+        this.BreathFrequencyValue.text = message.breath_frequency_sensor_value.value.ToString();
+        this.BatteryValue.text = message.battery_sensor_value.value.ToString();
     }
 
     private void UpdateSensorNames(Message message)
     {
-        this.BreathFrequencySensorName.text = message.BreathFrequencySensorName;
-        this.BatterySensorName.text = message.BatterySensorName;
+        this.BreathFrequencySensorName.text = message.breath_frequency_sensor_name;
+        this.BatterySensorName.text = message.battery_sensor_name;
     }
 
     private void UpdateSensorAlerts(Message message)
@@ -113,17 +113,17 @@ public class BreathFrequencyView : BaseApplicationPanel
         Material redColor = Resources.Load(RED_COLOR, typeof(Material)) as Material;
         Material whiteColor = Resources.Load(WHITE_COLOR, typeof(Material)) as Material;
 
-        this.BreathFrequencyAlert.GetComponent<Renderer>().material = message.BreathFrequencySensorAlarm ? redColor : whiteColor;
-        this.BatteryAlert.GetComponent<Renderer>().material = message.BatterySensorAlarm ? redColor : whiteColor;
+        this.BreathFrequencyAlert.GetComponent<Renderer>().material = message.breath_frequency_alarm ? redColor : whiteColor;
+        this.BatteryAlert.GetComponent<Renderer>().material = message.battery_alarm ? redColor : whiteColor;
     }
 
     private void UpdateLineCharts(Message message)
     {
-        float yAxisMin = (float)message.BreathFrequencySensorValue.MinValue;
-        float yAxisMax = (float)message.BreathFrequencySensorValue.MaxValue;
-        float value = (float)message.BreathFrequencySensorValue.Value;
+        float yAxisMin = (float)message.breath_frequency_sensor_value.min_value;
+        float yAxisMax = (float)message.breath_frequency_sensor_value.max_value;
+        float value = (float)message.breath_frequency_sensor_value.value;
 
-        string graphColor = (string)message.BreathFrequencyGraphColor;
+        string graphColor = (string)message.breath_frequency_graph_color;
         int channelR = Convert.ToInt32(graphColor.Split(',')[0]);
         int channelG = Convert.ToInt32(graphColor.Split(',')[1]);
         int channelB = Convert.ToInt32(graphColor.Split(',')[2]);

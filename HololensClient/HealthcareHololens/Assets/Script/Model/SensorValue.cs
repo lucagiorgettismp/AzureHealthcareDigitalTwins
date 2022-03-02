@@ -1,22 +1,12 @@
-using Newtonsoft.Json;
+using System;
 
+[Serializable]
 public class SensorValue
 {
-    [JsonProperty("min_value")]
-    public double MinValue { get; set; }
-
-    [JsonProperty("max_value")]
-    public double MaxValue { get; set; }
-
-    [JsonProperty("value")]
-    public double Value { get; set; }
-
-    [JsonProperty("unit")]
-    public string Unit { get; set; }
-
-    [JsonProperty("symbol")]
-    public string Symbol { get; set; }
-
-    [JsonProperty("type")]
-    public string Type { get; set; }
+    public double min_value { get; set; }
+    public double max_value { get; set; }
+    public double value { get; set; }
+    public string unit { get; set; }
+    public string symbol { get; set; }
+    public string type { get; set; }
 }

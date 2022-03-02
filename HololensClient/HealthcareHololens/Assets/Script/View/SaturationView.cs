@@ -92,20 +92,20 @@ public class SaturationView : BaseApplicationPanel
 
     private void UpdateSensorSymbols(Message message)
     {
-        this.SaturationSymbol.text = message.SaturationSensorValue.Symbol;
-        this.BatterySymbol.text = message.BatterySensorValue.Symbol;
+        this.SaturationSymbol.text = message.saturation_sensor_value.symbol;
+        this.BatterySymbol.text = message.battery_sensor_value.symbol;
     }
 
     private void UpdateSensorValues(Message message)
     {
-        this.SaturationValue.text = message.SaturationSensorValue.Value.ToString();
-        this.BatteryValue.text = message.BatterySensorValue.Value.ToString();
+        this.SaturationValue.text = message.saturation_sensor_value.value.ToString();
+        this.BatteryValue.text = message.battery_sensor_value.value.ToString();
     }
 
     private void UpdateSensorNames(Message message)
     {
-        this.SaturationSensorName.text = message.SaturationSensorName;
-        this.BatterySensorName.text = message.BatterySensorName;
+        this.SaturationSensorName.text = message.saturation_sensor_name;
+        this.BatterySensorName.text = message.battery_sensor_name;
     }
 
     private void UpdateSensorAlerts(Message message)
@@ -113,17 +113,17 @@ public class SaturationView : BaseApplicationPanel
         Material redColor = Resources.Load(RED_COLOR, typeof(Material)) as Material;
         Material whiteColor = Resources.Load(WHITE_COLOR, typeof(Material)) as Material;
 
-        this.SaturationAlert.GetComponent<Renderer>().material = message.SaturationSensorAlarm ? redColor : whiteColor;
-        this.BatteryAlert.GetComponent<Renderer>().material = message.BatterySensorAlarm ? redColor : whiteColor;
+        this.SaturationAlert.GetComponent<Renderer>().material = message.saturation_alarm ? redColor : whiteColor;
+        this.BatteryAlert.GetComponent<Renderer>().material = message.battery_alarm ? redColor : whiteColor;
     }
 
     private void UpdateLineCharts(Message message)
     {
-        float yAxisMin = (float)message.SaturationSensorValue.MinValue;
-        float yAxisMax = (float)message.SaturationSensorValue.MaxValue;
-        float value = (float)message.SaturationSensorValue.Value;
+        float yAxisMin = (float)message.saturation_sensor_value.min_value;
+        float yAxisMax = (float)message.saturation_sensor_value.max_value;
+        float value = (float)message.saturation_sensor_value.value;
 
-        string graphColor = (string)message.SaturationGraphColor;
+        string graphColor = (string)message.saturation_graph_color;
         int channelR = Convert.ToInt32(graphColor.Split(',')[0]);
         int channelG = Convert.ToInt32(graphColor.Split(',')[1]);
         int channelB = Convert.ToInt32(graphColor.Split(',')[2]);

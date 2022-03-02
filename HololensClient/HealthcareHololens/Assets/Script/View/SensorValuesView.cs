@@ -121,41 +121,41 @@ public class SensorValuesView : BaseApplicationPanel
 
     private void UpdateSensorSymbols(Message message)
     {
-        this.TemperatureSymbol.text = message.TemperatureSensorValue.Symbol;
-        this.SaturationSymbol.text = message.SaturationSensorValue.Symbol;
-        this.BloodPressureSymbol.text = message.BloodPressureSensorValue.Symbol;
-        this.HeartFrequencySymbol.text = message.HeartFrequencySensorValue.Symbol;
-        this.BreathFrequencySymbol.text = message.BreathFrequencySensorValue.Symbol;
-        this.BatterySymbol.text = message.BatterySensorValue.Symbol;
+        this.TemperatureSymbol.text = message.temperature_sensor_value.symbol;
+        this.SaturationSymbol.text = message.saturation_sensor_value.symbol;
+        this.BloodPressureSymbol.text = message.blood_pressure_sensor_value.symbol;
+        this.HeartFrequencySymbol.text = message.heart_frequency_sensor_value.symbol;
+        this.BreathFrequencySymbol.text = message.breath_frequency_sensor_value.symbol;
+        this.BatterySymbol.text = message.battery_sensor_value.symbol;
     }
 
     private void UpdateSensorValues(Message message)
     {
-        this.TemperatureValue.text = Math.Round(message.TemperatureSensorValue.Value, 1).ToString();
+        this.TemperatureValue.text = Math.Round(message.temperature_sensor_value.value, 1).ToString();
 
-        this.SaturationValue.text = message.SaturationSensorValue.Value.ToString();
-        this.SaturationValue.color = SplitColor((string)message.SaturationGraphColor);
+        this.SaturationValue.text = message.saturation_sensor_value.value.ToString();
+        this.SaturationValue.color = SplitColor((string)message.saturation_graph_color);
 
-        this.BloodPressureValue.text = message.BloodPressureSensorValue.Value.ToString();
-        this.BloodPressureValue.color = SplitColor((string)message.BloodPressureGraphColor);
+        this.BloodPressureValue.text = message.blood_pressure_sensor_value.value.ToString();
+        this.BloodPressureValue.color = SplitColor((string)message.blood_pressure_graph_color);
 
-        this.HeartFrequencyValue.text = message.HeartFrequencySensorValue.Value.ToString();
-        this.HeartFrequencyValue.color = SplitColor((string)message.HeartFrequencyGraphColor);
+        this.HeartFrequencyValue.text = message.heart_frequency_sensor_value.value.ToString();
+        this.HeartFrequencyValue.color = SplitColor((string)message.heart_frequency_graph_color);
 
-        this.BreathFrequencyValue.text = message.BreathFrequencySensorValue.Value.ToString();
-        this.BreathFrequencyValue.color = SplitColor((string)message.BreathFrequencyGraphColor);
+        this.BreathFrequencyValue.text = message.breath_frequency_sensor_value.value.ToString();
+        this.BreathFrequencyValue.color = SplitColor((string)message.breath_frequency_graph_color);
 
-        this.BatteryValue.text = message.BatterySensorValue.Value.ToString();
+        this.BatteryValue.text = message.battery_sensor_value.value.ToString();
     }
 
     private void UpdateSensorNames(Message message)
     {
-        this.TemperatureSensorName.text = message.TemperatureSensorName;
-        this.SaturationSensorName.text = message.SaturationSensorName;
-        this.BloodPressureSensorName.text = message.BloodPressureSensorName;
-        this.HeartFrequencySensorName.text = message.HeartFrequencySensorName;
-        this.BreathFrequencySensorName.text = message.BreathFrequencySensorName;
-        this.BatterySensorName.text = message.BatterySensorName;
+        this.TemperatureSensorName.text = message.temperature_sensor_name;
+        this.SaturationSensorName.text = message.saturation_sensor_name;
+        this.BloodPressureSensorName.text = message.blood_pressure_sensor_name;
+        this.HeartFrequencySensorName.text = message.heart_frequency_sensor_name;
+        this.BreathFrequencySensorName.text = message.breath_frequency_sensor_name;
+        this.BatterySensorName.text = message.battery_sensor_name;
     }
 
     private void UpdateSensorAlerts(Message message)
@@ -163,12 +163,12 @@ public class SensorValuesView : BaseApplicationPanel
         Material redColor = Resources.Load(RED_COLOR, typeof(Material)) as Material;
         Material whiteColor = Resources.Load(WHITE_COLOR, typeof(Material)) as Material;
 
-        this.TemperatureAlert.GetComponent<Renderer>().material = message.TemperatureSensorAlarm ? redColor : whiteColor;
-        this.SaturationAlert.GetComponent<Renderer>().material = message.SaturationSensorAlarm ? redColor : whiteColor;
-        this.BloodPressureAlert.GetComponent<Renderer>().material = message.BloodPressureSensorAlarm ? redColor : whiteColor;
-        this.HeartFrequencyAlert.GetComponent<Renderer>().material = message.HeartFrequencySensorAlarm ? redColor : whiteColor;
-        this.BreathFrequencyAlert.GetComponent<Renderer>().material = message.BreathFrequencySensorAlarm ? redColor : whiteColor;
-        this.BatteryAlert.GetComponent<Renderer>().material = message.BatterySensorAlarm ? redColor : whiteColor;
+        this.TemperatureAlert.GetComponent<Renderer>().material = message.temperature_alarm ? redColor : whiteColor;
+        this.SaturationAlert.GetComponent<Renderer>().material = message.saturation_alarm ? redColor : whiteColor;
+        this.BloodPressureAlert.GetComponent<Renderer>().material = message.blood_pressure_alarm ? redColor : whiteColor;
+        this.HeartFrequencyAlert.GetComponent<Renderer>().material = message.heart_frequency_alarm ? redColor : whiteColor;
+        this.BreathFrequencyAlert.GetComponent<Renderer>().material = message.breath_frequency_alarm ? redColor : whiteColor;
+        this.BatteryAlert.GetComponent<Renderer>().material = message.battery_alarm ? redColor : whiteColor;
     }
 
     private Color SplitColor(string color)
@@ -178,4 +178,4 @@ public class SensorValuesView : BaseApplicationPanel
         int channelB = Convert.ToInt32(color.Split(',')[2]);
         return new Color(channelR, channelG, channelB, 250f);
     }
-}
+}   
