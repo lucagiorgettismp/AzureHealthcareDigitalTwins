@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 namespace AppFunctions.Model.Payload
 {
 
-    public class BloodPressure
+    public class IntDataProperty
     {
         [JsonProperty("value")]
         public int Value { get; set; }

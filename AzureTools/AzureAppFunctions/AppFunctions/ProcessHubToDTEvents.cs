@@ -64,6 +64,7 @@ namespace AppFunctions
             }
         }
 
+        
         private JsonPatchDocument BuildCraetePatchJson(Data data)
         {
             var updateTwinData = new JsonPatchDocument();
@@ -116,6 +117,8 @@ namespace AppFunctions
 
             updateTwinData.AppendReplace<int>("/blood_pressure/value", data.BloodPressure.Value);
             updateTwinData.AppendReplace<bool>("/blood_pressure/alarm", data.BloodPressure.Alarm);
+
+            updateTwinData.AppendReplace<int>("/configuration/last_selected_view", data.Configuration.LastSelectedView);
 
             return updateTwinData;
         }
