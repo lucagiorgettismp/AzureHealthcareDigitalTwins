@@ -13,36 +13,50 @@
         {
             InitializeComponent();
             this.clientTwins = new Client();
+            this.ControlBox = false;
         }
 
-        private void create_button_Click(object sender, EventArgs e)
+        private void CreateButtonClick(object sender, EventArgs e)
         {
-            PatientForm patientForm = new PatientForm(this.clientTwins);
-            patientForm.Text = "Patient";
-            patientForm.FormBorderStyle = FormBorderStyle.FixedDialog;
+            PatientForm patientForm = new PatientForm(this, this.clientTwins)
+            {
+                Text = "Patient",
+                FormBorderStyle = FormBorderStyle.FixedDialog
+            };
 
             patientForm.Show();
+            this.Enabled = false;
         }
 
-        private async void get_twins_button_Click(object sender, EventArgs e)
+        private async void GetTwinsButtonClick(object sender, EventArgs e)
         {
             this.patients_twins_collections.Items.Clear();
 
-            var twins = await this.clientTwins.getTwins();
+            var twins = await this.clientTwins.GetTwins();
             for(int i = 0; i < twins.Count; i++)
             {
                 this.patients_twins_collections.Items.Add(twins[i]);
             }
         }
 
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        private void SelectedIndexPatients(object sender, EventArgs e)
         {
-
+            try
+            {
+                if (this.patients_twins_collections.SelectedItem != null)
+                {
+                    Log.Ok("Click on: " + patients_twins_collections.SelectedItem.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
+            }
         }
 
-        private void patients_twins_collections_SelectedIndexChanged(object sender, EventArgs e)
+        private void CloseButtonClick(object sender, EventArgs e)
         {
-            Log.Ok("Click on: " + patients_twins_collections.SelectedItem.ToString());
+            this.Close();
         }
     }
 }

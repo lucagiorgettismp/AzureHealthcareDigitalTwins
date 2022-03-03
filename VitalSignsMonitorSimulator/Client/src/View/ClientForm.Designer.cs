@@ -33,6 +33,7 @@ namespace Client.View
             this.create_patient_button = new System.Windows.Forms.Button();
             this.get_twins_button = new System.Windows.Forms.Button();
             this.patients_twins_collections = new System.Windows.Forms.ListBox();
+            this.close_button = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -44,6 +45,7 @@ namespace Client.View
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.55906F));
             this.tableLayoutPanel1.Controls.Add(this.create_patient_button, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.get_twins_button, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.close_button, 2, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -52,7 +54,6 @@ namespace Client.View
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 85.623F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(508, 313);
             this.tableLayoutPanel1.TabIndex = 0;
-            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
             // create_patient_button
             // 
@@ -65,7 +66,7 @@ namespace Client.View
             this.create_patient_button.TabIndex = 1;
             this.create_patient_button.Text = "Add Patient";
             this.create_patient_button.UseVisualStyleBackColor = true;
-            this.create_patient_button.Click += new System.EventHandler(this.create_button_Click);
+            this.create_patient_button.Click += new System.EventHandler(this.CreateButtonClick);
             // 
             // get_twins_button
             // 
@@ -77,7 +78,7 @@ namespace Client.View
             this.get_twins_button.TabIndex = 3;
             this.get_twins_button.Text = "Get Twins";
             this.get_twins_button.UseVisualStyleBackColor = true;
-            this.get_twins_button.Click += new System.EventHandler(this.get_twins_button_Click);
+            this.get_twins_button.Click += new System.EventHandler(this.GetTwinsButtonClick);
             // 
             // patients_twins_collections
             // 
@@ -88,7 +89,19 @@ namespace Client.View
             this.patients_twins_collections.Name = "patients_twins_collections";
             this.patients_twins_collections.Size = new System.Drawing.Size(120, 319);
             this.patients_twins_collections.TabIndex = 1;
-            this.patients_twins_collections.SelectedIndexChanged += new System.EventHandler(this.patients_twins_collections_SelectedIndexChanged);
+            this.patients_twins_collections.SelectedIndexChanged += new System.EventHandler(this.SelectedIndexPatients);
+            // 
+            // close_button
+            // 
+            this.close_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.close_button.Location = new System.Drawing.Point(382, 12);
+            this.close_button.Margin = new System.Windows.Forms.Padding(15, 3, 3, 3);
+            this.close_button.Name = "close_button";
+            this.close_button.Size = new System.Drawing.Size(100, 30);
+            this.close_button.TabIndex = 4;
+            this.close_button.Text = "Close";
+            this.close_button.UseVisualStyleBackColor = true;
+            this.close_button.Click += new System.EventHandler(this.CloseButtonClick);
             // 
             // ClientForm
             // 
@@ -110,6 +123,7 @@ namespace Client.View
         private System.Windows.Forms.Button create_patient_button;
         private System.Windows.Forms.ListBox patients_twins_collections;
         private System.Windows.Forms.Button get_twins_button;
+        private System.Windows.Forms.Button close_button;
     }
 }
 

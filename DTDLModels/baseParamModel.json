@@ -9,6 +9,52 @@
     "name": "alarm",
     "displayName": "Alarm",
     "schema": "boolean"
+  },
+  {
+    "@type": "Property",
+    "name": "sensor_name",
+    "displayName": "Sensor name",
+    "schema": "string"
+  },
+  {
+    "@type": "Property",
+    "name": "sensor_value",
+    "displayName": "Sensor value",
+    "schema": {
+      "@type": "Object",
+      "fields": [
+        {
+          "name": "value",
+          "displayName": "Value",
+          "schema": "double"
+        },
+        {
+          "name": "min_value",
+          "displayName": "Min value",
+          "schema": "double"
+        },
+          {
+          "name": "max_value",
+          "displayName": "Max value",
+          "schema": "double"
+        },
+        {
+          "name": "unit",
+          "displayName": "Unit of measurement",
+          "schema": "string"
+        },
+        {
+          "name": "symbol",
+          "displayName": "Unit of measurement symbol",
+          "schema": "string"
+        },
+        {
+          "name": "type",
+          "displayName": "Value type",
+          "schema": "string"
+        }
+      ]
+    }
   }
  ]
 }
