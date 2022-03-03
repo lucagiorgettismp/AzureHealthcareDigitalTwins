@@ -125,6 +125,7 @@
                 {
                     Metadata = { ModelId = MONITOR_MODEL_ID },
                     DeviceId = idMonitorTwin,
+                    Configuration = GetDefaultConfiguration(),
                     Temperature = GetSensorComponent(),
                     BloodPressure = GetSensorGraphComponent(),
                     Battery = GetSensorComponent(),
@@ -140,6 +141,14 @@
             {
                 Log.Error($"Create monitor twin error: {e.Status}: {e.Message}");
             }
+        }
+
+        private src.AzureApi.DTLDModels.Configuration GetDefaultConfiguration()
+        {
+            return new src.AzureApi.DTLDModels.Configuration
+            {
+                LastSelectedView = 0
+            };
         }
 
         private SensorComponent GetSensorComponent()
