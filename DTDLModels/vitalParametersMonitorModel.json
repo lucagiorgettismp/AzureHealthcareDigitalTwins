@@ -5,6 +5,21 @@
  "displayName": "Vital Parameters Monitor",
   "contents": [
     {
+      "@type": "Property",
+      "name": "configuration",
+      "displayName": "Configuration",
+      "schema": {
+        "@type": "Object",
+        "fields": [
+          {
+            "name": "last_selected_view",
+            "displayName": "Last selected view",
+            "schema": "integer"
+          }
+        ]
+      }
+    },
+    {
       "@type": "Component",
       "name": "temperature",
       "displayName": "Temperature Sensor",
