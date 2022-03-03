@@ -84,6 +84,7 @@ namespace AppFunctions
             updateTwinData = AppendProperties(updateTwinData, data.HeartFrequency, "heart_frequency");
             updateTwinData = AppendProperties(updateTwinData, data.BreathFrequency, "breath_frequency");
             updateTwinData = AppendProperties(updateTwinData, data.BloodPressure, "blood_pressure");
+            updateTwinData.AppendReplaceRaw("/configuration", JsonConvert.SerializeObject(data.Configuration));
 
             return updateTwinData;
         }

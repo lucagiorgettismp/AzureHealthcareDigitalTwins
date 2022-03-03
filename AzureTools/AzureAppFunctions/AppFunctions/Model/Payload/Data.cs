@@ -2,25 +2,25 @@ using Newtonsoft.Json;
 namespace AppFunctions.Model.Payload
 {
 
-    public class EventGridMessagePayloadData
-    { 
+    public class Data
+    {
         [JsonProperty("temperature")]
-        public Sensor Temperature { get; set; }
+        public Temperature Temperature { get; set; }
 
         [JsonProperty("blood_pressure")]
-        public GraphSensor BloodPressure { get; set; }
+        public IntDataProperty BloodPressure { get; set; }
 
         [JsonProperty("saturation")]
-        public GraphSensor Saturation { get; set; }
+        public IntDataProperty Saturation { get; set; }
 
         [JsonProperty("breath_frequency")]
-        public GraphSensor BreathFrequency { get; set; }
+        public IntDataProperty BreathFrequency { get; set; }
 
         [JsonProperty("heart_frequency")]
-        public GraphSensor HeartFrequency { get; set; }
+        public IntDataProperty HeartFrequency { get; set; }
 
         [JsonProperty("battery_power")]
-        public Sensor BatteryPower { get; set; }
+        public IntDataProperty BatteryPower { get; set; }
 
         [JsonProperty("configuration")]
         public Configuration Configuration { get; set; }
