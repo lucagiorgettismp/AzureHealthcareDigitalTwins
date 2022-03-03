@@ -4,7 +4,7 @@ name: Build and Release CI
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
+  # Triggers the workflow on pull request events but only for the development branch
   pull_request:
     branches: [ development ]
 
@@ -18,39 +18,6 @@ env:
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build-and-deploy-app-function:
-    runs-on: windows-latest
-
-    env:
-      AZURE_FUNCTIONAPP_PACKAGE_PATH: '.\AzureTools\AzureAppFunctions\AppFunctions' # set this to the path to your web app project, defaults to the repository root
-      DOTNET_VERSION: '3.1' # set this to the dotnet version to use
-
-    steps:
-      - name: 'Checkout GitHub Action'
-        uses: actions/checkout@v2
-
-      - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-
-      - name: 'Resolve Project Dependencies Using Dotnet'
-        shell: pwsh
-        run: |
-          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-          dotnet build --configuration Release --output ./output
-          popd
-
-      - name: 'Run Azure Functions Action'
-        uses: Azure/functions-action@v1
-        id: fa
-        with:
-          app-name: 'healthcareIoTHubToDT'
-          slot-name: 'Production'
-          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_209DF526DE564123BAA37635737D89AB }}
-
-
   build-simulator:
     runs-on: [windows-latest]
 
@@ -96,36 +63,3 @@ jobs:
         with:
           name: Client
           path: .\VitalSignsMonitorSimulator\Client\bin\Release\Client.exe
-          
-  release:
-    runs-on: ubuntu-latest
-    
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
-    steps:
-      #- name: Tag/Release on Push Action
-      # You may pin to the exact commit or the version.
-      # uses: rymndhng/release-on-push-action@c76a55ddd0cbd67485bd5f9e133c553b2e48dfe2
-      - uses: rymndhng/release-on-push-action@v0.23.1
-        with:
-          # The bumping scheme to use by default. One of minor|major|patch|norelease
-          bump_version_scheme: minor
-          # Additional text to insert into the release's body.
-          release_body: Vital signs monitor simulator and backend client.
-          # Prefix to append to git tags. To unset this, set version_prefix to an empty string.
-          #tag_prefix: # optional, default is v
-          # Maximum number of commits to add to release body
-          # max_commits: # optional, default is 50
-          # When set to 'true', uses Github's Generated Release Notes instead of this plugin's release notes
-          # use_github_release_notes: # optional, default is false
-          release_name: "Release <RELEASE_VERSION>"
-      - uses: actions/upload-artifact@master
-        with:
-          name: Simulator
-          path: .\VitalSignsMonitorSimulator\Simulator\bin\Release\Simulator.exe
-      - uses: actions/upload-artifact@master
-        with:
-          name: Client
-          path: .\VitalSignsMonitorSimulator\Client\bin\Release\Client.exe
-  
