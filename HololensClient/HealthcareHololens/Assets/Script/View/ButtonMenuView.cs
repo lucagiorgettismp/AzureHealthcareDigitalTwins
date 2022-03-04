@@ -1,13 +1,21 @@
+using AzureDigitalTwins;
+using Microsoft.Azure.Devices.Client;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ButtonMenuView : BaseApplicationPanel
 {
 
-    PanelWrapper[] panels;
+    private PanelWrapper[] panels;
+    private DeviceClient deviceClient;
+
 
     void Start()
     {
+        // TODO: setup deviceId
+        var deviceId = "";
+        var connection = DeviceOperationsApi.GetConnectionString(deviceId);
+        this.deviceClient = DeviceClient.CreateFromConnectionString(connection);
 
         List<PanelWrapper> panelList = new List<PanelWrapper>
         {

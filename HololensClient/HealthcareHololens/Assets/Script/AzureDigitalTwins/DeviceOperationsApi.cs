@@ -1,12 +1,11 @@
 ﻿using Azure;
-using Common.Utils;
 using Microsoft.Azure.Devices;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Simulator.AzureApi
+namespace AzureDigitalTwins
 {
     class DeviceOperationsApi
     {
@@ -34,7 +33,6 @@ namespace Simulator.AzureApi
         {
             string connection = null;
             RegistryManager rm = AuthenticationApi.GetRegistryManager();
-
             try
             {
                 // Get device
@@ -43,11 +41,9 @@ namespace Simulator.AzureApi
 
                 // Get string connection
                 connection = $"HostName={host};DeviceId={device.Id};SharedAccessKey={device.Authentication.SymmetricKey.PrimaryKey}";
-                Log.Ok($"Connections string of device {device.Id}: {connection}");
             }
-            catch (RequestFailedException e)
+            catch (RequestFailedException)
             {
-                Log.Error($"Create device error: {e.Status}: {e.Message}");
             }
             Console.WriteLine();
 

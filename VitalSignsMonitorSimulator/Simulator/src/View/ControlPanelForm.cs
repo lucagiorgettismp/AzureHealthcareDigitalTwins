@@ -141,7 +141,7 @@
                 {
                     Log.Ok("Click on: " + this.listbox_devices.SelectedItem.ToString());
 
-                    string connection = await DeviceOperationsApi.GetStringConnection(this.listbox_devices.SelectedItem.ToString());
+                    string connection = await DeviceOperationsApi.GetConnectionString(this.listbox_devices.SelectedItem.ToString());
                     this.deviceHub = new Device(connection);
 
                     this.startButton.Enabled = true;
