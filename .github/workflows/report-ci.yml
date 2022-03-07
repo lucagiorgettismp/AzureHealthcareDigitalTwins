@@ -22,5 +22,7 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
-          root_file: "doc/main.tex"
-          glob_root_file: true
+          root_file: |
+            "doc/main.tex"
+            "doc/title.tex"
+            "doc/1-Introduzione.tex"
