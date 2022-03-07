@@ -108,7 +108,7 @@ jobs:
         uses: appleboy/telegram-action@master
 
         with:
-          to: ${{ secrets.TELEGRAM_TO }}
+          to: ${{ secrets.TELEGRAM_TO_LUCA }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
                 ${{ github.event_name }} event,
@@ -116,7 +116,21 @@ jobs:
                 by ${{ github.actor }}:
                 <b>${{ github.event.head_commit.message }}</b>
                 ❌ <b>FAILED</b> ❌
+          format: html
+          disable_web_page_preview: true
 
+     - name: Send telegram failure message to Lorenzo
+        uses: appleboy/telegram-action@master
+
+        with:
+          to: ${{ secrets.TELEGRAM_TO_LORENZO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+                ${{ github.event_name }} event,
+                on github.com/${{ github.repository }},
+                by ${{ github.actor }}:
+                <b>${{ github.event.head_commit.message }}</b>
+                ❌ <b>FAILED</b> ❌
           format: html
           disable_web_page_preview: true
 
@@ -131,7 +145,7 @@ jobs:
       uses: appleboy/telegram-action@master
 
       with:
-        to: ${{ secrets.TELEGRAM_TO }}
+        to: ${{ secrets.TELEGRAM_TO_LUCA }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
               ${{ github.event_name }} event,
@@ -139,6 +153,20 @@ jobs:
               by ${{ github.actor }}:
               <b>${{ github.event.head_commit.message }}</b>
               ✅ <b>SUCCEDED</b>
+        format: html
+        disable_web_page_preview: true
 
+    - name: Send telegram success message to Lorenzo
+      uses: appleboy/telegram-action@master
+
+      with:
+        to: ${{ secrets.TELEGRAM_TO_LORENZO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+              ${{ github.event_name }} event,
+              on github.com/${{ github.repository }},
+              by ${{ github.actor }}:
+              <b>${{ github.event.head_commit.message }}</b>
+              ✅ <b>SUCCEDED</b>
         format: html
         disable_web_page_preview: true
