@@ -97,3 +97,43 @@ jobs:
         with:
           name: Client
           path: .\VitalSignsMonitorSimulator\Client\bin\Release\Client.exe 
+
+
+  jobs-failure:
+      needs: [build-and-deploy-app-function, build-simulator, build-client]
+      if: failure()
+      runs-on: [windows-latest]
+      steps:
+      - name: Send telegram failure message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+                ${{ github.event_name }} event,
+                on github.com/${{ github.repository }},
+                by ${{ github.actor }}:
+                <b>${{ github.event.head_commit.message }}</b>
+                ❌ <b>FAILED</b> ❌
+          format: html
+          disable_web_page_preview: true
+
+
+    jobs-success:
+      needs: [build-and-deploy-app-function, build-simulator, build-client]
+      if: success()
+      runs-on: [windows-latest]
+      steps:
+      - name: Send telegram success message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+                ${{ github.event_name }} event,
+                on github.com/${{ github.repository }},
+                by ${{ github.actor }}:
+                <b>${{ github.event.head_commit.message }}</b>
+                ✅ <b>SUCCEDED</b>
+          format: html
+          disable_web_page_preview: true
