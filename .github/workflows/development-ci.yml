@@ -101,7 +101,7 @@ jobs:
   jobs-failure:
       needs: [build-and-deploy-app-function, build-simulator, build-client]
       if: failure()
-      runs-on: [windows-latest]
+      runs-on: [ubuntu-latest]
 
       steps:
       - name: Send telegram failure message
@@ -124,7 +124,7 @@ jobs:
   jobs-success:
     needs: [build-and-deploy-app-function, build-simulator, build-client]
     if: success()
-    runs-on: [windows-latest]
+    runs-on: [ ubuntu-latest]
 
     steps:
     - name: Send telegram success message
