@@ -26,7 +26,7 @@ jobs:
           root_file: "doc/main.tex"
 
   jobs-failure:
-      needs: [build-and-deploy-app-function, build-simulator, build-client]
+      needs: [compile-report]
       if: failure()
       runs-on: [ubuntu-latest]
 
@@ -63,7 +63,7 @@ jobs:
 
 
   jobs-success:
-    needs: [build-and-deploy-app-function, build-simulator, build-client]
+    needs: [compile-report]
     if: success()
     runs-on: [ ubuntu-latest]
 
