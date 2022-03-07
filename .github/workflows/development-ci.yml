@@ -119,7 +119,7 @@ jobs:
           format: html
           disable_web_page_preview: true
 
-     - name: Send telegram failure message to Lorenzo
+      - name: Send telegram failure message to Lorenzo
         uses: appleboy/telegram-action@master
 
         with:
@@ -136,37 +136,37 @@ jobs:
 
 
   jobs-success:
-    needs: [build-and-deploy-app-function, build-simulator, build-client]
-    if: success()
-    runs-on: [ ubuntu-latest]
+      needs: [build-and-deploy-app-function, build-simulator, build-client]
+      if: success()
+      runs-on: [ ubuntu-latest]
 
-    steps:
-    - name: Send telegram success message
-      uses: appleboy/telegram-action@master
+      steps:
+      - name: Send telegram success message
+        uses: appleboy/telegram-action@master
 
-      with:
-        to: ${{ secrets.TELEGRAM_TO_LUCA }}
-        token: ${{ secrets.TELEGRAM_TOKEN }}
-        message: |
-              ${{ github.event_name }} event,
-              on github.com/${{ github.repository }},
-              by ${{ github.actor }}:
-              <b>${{ github.event.head_commit.message }}</b>
-              ✅ <b>SUCCEDED</b>
-        format: html
-        disable_web_page_preview: true
+        with:
+          to: ${{ secrets.TELEGRAM_TO_LUCA }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+                ${{ github.event_name }} event,
+                on github.com/${{ github.repository }},
+                by ${{ github.actor }}:
+                <b>${{ github.event.head_commit.message }}</b>
+                ✅ <b>SUCCEDED</b>
+          format: html
+          disable_web_page_preview: true
 
-    - name: Send telegram success message to Lorenzo
-      uses: appleboy/telegram-action@master
+      - name: Send telegram success message to Lorenzo
+        uses: appleboy/telegram-action@master
 
-      with:
-        to: ${{ secrets.TELEGRAM_TO_LORENZO }}
-        token: ${{ secrets.TELEGRAM_TOKEN }}
-        message: |
-              ${{ github.event_name }} event,
-              on github.com/${{ github.repository }},
-              by ${{ github.actor }}:
-              <b>${{ github.event.head_commit.message }}</b>
-              ✅ <b>SUCCEDED</b>
-        format: html
-        disable_web_page_preview: true
+        with:
+          to: ${{ secrets.TELEGRAM_TO_LORENZO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+                ${{ github.event_name }} event,
+                on github.com/${{ github.repository }},
+                by ${{ github.actor }}:
+                <b>${{ github.event.head_commit.message }}</b>
+                ✅ <b>SUCCEDED</b>
+          format: html
+          disable_web_page_preview: true
