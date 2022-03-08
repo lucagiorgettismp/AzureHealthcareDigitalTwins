@@ -15,6 +15,7 @@ public class Application : MonoBehaviour
     public SaturationView SaturationView;
     public BloodPressureView BloodPressureView;
     public SensorValuesView SensorValuesView;
+    public PatientView PatientView;
 
     public void Start()
     {}

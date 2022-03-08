@@ -9,6 +9,7 @@ public class VitalSignsMonitorController : BaseApplicationPanel
         App.SaturationView.UpdateView(message);
         App.BloodPressureView.UpdateView(message);
         App.SensorValuesView.UpdateView(message);
+        App.PatientView.UpdateView(message);
     }
 }
     
