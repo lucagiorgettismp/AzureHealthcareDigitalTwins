@@ -59,7 +59,7 @@ namespace Simulator.Controller
                 $"\n{message.Saturation.SensorName}: {message.Saturation.Value} {message.Saturation.Symbol}, {message.Saturation.InAlarm}, " +
                 $"Min: {message.Saturation.MinValue},Max: {message.Saturation.MaxValue},Color: {message.Saturation.GraphColor}, " +
                 $"\n{message.BatteryPower.SensorName}: {message.BatteryPower.Value} {message.BatteryPower.Symbol}, {message.BatteryPower.InAlarm}," +
-                $"Min: {message.BatteryPower.MinValue},Max: {message.BatteryPower.MaxValue}, " 
+                $"Min: {message.BatteryPower.MinValue},Max: {message.BatteryPower.MaxValue}" 
                 );
         }
 
@@ -75,7 +75,11 @@ namespace Simulator.Controller
                     Saturation = GetVitalSignsMonitorPayloadParameterFromParam(deviceData.Saturation),
                     BreathFrequency = GetVitalSignsMonitorPayloadParameterFromParam(deviceData.BreathFrequency),
                     HeartFrequency = GetVitalSignsMonitorPayloadParameterFromParam(deviceData.HeartFrequency),
-                    BatteryPower = GetVitalSignsMonitorPayloadParameterFromParam(deviceData.BatteryPower)
+                    BatteryPower = GetVitalSignsMonitorPayloadParameterFromParam(deviceData.BatteryPower),
+                    Configuration = new Configuration
+                    {
+                        LastSelectedView = 0
+                    }
                 } : null
             };
 

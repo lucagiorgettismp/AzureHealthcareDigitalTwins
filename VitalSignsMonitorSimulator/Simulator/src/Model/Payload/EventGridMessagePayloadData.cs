@@ -21,6 +21,9 @@ namespace Simulator.Model.Payload
 
         [JsonProperty("battery_power")]
         public Sensor<int> BatteryPower { get; set; }
+
+        [JsonProperty("configuration")]
+        public Configuration Configuration { get; set; }
     }
 
 }
