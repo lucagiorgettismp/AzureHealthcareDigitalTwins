@@ -1,5 +1,7 @@
 namespace Simulator.Controller
 {
+    using Azure.DigitalTwins.Core;
+    using Common.AzureApi;
     using Common.Enums;
     using Common.Utils;
     using Microsoft.Azure.Devices.Client;
@@ -16,11 +18,16 @@ namespace Simulator.Controller
     {
         readonly DeviceClient deviceClient;
         readonly DeviceDataGenerator dataGenerator;
+        readonly DigitalTwinsClient twinClient;
+        readonly PatientModel patient = null;
+        readonly string name;
 
-        public Device(string connection)
+        public Device(string name, DeviceClient client)
         {
-            this.deviceClient = DeviceClient.CreateFromConnectionString(connection);
+            this.deviceClient = client;
             this.dataGenerator = new DeviceDataGenerator();
+            this.twinClient = AuthenticationApi.GetClient();
+            this.name = name;
         }
 
         public async Task SendMessageToIoTHub(SimulationForm form, CancellationToken token, CrudMode mode)

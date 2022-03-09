@@ -1,4 +1,5 @@
 ﻿using Azure;
+using Common.AzureApi;
 using Common.Utils;
 using Microsoft.Azure.Devices;
 using Newtonsoft.Json.Linq;
@@ -11,10 +12,10 @@ namespace Simulator.AzureApi
     class DeviceOperationsApi
     {
         const string QUERY_GET_ALL_DEVICES = "SELECT * FROM devices";
+
         public static async Task<List<JObject>> GetDevices()
         {
             RegistryManager rm = AuthenticationApi.GetRegistryManager();
-
             var query = rm.CreateQuery(QUERY_GET_ALL_DEVICES);
             List<JObject> jsonDevices = new List<JObject>();
 
@@ -34,7 +35,6 @@ namespace Simulator.AzureApi
         {
             string connection = null;
             RegistryManager rm = AuthenticationApi.GetRegistryManager();
-
             try
             {
                 // Get device

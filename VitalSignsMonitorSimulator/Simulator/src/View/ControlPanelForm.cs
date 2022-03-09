@@ -13,6 +13,10 @@
     using System.Windows.Forms;
     using Common;
     using Common.View;
+    using Microsoft.Azure.Devices.Client;
+    using Simulator.src.AzureApi;
+    using Azure.DigitalTwins.Core;
+    using Common.AzureApi;
 
     public partial class ControlPanelForm : Form
     {
@@ -139,11 +143,16 @@
             {
                 if (this.listbox_devices.SelectedItem != null)
                 {
-                    Log.Ok("Click on: " + this.listbox_devices.SelectedItem.ToString());
+                    string itemName = this.listbox_devices.SelectedItem.ToString();
+                    Log.Ok("Click on: " + itemName);
 
                     string connection = await DeviceOperationsApi.GetStringConnection(this.listbox_devices.SelectedItem.ToString());
-                    this.deviceHub = new Device(connection);
+                    DeviceClient deviceClient = DeviceClient.CreateFromConnectionString(connection);
 
+                    DigitalTwinsClient twinClient = AuthenticationApi.GetClient();
+                    TwinOperationApi.GetPatientTwin(twinClient, itemName);
+
+                    this.deviceHub = new Device(itemName, deviceClient);
                     this.startButton.Enabled = true;
                 }
             }catch(Exception ex)
