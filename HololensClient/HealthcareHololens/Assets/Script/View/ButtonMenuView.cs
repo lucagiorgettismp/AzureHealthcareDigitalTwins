@@ -8,6 +8,7 @@ public class ButtonMenuView : BaseApplicationPanel
     GameObject SaturationPanel;
     GameObject BloodPressurePanel;
     GameObject SensorValuesPanel;
+    GameObject PatientPanel;
 
     void Start()
     {
@@ -27,6 +28,8 @@ public class ButtonMenuView : BaseApplicationPanel
 
         SensorValuesPanel = GameObject.Find("SensorValuesPanel");
         SensorValuesPanel.gameObject.SetActive(false);
+
+        PatientPanel = GameObject.Find("PatientPanel");
     }
 
     public void OnClickHomeButton()
@@ -34,7 +37,8 @@ public class ButtonMenuView : BaseApplicationPanel
         Debug.Log("Home button has been pressed!");
 
         VitalSignsMonitorPanel.gameObject.SetActive(true);
-        VitalSignsMonitorPanel.transform.position = GetCurrentPosition();
+        VitalSignsMonitorPanel.transform.position = GetCurrentPositionMonitor();
+        PatientPanel.transform.position = GetCurrentPositionPatient();
 
         HeartFrequencyPanel.gameObject.SetActive(false);
         BreathFrequencyPanel.gameObject.SetActive(false);
@@ -48,7 +52,8 @@ public class ButtonMenuView : BaseApplicationPanel
         Debug.Log("Heart frequency button has been pressed!");
 
         HeartFrequencyPanel.gameObject.SetActive(true);
-        HeartFrequencyPanel.transform.position = GetCurrentPosition();
+        HeartFrequencyPanel.transform.position = GetCurrentPositionMonitor();
+        PatientPanel.transform.position = GetCurrentPositionPatient();
 
         VitalSignsMonitorPanel.gameObject.SetActive(false);
         BreathFrequencyPanel.gameObject.SetActive(false);
@@ -62,7 +67,8 @@ public class ButtonMenuView : BaseApplicationPanel
         Debug.Log("Breath frequency button has been pressed!");
 
         BreathFrequencyPanel.gameObject.SetActive(true);
-        BreathFrequencyPanel.transform.position = GetCurrentPosition();
+        BreathFrequencyPanel.transform.position = GetCurrentPositionMonitor();
+        PatientPanel.transform.position = GetCurrentPositionPatient();
 
         VitalSignsMonitorPanel.gameObject.SetActive(false);
         HeartFrequencyPanel.gameObject.SetActive(false);
@@ -76,7 +82,8 @@ public class ButtonMenuView : BaseApplicationPanel
         Debug.Log("Saturation button has been pressed!");
 
         SaturationPanel.gameObject.SetActive(true);
-        SaturationPanel.transform.position = GetCurrentPosition();
+        SaturationPanel.transform.position = GetCurrentPositionMonitor();
+        PatientPanel.transform.position = GetCurrentPositionPatient();
 
         VitalSignsMonitorPanel.gameObject.SetActive(false);
         HeartFrequencyPanel.gameObject.SetActive(false);
@@ -90,7 +97,8 @@ public class ButtonMenuView : BaseApplicationPanel
         Debug.Log("Blood Pressure button has been pressed!");
 
         BloodPressurePanel.gameObject.SetActive(true);
-        BloodPressurePanel.transform.position = GetCurrentPosition();
+        BloodPressurePanel.transform.position = GetCurrentPositionMonitor(); 
+        PatientPanel.transform.position = GetCurrentPositionPatient();
 
         VitalSignsMonitorPanel.gameObject.SetActive(false);
         HeartFrequencyPanel.gameObject.SetActive(false);
@@ -104,7 +112,8 @@ public class ButtonMenuView : BaseApplicationPanel
         Debug.Log("Values button has been pressed!");
 
         SensorValuesPanel.gameObject.SetActive(true);
-        SensorValuesPanel.transform.position = GetCurrentPosition();
+        SensorValuesPanel.transform.position = GetCurrentPositionMonitor();
+        PatientPanel.transform.position = GetCurrentPositionPatient();
 
         VitalSignsMonitorPanel.gameObject.SetActive(false);
         BloodPressurePanel.gameObject.SetActive(false);
@@ -119,9 +128,15 @@ public class ButtonMenuView : BaseApplicationPanel
         App.Close();
     }
 
-    private Vector3 GetCurrentPosition()
+    private Vector3 GetCurrentPositionMonitor()
     {
         Vector3 currentPosition = this.transform.position;
-        return new Vector3(currentPosition.x + 0.035f, currentPosition.y + 0.15f, currentPosition.z - 0.02f);
-    } 
+        return new Vector3(currentPosition.x + 0.15f, currentPosition.y + 0.15f, currentPosition.z - 0.02f);
+    }
+
+    private Vector3 GetCurrentPositionPatient()
+    {
+        Vector3 currentPosition = this.transform.position;
+        return new Vector3(currentPosition.x - 0.1f, currentPosition.y + 0.15f, currentPosition.z - 0.02f);
+    }
 }
