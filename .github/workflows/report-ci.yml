@@ -25,7 +25,7 @@ jobs:
           root_file: "doc/main.tex"
 
   jobs-failure:
-      needs: [compile-report-xu-cheng]
+      needs: [compile-report]
       if: failure()
       runs-on: [ubuntu-latest]
 
@@ -62,7 +62,7 @@ jobs:
 
 
   jobs-success:
-    needs: [compile-report-xu-cheng]
+    needs: [compile-report]
     if: success()
     runs-on: [ ubuntu-latest]
 
