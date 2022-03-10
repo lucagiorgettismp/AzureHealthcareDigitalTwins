@@ -75,11 +75,7 @@ namespace Simulator.Controller
                     Saturation = GetVitalSignsMonitorPayloadParameterFromParam(deviceData.Saturation),
                     BreathFrequency = GetVitalSignsMonitorPayloadParameterFromParam(deviceData.BreathFrequency),
                     HeartFrequency = GetVitalSignsMonitorPayloadParameterFromParam(deviceData.HeartFrequency),
-                    BatteryPower = GetVitalSignsMonitorPayloadParameterFromParam(deviceData.BatteryPower),
-                    Configuration = new Configuration
-                    {
-                        LastSelectedView = 0
-                    }
+                    BatteryPower = GetVitalSignsMonitorPayloadParameterFromParam(deviceData.BatteryPower)
                 } : null
             };
 
