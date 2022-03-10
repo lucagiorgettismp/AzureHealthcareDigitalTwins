@@ -1,6 +1,5 @@
 ﻿namespace Simulator.View
 {
-    using Common.Enums;
     using Common.Utils;
     using Controller;
     using Newtonsoft.Json.Linq;
@@ -78,7 +77,7 @@
                     this.simulationForm.Show();
 
                     this.tokenSource = new CancellationTokenSource();
-                    await this.deviceHub.SendMessageToIoTHub(this.simulationForm, this.tokenSource.Token, CrudMode.Update);
+                    await this.deviceHub.SendMessageToIoTHub(this.simulationForm, this.tokenSource.Token);
                 }catch(Exception ex)
                 {
                     this.errorForm.SetText(ex.Message);

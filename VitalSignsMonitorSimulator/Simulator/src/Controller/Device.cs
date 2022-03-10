@@ -23,7 +23,7 @@ namespace Simulator.Controller
             this.dataGenerator = new DeviceDataGenerator();
         }
 
-        public async Task SendMessageToIoTHub(SimulationForm form, CancellationToken token, CrudMode mode)
+        public async Task SendMessageToIoTHub(SimulationForm form, CancellationToken token)
         {
             int msgCounter = 1;
 
@@ -32,7 +32,7 @@ namespace Simulator.Controller
                 DeviceData deviceData = dataGenerator.GetUpdatedDeviceData();
                 form.UpdateValues(deviceData);
 
-                string json = CreateJSON(deviceData, mode);
+                string json = CreateJSON(deviceData);
                 Message message = CreateMessage(json);
 
                 ShowMessage(msgCounter, deviceData);
@@ -63,12 +63,12 @@ namespace Simulator.Controller
                 );
         }
 
-        private string CreateJSON(DeviceData deviceData, CrudMode mode)
+        private string CreateJSON(DeviceData deviceData)
         {
             var data = new EventGridMessagePayloadBody
             {
-                Mode = mode,
-                Data = mode != CrudMode.Delete ? new EventGridMessagePayloadData
+                Mode = UpdateMode.Telemetry,
+                Data = new EventGridMessagePayloadData
                 {
                     Temperature = GetVitalSignsMonitorPayloadParameterFromParam(deviceData.Temperature),
                     BloodPressure = GetVitalSignsMonitorPayloadParameterFromParam(deviceData.BloodPressure),
@@ -76,7 +76,7 @@ namespace Simulator.Controller
                     BreathFrequency = GetVitalSignsMonitorPayloadParameterFromParam(deviceData.BreathFrequency),
                     HeartFrequency = GetVitalSignsMonitorPayloadParameterFromParam(deviceData.HeartFrequency),
                     BatteryPower = GetVitalSignsMonitorPayloadParameterFromParam(deviceData.BatteryPower)
-                } : null
+                }
             };
 
             return JsonConvert.SerializeObject(data);
