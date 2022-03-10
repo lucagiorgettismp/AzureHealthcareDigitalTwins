@@ -20,9 +20,10 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v1
       - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@master
+        uses: xu-cheng/latex-action@v2
         with:
           root_file: doc/main.tex
+          args: "-lualatex --file-line-error --interaction=nonstopmode"
 
       - uses: actions/upload-artifact@v2
         name: Generated PDF artifact
