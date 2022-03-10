@@ -22,7 +22,13 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@master
         with:
-          root_file: "doc/main.tex"
+          root_file: doc/main.tex
+
+      - uses: actions/upload-artifact@v2
+        name: Generated PDF artifact
+        with:
+          name: PDF
+          path: main.pdf
 
   jobs-failure:
       needs: [compile-report]
