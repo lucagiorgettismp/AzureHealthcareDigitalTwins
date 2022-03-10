@@ -9,12 +9,13 @@ public class Application : MonoBehaviour
 {
     public VitalSignsMonitorModel Model;
     public VitalSignsMonitorController Controller;
-    public VitalSignsMonitorView View;
+    public VitalSignsMonitorView VitalSignsMonitorView;
     public HeartFrequencyView HeartFrequencyView;
     public BreathFrequencyView BreathFrequencyView;
     public SaturationView SaturationView;
     public BloodPressureView BloodPressureView;
     public SensorValuesView SensorValuesView;
+    public ButtonMenuView ButtonMenuView;
 
     public void Start()
     {}

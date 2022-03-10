@@ -1,116 +1,92 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class ButtonMenuView : BaseApplicationPanel
 {
-    GameObject VitalSignsMonitorPanel;
-    GameObject HeartFrequencyPanel;
-    GameObject BreathFrequencyPanel;
-    GameObject SaturationPanel;
-    GameObject BloodPressurePanel;
-    GameObject SensorValuesPanel;
+    private PanelWrapper[] panels;
 
-    void Start()
+    async void Start()
     {
-        VitalSignsMonitorPanel = GameObject.Find("VitalSignsMonitorPanel");
+        List<PanelWrapper> panelList = new List<PanelWrapper>
+        {
+            new PanelWrapper { Panel = GameObject.Find("VitalSignsMonitorPanel"), PanelType = PanelType.Home},
+            new PanelWrapper { Panel = GameObject.Find("HeartFrequencyPanel"), PanelType = PanelType.HeartFrequency},
+            new PanelWrapper { Panel = GameObject.Find("BreathFrequencyPanel"), PanelType = PanelType.BreathFrequency},
+            new PanelWrapper { Panel = GameObject.Find("SaturationPanel"), PanelType = PanelType.Saturation},
+            new PanelWrapper { Panel = GameObject.Find("BloodPressurePanel"), PanelType = PanelType.BloodPressure},
+            new PanelWrapper { Panel = GameObject.Find("SensorValuesPanel"), PanelType = PanelType.Values}
+        };
 
-        HeartFrequencyPanel = GameObject.Find("HeartFrequencyPanel");
-        HeartFrequencyPanel.gameObject.SetActive(false);
+        panels = panelList.ToArray();
 
-        BreathFrequencyPanel = GameObject.Find("BreathFrequencyPanel");
-        BreathFrequencyPanel.gameObject.SetActive(false);
+        await this.SelectPanelAsync(PanelType.Home, false);
+    }
 
-        SaturationPanel = GameObject.Find("SaturationPanel");
-        SaturationPanel.gameObject.SetActive(false);
+    internal async void UpdateSelectedPanel(PanelType selectedPanel)
+    {
+        await this.SelectPanelAsync(selectedPanel, false);
+    }
 
-        BloodPressurePanel = GameObject.Find("BloodPressurePanel");
-        BloodPressurePanel.gameObject.SetActive(false);
+    private async Task SelectPanelAsync(PanelType selectedPanel, bool notifyServer = true)
+    {
+        foreach (var panel in panels)
+        {
+            if (panel.PanelType == selectedPanel)
+            {
+                panel.Panel.transform.position = GetCurrentPosition();
 
-        SensorValuesPanel = GameObject.Find("SensorValuesPanel");
-        SensorValuesPanel.gameObject.SetActive(false);
+            }
+
+            panel.Panel.SetActive(panel.PanelType == selectedPanel);
+        }
+
+        if (notifyServer)
+        {
+            await App.Controller.PersistSelectedPanel(selectedPanel);
+        }
     }
 
     public void OnClickHomeButton()
     {
         Debug.Log("Home button has been pressed!");
 
-        VitalSignsMonitorPanel.gameObject.SetActive(true);
-        VitalSignsMonitorPanel.transform.position = GetCurrentPosition();
-
-        HeartFrequencyPanel.gameObject.SetActive(false);
-        BreathFrequencyPanel.gameObject.SetActive(false);
-        BloodPressurePanel.gameObject.SetActive(false);
-        SaturationPanel.gameObject.SetActive(false);
-        SensorValuesPanel.gameObject.SetActive(false);
+        this.SelectPanelAsync(PanelType.Home, true);
     }
 
     public void OnClickHeartFrequencyButton()
     {
         Debug.Log("Heart frequency button has been pressed!");
 
-        HeartFrequencyPanel.gameObject.SetActive(true);
-        HeartFrequencyPanel.transform.position = GetCurrentPosition();
+        this.SelectPanelAsync(PanelType.HeartFrequency);
+    }
 
-        VitalSignsMonitorPanel.gameObject.SetActive(false);
-        BreathFrequencyPanel.gameObject.SetActive(false);
-        BloodPressurePanel.gameObject.SetActive(false);
-        SaturationPanel.gameObject.SetActive(false);
-        SensorValuesPanel.gameObject.SetActive(false);
-    }  
-    
     public void OnClickBreathFrequencyButton()
     {
         Debug.Log("Breath frequency button has been pressed!");
 
-        BreathFrequencyPanel.gameObject.SetActive(true);
-        BreathFrequencyPanel.transform.position = GetCurrentPosition();
+        this.SelectPanelAsync(PanelType.BreathFrequency);
+    }
 
-        VitalSignsMonitorPanel.gameObject.SetActive(false);
-        HeartFrequencyPanel.gameObject.SetActive(false);
-        BloodPressurePanel.gameObject.SetActive(false);
-        SaturationPanel.gameObject.SetActive(false); 
-        SensorValuesPanel.gameObject.SetActive(false);
-    }  
-    
     public void OnClickSaturationButton()
     {
         Debug.Log("Saturation button has been pressed!");
 
-        SaturationPanel.gameObject.SetActive(true);
-        SaturationPanel.transform.position = GetCurrentPosition();
+        this.SelectPanelAsync(PanelType.Saturation);
+    }
 
-        VitalSignsMonitorPanel.gameObject.SetActive(false);
-        HeartFrequencyPanel.gameObject.SetActive(false);
-        BreathFrequencyPanel.gameObject.SetActive(false);
-        BloodPressurePanel.gameObject.SetActive(false);
-        SensorValuesPanel.gameObject.SetActive(false);
-    }    
-    
     public void OnClickBloodPressureButton()
     {
         Debug.Log("Blood Pressure button has been pressed!");
 
-        BloodPressurePanel.gameObject.SetActive(true);
-        BloodPressurePanel.transform.position = GetCurrentPosition();
+        this.SelectPanelAsync(PanelType.BloodPressure);
+    }
 
-        VitalSignsMonitorPanel.gameObject.SetActive(false);
-        HeartFrequencyPanel.gameObject.SetActive(false);
-        BreathFrequencyPanel.gameObject.SetActive(false);
-        SaturationPanel.gameObject.SetActive(false);
-        SensorValuesPanel.gameObject.SetActive(false);
-    }    
-    
     public void OnClickValuesButton()
     {
         Debug.Log("Values button has been pressed!");
 
-        SensorValuesPanel.gameObject.SetActive(true);
-        SensorValuesPanel.transform.position = GetCurrentPosition();
-
-        VitalSignsMonitorPanel.gameObject.SetActive(false);
-        BloodPressurePanel.gameObject.SetActive(false);
-        HeartFrequencyPanel.gameObject.SetActive(false);
-        BreathFrequencyPanel.gameObject.SetActive(false);
-        SaturationPanel.gameObject.SetActive(false);
+        this.SelectPanelAsync(PanelType.Values);
     }
 
     public void OnClickCloseButton()
@@ -124,4 +100,21 @@ public class ButtonMenuView : BaseApplicationPanel
         Vector3 currentPosition = this.transform.position;
         return new Vector3(currentPosition.x + 0.035f, currentPosition.y + 0.15f, currentPosition.z - 0.02f);
     } 
+}
+
+public enum PanelType
+{
+    Home = 0,
+    HeartFrequency = 1,
+    BreathFrequency = 2,
+    Saturation = 3,
+    BloodPressure = 4,
+    Values = 5
+}
+
+internal class PanelWrapper
+{
+    public GameObject Panel { get; set; }
+
+    public  PanelType PanelType { get; set; }
 }
