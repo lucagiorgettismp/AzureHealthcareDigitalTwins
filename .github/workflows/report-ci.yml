@@ -48,7 +48,7 @@ jobs:
           filename: "doc/main.tex"
 
   jobs-failure:
-      needs: [compile-report, compile-report-hspaans, compile-report-xu-cheng]
+      needs: [compile-report-dante, compile-report-hspaans, compile-report-xu-cheng]
       if: failure()
       runs-on: [ubuntu-latest]
 
@@ -85,7 +85,7 @@ jobs:
 
 
   jobs-success:
-    needs: [compile-report, compile-report-xu-cheng, compile-report-hspaans]
+    needs: [compile-report-dante, compile-report-xu-cheng, compile-report-hspaans]
     if: success()
     runs-on: [ ubuntu-latest]
 
