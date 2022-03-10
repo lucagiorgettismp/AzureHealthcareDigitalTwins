@@ -21,9 +21,6 @@ namespace AppFunctions.Model.Payload
 
         [JsonProperty("battery_power")]
         public Sensor BatteryPower { get; set; }
-
-        [JsonProperty("patient")]
-        public Patient Patient { get; set; }
     }
 
 }
