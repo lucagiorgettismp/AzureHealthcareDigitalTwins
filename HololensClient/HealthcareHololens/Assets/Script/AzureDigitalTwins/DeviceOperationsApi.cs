@@ -1,21 +1,19 @@
 ﻿using Azure;
-using Common.AzureApi;
-using Common.Utils;
 using Microsoft.Azure.Devices;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Simulator.AzureApi
+namespace AzureDigitalTwins
 {
     class DeviceOperationsApi
     {
         const string QUERY_GET_ALL_DEVICES = "SELECT * FROM devices";
-
         public static async Task<List<JObject>> GetDevices()
         {
             RegistryManager rm = AuthenticationApi.GetRegistryManager();
+
             var query = rm.CreateQuery(QUERY_GET_ALL_DEVICES);
             List<JObject> jsonDevices = new List<JObject>();
 
@@ -43,11 +41,9 @@ namespace Simulator.AzureApi
 
                 // Get string connection
                 connection = $"HostName={host};DeviceId={device.Id};SharedAccessKey={device.Authentication.SymmetricKey.PrimaryKey}";
-                Log.Ok($"Connections string of device {device.Id}: {connection}");
             }
-            catch (RequestFailedException e)
+            catch (RequestFailedException)
             {
-                Log.Error($"Create device error: {e.Status}: {e.Message}");
             }
             Console.WriteLine();
 

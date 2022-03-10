@@ -1,10 +1,5 @@
 ﻿using Azure.DigitalTwins.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace Client.src.AzureApi.DTLDModels
 {
@@ -15,6 +10,9 @@ namespace Client.src.AzureApi.DTLDModels
 
         [JsonPropertyName("device_id")]
         public string DeviceId { get; set; }
+
+        [JsonPropertyName("configuration")]
+        public Configuration Configuration { get; set; }
 
         [JsonPropertyName("temperature")]
         public SensorComponent Temperature { get; set; }
@@ -41,6 +39,9 @@ namespace Client.src.AzureApi.DTLDModels
 
         [JsonPropertyName("device_id")]
         public DigitalTwinPropertyMetadata DeviceId { get; set; }
+
+        [JsonPropertyName("configuration")]
+        public DigitalTwinPropertyMetadata Configuration { get; set; }
 
         [JsonPropertyName("temperature")]
         public DigitalTwinPropertyMetadata Temperature { get; set; }

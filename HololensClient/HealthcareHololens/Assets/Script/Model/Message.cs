@@ -38,14 +38,7 @@ public class Message
     public SensorValue saturation_sensor_value { get; set; }
     public string saturation_graph_color { get; set; }
 
-    /* Patient information */
-    public string patient_name { get; set; }
-    public string patient_surname { get; set; }
-    public int patient_age { get; set; }
-    public string patient_gender { get; set; }
-    public int patient_height { get; set; }
-    public int patient_weight { get; set; }
-    public string patient_description { get; set; }
-    public double patient_body_mass_index { get; set; }
-    public string patient_fiscal_code { get; set; }
+    public string device_id { get; set; }
+
+    public int configuration_last_selected_view { get; set; }
 }

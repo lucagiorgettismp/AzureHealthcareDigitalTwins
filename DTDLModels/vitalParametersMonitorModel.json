@@ -6,6 +6,21 @@
   "contents": [
     {
       "@type": "Property",
+      "name": "configuration",
+      "displayName": "Configuration",
+      "schema": {
+        "@type": "Object",
+        "fields": [
+          {
+            "name": "last_selected_view",
+            "displayName": "Last selected view",
+            "schema": "integer"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Property",
       "name": "device_id",
       "displayName": "Device id",
       "schema": "string"

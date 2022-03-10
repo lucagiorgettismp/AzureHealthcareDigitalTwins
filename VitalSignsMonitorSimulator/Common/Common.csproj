@@ -174,6 +174,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AzureApi\AuthenticationApi.cs" />
+    <Compile Include="Enums\UpdateMode.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -187,7 +188,6 @@
       <DependentUpon>ErrorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Enums\CrudMode.cs" />
     <Compile Include="Utils\Log.cs" />
     <Compile Include="View\SuccessForm.cs">
       <SubType>Form</SubType>

@@ -360,6 +360,7 @@
     <Compile Include="src\Model\DeviceDataPropertyMinThreshold.cs" />
     <Compile Include="src\Model\DeviceDataProperty.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="src\Model\Payload\Configuration.cs" />
     <Compile Include="src\Model\Payload\EventGridMessagePayloadBody.cs" />
     <Compile Include="src\Model\Payload\EventGridMessagePayloadData.cs" />
     <Compile Include="src\Model\Payload\Patient.cs" />

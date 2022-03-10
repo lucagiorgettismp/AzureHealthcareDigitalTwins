@@ -5,9 +5,9 @@ namespace AppFunctions.Model.Payload
     public class EventGridMessagePayloadBody
     {
         [JsonProperty("mode")]
-        public CrudMode Mode { get; set; }
+        public UpdateMode Mode { get; set; }
 
         [JsonProperty("data")]
-        public EventGridMessagePayloadData Data { get; set; }
+        public IEventGridMessagePayloadData Data { get; set; }
     }
 }
