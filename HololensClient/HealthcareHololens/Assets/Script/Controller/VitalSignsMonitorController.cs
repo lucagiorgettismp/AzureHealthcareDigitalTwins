@@ -1,5 +1,6 @@
 using AzureDigitalTwins;
 using Microsoft.Azure.Devices.Client;
+using Model;
 using Newtonsoft.Json;
 using System;
 using System.Text;
@@ -8,6 +9,13 @@ using System.Threading.Tasks;
 public class VitalSignsMonitorController : BaseApplicationPanel
 {
     private string deviceId;
+    private PanelType lastSelectedPanelType;
+
+    public VitalSignsMonitorController()
+    {
+        this.deviceId = "";
+        this.lastSelectedPanelType = PanelType.Home;
+    }
 
     public void OnDataReceived(Message message) {
         App.VitalSignsMonitorView.UpdateView(message);
@@ -17,22 +25,35 @@ public class VitalSignsMonitorController : BaseApplicationPanel
         App.BloodPressureView.UpdateView(message);
         App.SensorValuesView.UpdateView(message);
 
-        App.ButtonMenuView.UpdateSelectedPanel((PanelType)message.configuration_last_selected_view);
+        var selectedPanel = (PanelType)message.configuration_last_selected_view;
+
+        if (lastSelectedPanelType != selectedPanel)
+        {
+            App.ButtonMenuView.UpdateSelectedPanel(selectedPanel);
+            lastSelectedPanelType = selectedPanel;
+        }
+
         this.deviceId = message.device_id;
     }
     public async Task PersistSelectedPanel(PanelType selectedPanel)
     {
-        // TODO: setup deviceId
-        var connection = await DeviceOperationsApi.GetConnectionString(deviceId);
-        var deviceClient = DeviceClient.CreateFromConnectionString(connection);
-
-        var configuration = new Configuration
+        if (deviceId != null && deviceId != "")
         {
-            LastSelectedView = (int)selectedPanel
-        };
+            var connection = await DeviceOperationsApi.GetConnectionString(deviceId);
+            var deviceClient = DeviceClient.CreateFromConnectionString(connection);
 
-        await deviceClient.SendEventAsync(CreateMessage(JsonConvert.SerializeObject(configuration)));
-    }
+            var data = new EventGridMessagePayloadBody
+            {
+                Mode = UpdateMode.Configuration,
+                Data = new Configuration
+                {
+                    LastSelectedView = (int)selectedPanel
+                }
+            };
+
+            await deviceClient.SendEventAsync(CreateMessage(JsonConvert.SerializeObject(data)));
+        }
+    }     
 
     private static Microsoft.Azure.Devices.Client.Message CreateMessage(string jsonObject)
     {
@@ -46,7 +67,7 @@ public class VitalSignsMonitorController : BaseApplicationPanel
     }
 
     [Serializable]
-    private class Configuration
+    private class Configuration: IEventGridMessagePayloadData
     {
         [JsonProperty("last_selected_view")]
         public int LastSelectedView { get; set; }

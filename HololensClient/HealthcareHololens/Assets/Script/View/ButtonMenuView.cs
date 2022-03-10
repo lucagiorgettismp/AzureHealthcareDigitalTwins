@@ -1,13 +1,12 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class ButtonMenuView : BaseApplicationPanel
 {
-
     private PanelWrapper[] panels;
-    private PanelType lastSelectedPanelType;
 
-    void Start()
+    async void Start()
     {
         List<PanelWrapper> panelList = new List<PanelWrapper>
         {
@@ -21,32 +20,30 @@ public class ButtonMenuView : BaseApplicationPanel
 
         panels = panelList.ToArray();
 
-        this.SelectPanel(PanelType.Home, false);
+        await this.SelectPanelAsync(PanelType.Home, false);
     }
 
-    internal void UpdateSelectedPanel(PanelType selectedPanel)
+    internal async void UpdateSelectedPanel(PanelType selectedPanel)
     {
-        this.SelectPanel(selectedPanel, false);
+        await this.SelectPanelAsync(selectedPanel, false);
     }
 
-    private void SelectPanel(PanelType selectedPanel, bool notifyServer = true)
+    private async Task SelectPanelAsync(PanelType selectedPanel, bool notifyServer = true)
     {
-        this.lastSelectedPanelType = selectedPanel;
-
         foreach (var panel in panels)
         {
             if (panel.PanelType == selectedPanel)
             {
-                panel.Panel.gameObject.transform.position = GetCurrentPosition();
+                panel.Panel.transform.position = GetCurrentPosition();
 
             }
 
-            panel.Panel.gameObject.SetActive(panel.PanelType == selectedPanel);
+            panel.Panel.SetActive(panel.PanelType == selectedPanel);
         }
 
         if (notifyServer)
         {
-            App.Controller.PersistSelectedPanel(selectedPanel);
+            await App.Controller.PersistSelectedPanel(selectedPanel);
         }
     }
 
@@ -54,42 +51,42 @@ public class ButtonMenuView : BaseApplicationPanel
     {
         Debug.Log("Home button has been pressed!");
 
-        this.SelectPanel(PanelType.Home, true);
+        this.SelectPanelAsync(PanelType.Home, true);
     }
 
     public void OnClickHeartFrequencyButton()
     {
         Debug.Log("Heart frequency button has been pressed!");
 
-        this.SelectPanel(PanelType.HeartFrequency);
+        this.SelectPanelAsync(PanelType.HeartFrequency);
     }
 
     public void OnClickBreathFrequencyButton()
     {
         Debug.Log("Breath frequency button has been pressed!");
 
-        this.SelectPanel(PanelType.BreathFrequency);
+        this.SelectPanelAsync(PanelType.BreathFrequency);
     }
 
     public void OnClickSaturationButton()
     {
         Debug.Log("Saturation button has been pressed!");
 
-        this.SelectPanel(PanelType.Saturation);
+        this.SelectPanelAsync(PanelType.Saturation);
     }
 
     public void OnClickBloodPressureButton()
     {
         Debug.Log("Blood Pressure button has been pressed!");
 
-        this.SelectPanel(PanelType.BloodPressure);
+        this.SelectPanelAsync(PanelType.BloodPressure);
     }
 
     public void OnClickValuesButton()
     {
         Debug.Log("Values button has been pressed!");
 
-        this.SelectPanel(PanelType.Values);
+        this.SelectPanelAsync(PanelType.Values);
     }
 
     public void OnClickCloseButton()
