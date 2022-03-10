@@ -18,16 +18,12 @@ namespace Simulator.Controller
     {
         readonly DeviceClient deviceClient;
         readonly DeviceDataGenerator dataGenerator;
-        readonly DigitalTwinsClient twinClient;
-        readonly PatientModel patient = null;
-        readonly string name;
 
-        public Device(string name, DeviceClient client)
+        public Device(string connection)
         {
-            this.deviceClient = client;
+            ;
+            this.deviceClient = DeviceClient.CreateFromConnectionString(connection);
             this.dataGenerator = new DeviceDataGenerator();
-            this.twinClient = AuthenticationApi.GetClient();
-            this.name = name;
         }
 
         public async Task SendMessageToIoTHub(SimulationForm form, CancellationToken token)
