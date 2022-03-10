@@ -12,20 +12,10 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  compile-report-dante:
+
+  compile-report:
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Set up Git repository
-        uses: actions/checkout@v2
-        
-      - name: Compile LaTeX document
-        uses: dante-ev/latex-action@latest
-        with:
-          root_file: "doc/main.tex"
-
-  compile-report-xu-cheng:
-    runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v1
@@ -34,20 +24,8 @@ jobs:
         with:
           root_file: "doc/main.tex"
 
-  compile-report-hspaans:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-
-      - name: Generate PDF document
-        uses: hspaans/latexmk-action@v1
-        with:
-          format: pdf
-          filename: "doc/main.tex"
-
   jobs-failure:
-      needs: [compile-report-dante, compile-report-hspaans, compile-report-xu-cheng]
+      needs: [compile-report-xu-cheng]
       if: failure()
       runs-on: [ubuntu-latest]
 
@@ -84,7 +62,7 @@ jobs:
 
 
   jobs-success:
-    needs: [compile-report-dante, compile-report-xu-cheng, compile-report-hspaans]
+    needs: [compile-report-xu-cheng]
     if: success()
     runs-on: [ ubuntu-latest]
 
