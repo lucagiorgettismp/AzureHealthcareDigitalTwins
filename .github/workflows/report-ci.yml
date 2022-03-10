@@ -14,7 +14,6 @@ on:
 jobs:
   compile-report-dante:
     runs-on: ubuntu-latest
-    name: A job to Compile Latex file
 
     steps:
       - name: Set up Git repository
