@@ -48,6 +48,7 @@ public class ButtonMenuView : BaseApplicationPanel
 
         if (notifyServer)
         {
+            this.deviceClient.SendEventAsync();
             // TODO: Notify DT
         }
     }
