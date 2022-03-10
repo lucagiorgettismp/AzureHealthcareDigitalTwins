@@ -1,5 +1,3 @@
-using AzureDigitalTwins;
-using Microsoft.Azure.Devices.Client;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,16 +5,10 @@ public class ButtonMenuView : BaseApplicationPanel
 {
 
     private PanelWrapper[] panels;
-    private DeviceClient deviceClient;
-
+    private PanelType lastSelectedPanelType;
 
     void Start()
     {
-        // TODO: setup deviceId
-        var deviceId = "";
-        var connection = DeviceOperationsApi.GetConnectionString(deviceId);
-        this.deviceClient = DeviceClient.CreateFromConnectionString(connection);
-
         List<PanelWrapper> panelList = new List<PanelWrapper>
         {
             new PanelWrapper { Panel = GameObject.Find("VitalSignsMonitorPanel"), PanelType = PanelType.Home},
@@ -32,8 +24,14 @@ public class ButtonMenuView : BaseApplicationPanel
         this.SelectPanel(PanelType.Home, false);
     }
 
+    internal void UpdateSelectedPanel(PanelType selectedPanel)
+    {
+        this.SelectPanel(selectedPanel, false);
+    }
+
     private void SelectPanel(PanelType selectedPanel, bool notifyServer = true)
     {
+        this.lastSelectedPanelType = selectedPanel;
 
         foreach (var panel in panels)
         {
@@ -48,8 +46,7 @@ public class ButtonMenuView : BaseApplicationPanel
 
         if (notifyServer)
         {
-            this.deviceClient.SendEventAsync();
-            // TODO: Notify DT
+            App.Controller.PersistSelectedPanel(selectedPanel);
         }
     }
 
@@ -108,7 +105,7 @@ public class ButtonMenuView : BaseApplicationPanel
     } 
 }
 
-internal enum PanelType
+public enum PanelType
 {
     Home = 0,
     HeartFrequency = 1,
