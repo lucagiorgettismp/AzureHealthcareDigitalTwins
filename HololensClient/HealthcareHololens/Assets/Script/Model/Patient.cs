@@ -1,7 +1,5 @@
-﻿namespace Simulator.Controller
+public class Patient
 {
-    public class PatientModel
-    {
         public string Name { get; set; }
 
         public string Surname { get; set; }
@@ -16,6 +14,7 @@
 
         public string Description { get; set; }
 
+        public double BodyMassIndex { get; set; }
+
         public string FiscalCode { get; set; }
-    }
 }
