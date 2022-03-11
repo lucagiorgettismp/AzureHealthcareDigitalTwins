@@ -10,6 +10,7 @@ namespace AppFunctions
     using Microsoft.Azure.WebJobs.Extensions.EventGrid;
     using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
     using System;
     using System.Net.Http;
     using System.Text;
@@ -34,22 +35,26 @@ namespace AppFunctions
             if (eventGridEvent != null && eventGridEvent.Data != null)
             {
                 // Reading deviceId and temperature for IoT Hub JSON
-                string data = Encoding.UTF8.GetString(eventGridEvent.Data);
-                var payload = JsonConvert.DeserializeObject<EventGridMessagePayload>(data);
+                string eventGridData = Encoding.UTF8.GetString(eventGridEvent.Data);
 
-                string deviceId = payload.SystemProperties.IothubConnectionDeviceId;
+                var mode = JObject.Parse(eventGridData)["body"]["mode"].ToObject<UpdateMode>();
+
+                var deviceId = JObject.Parse(eventGridData)["systemProperties"]["iothub-connection-device-id"].ToObject<string>();
 
                 JsonPatchDocument updateTwinData;
 
-                switch (payload.Body.Mode) 
+                switch (mode) 
                 {
                     case UpdateMode.Telemetry:
-                        updateTwinData = BuildUpdatePatchJson((TelemetryPayloadData)payload.Body.Data);
+                        var telemetry = JObject.Parse(eventGridData)["body"]["data"].ToObject<TelemetryPayloadData>();
+                        updateTwinData = BuildUpdatePatchJson(telemetry);
 
                         break;
                     case UpdateMode.Configuration:
+                        var configuration = JObject.Parse(eventGridData)["body"]["data"].ToObject<ConfigurationPayloadData>();
+
                         updateTwinData = new JsonPatchDocument();
-                        updateTwinData.AppendReplaceRaw("/configuration", JsonConvert.SerializeObject((ConfigurationPayloadData)payload.Body.Data));
+                        updateTwinData.AppendReplaceRaw("/configuration", JsonConvert.SerializeObject(configuration));
 
                         break;
                     case UpdateMode.DeviceId:
@@ -63,7 +68,7 @@ namespace AppFunctions
 
                 try
                 {
-                    log.LogInformation($"*** {payload.Body.Mode} ***\n{updateTwinData}");
+                    log.LogInformation($"*** {mode} ***\n{updateTwinData}");
                     await client.UpdateDigitalTwinAsync(deviceId, updateTwinData);
                 }
                 catch (Exception e)
