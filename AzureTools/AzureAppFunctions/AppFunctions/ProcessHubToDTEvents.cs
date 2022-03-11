@@ -29,13 +29,10 @@ namespace AppFunctions
                 Transport = new HttpClientTransport(httpClient)
             });
 
-
             log.LogInformation($"ADT service client connection created.");
 
             if (eventGridEvent != null && eventGridEvent.Data != null)
             {
-                log.LogInformation(eventGridEvent.Data.ToString());
-
                 // Reading deviceId and temperature for IoT Hub JSON
                 string data = Encoding.UTF8.GetString(eventGridEvent.Data);
                 var payload = JsonConvert.DeserializeObject<EventGridMessagePayload>(data);
@@ -48,7 +45,6 @@ namespace AppFunctions
                 {
                     case UpdateMode.Telemetry:
                         updateTwinData = BuildUpdatePatchJson((TelemetryPayloadData)payload.Body.Data);
-                        log.LogInformation(updateTwinData.ToString());
 
                         break;
                     case UpdateMode.Configuration:
@@ -67,6 +63,7 @@ namespace AppFunctions
 
                 try
                 {
+                    log.LogInformation($"*** {payload.Body.Mode} ***\n{updateTwinData}");
                     await client.UpdateDigitalTwinAsync(deviceId, updateTwinData);
                 }
                 catch (Exception e)
