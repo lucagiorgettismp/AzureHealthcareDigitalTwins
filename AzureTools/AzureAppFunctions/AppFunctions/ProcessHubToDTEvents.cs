@@ -29,19 +29,13 @@ namespace AppFunctions
                 Transport = new HttpClientTransport(httpClient)
             });
 
-
             log.LogInformation($"ADT service client connection created.");
 
             if (eventGridEvent != null && eventGridEvent.Data != null)
             {
                 // Reading deviceId and temperature for IoT Hub JSON
                 string data = Encoding.UTF8.GetString(eventGridEvent.Data);
-                JsonSerializerSettings jsonSettings = new JsonSerializerSettings()
-                {
-                    TypeNameHandling = TypeNameHandling.Auto
-                };
-
-                var payload = JsonConvert.DeserializeObject<EventGridMessagePayload>(data, jsonSettings);
+                var payload = JsonConvert.DeserializeObject<EventGridMessagePayload>(data);
 
                 string deviceId = payload.SystemProperties.IothubConnectionDeviceId;
 
