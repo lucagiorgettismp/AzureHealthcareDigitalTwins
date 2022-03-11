@@ -15,7 +15,8 @@ public class ButtonMenuView : BaseApplicationPanel
             new PanelWrapper { Panel = GameObject.Find("BreathFrequencyPanel"), PanelType = PanelType.BreathFrequency},
             new PanelWrapper { Panel = GameObject.Find("SaturationPanel"), PanelType = PanelType.Saturation},
             new PanelWrapper { Panel = GameObject.Find("BloodPressurePanel"), PanelType = PanelType.BloodPressure},
-            new PanelWrapper { Panel = GameObject.Find("SensorValuesPanel"), PanelType = PanelType.Values}
+            new PanelWrapper { Panel = GameObject.Find("SensorValuesPanel"), PanelType = PanelType.Values},
+            new PanelWrapper { Panel = GameObject.Find("PatientPanel"), PanelType = PanelType.Patient}
         };
 
         panels = panelList.ToArray();
@@ -34,63 +35,64 @@ public class ButtonMenuView : BaseApplicationPanel
         {
             if (panel.PanelType == selectedPanel)
             {
-                panel.Panel.transform.position = GetCurrentPosition();
-
+                panel.Panel.transform.position = GetCurrentPositionMonitor();
             }
 
             panel.Panel.SetActive(panel.PanelType == selectedPanel);
+
+            if(panel.PanelType == PanelType.Patient)
+            {
+                panel.Panel.transform.position = GetCurrentPositionPatient();
+                panel.Panel.SetActive(true);
+            }
         }
 
         if (notifyServer)
         {
             await App.Controller.PersistSelectedPanel(selectedPanel);
         }
-        SensorValuesPanel = GameObject.Find("SensorValuesPanel");
-        SensorValuesPanel.gameObject.SetActive(false);
-
-        PatientPanel = GameObject.Find("PatientPanel");
     }
 
     public void OnClickHomeButton()
     {
         Debug.Log("Home button has been pressed!");
 
-        this.SelectPanelAsync(PanelType.Home, true);
+        _ = this.SelectPanelAsync(PanelType.Home, true);
     }
 
     public void OnClickHeartFrequencyButton()
     {
         Debug.Log("Heart frequency button has been pressed!");
 
-        this.SelectPanelAsync(PanelType.HeartFrequency);
+        _ = this.SelectPanelAsync(PanelType.HeartFrequency);
     }
 
     public void OnClickBreathFrequencyButton()
     {
         Debug.Log("Breath frequency button has been pressed!");
 
-        this.SelectPanelAsync(PanelType.BreathFrequency);
+        _ = this.SelectPanelAsync(PanelType.BreathFrequency);
     }
 
     public void OnClickSaturationButton()
     {
         Debug.Log("Saturation button has been pressed!");
 
-        this.SelectPanelAsync(PanelType.Saturation);
+        _ = this.SelectPanelAsync(PanelType.Saturation);
     }
 
     public void OnClickBloodPressureButton()
     {
         Debug.Log("Blood Pressure button has been pressed!");
 
-        this.SelectPanelAsync(PanelType.BloodPressure);
+        _ = this.SelectPanelAsync(PanelType.BloodPressure);
     }
 
     public void OnClickValuesButton()
     {
         Debug.Log("Values button has been pressed!");
 
-        this.SelectPanelAsync(PanelType.Values);
+        _ = this.SelectPanelAsync(PanelType.Values);
     }
 
     public void OnClickCloseButton()
@@ -119,7 +121,8 @@ public enum PanelType
     BreathFrequency = 2,
     Saturation = 3,
     BloodPressure = 4,
-    Values = 5
+    Values = 5,
+    Patient = 6
 }
 
 internal class PanelWrapper
