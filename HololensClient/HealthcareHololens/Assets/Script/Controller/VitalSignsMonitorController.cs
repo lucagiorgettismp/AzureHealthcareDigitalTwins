@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class VitalSignsMonitorController : BaseApplicationPanel
 {
@@ -22,8 +23,8 @@ public class VitalSignsMonitorController : BaseApplicationPanel
 
         if (!this.receivedFirstMessage)
         {
-            await App.PatientView.Initialize(message.device_id);
             receivedFirstMessage = true;
+            await App.PatientView.Initialize(message.device_id);
         }
 
         App.VitalSignsMonitorView.UpdateView(message);
