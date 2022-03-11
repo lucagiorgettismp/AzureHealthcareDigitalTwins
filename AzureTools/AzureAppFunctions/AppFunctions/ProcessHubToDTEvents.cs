@@ -20,12 +20,12 @@ namespace AppFunctions
         private static readonly string adtServiceUrl = Environment.GetEnvironmentVariable("ADT_SERVICE_URL");
 
         [FunctionName("ProcessHubToDTEvents")]
-        public async void Run([EventGridTrigger]EventGridEvent eventGridEvent, ILogger log)
+        public async void Run([EventGridTrigger] EventGridEvent eventGridEvent, ILogger log)
         {
             //Authenticate with Digital Twins
             var credentials = new DefaultAzureCredential();
             DigitalTwinsClient client = new DigitalTwinsClient(new Uri(adtServiceUrl), credentials, new DigitalTwinsClientOptions
-            { 
+            {
                 Transport = new HttpClientTransport(httpClient)
             });
 
@@ -39,42 +39,44 @@ namespace AppFunctions
                 // Reading deviceId and temperature for IoT Hub JSON
                 string data = Encoding.UTF8.GetString(eventGridEvent.Data);
                 var payload = JsonConvert.DeserializeObject<EventGridMessagePayload>(data);
-                
+
                 string deviceId = payload.SystemProperties.IothubConnectionDeviceId;
 
                 JsonPatchDocument updateTwinData;
 
-                switch (payload.Body.Mode)
+                switch (payload.Body.Mode) 
                 {
-                    /*
-                    case CrudMode.Create:
-                        updateTwinData = BuildCraetePatchJson(payload.Body.Data);
-                        await client.UpdateDigitalTwinAsync(deviceId, updateTwinData);
-                        break;
-                    */
-                    case CrudMode.Update:
-                        updateTwinData = BuildUpdatePatchJson(payload.Body.Data);
-
-                        updateTwinData.AppendReplace($"/device_id", deviceId);
+                    case UpdateMode.Telemetry:
+                        updateTwinData = BuildUpdatePatchJson((TelemetryPayloadData)payload.Body.Data);
                         log.LogInformation(updateTwinData.ToString());
 
-                        try
-                        {
-                            await client.UpdateDigitalTwinAsync(deviceId, updateTwinData);
-                        }catch(Exception e)
-                        {
-                            log.LogError(e.Message);
-                        }
+                        break;
+                    case UpdateMode.Configuration:
+                        updateTwinData = new JsonPatchDocument();
+                        updateTwinData.AppendReplaceRaw("/configuration", JsonConvert.SerializeObject((ConfigurationPayloadData)payload.Body.Data));
 
                         break;
+                    case UpdateMode.DeviceId:
+                        updateTwinData = new JsonPatchDocument();
+                        updateTwinData.AppendReplace($"/device_id", deviceId);
 
+                        break;
                     default:
                         throw new CrudOperationNotAvailableException();
+                }
+
+                try
+                {
+                    await client.UpdateDigitalTwinAsync(deviceId, updateTwinData);
+                }
+                catch (Exception e)
+                {
+                    log.LogError(e.Message);
                 }
             }
         }
 
-        private JsonPatchDocument BuildUpdatePatchJson(EventGridMessagePayloadData data)
+        private JsonPatchDocument BuildUpdatePatchJson(TelemetryPayloadData data)
         {
             var updateTwinData = new JsonPatchDocument();
 
@@ -84,7 +86,6 @@ namespace AppFunctions
             updateTwinData = AppendProperties(updateTwinData, data.HeartFrequency, "heart_frequency");
             updateTwinData = AppendProperties(updateTwinData, data.BreathFrequency, "breath_frequency");
             updateTwinData = AppendProperties(updateTwinData, data.BloodPressure, "blood_pressure");
-            updateTwinData.AppendReplaceRaw("/configuration", JsonConvert.SerializeObject(data.Configuration));
 
             return updateTwinData;
         }

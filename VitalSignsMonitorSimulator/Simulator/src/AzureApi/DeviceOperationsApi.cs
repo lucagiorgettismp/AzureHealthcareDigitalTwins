@@ -30,7 +30,7 @@ namespace Simulator.AzureApi
             return jsonDevices;
         }
 
-        public static async Task<string> GetStringConnection(string deviceId)
+        public static async Task<string> GetConnectionString(string deviceId)
         {
             string connection = null;
             RegistryManager rm = AuthenticationApi.GetRegistryManager();

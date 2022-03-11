@@ -1,5 +1,5 @@
 using Newtonsoft.Json;
-namespace AppFunctions.Model.Payload
+namespace Simulator.Model.Payload
 {
 
     public class Configuration
