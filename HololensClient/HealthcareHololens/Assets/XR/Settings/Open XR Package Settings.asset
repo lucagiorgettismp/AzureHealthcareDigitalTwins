@@ -554,7 +554,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enabled: 0
   nameUi: Hand Tracking
-  version: 1.3.1
+  version: 1.2.1
   featureIdInternal: com.microsoft.openxr.feature.handtracking
   openxrExtensionStrings: XR_EXT_hand_tracking XR_MSFT_hand_tracking_mesh
   company: Microsoft
@@ -798,7 +798,6 @@ MonoBehaviour:
   features:
   - {fileID: 6338977815431507508}
   - {fileID: -7560609568079840928}
-  - {fileID: -1532398112312730127}
   - {fileID: -9177632472320349780}
   - {fileID: 1295419713440676906}
   - {fileID: 7627888821037952870}
