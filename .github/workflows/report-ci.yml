@@ -31,7 +31,7 @@ jobs:
         name: Generated PDF artifact
         with:
           name: PDF
-          path: main.pdf
+          path: doc/main.pdf
 
   jobs-failure:
       needs: [compile-report]
