@@ -3,21 +3,18 @@ namespace AppFunctions.Model.Payload
 {
     public class EventGridMessagePayloadBody
     {
-        public EventGridMessagePayloadBody(UpdateMode mode, TelemetryPayloadData data)
+        public EventGridMessagePayloadBody(TelemetryPayloadData data)
         {
-            Mode = mode;
             Data = data;
         }
 
-        public EventGridMessagePayloadBody(UpdateMode mode, ConfigurationPayloadData data)
+        public EventGridMessagePayloadBody(ConfigurationPayloadData data)
         {
-            Mode = mode;
             Data = data;
         }
 
-        public EventGridMessagePayloadBody(UpdateMode mode, DeviceIdPayloadData data)
+        public EventGridMessagePayloadBody(DeviceIdPayloadData data)
         {
-            Mode = mode;
             Data = data;
         }
 
