@@ -141,7 +141,6 @@ public class VitalSignsMonitorView : BaseApplicationPanel
         }
     }
 
-
     private void UpdateSensorSymbols(Message message)
     {
         this.TemperatureSymbol.text = message.temperature_sensor_value.symbol;

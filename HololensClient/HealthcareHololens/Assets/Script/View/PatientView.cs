@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
-public class PatientView : BaseApplicationPanel
+public class PatientView : MonoBehaviour
 {
     private TextMeshPro PatientName;
     private TextMeshPro PatientSurname;
@@ -16,10 +16,11 @@ public class PatientView : BaseApplicationPanel
     private TextMeshPro PatientDescription;
     private TextMeshPro PatientBodyMassIndex;
     private TextMeshPro PatientFiscalCode;
+    private TextMeshPro PatientLoading;
 
     private DigitalTwinsClient TwinClient;
 
-    void Awake()
+    public void Awake()
     {
         PatientName = GameObject.Find("PatientName").GetComponent<TextMeshPro>();
         PatientSurname = GameObject.Find("PatientSurname").GetComponent<TextMeshPro>();
@@ -30,6 +31,7 @@ public class PatientView : BaseApplicationPanel
         PatientDescription = GameObject.Find("PatientDescription").GetComponent<TextMeshPro>();
         PatientBodyMassIndex = GameObject.Find("PatientBodyMassIndex").GetComponent<TextMeshPro>();
         PatientFiscalCode = GameObject.Find("PatientFiscalCode").GetComponent<TextMeshPro>();
+        PatientLoading = GameObject.Find("PatientLoading").GetComponent<TextMeshPro>();
 
         TwinClient = null;
     }
@@ -40,15 +42,17 @@ public class PatientView : BaseApplicationPanel
         {
             if (patient != null)
             {
-                PatientName.text = patient.Name;
-                PatientSurname.text = patient.Surname;
-                PatientAge.text = patient.Age.ToString();
-                PatientGender.text = patient.Gender;
-                PatientHeight.text = patient.Height.ToString();
-                PatientWeight.text = patient.Weight.ToString();
-                PatientDescription.text = patient.Description;
-                PatientBodyMassIndex.text = patient.BodyMassIndex.ToString();
-                PatientFiscalCode.text = patient.FiscalCode;
+                this.PatientLoading.gameObject.SetActive(false);
+
+                PatientName.text = "Name: " + patient.Name;
+                PatientSurname.text = "Surname: "+ patient.Surname;
+                PatientAge.text = "Age: " + patient.Age.ToString();
+                PatientGender.text = "Gender: " + patient.Gender;
+                PatientHeight.text = "Height: " + patient.Height.ToString() + " m";
+                PatientWeight.text = "Weight: " + patient.Weight.ToString() + " Kg";
+                PatientDescription.text = "Description: " + patient.Description;
+                PatientBodyMassIndex.text = "Body Mass Index: " + patient.BodyMassIndex.ToString() + " Kg/m2";
+                PatientFiscalCode.text = "Fiscal Code: " + patient.FiscalCode;
             }
         }
         catch (Exception e)
@@ -57,17 +61,10 @@ public class PatientView : BaseApplicationPanel
         }
     }
 
-    private DigitalTwinsClient TwinClientConnection()
-    {
-        return TwinOperationApi.GetClient();
-    }
-
     public async Task Initialize(string deviceId)
     {
-        if (TwinClient == null)
-        {
-            TwinClient = TwinClientConnection();
-        }
+        this.PatientLoading.text = "Loading....";
+        TwinClient = TwinOperationApi.GetClient();
 
         Patient patient = await TwinOperationApi.GetPatient(TwinClient, deviceId);
         SetPatient(patient);
