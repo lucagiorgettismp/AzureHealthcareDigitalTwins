@@ -1,30 +1,20 @@
 ﻿namespace AzureDigitalTwins
 {
-    using System;
-    using Microsoft.Azure.Devices;
     using Microsoft.Extensions.Configuration;
 
     class AuthenticationApi
     {
-        const string HOST = "host";
-        const string IOTHUB = "connectionIoTHub";
-
-        public static RegistryManager GetRegistryManager()
+        const string HOST_IOTHUB = "hostIotHub";
+        public static IConfiguration GetRegistryManager()
         {
-            RegistryManager rm = null;
             IConfiguration config = new ConfigurationBuilder()
                     .AddJsonFile("", optional: false, reloadOnChange: false)
                     .Build();
 
-            if (config != null)
-            {
-                rm = RegistryManager.CreateFromConnectionString(config[IOTHUB]);
-                Console.WriteLine();
-            }
-            return rm;
+            return config;
         }
 
-        public static string GetHost()
+        public static string GetHostDevice()
         {
             string host = null;
             IConfiguration config = new ConfigurationBuilder()
@@ -33,7 +23,7 @@
 
             if (config != null)
             {
-                host = config[HOST];
+                host = config[HOST_IOTHUB];
             }
             return host;
         }
