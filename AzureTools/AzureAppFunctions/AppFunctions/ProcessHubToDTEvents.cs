@@ -63,8 +63,6 @@ namespace AppFunctions
                         throw new CrudOperationNotAvailableException();
                 }
 
-                // configuration    
-
                 try
                 {
                     log.LogInformation($"*** {mode} ***\n\n{updateTwinData}");
