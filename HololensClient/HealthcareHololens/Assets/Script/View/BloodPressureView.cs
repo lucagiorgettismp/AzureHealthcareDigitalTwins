@@ -31,6 +31,9 @@ public class BloodPressureView : BaseApplicationPanel
     const string RED_COLOR = "Materials/RedColor";
     const string WHITE_COLOR = "Materials/WhiteColor";
 
+    Material RedColor;
+    Material WhiteColor;
+
     public void Awake()
     {
         InitializedComponent();
@@ -65,13 +68,15 @@ public class BloodPressureView : BaseApplicationPanel
         this.BloodPressureAlert = GameObject.Find("DetailBloodPressureAlert");
         this.BatteryAlert = GameObject.Find("DetailBloodPressureBatteryAlert");
 
-        Material whiteColor = Resources.Load(WHITE_COLOR, typeof(Material)) as Material;
-
-        this.BloodPressureAlert.GetComponent<Renderer>().material = whiteColor;
-        this.BatteryAlert.GetComponent<Renderer>().material = whiteColor;
-
         /* Line chart components */
         this.BloodPressureGraph = GameObject.Find("DetailBloodPressureLineChart").GetComponent<WindowGraph>();
+
+        /* Load color resources */
+        RedColor = Resources.Load(RED_COLOR, typeof(Material)) as Material;
+        WhiteColor = Resources.Load(WHITE_COLOR, typeof(Material)) as Material;
+
+        this.BloodPressureAlert.GetComponent<Renderer>().material = WhiteColor;
+        this.BatteryAlert.GetComponent<Renderer>().material = WhiteColor;
     }
 
     public void UpdateView(Message message)
@@ -110,11 +115,18 @@ public class BloodPressureView : BaseApplicationPanel
 
     private void UpdateSensorAlerts(Message message)
     {
-        Material redColor = Resources.Load(RED_COLOR, typeof(Material)) as Material;
-        Material whiteColor = Resources.Load(WHITE_COLOR, typeof(Material)) as Material;
+        SetAlertSensor(this.BloodPressureAlert, message.blood_pressure_alarm);
+        SetAlertSensor(this.BatteryAlert, message.battery_alarm);
+    }
 
-        this.BloodPressureAlert.GetComponent<Renderer>().material = message.blood_pressure_alarm ? redColor : whiteColor;
-        this.BatteryAlert.GetComponent<Renderer>().material = message.battery_alarm ? redColor : whiteColor;
+    private void SetAlertSensor(GameObject sensor, bool inAlarm)
+    {
+        sensor.GetComponent<Renderer>().material = inAlarm ? RedColor : WhiteColor;
+
+        if (inAlarm)
+        {
+            sensor.GetComponent<AudioSource>().Play();
+        }
     }
 
     private void UpdateLineCharts(Message message)

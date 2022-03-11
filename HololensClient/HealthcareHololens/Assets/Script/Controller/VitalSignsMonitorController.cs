@@ -10,6 +10,7 @@ public class VitalSignsMonitorController : BaseApplicationPanel
 {
     private string deviceId;
     private PanelType lastSelectedPanelType;
+    private bool receivedFirstMessage = false;
 
     public VitalSignsMonitorController()
     {
@@ -17,7 +18,14 @@ public class VitalSignsMonitorController : BaseApplicationPanel
         this.lastSelectedPanelType = PanelType.Home;
     }
 
-    public void OnDataReceived(Message message) {
+    public async void OnDataReceived(Message message) {
+
+        if (!this.receivedFirstMessage)
+        {
+            await App.PatientView.Initialize(message.device_id);
+            receivedFirstMessage = true;
+        }
+
         App.VitalSignsMonitorView.UpdateView(message);
         App.HeartFrequencyView.UpdateView(message);
         App.BreathFrequencyView.UpdateView(message);
@@ -34,7 +42,6 @@ public class VitalSignsMonitorController : BaseApplicationPanel
         }
 
         this.deviceId = message.device_id;
-        App.PatientView.UpdateView(message);
     }
     public async Task PersistSelectedPanel(PanelType selectedPanel)
     {

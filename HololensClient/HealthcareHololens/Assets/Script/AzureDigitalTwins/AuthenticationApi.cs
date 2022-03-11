@@ -1,31 +1,26 @@
 ﻿namespace AzureDigitalTwins
 {
-    using Microsoft.Extensions.Configuration;
+    using UnityEngine;
+    using System;
 
     class AuthenticationApi
     {
-        const string HOST_IOTHUB = "hostIotHub";
-        public static IConfiguration GetRegistryManager()
-        {
-            IConfiguration config = new ConfigurationBuilder()
-                    .AddJsonFile("", optional: false, reloadOnChange: false)
-                    .Build();
+        const string FILE_NAME = "appsettings";
 
-            return config;
+        public static ConnectionConfig GetRegistryManager()
+        {
+            TextAsset jsonFile = Resources.Load<TextAsset>(FILE_NAME);
+            ConnectionConfig setting = JsonUtility.FromJson<ConnectionConfig>(jsonFile.text);
+
+            return setting;
         }
 
-        public static string GetHostDevice()
+        [Serializable]
+        public class ConnectionConfig
         {
-            string host = null;
-            IConfiguration config = new ConfigurationBuilder()
-                    .AddJsonFile("", optional: false, reloadOnChange: false)
-                    .Build();
-
-            if (config != null)
-            {
-                host = config[HOST_IOTHUB];
-            }
-            return host;
+            public string hostIotHub;
+            public string hostClient;
+            public string connectionIoTHub;
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Azure;
 using Microsoft.Azure.Devices;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,55 +7,29 @@ using UnityEngine;
 using Azure.DigitalTwins.Core;
 using Microsoft.Extensions.Configuration;
 using Azure.Identity;
+using static AzureDigitalTwins.AuthenticationApi;
 
 namespace AzureDigitalTwins
 {
     class DeviceOperationsApi
     {
-        const string QUERY_GET_ALL_DEVICES = "SELECT * FROM devices";
-        const string IOTHUB = "connectionIoTHub";
-
-        public static async Task<List<JObject>> GetDevices()
-        {
-            RegistryManager rm = null;
-
-            IConfiguration config = AuthenticationApi.GetRegistryManager();
-            if (config != null)
-            {
-                rm = RegistryManager.CreateFromConnectionString(config[IOTHUB]);
-            }
-
-            var query = rm.CreateQuery(QUERY_GET_ALL_DEVICES);
-            List<JObject> jsonDevices = new List<JObject>();
-
-            while (query.HasMoreResults)
-            {
-                var devices = await query.GetNextAsJsonAsync();
-                foreach (var device in devices)
-                {
-                    JObject json = JObject.Parse(device);
-                    jsonDevices.Add(json);
-                }
-            }
-            return jsonDevices;
-        }
-
         public static async Task<string> GetConnectionString(string deviceId)
         {
             string connection = null;
+            string host = null;
             RegistryManager rm = null;
 
-            IConfiguration config = AuthenticationApi.GetRegistryManager();
+            ConnectionConfig config = AuthenticationApi.GetRegistryManager();
             if (config != null)
             {
-                rm = RegistryManager.CreateFromConnectionString(config[IOTHUB]);
+                rm = RegistryManager.CreateFromConnectionString(config.connectionIoTHub);
+                host = config.hostIotHub;
             }
 
             try
             {
                 // Get device
                 Device device = await rm.GetDeviceAsync(deviceId);
-                string host = AuthenticationApi.GetHostDevice();
 
                 // Get string connection
                 connection = $"HostName={host};DeviceId={device.Id};SharedAccessKey={device.Authentication.SymmetricKey.PrimaryKey}";
@@ -72,18 +45,16 @@ namespace AzureDigitalTwins
 
     class TwinOperationApi
     {
-        const string HOST_CLIENT = "hostClient";
-
         public static DigitalTwinsClient GetClient()
         {
             Uri adtInstanceUrl;
 
             DigitalTwinsClient twinClient = null;
-            IConfiguration config = AuthenticationApi.GetRegistryManager();
+            ConnectionConfig config = AuthenticationApi.GetRegistryManager();
 
             if (config != null)
             {
-                adtInstanceUrl = new Uri(config[HOST_CLIENT]);
+                adtInstanceUrl = new Uri(config.hostClient);
                 Debug.Log("Twin client authenticating...");
                 var credential = new DefaultAzureCredential();
                 twinClient = new DigitalTwinsClient(adtInstanceUrl, credential);

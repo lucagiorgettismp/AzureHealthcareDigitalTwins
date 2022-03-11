@@ -51,6 +51,9 @@ public class VitalSignsMonitorView : BaseApplicationPanel
     const string RED_COLOR = "Materials/RedColor";
     const string WHITE_COLOR = "Materials/WhiteColor";
 
+    Material RedColor;
+    Material WhiteColor;
+
     public void Awake()
     {
         InitializedComponent();
@@ -105,20 +108,22 @@ public class VitalSignsMonitorView : BaseApplicationPanel
         this.TemperatureAlert = GameObject.Find("TemperatureAlert");
         this.BatteryAlert = GameObject.Find("BatteryAlert");
 
-        Material whiteColor = Resources.Load(WHITE_COLOR, typeof(Material)) as Material;
-
-        this.SaturationAlert.GetComponent<Renderer>().material = whiteColor;
-        this.BloodPressureAlert.GetComponent<Renderer>().material = whiteColor;
-        this.HeartFrequencyAlert.GetComponent<Renderer>().material = whiteColor;
-        this.BreathFrequencyAlert.GetComponent<Renderer>().material = whiteColor;
-        this.TemperatureAlert.GetComponent<Renderer>().material = whiteColor;
-        this.BatteryAlert.GetComponent<Renderer>().material = whiteColor;
-
         /* Line chart components */
         this.HeartFrequencyGraph  = GameObject.Find("HeartFrequencyLineChart").GetComponent<WindowGraph>();
         this.BreathFrequencyGraph = GameObject.Find("BreathFrequencyLineChart").GetComponent<WindowGraph>();
         this.SaturationGraph = GameObject.Find("SaturationLineChart").GetComponent<WindowGraph>();
         this.BloodPressureGraph = GameObject.Find("BloodPressureLineChart").GetComponent<WindowGraph>();
+
+        /* Load color resources */
+        RedColor = Resources.Load(RED_COLOR, typeof(Material)) as Material;
+        WhiteColor = Resources.Load(WHITE_COLOR, typeof(Material)) as Material;
+
+        this.SaturationAlert.GetComponent<Renderer>().material = WhiteColor;
+        this.BloodPressureAlert.GetComponent<Renderer>().material = WhiteColor;
+        this.HeartFrequencyAlert.GetComponent<Renderer>().material = WhiteColor;
+        this.BreathFrequencyAlert.GetComponent<Renderer>().material = WhiteColor;
+        this.TemperatureAlert.GetComponent<Renderer>().material = WhiteColor;
+        this.BatteryAlert.GetComponent<Renderer>().material = WhiteColor;
     }
 
     public void UpdateView(Message message)
@@ -169,15 +174,22 @@ public class VitalSignsMonitorView : BaseApplicationPanel
 
     private void UpdateSensorAlerts(Message message)
     {
-        Material redColor = Resources.Load(RED_COLOR, typeof(Material)) as Material;
-        Material whiteColor = Resources.Load(WHITE_COLOR, typeof(Material)) as Material;
+        SetAlertSensor(this.TemperatureAlert, message.temperature_alarm);
+        SetAlertSensor(this.SaturationAlert, message.saturation_alarm);
+        SetAlertSensor(this.BloodPressureAlert, message.blood_pressure_alarm);
+        SetAlertSensor(this.HeartFrequencyAlert, message.heart_frequency_alarm);
+        SetAlertSensor(this.BreathFrequencyAlert, message.breath_frequency_alarm);
+        SetAlertSensor(this.BatteryAlert, message.battery_alarm);
+    }
 
-        this.TemperatureAlert.GetComponent<Renderer>().material = message.temperature_alarm ? redColor : whiteColor;
-        this.SaturationAlert.GetComponent<Renderer>().material = message.saturation_alarm ? redColor : whiteColor;
-        this.BloodPressureAlert.GetComponent<Renderer>().material = message.blood_pressure_alarm ? redColor : whiteColor;
-        this.HeartFrequencyAlert.GetComponent<Renderer>().material = message.heart_frequency_alarm ? redColor : whiteColor;
-        this.BreathFrequencyAlert.GetComponent<Renderer>().material = message.breath_frequency_alarm ? redColor : whiteColor;
-        this.BatteryAlert.GetComponent<Renderer>().material = message.battery_alarm ? redColor : whiteColor;
+    private void SetAlertSensor(GameObject sensor, bool inAlarm)
+    {
+        sensor.GetComponent<Renderer>().material = inAlarm? RedColor : WhiteColor;
+
+        if (inAlarm)
+        {
+            sensor.GetComponent<AudioSource>().Play();
+        }
     }
 
     private void UpdateLineCharts(Message message)

@@ -18,7 +18,6 @@ public class PatientView : BaseApplicationPanel
     private TextMeshPro PatientFiscalCode;
 
     private DigitalTwinsClient TwinClient;
-    private Patient Patient;
 
     void Awake()
     {
@@ -32,28 +31,25 @@ public class PatientView : BaseApplicationPanel
         PatientBodyMassIndex = GameObject.Find("PatientBodyMassIndex").GetComponent<TextMeshPro>();
         PatientFiscalCode = GameObject.Find("PatientFiscalCode").GetComponent<TextMeshPro>();
 
-        Patient = null;
         TwinClient = null;
     }
 
-    public async void UpdateView(Message message)
+    public void SetPatient(Patient patient)
     {
         try
         {
-            if (Patient == null)
+            if (patient != null)
             {
-                Patient = await GetPatientTwin(message.device_id);
+                PatientName.text = patient.Name;
+                PatientSurname.text = patient.Surname;
+                PatientAge.text = patient.Age.ToString();
+                PatientGender.text = patient.Gender;
+                PatientHeight.text = patient.Height.ToString();
+                PatientWeight.text = patient.Weight.ToString();
+                PatientDescription.text = patient.Description;
+                PatientBodyMassIndex.text = patient.BodyMassIndex.ToString();
+                PatientFiscalCode.text = patient.FiscalCode;
             }
-
-            PatientName.text = Patient.Name;
-            PatientSurname.text = Patient.Surname;
-            PatientAge.text = Patient.Age.ToString();
-            PatientGender.text = Patient.Gender;
-            PatientHeight.text = Patient.Height.ToString();
-            PatientWeight.text = Patient.Weight.ToString();
-            PatientDescription.text = Patient.Description;
-            PatientBodyMassIndex.text = Patient.BodyMassIndex.ToString();
-            PatientFiscalCode.text = Patient.FiscalCode;
         }
         catch (Exception e)
         {
@@ -66,7 +62,7 @@ public class PatientView : BaseApplicationPanel
         return TwinOperationApi.GetClient();
     }
 
-    private async Task<Patient> GetPatientTwin(string deviceId)
+    public async Task Initialize(string deviceId)
     {
         if (TwinClient == null)
         {
@@ -74,6 +70,6 @@ public class PatientView : BaseApplicationPanel
         }
 
         Patient patient = await TwinOperationApi.GetPatient(TwinClient, deviceId);
-        return patient;
+        SetPatient(patient);
     }
 }
