@@ -1,6 +1,5 @@
 ﻿namespace Simulator.View
 {
-    using Common.Enums;
     using Common.Utils;
     using Controller;
     using Newtonsoft.Json.Linq;
@@ -13,6 +12,8 @@
     using System.Windows.Forms;
     using Common;
     using Common.View;
+    using Azure.DigitalTwins.Core;
+    using Common.AzureApi;
 
     public partial class ControlPanelForm : Form
     {
@@ -78,7 +79,7 @@
                     this.simulationForm.Show();
 
                     this.tokenSource = new CancellationTokenSource();
-                    await this.deviceHub.SendMessageToIoTHub(this.simulationForm, this.tokenSource.Token, CrudMode.Update);
+                    await this.deviceHub.SendMessageToIoTHub(this.simulationForm, this.tokenSource.Token);
                 }catch(Exception ex)
                 {
                     this.errorForm.SetText(ex.Message);
@@ -141,7 +142,7 @@
                 {
                     Log.Ok("Click on: " + this.listbox_devices.SelectedItem.ToString());
 
-                    string connection = await DeviceOperationsApi.GetStringConnection(this.listbox_devices.SelectedItem.ToString());
+                    string connection = await DeviceOperationsApi.GetConnectionString(this.listbox_devices.SelectedItem.ToString());
                     this.deviceHub = new Device(connection);
 
                     this.startButton.Enabled = true;

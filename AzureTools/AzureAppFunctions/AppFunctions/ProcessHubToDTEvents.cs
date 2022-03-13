@@ -10,6 +10,7 @@ namespace AppFunctions
     using Microsoft.Azure.WebJobs.Extensions.EventGrid;
     using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
     using System;
     using System.Net.Http;
     using System.Text;
@@ -20,61 +21,61 @@ namespace AppFunctions
         private static readonly string adtServiceUrl = Environment.GetEnvironmentVariable("ADT_SERVICE_URL");
 
         [FunctionName("ProcessHubToDTEvents")]
-        public async void Run([EventGridTrigger]EventGridEvent eventGridEvent, ILogger log)
+        public async void Run([EventGridTrigger] EventGridEvent eventGridEvent, ILogger log)
         {
             //Authenticate with Digital Twins
             var credentials = new DefaultAzureCredential();
             DigitalTwinsClient client = new DigitalTwinsClient(new Uri(adtServiceUrl), credentials, new DigitalTwinsClientOptions
-            { 
+            {
                 Transport = new HttpClientTransport(httpClient)
             });
-
 
             log.LogInformation($"ADT service client connection created.");
 
             if (eventGridEvent != null && eventGridEvent.Data != null)
             {
-                log.LogInformation(eventGridEvent.Data.ToString());
-
                 // Reading deviceId and temperature for IoT Hub JSON
-                string data = Encoding.UTF8.GetString(eventGridEvent.Data);
-                var payload = JsonConvert.DeserializeObject<EventGridMessagePayload>(data);
-                
-                string deviceId = payload.SystemProperties.IothubConnectionDeviceId;
+                string eventGridData = Encoding.UTF8.GetString(eventGridEvent.Data);
+
+                var mode = JObject.Parse(eventGridData)["body"]["mode"].ToObject<UpdateMode>();
+
+                var deviceId = JObject.Parse(eventGridData)["systemProperties"]["iothub-connection-device-id"].ToObject<string>();
 
                 JsonPatchDocument updateTwinData;
 
-                switch (payload.Body.Mode)
+                switch (mode) 
                 {
-                    /*
-                    case CrudMode.Create:
-                        updateTwinData = BuildCraetePatchJson(payload.Body.Data);
-                        await client.UpdateDigitalTwinAsync(deviceId, updateTwinData);
-                        break;
-                    */
-                    case CrudMode.Update:
-                        updateTwinData = BuildUpdatePatchJson(payload.Body.Data);
-
+                    case UpdateMode.Telemetry:
+                        var telemetry = JObject.Parse(eventGridData)["body"]["data"].ToObject<TelemetryPayloadData>();
+                        updateTwinData = BuildUpdatePatchJson(telemetry);
                         updateTwinData.AppendReplace($"/device_id", deviceId);
-                        log.LogInformation(updateTwinData.ToString());
 
-                        try
-                        {
-                            await client.UpdateDigitalTwinAsync(deviceId, updateTwinData);
-                        }catch(Exception e)
-                        {
-                            log.LogError(e.Message);
-                        }
+                        break;
+                    case UpdateMode.Configuration:
+                        var configuration = JObject.Parse(eventGridData)["body"]["data"].ToObject<ConfigurationPayloadData>();
+
+                        updateTwinData = new JsonPatchDocument();
+                        updateTwinData.AppendReplaceRaw("/configuration", JsonConvert.SerializeObject(configuration));
 
                         break;
 
                     default:
                         throw new CrudOperationNotAvailableException();
                 }
+
+                try
+                {
+                    log.LogInformation($"*** {mode} ***\n\n{updateTwinData}");
+                    await client.UpdateDigitalTwinAsync(deviceId, updateTwinData);
+                }
+                catch (Exception e)
+                {
+                    log.LogError(e.Message);
+                }
             }
         }
 
-        private JsonPatchDocument BuildUpdatePatchJson(EventGridMessagePayloadData data)
+        private JsonPatchDocument BuildUpdatePatchJson(TelemetryPayloadData data)
         {
             var updateTwinData = new JsonPatchDocument();
 

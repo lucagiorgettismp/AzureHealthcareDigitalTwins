@@ -11,7 +11,7 @@ public class HeartFrequencyView : MonoBehaviour
     /* Value */
     private TextMeshPro HeartFrequencyValue;
     private TextMeshPro BatteryValue;
-
+   
     /* Sensor name */
     private TextMeshPro HeartFrequencySensorName;
     private TextMeshPro BatterySensorName;
@@ -30,6 +30,9 @@ public class HeartFrequencyView : MonoBehaviour
     /* Colors */
     const string RED_COLOR = "Materials/RedColor";
     const string WHITE_COLOR = "Materials/WhiteColor";
+
+    Material RedColor;
+    Material WhiteColor;
 
     public void Awake()
     {
@@ -65,13 +68,15 @@ public class HeartFrequencyView : MonoBehaviour
         this.HeartFrequencyAlert = GameObject.Find("DetailHeartFrequencyAlert");
         this.BatteryAlert = GameObject.Find("DetailHeartFrequencyBatteryAlert");
 
-        Material whiteColor = Resources.Load(WHITE_COLOR, typeof(Material)) as Material;
-
-        this.HeartFrequencyAlert.GetComponent<Renderer>().material = whiteColor;
-        this.BatteryAlert.GetComponent<Renderer>().material = whiteColor;
-
         /* Line chart components */
         this.HeartFrequencyGraph = GameObject.Find("DetailHeartFrequencyLineChart").GetComponent<WindowGraph>();
+
+        /* Load color resources */
+        RedColor = Resources.Load(RED_COLOR, typeof(Material)) as Material;
+        WhiteColor = Resources.Load(WHITE_COLOR, typeof(Material)) as Material;
+
+        this.HeartFrequencyAlert.GetComponent<Renderer>().material = WhiteColor;
+        this.BatteryAlert.GetComponent<Renderer>().material = WhiteColor;
     }
         
     public void UpdateView(Message message)
@@ -110,11 +115,18 @@ public class HeartFrequencyView : MonoBehaviour
 
     private void UpdateSensorAlerts(Message message)
     {
-        Material redColor = Resources.Load(RED_COLOR, typeof(Material)) as Material;
-        Material whiteColor = Resources.Load(WHITE_COLOR, typeof(Material)) as Material;
+        SetAlertSensor(this.HeartFrequencyAlert, message.heart_frequency_alarm);
+        SetAlertSensor(this.BatteryAlert, message.battery_alarm);
+    }
 
-        this.HeartFrequencyAlert.GetComponent<Renderer>().material = message.heart_frequency_alarm ? redColor : whiteColor;
-        this.BatteryAlert.GetComponent<Renderer>().material = message.battery_alarm ? redColor : whiteColor;
+    private void SetAlertSensor(GameObject sensor, bool inAlarm)
+    {
+        sensor.GetComponent<Renderer>().material = inAlarm ? RedColor : WhiteColor;
+
+        if (inAlarm)
+        {
+            sensor.GetComponent<AudioSource>().Play();
+        }
     }
 
     private void UpdateLineCharts(Message message)

@@ -37,4 +37,8 @@ public class Message
     public bool saturation_alarm { get; set; }
     public SensorValue saturation_sensor_value { get; set; }
     public string saturation_graph_color { get; set; }
+
+    public string device_id { get; set; }
+
+    public int configuration_last_selected_view { get; set; }
 }

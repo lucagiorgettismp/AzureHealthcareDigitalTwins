@@ -1,10 +1,10 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Build CI
+name: Development CI
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
+  # Triggers the workflow on push events but only for the development branch
   push:
     branches: [ development]
 
@@ -21,7 +21,6 @@ env:
 jobs:
   build-and-deploy-app-function:
     runs-on: windows-latest
-
     env:
       AZURE_FUNCTIONAPP_PACKAGE_PATH: '.\AzureTools\AzureAppFunctions\AppFunctions' # set this to the path to your web app project, defaults to the repository root
       DOTNET_VERSION: '3.1' # set this to the dotnet version to use
@@ -97,3 +96,77 @@ jobs:
         with:
           name: Client
           path: .\VitalSignsMonitorSimulator\Client\bin\Release\Client.exe 
+
+
+  jobs-failure:
+      needs: [build-and-deploy-app-function, build-simulator, build-client]
+      if: failure()
+      runs-on: [ubuntu-latest]
+
+      steps:
+      - name: Send telegram failure message
+        uses: appleboy/telegram-action@master
+
+        with:
+          to: ${{ secrets.TELEGRAM_TO_LUCA }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+                ${{ github.event_name }} event,
+                on github.com/${{ github.repository }},
+                by ${{ github.actor }}:
+                <b>${{ github.event.head_commit.message }}</b>
+                ❌ <b>FAILED</b> ❌
+          format: html
+          disable_web_page_preview: true
+
+      - name: Send telegram failure message to Lorenzo
+        uses: appleboy/telegram-action@master
+
+        with:
+          to: ${{ secrets.TELEGRAM_TO_LORENZO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+                ${{ github.event_name }} event,
+                on github.com/${{ github.repository }},
+                by ${{ github.actor }}:
+                <b>${{ github.event.head_commit.message }}</b>
+                ❌ <b>FAILED</b> ❌
+          format: html
+          disable_web_page_preview: true
+
+
+  jobs-success:
+      needs: [build-and-deploy-app-function, build-simulator, build-client]
+      if: success()
+      runs-on: [ ubuntu-latest]
+
+      steps:
+      - name: Send telegram success message
+        uses: appleboy/telegram-action@master
+
+        with:
+          to: ${{ secrets.TELEGRAM_TO_LUCA }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+                ${{ github.event_name }} event,
+                on github.com/${{ github.repository }},
+                by ${{ github.actor }}:
+                <b>${{ github.event.head_commit.message }}</b>
+                ✅ <b>SUCCEDED</b>
+          format: html
+          disable_web_page_preview: true
+
+      - name: Send telegram success message to Lorenzo
+        uses: appleboy/telegram-action@master
+
+        with:
+          to: ${{ secrets.TELEGRAM_TO_LORENZO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+                ${{ github.event_name }} event,
+                on github.com/${{ github.repository }},
+                by ${{ github.actor }}:
+                <b>${{ github.event.head_commit.message }}</b>
+                ✅ <b>SUCCEDED</b>
+          format: html
+          disable_web_page_preview: true
