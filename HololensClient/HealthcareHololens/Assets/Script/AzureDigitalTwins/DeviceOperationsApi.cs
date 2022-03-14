@@ -8,6 +8,7 @@ using Azure.DigitalTwins.Core;
 using Microsoft.Extensions.Configuration;
 using Azure.Identity;
 using static AzureDigitalTwins.AuthenticationApi;
+using Models;
 
 namespace AzureDigitalTwins
 {
@@ -67,12 +68,12 @@ namespace AzureDigitalTwins
 
         public async static Task<Patient> GetPatient(DigitalTwinsClient client, string deviceId)
         {
-            string namePatientTwin = await ListRelationships(client, deviceId);
+            string patientTwinName = await ListRelationships(client, deviceId);
 
             Patient patient = null;
-            if (namePatientTwin != null)
+            if (patientTwinName != null)
             {
-                patient = await GetPatientTwin(client, namePatientTwin);
+                patient = await GetPatientTwin(client, patientTwinName);
             }
 
             return patient;
@@ -100,10 +101,21 @@ namespace AzureDigitalTwins
             return namePatientTwin;
         }
 
+        internal static async Task<PanelType> GetSelectedView(DigitalTwinsClient client, string deviceId)
+        {
+            Response<BasicDigitalTwin> twinResponse = await client.GetDigitalTwinAsync<BasicDigitalTwin>(deviceId);
+
+            Debug.Log("Get patient twin information .....");
+            BasicDigitalTwin twin = twinResponse.Value;
+
+            twin.Contents.TryGetValue("configuration", out object configuration);
+
+            var config = configuration as ConfigurationPayloadData;
+            return (PanelType)config.LastSelectedView;
+        }
+
         private async static Task<Patient> GetPatientTwin(DigitalTwinsClient client, string twinId)
         {
-            List<string> IdTwins = new List<string>();
-
             Response<BasicDigitalTwin> twinResponse = await client.GetDigitalTwinAsync<BasicDigitalTwin>(twinId);
 
             Debug.Log("Get patient twin information .....");

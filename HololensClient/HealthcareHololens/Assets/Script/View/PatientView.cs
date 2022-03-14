@@ -1,11 +1,9 @@
-using Azure.DigitalTwins.Core;
-using AzureDigitalTwins;
 using System;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
-public class PatientView : MonoBehaviour
+public class PatientView : BaseApplicationPanel
 {
     private TextMeshPro PatientName;
     private TextMeshPro PatientSurname;
@@ -17,8 +15,6 @@ public class PatientView : MonoBehaviour
     private TextMeshPro PatientBodyMassIndex;
     private TextMeshPro PatientFiscalCode;
     private TextMeshPro PatientLoading;
-
-    private DigitalTwinsClient TwinClient;
 
     public void Awake()
     {
@@ -32,8 +28,6 @@ public class PatientView : MonoBehaviour
         PatientBodyMassIndex = GameObject.Find("PatientBodyMassIndex").GetComponent<TextMeshPro>();
         PatientFiscalCode = GameObject.Find("PatientFiscalCode").GetComponent<TextMeshPro>();
         PatientLoading = GameObject.Find("PatientLoading").GetComponent<TextMeshPro>();
-
-        TwinClient = null;
     }
 
     public void SetPatient(Patient patient)
@@ -61,12 +55,12 @@ public class PatientView : MonoBehaviour
         }
     }
 
-    public async Task Initialize(string deviceId)
+    public async Task Initialize()
     {
         this.PatientLoading.text = "Loading....";
-        TwinClient = TwinOperationApi.GetClient();
 
-        Patient patient = await TwinOperationApi.GetPatient(TwinClient, deviceId);
+        var patient = await App.Controller.GetPatientAsync();
+
         SetPatient(patient);
     }
 }
