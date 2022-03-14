@@ -5,7 +5,7 @@
     using System.Configuration;
     using System.Globalization;
 
-    class DeviceDataGenerator
+    public class DeviceDataGenerator
     {
         private DeviceData deviceData;
         private readonly Random random;
@@ -19,9 +19,7 @@
 
         public DeviceDataGenerator()
         {
-
             random = new Random();
-
             InitDeviceData();
         }
 
