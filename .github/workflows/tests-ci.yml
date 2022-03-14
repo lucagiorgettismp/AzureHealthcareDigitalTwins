@@ -33,15 +33,15 @@ jobs:
         run: dotnet restore ${{ env.TEST_SOLUTION_PATH }}
 
       - name: Build
-        run: msbuild ${{ env.TEST_SOLUTION_PATH }} --configuration Release --no-restore
+        run: msbuild ${{ env.TEST_SOLUTION_PATH }} /p:Configuration=Release
 
       - name: Test
-        run: mstest ${{ env.TEST_SOLUTION_PATH }} --no-restore --verbosity normal
+        run: mstest ${{ env.TEST_SOLUTION_PATH }}
 
       - uses: codecov/codecov-action@v2
         name: Create coverage
         with:
-          working-directory: 
+          working-directory: TEST_SOLUTION_PATH
           name: codecov-simulator
           verbose: true
           fail_ci_if_error: true
