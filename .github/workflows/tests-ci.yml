@@ -16,10 +16,14 @@ env:
 
 jobs:
   execute-tests:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.1
+
       - name: Setup .NET Core SDK ${{ env.DOTNET_VERSION }}
         uses: actions/setup-dotnet@v1.7.2
         with:
@@ -29,7 +33,16 @@ jobs:
         run: dotnet restore ${{ env.TEST_SOLUTION_PATH }}
 
       - name: Build
-        run: dotnet build ${{ env.TEST_SOLUTION_PATH }} --configuration Release --no-restore
+        run: msbuild ${{ env.TEST_SOLUTION_PATH }} --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test ${{ env.TEST_SOLUTION_PATH }} --no-restore --verbosity normal
+        run: mstest ${{ env.TEST_SOLUTION_PATH }} --no-restore --verbosity normal
+
+      - uses: codecov/codecov-action@v2
+        name: Create coverage
+        with:
+          working-directory: 
+          name: codecov-simulator
+          verbose: true
+          fail_ci_if_error: true
+

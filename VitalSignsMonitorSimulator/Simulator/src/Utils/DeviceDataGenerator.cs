@@ -29,8 +29,8 @@
 
             double.TryParse(appSettings["TemperatureMinValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out double temperatureMinValue);
             double.TryParse(appSettings["TemperatureMaxValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out double temperatureMaxValue);
-            double.TryParse(appSettings["TemperatureMinAlarmThreasholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out double temperatureMinAlarm);
-            double.TryParse(appSettings["TemperatureMaxAlarmThreasholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out double temperatureMaxAlarm);
+            double.TryParse(appSettings["TemperatureMinAlarmThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out double temperatureMinAlarm);
+            double.TryParse(appSettings["TemperatureMaxAlarmThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out double temperatureMaxAlarm);
             double.TryParse(appSettings["TemperatureUpdateDelta"], NumberStyles.Any, CultureInfo.CurrentCulture, out double temperatureUpdateDelta);
             double.TryParse(appSettings["TemperatureInitValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out double temperatureInitValue);
 
@@ -54,7 +54,7 @@
                 UnitOfMeasurement = appSettings["PercentageUnit"],
                 MinValue = Convert.ToInt32(appSettings["BatteryMinValue"]),
                 MaxValue = Convert.ToInt32(appSettings["BatteryMaxValue"]),
-                AlarmMinThreashold = Convert.ToInt32(appSettings["BatteryMinAlarmThreasholdValue"]),
+                AlarmMinThreashold = Convert.ToInt32(appSettings["BatteryMinAlarmThresholdValue"]),
                 UpdateDelta = Convert.ToInt32(appSettings["BatteryUpdateDelta"]),
                 SensorName = appSettings["BatterySensorName"],
                 Symbol = appSettings["PercentageUnitSymbol"],
@@ -67,8 +67,8 @@
                 UnitOfMeasurement = appSettings["BloodPressureUnit"],
                 MinValue = Convert.ToInt32(appSettings["BloodPressureMinValue"]),
                 MaxValue = Convert.ToInt32(appSettings["BloodPressureMaxValue"]),
-                AlarmMinThreashold = Convert.ToInt32(appSettings["BloodPressureMinAlarmThreasholdValue"]),
-                AlarmMaxThreashold = Convert.ToInt32(appSettings["BloodPressureMaxAlarmThreasholdValue"]),
+                AlarmMinThreashold = Convert.ToInt32(appSettings["BloodPressureMinAlarmThresholdValue"]),
+                AlarmMaxThreashold = Convert.ToInt32(appSettings["BloodPressureMaxAlarmThresholdValue"]),
                 UpdateDelta = Convert.ToInt32(appSettings["BloodPressureUpdateDelta"]),
                 SensorName = appSettings["BloodPressureSensorName"],
                 Symbol = appSettings["BloodPressureUnitSymbol"],
@@ -82,8 +82,8 @@
                 UnitOfMeasurement = appSettings["BreathFrequencyUnit"],
                 MinValue = Convert.ToInt32(appSettings["BreathFrequencyMinValue"]),
                 MaxValue = Convert.ToInt32(appSettings["BreathFrequencyMaxValue"]),
-                AlarmMinThreashold = Convert.ToInt32(appSettings["BreathFrequencyMinAlarmThreasholdValue"]),
-                AlarmMaxThreashold = Convert.ToInt32(appSettings["BreathFrequencyMaxAlarmThreasholdValue"]),
+                AlarmMinThreashold = Convert.ToInt32(appSettings["BreathFrequencyMinAlarmThresholdValue"]),
+                AlarmMaxThreashold = Convert.ToInt32(appSettings["BreathFrequencyMaxAlarmThresholdValue"]),
                 UpdateDelta = Convert.ToInt32(appSettings["BreathFrequencyUpdateDelta"]),
                 SensorName = appSettings["BreathFrequencySensorName"],
                 Symbol = appSettings["BreathFrequencyUnitSymbol"],
@@ -97,8 +97,8 @@
                 UnitOfMeasurement = appSettings["HeartFrequencyUnit"],
                 MinValue = Convert.ToInt32(appSettings["HeartFrequencyMinValue"]),
                 MaxValue = Convert.ToInt32(appSettings["HeartFrequencyMaxValue"]),
-                AlarmMinThreashold = Convert.ToInt32(appSettings["HeartFrequencyMinAlarmThreasholdValue"]),
-                AlarmMaxThreashold = Convert.ToInt32(appSettings["HeartFrequencyMaxAlarmThreasholdValue"]),
+                AlarmMinThreashold = Convert.ToInt32(appSettings["HeartFrequencyMinAlarmThresholdValue"]),
+                AlarmMaxThreashold = Convert.ToInt32(appSettings["HeartFrequencyMaxAlarmThresholdValue"]),
                 UpdateDelta = Convert.ToInt32(appSettings["HeartFrequencyUpdateDelta"]),
                 SensorName = appSettings["HeartFrequencySensorName"],
                 Symbol = appSettings["HeartFrequencyUnitSymbol"],
@@ -112,7 +112,7 @@
                 UnitOfMeasurement = appSettings["PercentageUnit"],
                 MinValue = Convert.ToInt32(appSettings["SaturationMinValue"]),
                 MaxValue = Convert.ToInt32(appSettings["SaturationMaxValue"]),
-                AlarmMinThreashold = Convert.ToInt32(appSettings["SaturationMinAlarmThreasholdValue"]),
+                AlarmMinThreashold = Convert.ToInt32(appSettings["SaturationMinAlarmThresholdValue"]),
                 UpdateDelta = Convert.ToInt32(appSettings["SaturationUpdateDelta"]),
                 SensorName = appSettings["SaturationSensorName"],
                 Symbol = appSettings["PercentageUnitSymbol"],
