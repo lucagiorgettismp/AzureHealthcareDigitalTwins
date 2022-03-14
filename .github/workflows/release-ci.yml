@@ -146,42 +146,41 @@ jobs:
           name: Documentation
           path: doc/main.pdf
 
-jobs-failure:
-      needs: [compile-report, build-client, build-simulator, release]
-      if: failure()
-      runs-on: [ubuntu-latest]
+  jobs-failure:
+    needs: [compile-report, build-client, build-simulator, release]
+    if: failure()
+    runs-on: [ubuntu-latest]
 
-      steps:
-      - name: Send telegram failure message to Luca
-        uses: appleboy/telegram-action@master
+    steps:
+    - name: Send telegram failure message to Luca
+      uses: appleboy/telegram-action@master
 
-        with:
-          to: ${{ secrets.TELEGRAM_TO_LUCA }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: |
-                ${{ github.event_name }} event,
-                on github.com/${{ github.repository }},
-                by ${{ github.actor }}:
-                <b>${{ github.event.head_commit.message }}</b>
-                ❌ <b>FAILED</b> ❌
-          format: html
-          disable_web_page_preview: true
+      with:
+        to: ${{ secrets.TELEGRAM_TO_LUCA }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+              ${{ github.event_name }} event,
+              on github.com/${{ github.repository }},
+              by ${{ github.actor }}:
+              <b>${{ github.event.head_commit.message }}</b>
+              ❌ <b>FAILED</b> ❌
+        format: html
+        disable_web_page_preview: true
 
-      - name: Send telegram failure message to Lorenzo
-        uses: appleboy/telegram-action@master
+    - name: Send telegram failure message to Lorenzo
+      uses: appleboy/telegram-action@master
 
-        with:
-          to: ${{ secrets.TELEGRAM_TO_LORENZO }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: |
-                ${{ github.event_name }} event,
-                on github.com/${{ github.repository }},
-                by ${{ github.actor }}:
-                <b>${{ github.event.head_commit.message }}</b>
-                ❌ <b>FAILED</b> ❌
-          format: html
-          disable_web_page_preview: true
-
+      with:
+        to: ${{ secrets.TELEGRAM_TO_LORENZO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+              ${{ github.event_name }} event,
+              on github.com/${{ github.repository }},
+              by ${{ github.actor }}:
+              <b>${{ github.event.head_commit.message }}</b>
+              ❌ <b>FAILED</b> ❌
+        format: html
+        disable_web_page_preview: true
 
   jobs-success:
     needs: [compile-report, build-client, build-simulator, release]
