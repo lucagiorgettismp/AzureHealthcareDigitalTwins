@@ -12,6 +12,7 @@ on:
 
 env:
   TEST_SOLUTION_PATH: './VitalSignsMonitorSimulator/SimulatorTests/SimulatorTests.csproj'
+  PACKAGES_PATH: '.\VitalSignsMonitorSimulator\packages\'  
   DOTNET_VERSION: '3.1'
 
 jobs:
@@ -31,6 +32,9 @@ jobs:
 
       - name: Install dependencies
         run: dotnet restore ${{ env.TEST_SOLUTION_PATH }}
+
+      - name: Restore NuGet packages
+        run: nuget restore ${{ env.TEST_SOLUTION_PATH }} -PackagesDirectory ${{ env.PACKAGES_PATH }}
 
       - name: Build
         run: msbuild ${{ env.TEST_SOLUTION_PATH }} /p:Configuration=Release
