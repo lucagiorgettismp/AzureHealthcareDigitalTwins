@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 env:
-  TEST_SOLUTION_PATH: '.\VitalSignsMonitorSimulator\SimulatorTests\SimulatorTests.csproj'
+  TEST_SOLUTION_PATH: './VitalSignsMonitorSimulator/SimulatorTests/SimulatorTests.csproj'
   DOTNET_VERSION: '3.1'
 
 jobs:
