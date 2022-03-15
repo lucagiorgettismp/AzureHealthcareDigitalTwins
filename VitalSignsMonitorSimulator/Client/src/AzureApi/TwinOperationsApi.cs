@@ -4,6 +4,7 @@
     using Azure.DigitalTwins.Core;
     using AzureApi.Models;
     using Client.src.AzureApi.DTLDModels;
+    using Common.AzureApi;
     using Common.Utils;
     using Microsoft.Azure.Devices;
     using System;

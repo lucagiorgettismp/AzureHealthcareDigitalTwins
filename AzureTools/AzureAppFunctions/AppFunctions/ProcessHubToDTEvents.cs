@@ -48,6 +48,7 @@ namespace AppFunctions
                     case UpdateMode.Telemetry:
                         var telemetry = JObject.Parse(eventGridData)["body"]["data"].ToObject<TelemetryPayloadData>();
                         updateTwinData = BuildUpdatePatchJson(telemetry);
+                        updateTwinData.AppendReplace($"/device_id", deviceId);
 
                         break;
                     case UpdateMode.Configuration:
@@ -57,18 +58,14 @@ namespace AppFunctions
                         updateTwinData.AppendReplaceRaw("/configuration", JsonConvert.SerializeObject(configuration));
 
                         break;
-                    case UpdateMode.DeviceId:
-                        updateTwinData = new JsonPatchDocument();
-                        updateTwinData.AppendReplace($"/device_id", deviceId);
 
-                        break;
                     default:
                         throw new CrudOperationNotAvailableException();
                 }
 
                 try
                 {
-                    log.LogInformation($"*** {mode} ***\n{updateTwinData}");
+                    log.LogInformation($"*** {mode} ***\n\n{updateTwinData}");
                     await client.UpdateDigitalTwinAsync(deviceId, updateTwinData);
                 }
                 catch (Exception e)

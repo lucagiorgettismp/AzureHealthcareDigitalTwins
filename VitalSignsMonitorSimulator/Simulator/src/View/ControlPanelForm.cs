@@ -12,6 +12,8 @@
     using System.Windows.Forms;
     using Common;
     using Common.View;
+    using Azure.DigitalTwins.Core;
+    using Common.AzureApi;
 
     public partial class ControlPanelForm : Form
     {
