@@ -17,8 +17,6 @@ public class VitalSignsMonitorController : BaseApplicationPanel
     private void Start()
     {
         this.digitalTwinClient = TwinOperationApi.GetClient();
-
-        this.InitSelectedViewAsync();
     }
     
     public VitalSignsMonitorController()
@@ -32,6 +30,7 @@ public class VitalSignsMonitorController : BaseApplicationPanel
         if (!this.receivedFirstMessage)
         {
             receivedFirstMessage = true;
+            await this.InitSelectedViewAsync();
             await App.PatientView.Initialize();
         }
 
@@ -101,7 +100,7 @@ public class VitalSignsMonitorController : BaseApplicationPanel
         App.ButtonMenuView.UpdateSelectedPanel(selectedPanel);
     }
 
-    public async Task<PanelType> GetSelectedView()
+    private async Task<PanelType> GetSelectedView()
     {
         return await TwinOperationApi.GetSelectedView(digitalTwinClient, deviceId);
     }
