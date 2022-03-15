@@ -32,10 +32,9 @@
                 try
                 {
                     rm = RegistryManager.CreateFromConnectionString(config.connectionIoTHub);
-                    host = config.hostIotHub;
                 }
                 catch (Exception e)
-                {
+                {   
                     Debug.LogError(e);
                 }
             }
@@ -46,6 +45,7 @@
                 Device device = await rm.GetDeviceAsync(deviceId);
 
                 // Get string connection
+                host = config.hostIotHub;
                 connection = $"HostName={host};DeviceId={device.Id};SharedAccessKey={device.Authentication.SymmetricKey.PrimaryKey}";
             }
             catch (RequestFailedException e)
