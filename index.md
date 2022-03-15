@@ -1,16 +1,18 @@
 # Pervasive Computing
 # Laboratorio di Sistemi Software
 
-<center> ## Relazione di Progetto </center>
+<p align="center"> <h1> Relazione di Progetto </h1> </p>
 
-<center> ### Lorenzo Pagnini </center>
-<center> ### Luca Giorgetti  </center>
+<p align="center"> Lorenzo Pagnini </p>
+<p align="center"> Luca Giorgetti </p>
+
 
 <p align="center">
     ![Logo](Images/logo.png)
 </p>
 
 ## Indice
+[1-Introduzione](https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/edit/gh-pages/Pages/1-Introdution)
 <center>  [1-Introduzione](https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/edit/gh-pages/Pages/1-Introdution) </center>
 
 ### Markdown
