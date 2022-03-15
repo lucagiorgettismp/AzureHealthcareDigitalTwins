@@ -1,21 +1,17 @@
-# Pervasive Computing Laboratorio di Sistemi Software
+# Pervasive Computing
+# Laboratorio di Sistemi Software
 
-## Relazione di Progetto
+<center> ## Relazione di Progetto </center>
 
-### Lorenzo Pagnini - Luca Giorgetti
+<center> ### Lorenzo Pagnini </center>
+<center> ### Luca Giorgetti  </center>
 
-![Logo](Images/logo.png)
-
-## Indice
 <p align="center">
-    
-    [1-Introduzione](https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/edit/gh-pages/Pages/1-Introdution) 
+    ![Logo](Images/logo.png)
 </p>
 
-
-You can use the [editor on GitHub](https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Indice
+<center>  [1-Introduzione](https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/edit/gh-pages/Pages/1-Introdution) </center>
 
 ### Markdown
 
@@ -45,6 +41,3 @@ For more details see [Basic writing and formatting syntax](https://docs.github.c
 
 Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
 
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
