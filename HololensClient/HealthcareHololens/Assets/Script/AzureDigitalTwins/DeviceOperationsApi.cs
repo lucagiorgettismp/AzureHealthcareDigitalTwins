@@ -16,15 +16,28 @@
     {
         public static async Task<string> GetConnectionString(string deviceId)
         {
+            Debug.Log($"GetConnectionString: deviceID = {deviceId}");
+
             string connection = null;
             string host = null;
             RegistryManager rm = null;
 
             ConnectionConfig config = AuthenticationApi.GetRegistryManager();
+
             if (config != null)
             {
-                rm = RegistryManager.CreateFromConnectionString(config.connectionIoTHub);
-                host = config.hostIotHub;
+                Debug.Log($"ConnectionIotHub: {config.connectionIoTHub}");
+                Debug.Log($"HostIotHub: {config.hostIotHub}");
+
+                try
+                {
+                    rm = RegistryManager.CreateFromConnectionString(config.connectionIoTHub);
+                    host = config.hostIotHub;
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError(e);
+                }
             }
 
             try
@@ -35,10 +48,12 @@
                 // Get string connection
                 connection = $"HostName={host};DeviceId={device.Id};SharedAccessKey={device.Authentication.SymmetricKey.PrimaryKey}";
             }
-            catch (RequestFailedException)
+            catch (RequestFailedException e)
             {
+                Debug.LogError(e);
             }
-            Console.WriteLine();
+
+            Debug.Log($"Connection string: {connection}");
 
             return connection;
         }

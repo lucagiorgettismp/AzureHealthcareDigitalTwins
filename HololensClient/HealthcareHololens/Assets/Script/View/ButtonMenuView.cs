@@ -49,7 +49,7 @@ public class ButtonMenuView : BaseApplicationPanel
 
         if (notifyServer)
         {
-            await App.Controller.PersistSelectedPanel(selectedPanel);
+               await App.Controller.PersistSelectedPanel(selectedPanel);
         }
     }
 
@@ -57,7 +57,7 @@ public class ButtonMenuView : BaseApplicationPanel
     {
         Debug.Log("Home button has been pressed!");
 
-        _ = this.SelectPanelAsync(PanelType.Home, true);
+        _ = this.SelectPanelAsync(PanelType.Home);
     }
 
     public void OnClickHeartFrequencyButton()
