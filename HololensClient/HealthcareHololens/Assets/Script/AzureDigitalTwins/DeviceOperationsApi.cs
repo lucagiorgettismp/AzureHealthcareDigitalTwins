@@ -1,19 +1,17 @@
-﻿using Azure;
-using Microsoft.Azure.Devices;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using UnityEngine;
-using Azure.DigitalTwins.Core;
-using Microsoft.Extensions.Configuration;
-using Azure.Identity;
-using static AzureDigitalTwins.AuthenticationApi;
-using Models;
-using Newtonsoft.Json;
-using System.Text.Json;
-
-namespace AzureDigitalTwins
+﻿namespace AzureDigitalTwins
 {
+    using Azure;
+    using Microsoft.Azure.Devices;
+    using System;
+    using System.Threading.Tasks;
+    using UnityEngine;
+    using Azure.DigitalTwins.Core;
+    using Azure.Identity;
+    using static AzureDigitalTwins.AuthenticationApi;
+    using Newtonsoft.Json;
+    using System.Text.Json;
+    using Model;
+
     class DeviceOperationsApi
     {
         public static async Task<string> GetConnectionString(string deviceId)
