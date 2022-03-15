@@ -1,5 +1,5 @@
 ---
-permalink: /conclcusion.html
+permalink: /conclusion.html
 ---
 
 # Conclusione
