@@ -1,0 +1,38 @@
+\chapter{Design di Dettaglio}
+ \label{chap:detailed-design}
+In questo capitolo verrà illustrata l'organizzazione del codice per i componenti dell'architettura, i pattern utilizzati e le principali scelte implementative.
+
+\section{Organizzazione del Codice}
+
+Il progetto è consultabile al seguente \href{https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins}{\textit{repository}} di GitHub. Il repository è organizzato nelle seguenti directory:
+
+\begin{itemize}
+
+    \item \textbf{VitalSignsMonitorSimulator}: contiene la soluzione C\# del simulatore;
+    
+    \item \textbf{DTDLModels}: contiene i modelli \texttt{.json} per la definizione dei digital twins;
+    
+    \item \textbf{AzureTools}: contiene la soluzione C\# di tutte le azure function implementate;
+
+    \item \textbf{HololensClient}: contiene il progetto Unity per la parte di mixed reality;
+        
+    \item \textbf{doc}: contiene la documentazione in formato \texttt{.latex} e \texttt{.pdf}.
+\end{itemize}
+
+\subsection{Simulatore}
+Il simulatore è un progetto .NET scritto in C\# che contiene tre moduli:
+\begin{itemize}
+    \item \textbf{Client}:
+    \item \textbf{Simulator}:
+    \item \textbf{Common}: 
+\end{itemize}
+
+\subsection{Azure Digital Twins}
+
+\subsubsection{Modelli}
+
+\subsubsection{Azure function}
+
+\subsection{Mixed Reality - Hololens}
+
+\section{Pattern utilizzati}
