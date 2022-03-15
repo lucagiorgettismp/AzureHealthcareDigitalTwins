@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Azure.Identity;
 using static AzureDigitalTwins.AuthenticationApi;
 using Models;
+using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace AzureDigitalTwins
 {
@@ -105,13 +107,15 @@ namespace AzureDigitalTwins
         {
             Response<BasicDigitalTwin> twinResponse = await client.GetDigitalTwinAsync<BasicDigitalTwin>(deviceId);
 
-            Debug.Log("Get patient twin information .....");
+            Debug.Log("Getting selected panel ...");
             BasicDigitalTwin twin = twinResponse.Value;
 
             twin.Contents.TryGetValue("configuration", out object configuration);
 
-            var config = configuration as ConfigurationPayloadData;
-            return (PanelType)config.LastSelectedView;
+            var configurationJson = configuration.ToString();
+            var conf = JsonConvert.DeserializeObject<ConfigurationPayloadData>(configurationJson);
+
+            return (PanelType)conf.LastSelectedView;
         }
 
         private async static Task<Patient> GetPatientTwin(DigitalTwinsClient client, string twinId)
@@ -129,6 +133,10 @@ namespace AzureDigitalTwins
             twin.Contents.TryGetValue("weight", out object weight);
             twin.Contents.TryGetValue("description", out object description);
             twin.Contents.TryGetValue("fiscal_code", out object fiscalCode);
+            twin.Contents.TryGetValue("bmi", out object bmiValue);
+
+            var bmiJson = bmiValue.ToString();
+            var bmi = JsonConvert.DeserializeObject<BmiPayloadData>(bmiJson);
 
             Debug.Log("Creating patient model....");
             Patient patient = new Patient
@@ -140,11 +148,22 @@ namespace AzureDigitalTwins
                 Height = Convert.ToDouble($"{height}"),
                 Weight = Convert.ToDouble($"{weight}"),
                 Description = $"{description}",
-                FiscalCode = $"{fiscalCode}"
+                FiscalCode = $"{fiscalCode}",
+                BodyMassIndex = $"{Math.Round(bmi.Value, 2)} {bmi.Unit}"           
             };
 
             Debug.Log($"Reading patient finished.");
             return patient;
+        }
+
+        [Serializable]
+        private class BmiPayloadData
+        {
+            [JsonProperty("value")]
+            public double Value { get; set; }
+
+            [JsonProperty("unit")]
+            public string Unit { get; set; }
         }
     }
 }

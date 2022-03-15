@@ -8,6 +8,6 @@ namespace Model
         public UpdateMode Mode { get; set; }
 
         [JsonProperty("data")]
-        public IEventGridMessagePayloadData Data { get; set; }
+        public ConfigurationPayloadData Data { get; set; }
     }
 }

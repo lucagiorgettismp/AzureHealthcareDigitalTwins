@@ -26,6 +26,7 @@ public class VitalSignsMonitorController : BaseApplicationPanel
     }
 
     public async void OnDataReceived(Message message) {
+        this.deviceId = message.device_id;
 
         if (!this.receivedFirstMessage)
         {
@@ -48,8 +49,6 @@ public class VitalSignsMonitorController : BaseApplicationPanel
             App.ButtonMenuView.UpdateSelectedPanel(selectedPanel);
             lastSelectedPanelType = selectedPanel;
         }
-
-        this.deviceId = message.device_id;
     }
     public async Task PersistSelectedPanel(PanelType selectedPanel)
     {
@@ -61,7 +60,7 @@ public class VitalSignsMonitorController : BaseApplicationPanel
             var data = new EventGridMessagePayloadBody
             {
                 Mode = UpdateMode.Configuration,
-                Data = new Configuration
+                Data = new ConfigurationPayloadData
                 {
                     LastSelectedView = (int)selectedPanel
                 }
@@ -82,13 +81,6 @@ public class VitalSignsMonitorController : BaseApplicationPanel
         return message;
     }
 
-    [Serializable]
-    private class Configuration: IEventGridMessagePayloadData
-    {
-        [JsonProperty("last_selected_view")]
-        public int LastSelectedView { get; set; }
-    }
-
     public async Task<Patient> GetPatientAsync()
     {
         return await TwinOperationApi.GetPatient(digitalTwinClient, deviceId);
@@ -96,13 +88,9 @@ public class VitalSignsMonitorController : BaseApplicationPanel
 
     private async Task InitSelectedViewAsync()
     {
-        var selectedPanel = await GetSelectedView();
-        App.ButtonMenuView.UpdateSelectedPanel(selectedPanel);
-    }
+        var selectedPanel = await TwinOperationApi.GetSelectedView(digitalTwinClient, deviceId);
 
-    private async Task<PanelType> GetSelectedView()
-    {
-        return await TwinOperationApi.GetSelectedView(digitalTwinClient, deviceId);
+        App.ButtonMenuView.UpdateSelectedPanel(selectedPanel);
     }
 }
     
