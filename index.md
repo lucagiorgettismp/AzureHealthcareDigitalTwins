@@ -1,19 +1,23 @@
 # Pervasive Computing
 # Laboratorio di Sistemi Software
 
-<p align="center"> <h1> Relazione di Progetto </h1> </p>
-
-<p align="center"> Lorenzo Pagnini </p>
-<p align="center"> Luca Giorgetti </p>
-
+<p align="center"> <h2> Relazione di Progetto </h2> </p>
+<p align="center"> <h3> Lorenzo Pagnini </h3> </p>
+<p align="center"> <h3> Luca Giorgetti </h3> </p>
 
 <p align="center">
-    ![Logo](Images/logo.png)
+    <img width="200" src="Images/logo.png">
 </p>
 
 ## Indice
-[1-Introduzione](https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/edit/gh-pages/Pages/1-Introdution)
-<center>  [1-Introduzione](https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/edit/gh-pages/Pages/1-Introdution) </center>
+[1-Introduzione](https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/edit/gh-pages/Page/1-Introduction)
+[1-Introduzione](https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/edit/gh-pages/1-Introduction)
+
+[1-Introduzione](https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/edit/gh-pages/1-Introduction.md)
+[1-Introduzione](https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/edit/gh-pages/Page/1-Introduction.md)
+
+
+<p align="center"> <a href="https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/edit/gh-pages/Pages/1-Introdution">1-Introduzione</a> </p>
 
 ### Markdown
 
