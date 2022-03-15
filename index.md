@@ -10,11 +10,9 @@
 </p>
 
 ## Indice
-[1-Introduzione](https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/edit/gh-pages/Page/1-Introduction)
-[1-Introduzione](https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/edit/gh-pages/1-Introduction)
 
-[1-Introduzione](https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/edit/gh-pages/1-Introduction.md)
-[1-Introduzione](https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/edit/gh-pages/Page/1-Introduction.md)
+[1-Introduzione](https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/gh-pages/1-Introduction.md)
+[1-Introduzione](https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/gh-pages/Pages/1-Introduction.md)
 
 
 <p align="center"> <a href="https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/edit/gh-pages/Pages/1-Introdution">1-Introduzione</a> </p>
