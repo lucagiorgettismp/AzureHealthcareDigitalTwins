@@ -11,13 +11,13 @@
 
 ## Indice
 
-<p align="center"> <a href="https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/introduction.html">1- Introduzione</a> </p>
-<p align="center"> <a href="https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/domain_analysis.html">2- Analisi del Dominio</a> </p>
-<p align="center"> <a href="https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/development_process.html">3- Processo di Sviluppo</a> </p>
-<p align="center"> <a href="https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/architectural_design.html">4- Design Architetturale</a> </p>
-<p align="center"> <a href="https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/detailed_design.html">5- Design di Dettaglio</a> </p>
-<p align="center"> <a href="https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/test_performance.html">6- Test e Performance</a> </p>
-<p align="center"> <a href="https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/conclusion.html">7- Conclusioni</a> </p>
+<p align="center"> <a href="https://lucagiorgettismp.github.io/lucagiorgettismp/AzureHealthcareDigitalTwins/introduction.html">1- Introduzione</a> </p>
+<p align="center"> <a href="https://lucagiorgettismp.github.io/lucagiorgettismp/AzureHealthcareDigitalTwins/domain_analysis.html">2- Analisi del Dominio</a> </p>
+<p align="center"> <a href="https://lucagiorgettismp.github.io/lucagiorgettismp/AzureHealthcareDigitalTwins/development_process.html">3- Processo di Sviluppo</a> </p>
+<p align="center"> <a href="https://lucagiorgettismp.github.io/lucagiorgettismp/AzureHealthcareDigitalTwins/architectural_design.html">4- Design Architetturale</a> </p>
+<p align="center"> <a href="https://lucagiorgettismp.github.io/lucagiorgettismp/AzureHealthcareDigitalTwins/detailed_design.html">5- Design di Dettaglio</a> </p>
+<p align="center"> <a href="https://lucagiorgettismp.github.io/lucagiorgettismp/AzureHealthcareDigitalTwins/test_performance.html">6- Test e Performance</a> </p>
+<p align="center"> <a href="https://lucagiorgettismp.github.io/lucagiorgettismp/AzureHealthcareDigitalTwins/conclusion.html">7- Conclusioni</a> </p>
 
 ### Markdown
 
