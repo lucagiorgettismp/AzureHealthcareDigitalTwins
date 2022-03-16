@@ -1,4 +1,4 @@
-﻿namespace Client.AzureApi
+﻿namespace Common.AzureApi
 {
     using System;
     using Azure.DigitalTwins.Core;
@@ -7,10 +7,10 @@
     using Microsoft.Azure.Devices;
     using Microsoft.Extensions.Configuration;
 
-    class AuthenticationApi
+    public class AuthenticationApi
     {
-
-        const string HOST = "host";
+        const string HOST_IOTHUB = "hostIotHub";
+        const string HOST_CLIENT = "hostClient";
         const string IOTHUB = "connectionIoTHub";
 
         public static DigitalTwinsClient GetClient()
@@ -22,7 +22,7 @@
 
             if (config != null)
             {
-                adtInstanceUrl = new Uri(config[HOST]);
+                adtInstanceUrl = new Uri(config[HOST_CLIENT]);
                 Log.Ok("Twin client authenticating...");
                 var credential = new DefaultAzureCredential();
                 twinClient = new DigitalTwinsClient(adtInstanceUrl, credential);
@@ -31,6 +31,18 @@
                 Console.WriteLine();
             }
             return twinClient;
+        }
+
+        public static string GetHost()
+        {
+            string host = null;
+            IConfiguration config = Setting.ReadConfig();
+
+            if (config != null)
+            {
+                host = config[HOST_IOTHUB];
+            }
+            return host;
         }
 
         public static RegistryManager GetRegistryManager()

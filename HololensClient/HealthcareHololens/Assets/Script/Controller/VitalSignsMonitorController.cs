@@ -1,3 +1,4 @@
+using Azure.DigitalTwins.Core;
 using AzureDigitalTwins;
 using Microsoft.Azure.Devices.Client;
 using Model;
@@ -10,14 +11,29 @@ public class VitalSignsMonitorController : BaseApplicationPanel
 {
     private string deviceId;
     private PanelType lastSelectedPanelType;
+    private bool receivedFirstMessage = false;
+    private DigitalTwinsClient digitalTwinClient;
 
+    private void Start()
+    {
+        this.digitalTwinClient = TwinOperationApi.GetClient();
+    }
+    
     public VitalSignsMonitorController()
     {
         this.deviceId = "";
         this.lastSelectedPanelType = PanelType.Home;
     }
 
-    public void OnDataReceived(Message message) {
+    public async void OnDataReceived(Message message) {
+
+        if (!this.receivedFirstMessage)
+        {
+            receivedFirstMessage = true;
+            await this.InitSelectedViewAsync();
+            await App.PatientView.Initialize();
+        }
+
         App.VitalSignsMonitorView.UpdateView(message);
         App.HeartFrequencyView.UpdateView(message);
         App.BreathFrequencyView.UpdateView(message);
@@ -71,6 +87,22 @@ public class VitalSignsMonitorController : BaseApplicationPanel
     {
         [JsonProperty("last_selected_view")]
         public int LastSelectedView { get; set; }
+    }
+
+    public async Task<Patient> GetPatientAsync()
+    {
+        return await TwinOperationApi.GetPatient(digitalTwinClient, deviceId);
+    }
+
+    private async Task InitSelectedViewAsync()
+    {
+        var selectedPanel = await GetSelectedView();
+        App.ButtonMenuView.UpdateSelectedPanel(selectedPanel);
+    }
+
+    private async Task<PanelType> GetSelectedView()
+    {
+        return await TwinOperationApi.GetSelectedView(digitalTwinClient, deviceId);
     }
 }
     

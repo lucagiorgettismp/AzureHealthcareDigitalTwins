@@ -1,5 +1,7 @@
 namespace Simulator.Controller
 {
+    using Azure.DigitalTwins.Core;
+    using Common.AzureApi;
     using Common.Enums;
     using Common.Utils;
     using Microsoft.Azure.Devices.Client;
@@ -19,6 +21,7 @@ namespace Simulator.Controller
 
         public Device(string connection)
         {
+            ;
             this.deviceClient = DeviceClient.CreateFromConnectionString(connection);
             this.dataGenerator = new DeviceDataGenerator();
         }
