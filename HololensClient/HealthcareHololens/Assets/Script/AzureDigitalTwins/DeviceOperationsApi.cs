@@ -1,7 +1,6 @@
 ﻿namespace AzureDigitalTwins
 {
     using Azure;
-    using Microsoft.Azure.Devices;
     using System;
     using System.Threading.Tasks;
     using UnityEngine;
@@ -11,53 +10,6 @@
     using Newtonsoft.Json;
     using System.Text.Json;
     using Model;
-
-    class DeviceOperationsApi
-    {
-        public static async Task<string> GetConnectionString(string deviceId)
-        {
-            Debug.Log($"GetConnectionString: deviceID = {deviceId}");
-
-            string connection = null;
-            string host = null;
-            RegistryManager rm = null;
-
-            ConnectionConfig config = AuthenticationApi.GetRegistryManager();
-
-            if (config != null)
-            {
-                Debug.Log($"ConnectionIotHub: {config.connectionIoTHub}");
-                Debug.Log($"HostIotHub: {config.hostIotHub}");
-
-                try
-                {
-                    rm = RegistryManager.CreateFromConnectionString(config.connectionIoTHub);
-                }
-                catch (Exception e)
-                {   
-                    Debug.LogError(e);
-                }
-            }
-
-            try
-            {
-                // Get device
-                Device device = await rm.GetDeviceAsync(deviceId);
-
-                // Get string connection
-                host = config.hostIotHub;
-                connection = $"HostName={host};DeviceId={device.Id};SharedAccessKey={device.Authentication.SymmetricKey.PrimaryKey}";
-            }
-            catch (RequestFailedException e)
-            {
-                Debug.LogError(e);
-            }
-
-            Debug.Log($"Connection string: {connection}");
-
-            return connection;
-        }
-    }
 
     class TwinOperationApi
     {
@@ -114,6 +66,24 @@
             }
 
             return namePatientTwin;
+        }
+
+        internal static async Task SetSelectedView(DigitalTwinsClient client, string deviceId, PanelType selectedPanel)
+        {
+            try
+            {
+                JsonPatchDocument updateTwinData = new JsonPatchDocument();
+                updateTwinData.AppendReplaceRaw("/configuration", JsonConvert.SerializeObject(new ConfigurationPayloadData
+                {
+                    LastSelectedView = (int)selectedPanel
+                }));
+
+                await client.UpdateDigitalTwinAsync(deviceId, updateTwinData);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("SetSelected error:" + e.Message);
+            }
         }
 
         internal static async Task<PanelType> GetSelectedView(DigitalTwinsClient client, string deviceId)

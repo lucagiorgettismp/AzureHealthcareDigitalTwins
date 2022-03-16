@@ -49,7 +49,7 @@ public class ButtonMenuView : BaseApplicationPanel
 
         if (notifyServer)
         {
-               await App.Controller.PersistSelectedPanel(selectedPanel);
+            await App.Controller.PersistSelectedPanel(selectedPanel);
         }
     }
 

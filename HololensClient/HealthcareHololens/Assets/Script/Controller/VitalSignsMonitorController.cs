@@ -1,9 +1,5 @@
 using Azure.DigitalTwins.Core;
 using AzureDigitalTwins;
-using Microsoft.Azure.Devices.Client;
-using Model;
-using Newtonsoft.Json;
-using System;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,7 +17,7 @@ public class VitalSignsMonitorController : BaseApplicationPanel
     
     public VitalSignsMonitorController()
     {
-        this.deviceId = "";
+        this.deviceId = "PGNLNZ97M18G479M";
         this.lastSelectedPanelType = PanelType.Home;
     }
 
@@ -54,19 +50,7 @@ public class VitalSignsMonitorController : BaseApplicationPanel
     {
         if (deviceId != null && deviceId != "")
         {
-            var connection = await DeviceOperationsApi.GetConnectionString(deviceId);
-            var deviceClient = DeviceClient.CreateFromConnectionString(connection);
-
-            var data = new EventGridMessagePayloadBody
-            {
-                Mode = UpdateMode.Configuration,
-                Data = new ConfigurationPayloadData
-                {
-                    LastSelectedView = (int)selectedPanel
-                }
-            };
-
-            await deviceClient.SendEventAsync(CreateMessage(JsonConvert.SerializeObject(data)));
+            await TwinOperationApi.SetSelectedView(digitalTwinClient, deviceId, selectedPanel);
         }
     }     
 
@@ -89,7 +73,6 @@ public class VitalSignsMonitorController : BaseApplicationPanel
     private async Task InitSelectedViewAsync()
     {
         var selectedPanel = await TwinOperationApi.GetSelectedView(digitalTwinClient, deviceId);
-
         App.ButtonMenuView.UpdateSelectedPanel(selectedPanel);
     }
 }
