@@ -9,8 +9,6 @@ namespace AppFunctions
     using System.Threading.Tasks;
     using Azure.Messaging.EventHubs;
 
-    // This class processes telemetry events from IoT Hub, reads temperature of a device
-    // and sets the "Temperature" property of the device with the value of the telemetry.
     public class ProcessDTUpdatetoTSI
     {
 
@@ -29,9 +27,6 @@ namespace AppFunctions
             {
                 if (operation["op"].ToString() == "replace" || operation["op"].ToString() == "add")
                 {
-                    //Convert from JSON patch path to a flattened property for TSI
-                    //Example input: /Front/Temperature
-                    //        output: Front.Temperature
                     string path = operation["path"].ToString().Substring(1);
                     path = path.Replace("/", ".");
                     tsiUpdate.Add(path, operation["value"]);
