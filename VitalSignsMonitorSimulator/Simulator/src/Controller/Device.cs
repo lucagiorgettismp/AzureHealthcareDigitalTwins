@@ -21,7 +21,6 @@ namespace Simulator.Controller
 
         public Device(string connection)
         {
-            ;
             this.deviceClient = DeviceClient.CreateFromConnectionString(connection);
             this.dataGenerator = new DeviceDataGenerator();
         }

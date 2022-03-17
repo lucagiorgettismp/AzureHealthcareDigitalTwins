@@ -45,7 +45,7 @@ public class PatientView : BaseApplicationPanel
                 PatientHeight.text = "Height: " + patient.Height.ToString() + " m";
                 PatientWeight.text = "Weight: " + patient.Weight.ToString() + " Kg";
                 PatientDescription.text = "Description: " + patient.Description;
-                PatientBodyMassIndex.text = "Body Mass Index: " + patient.BodyMassIndex.ToString() + " Kg/m2";
+                PatientBodyMassIndex.text = "Body Mass Index: " + patient.BodyMassIndex.ToString();
                 PatientFiscalCode.text = "Fiscal Code: " + patient.FiscalCode;
             }
         }

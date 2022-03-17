@@ -1,5 +1,5 @@
 using Newtonsoft.Json; 
-namespace Models
+namespace Model
 {
 
     public class ConfigurationPayloadData

@@ -57,7 +57,7 @@ public class ButtonMenuView : BaseApplicationPanel
     {
         Debug.Log("Home button has been pressed!");
 
-        _ = this.SelectPanelAsync(PanelType.Home, true);
+        _ = this.SelectPanelAsync(PanelType.Home);
     }
 
     public void OnClickHeartFrequencyButton()
