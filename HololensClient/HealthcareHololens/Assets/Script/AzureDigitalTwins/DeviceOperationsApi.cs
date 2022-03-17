@@ -1,48 +1,15 @@
-﻿using Azure;
-using Microsoft.Azure.Devices;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using UnityEngine;
-using Azure.DigitalTwins.Core;
-using Microsoft.Extensions.Configuration;
-using Azure.Identity;
-using static AzureDigitalTwins.AuthenticationApi;
-using Models;
-
-namespace AzureDigitalTwins
+﻿namespace AzureDigitalTwins
 {
-    class DeviceOperationsApi
-    {
-        public static async Task<string> GetConnectionString(string deviceId)
-        {
-            string connection = null;
-            string host = null;
-            RegistryManager rm = null;
-
-            ConnectionConfig config = AuthenticationApi.GetRegistryManager();
-            if (config != null)
-            {
-                rm = RegistryManager.CreateFromConnectionString(config.connectionIoTHub);
-                host = config.hostIotHub;
-            }
-
-            try
-            {
-                // Get device
-                Device device = await rm.GetDeviceAsync(deviceId);
-
-                // Get string connection
-                connection = $"HostName={host};DeviceId={device.Id};SharedAccessKey={device.Authentication.SymmetricKey.PrimaryKey}";
-            }
-            catch (RequestFailedException)
-            {
-            }
-            Console.WriteLine();
-
-            return connection;
-        }
-    }
+    using Azure;
+    using System;
+    using System.Threading.Tasks;
+    using UnityEngine;
+    using Azure.DigitalTwins.Core;
+    using Azure.Identity;
+    using static AzureDigitalTwins.AuthenticationApi;
+    using Newtonsoft.Json;
+    using System.Text.Json;
+    using Model;
 
     class TwinOperationApi
     {
@@ -101,17 +68,37 @@ namespace AzureDigitalTwins
             return namePatientTwin;
         }
 
+        internal static async Task SetSelectedView(DigitalTwinsClient client, string deviceId, PanelType selectedPanel)
+        {
+            try
+            {
+                JsonPatchDocument updateTwinData = new JsonPatchDocument();
+                updateTwinData.AppendReplaceRaw("/configuration", JsonConvert.SerializeObject(new ConfigurationPayloadData
+                {
+                    LastSelectedView = (int)selectedPanel
+                }));
+
+                await client.UpdateDigitalTwinAsync(deviceId, updateTwinData);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("SetSelected error:" + e.Message);
+            }
+        }
+
         internal static async Task<PanelType> GetSelectedView(DigitalTwinsClient client, string deviceId)
         {
             Response<BasicDigitalTwin> twinResponse = await client.GetDigitalTwinAsync<BasicDigitalTwin>(deviceId);
 
-            Debug.Log("Get patient twin information .....");
+            Debug.Log("Getting selected panel ...");
             BasicDigitalTwin twin = twinResponse.Value;
 
             twin.Contents.TryGetValue("configuration", out object configuration);
 
-            var config = configuration as ConfigurationPayloadData;
-            return (PanelType)config.LastSelectedView;
+            var configurationJson = configuration.ToString();
+            var conf = JsonConvert.DeserializeObject<ConfigurationPayloadData>(configurationJson);
+
+            return (PanelType)conf.LastSelectedView;
         }
 
         private async static Task<Patient> GetPatientTwin(DigitalTwinsClient client, string twinId)
@@ -129,6 +116,10 @@ namespace AzureDigitalTwins
             twin.Contents.TryGetValue("weight", out object weight);
             twin.Contents.TryGetValue("description", out object description);
             twin.Contents.TryGetValue("fiscal_code", out object fiscalCode);
+            twin.Contents.TryGetValue("bmi", out object bmiValue);
+
+            var bmiJson = bmiValue.ToString();
+            var bmi = JsonConvert.DeserializeObject<BmiPayloadData>(bmiJson);
 
             Debug.Log("Creating patient model....");
             Patient patient = new Patient
@@ -140,11 +131,22 @@ namespace AzureDigitalTwins
                 Height = Convert.ToDouble($"{height}"),
                 Weight = Convert.ToDouble($"{weight}"),
                 Description = $"{description}",
-                FiscalCode = $"{fiscalCode}"
+                FiscalCode = $"{fiscalCode}",
+                BodyMassIndex = $"{Math.Round(bmi.Value, 2)} {bmi.Unit}"           
             };
 
             Debug.Log($"Reading patient finished.");
             return patient;
+        }
+
+        [Serializable]
+        private class BmiPayloadData
+        {
+            [JsonProperty("value")]
+            public double Value { get; set; }
+
+            [JsonProperty("unit")]
+            public string Unit { get; set; }
         }
     }
 }

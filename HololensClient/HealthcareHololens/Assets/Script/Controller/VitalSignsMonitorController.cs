@@ -1,9 +1,5 @@
 using Azure.DigitalTwins.Core;
 using AzureDigitalTwins;
-using Microsoft.Azure.Devices.Client;
-using Model;
-using Newtonsoft.Json;
-using System;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,11 +17,12 @@ public class VitalSignsMonitorController : BaseApplicationPanel
     
     public VitalSignsMonitorController()
     {
-        this.deviceId = "";
+        this.deviceId = "PGNLNZ97M18G479M";
         this.lastSelectedPanelType = PanelType.Home;
     }
 
     public async void OnDataReceived(Message message) {
+        this.deviceId = message.device_id;
 
         if (!this.receivedFirstMessage)
         {
@@ -48,26 +45,12 @@ public class VitalSignsMonitorController : BaseApplicationPanel
             App.ButtonMenuView.UpdateSelectedPanel(selectedPanel);
             lastSelectedPanelType = selectedPanel;
         }
-
-        this.deviceId = message.device_id;
     }
     public async Task PersistSelectedPanel(PanelType selectedPanel)
     {
         if (deviceId != null && deviceId != "")
         {
-            var connection = await DeviceOperationsApi.GetConnectionString(deviceId);
-            var deviceClient = DeviceClient.CreateFromConnectionString(connection);
-
-            var data = new EventGridMessagePayloadBody
-            {
-                Mode = UpdateMode.Configuration,
-                Data = new Configuration
-                {
-                    LastSelectedView = (int)selectedPanel
-                }
-            };
-
-            await deviceClient.SendEventAsync(CreateMessage(JsonConvert.SerializeObject(data)));
+            await TwinOperationApi.SetSelectedView(digitalTwinClient, deviceId, selectedPanel);
         }
     }     
 
@@ -82,13 +65,6 @@ public class VitalSignsMonitorController : BaseApplicationPanel
         return message;
     }
 
-    [Serializable]
-    private class Configuration: IEventGridMessagePayloadData
-    {
-        [JsonProperty("last_selected_view")]
-        public int LastSelectedView { get; set; }
-    }
-
     public async Task<Patient> GetPatientAsync()
     {
         return await TwinOperationApi.GetPatient(digitalTwinClient, deviceId);
@@ -96,13 +72,8 @@ public class VitalSignsMonitorController : BaseApplicationPanel
 
     private async Task InitSelectedViewAsync()
     {
-        var selectedPanel = await GetSelectedView();
+        var selectedPanel = await TwinOperationApi.GetSelectedView(digitalTwinClient, deviceId);
         App.ButtonMenuView.UpdateSelectedPanel(selectedPanel);
-    }
-
-    private async Task<PanelType> GetSelectedView()
-    {
-        return await TwinOperationApi.GetSelectedView(digitalTwinClient, deviceId);
     }
 }
     
