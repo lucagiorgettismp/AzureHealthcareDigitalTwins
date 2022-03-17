@@ -72,9 +72,7 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: Simulator
-          path: |
-            .\VitalSignsMonitorSimulator\Simulator\bin\Release\Simulator.exe 
-            .\VitalSignsMonitorSimulator\Simulator\bin\Release\Common.dll
+          path: .\VitalSignsMonitorSimulator\Simulator\bin\Release\
         
   build-client:
     runs-on: [windows-latest]
