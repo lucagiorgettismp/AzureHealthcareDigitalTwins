@@ -11,9 +11,8 @@ on:
   workflow_dispatch:
 
 env:
-  TEST_SOLUTION_PATH: '.\VitalSignsMonitorSimulator\SimulatorTests\SimulatorTests.csproj'
-  PACKAGES_PATH: '.\VitalSignsMonitorSimulator\packages\'  
-  DOTNET_VERSION: '3.1'
+  TEST_SOLUTION_PATH: '.\VitalSignsMonitorSimulator\SimulatorTest\SimulatorTest.csproj'
+  PACKAGES_PATH: '.\VitalSignsMonitorSimulator\packages\'
 
 jobs:
   execute-tests:
