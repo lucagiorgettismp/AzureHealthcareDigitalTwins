@@ -12,6 +12,7 @@ on:
 
 env:
   TEST_SOLUTION_PATH: '.\VitalSignsMonitorSimulator\SimulatorTest\SimulatorTest.csproj'
+  TEST_DLL_PATH: '.\VitalSignsMonitorSimulator\SimulatorTest\bin\Release\SimulatorTest.dll'
   PACKAGES_PATH: '.\VitalSignsMonitorSimulator\packages\'
 
 jobs:
@@ -34,7 +35,7 @@ jobs:
         run: msbuild ${{ env.TEST_SOLUTION_PATH }} /p:Configuration=Release
 
       - name: Test
-        run:  '& "$(vswhere -property installationPath)\Common7\IDE\MSTest.exe"  /testcontainer:${{ env.TEST_SOLUTION_PATH }}'
+        run:  '& "$(vswhere -property installationPath)\Common7\IDE\MSTest.exe"  /testcontainer:${{ env.TEST_DLL_PATH }}'
 
       - uses: codecov/codecov-action@v2
         name: Create coverage
