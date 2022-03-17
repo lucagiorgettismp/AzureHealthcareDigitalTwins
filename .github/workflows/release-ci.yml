@@ -114,7 +114,7 @@ jobs:
       - uses: rymndhng/release-on-push-action@v0.23.1
         with:
           # The bumping scheme to use by default. One of minor|major|patch|norelease
-          bump_version_scheme: major
+          bump_version_scheme: minor
           # Additional text to insert into the release's body.
           release_body: Vital signs monitor simulator and backend client.
           # Prefix to append to git tags. To unset this, set version_prefix to an empty string.
