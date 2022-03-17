@@ -34,7 +34,7 @@ jobs:
         run: msbuild ${{ env.TEST_SOLUTION_PATH }} /p:Configuration=Release
 
       - name: Test
-        run: mstest ${{ env.TEST_SOLUTION_PATH }}
+        run:  '& "$(vswhere -property installationPath)\Common7\IDE\MSTest.exe"  /testcontainer:${{ env.TEST_SOLUTION_PATH }}'
 
       - uses: codecov/codecov-action@v2
         name: Create coverage
