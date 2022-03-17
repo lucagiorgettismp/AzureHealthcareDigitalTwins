@@ -58,11 +58,13 @@
             // 
             // ButtonTable
             // 
-            this.ButtonTable.ColumnCount = 2;
-            this.ButtonTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.ButtonTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.ButtonTable.Controls.Add(this.stop_button, 1, 0);
-            this.ButtonTable.Controls.Add(this.start_button, 0, 0);
+            this.ButtonTable.ColumnCount = 3;
+            this.ButtonTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.ButtonTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.ButtonTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.ButtonTable.Controls.Add(this.devices_button, 0, 0);
+            this.ButtonTable.Controls.Add(this.stop_button, 2, 0);
+            this.ButtonTable.Controls.Add(this.start_button, 1, 0);
             this.ButtonTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ButtonTable.Location = new System.Drawing.Point(3, 3);
             this.ButtonTable.Name = "ButtonTable";
@@ -74,7 +76,7 @@
             // stop_button
             // 
             this.stop_button.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.stop_button.Location = new System.Drawing.Point(277, 3);
+            this.stop_button.Location = new System.Drawing.Point(313, 3);
             this.stop_button.Name = "stop_button";
             this.stop_button.Size = new System.Drawing.Size(100, 27);
             this.stop_button.TabIndex = 0;
@@ -85,7 +87,7 @@
             // start_button
             // 
             this.start_button.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.start_button.Location = new System.Drawing.Point(59, 3);
+            this.start_button.Location = new System.Drawing.Point(167, 3);
             this.start_button.Name = "start_button";
             this.start_button.Size = new System.Drawing.Size(100, 27);
             this.start_button.TabIndex = 1;
@@ -97,23 +99,20 @@
             // 
             this.DevicesTable.ColumnCount = 1;
             this.DevicesTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.DevicesTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.DevicesTable.Controls.Add(this.devices_button, 0, 1);
-            this.DevicesTable.Controls.Add(this.listbox_devices, 0, 2);
+            this.DevicesTable.Controls.Add(this.listbox_devices, 0, 0);
             this.DevicesTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DevicesTable.Location = new System.Drawing.Point(3, 43);
             this.DevicesTable.Name = "DevicesTable";
-            this.DevicesTable.RowCount = 3;
-            this.DevicesTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 34.375F));
-            this.DevicesTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 65.625F));
-            this.DevicesTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 188F));
+            this.DevicesTable.RowCount = 1;
+            this.DevicesTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.DevicesTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.DevicesTable.Size = new System.Drawing.Size(436, 238);
             this.DevicesTable.TabIndex = 1;
             // 
             // devices_button
             // 
             this.devices_button.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.devices_button.Location = new System.Drawing.Point(168, 20);
+            this.devices_button.Location = new System.Drawing.Point(22, 3);
             this.devices_button.Name = "devices_button";
             this.devices_button.Size = new System.Drawing.Size(100, 26);
             this.devices_button.TabIndex = 0;
@@ -127,9 +126,9 @@
             this.listbox_devices.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listbox_devices.FormattingEnabled = true;
             this.listbox_devices.ItemHeight = 16;
-            this.listbox_devices.Location = new System.Drawing.Point(3, 52);
+            this.listbox_devices.Location = new System.Drawing.Point(3, 3);
             this.listbox_devices.Name = "listbox_devices";
-            this.listbox_devices.Size = new System.Drawing.Size(430, 183);
+            this.listbox_devices.Size = new System.Drawing.Size(430, 232);
             this.listbox_devices.TabIndex = 1;
             this.listbox_devices.SelectedIndexChanged += new System.EventHandler(this.SelectedIndexDevices);
             // 

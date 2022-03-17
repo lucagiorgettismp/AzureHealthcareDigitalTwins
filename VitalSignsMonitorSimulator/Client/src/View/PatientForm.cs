@@ -16,7 +16,12 @@
             InitializeComponent();
             this.clientTwins = client;
             this.clientForm = clientForm;
-            this.ControlBox = false;
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            this.clientForm.Enabled = true;
+            base.OnFormClosing(e);
         }
 
         private void PatientAgeKeyPress(object sender, KeyPressEventArgs e)
@@ -110,12 +115,6 @@
         private void PatientGenderKeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
-        }
-
-        private void ClosePatientButtonClick(object sender, EventArgs e)
-        {
-            this.Close();
-            this.clientForm.Enabled = true;
         }
     }
 }

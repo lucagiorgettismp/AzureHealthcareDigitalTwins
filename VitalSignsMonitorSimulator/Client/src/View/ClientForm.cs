@@ -8,17 +8,17 @@
     public partial class ClientForm : Form
     {
         readonly Client clientTwins;
+        private PatientForm patientForm = null;
 
         public ClientForm()
         {
             InitializeComponent();
             this.clientTwins = new Client();
-            this.ControlBox = false;
         }
 
         private void CreateButtonClick(object sender, EventArgs e)
         {
-            PatientForm patientForm = new PatientForm(this, this.clientTwins)
+            patientForm = new PatientForm(this, this.clientTwins)
             {
                 Text = "Patient",
                 FormBorderStyle = FormBorderStyle.FixedDialog
@@ -26,6 +26,16 @@
 
             patientForm.Show();
             this.Enabled = false;
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (this.patientForm != null)
+            {
+                this.patientForm.Close();
+            }
+
+            base.OnFormClosing(e);
         }
 
         private async void GetTwinsButtonClick(object sender, EventArgs e)
@@ -52,11 +62,6 @@
             {
                 Log.Error(ex.Message);
             }
-        }
-
-        private void CloseButtonClick(object sender, EventArgs e)
-        {
-            this.Close();
         }
     }
 }

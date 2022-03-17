@@ -12,15 +12,13 @@
     using System.Windows.Forms;
     using Common;
     using Common.View;
-    using Azure.DigitalTwins.Core;
-    using Common.AzureApi;
 
     public partial class ControlPanelForm : Form
     {
         private Device deviceHub = null;
-        private CancellationTokenSource tokenSource;
+        private CancellationTokenSource tokenSource = null;
 
-        private SimulationForm simulationForm;
+        private SimulationForm simulationForm = null;
 
         private Button startButton;
         private Button stopButton;
@@ -47,8 +45,21 @@
                 Text = "Success",
                 FormBorderStyle = FormBorderStyle.FixedDialog
             };
+        }
 
-            this.ControlBox = false;
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (this.simulationForm != null)
+            {
+                this.simulationForm.Close();
+            }
+
+            if(this.tokenSource != null)
+            {
+                this.tokenSource.Cancel();
+            }
+
+            base.OnFormClosing(e);
         }
 
         private void ControlPanelFormLoad(object sender, EventArgs e)
