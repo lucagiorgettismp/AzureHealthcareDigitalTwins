@@ -3,7 +3,10 @@
     using Azure;
     using Azure.DigitalTwins.Core;
     using AzureApi.Models;
+    using Client.src.AzureApi.DTLDModels;
+    using Common.AzureApi;
     using Common.Utils;
+    using Microsoft.Azure.Devices;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -11,44 +14,46 @@
     class TwinOperationsApi
     {
         // Query
-        private const string QUERY_GET_TWINS = "SELECT * FROM digitaltwins";
-
-        // Models name
-        private const string PATIENT = "Patient";
-        private const string VITAL_PARAMETERS_MONITOR = "VitalParametersMonitor";
+        private const string QUERY_GET_ALL_TWINS = "SELECT * FROM digitaltwins";
 
         // Name relationship
         private const string NAME_RELATIONSHIP = "rel_has_monitor";
 
-        // Parameters patient twin
-        private const string NAME = "name";
-        private const string SURNAME = "surname";
-        private const string AGE = "age";
-        private const string GENDER = "gender";
-        private const string DESCRIPTION = "description";
-        private const string WEIGHT = "weight";
-        private const string HEIGHT = "height";
-        private const string BODY_MASS_INDEX = "bmi";
+        // Model devideId
+        private const string MONITOR_MODEL_ID = "dtmi:healthCareDT:VitalParametersMonitor;1";
+        private const string PATIENT_MODEL_ID = "dtmi:healthCareDT:Patient;1";
+
+        private const string EMPTY_VALUE = "";
+
+        // Unit of measurement
         private const string UNIT_BODY_MASS_INDEX = "Kg/m2";
 
-        // Paramters vital signs monitor
-        private const string TEMPERATURE = "temperature";
-        private const string BATTERY = "battery";
-        private const string BLOOD_PRESSURE = "blood_pressure";
-        private const string HEART_FREQUENCY = "heart_frequency";
-        private const string BREATH_FREQUENCY = "breath_frequency";
-        private const string SATURATION = "saturation";
+        private async Task CreateDeviceHub(string deviceId)
+        {
+            try
+            {
+                var registryManager = AuthenticationApi.GetRegistryManager();
+                var deviceHub = new Device(deviceId);
+                await registryManager.AddDeviceAsync(deviceHub);
+                Log.Ok($"Device {deviceId} created succesfully in iot hub!");
+            }
+            catch (RequestFailedException e)
+            {
+                Log.Error($"Create device error: {e.Status}: {e.Message}");
+            }
+            Console.WriteLine();
+        }
 
-        public async Task<List<string>> getTwins(DigitalTwinsClient client)
+        public async Task<List<string>> GetTwins(DigitalTwinsClient client)
         {
             List<string> IdTwins = new List<string>();
 
-            AsyncPageable<BasicDigitalTwin> queryResult = client.QueryAsync<BasicDigitalTwin>(QUERY_GET_TWINS);
+            AsyncPageable<BasicDigitalTwin> queryResult = client.QueryAsync<BasicDigitalTwin>(QUERY_GET_ALL_TWINS);
 
             Log.Ok("Get all DT...");
             await foreach (BasicDigitalTwin twin in queryResult)
             {
-                string modelPatient = await getModel(client, PATIENT);
+                string modelPatient = await GetModel(client, PATIENT_MODEL_ID);
                 if(twin.Metadata.ModelId == modelPatient)
                 {
                     IdTwins.Add(twin.Id);
@@ -62,42 +67,50 @@
             return IdTwins;
         }
 
-        public async Task createPatientTwin(
+        public async Task CreatePatientTwin(
             DigitalTwinsClient client, PatientModel model)
         {
-            var patientTwin = new BasicDigitalTwin();
-            
-            patientTwin.Metadata.ModelId = await getModel(client, PATIENT);
-            patientTwin.Contents.Add(NAME, model.Name);
-            patientTwin.Contents.Add(SURNAME, model.Surname);
-            patientTwin.Contents.Add(AGE, model.Age);
-            patientTwin.Contents.Add(GENDER, model.Gender);
-            patientTwin.Contents.Add(DESCRIPTION, model.Description);
-            patientTwin.Contents.Add(WEIGHT, model.Weight);
-            patientTwin.Contents.Add(HEIGHT, model.Height);
+            // Create a patient twin
+            var bmi = new BodyMassIndexComponent
+            {
+                Value = model.BodyMassIndex,
+                Unit = UNIT_BODY_MASS_INDEX
+            };
 
-            var bmi = new BodyMassIndex();
-            bmi.value = model.BodyMassIndex;
-            bmi.unit = UNIT_BODY_MASS_INDEX;
-            patientTwin.Contents.Add(BODY_MASS_INDEX, bmi);
+            string patientId = $"{model.Name}Twin";
 
-            patientTwin.Id = $"{model.Name}Twin";
+            var patientTwin = new PatientTwin
+            {
+                Metadata = { ModelId = PATIENT_MODEL_ID },
+                Name = model.Name,
+                Surname = model.Surname,
+                Age = model.Age,
+                Gender = model.Gender,
+                Description = model.Description,
+                Weight = model.Weight,
+                Height = model.Height,
+                BodyMassIndex = bmi,
+                FiscalCode = model.FiscalCode
+            };
 
             Log.Ok($"Create twin with..\nName: {model.Name},\nSurname: {model.Surname}\nAge: {model.Age}\nGender: {model.Gender}" +
-                $"\nDescription: {model.Description}\nWeight: {model.Weight}\nHeight: {model.Height}\nBmi: {model.BodyMassIndex}");
+                $"\nDescription: {model.Description}\nWeight: {model.Weight}\nHeight: {model.Height}\nBmi: {model.BodyMassIndex}" +
+                $"\nFiscal code: {model.FiscalCode}");
 
             try
             {
+                // Create a device in iot hub
+                await CreateDeviceHub(model.FiscalCode);
+
                 // Create patient twin
-                await client.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>(patientTwin.Id, patientTwin);
-                Log.Ok($"- Created twin {patientTwin.Id} successfully!");
+                await client.CreateOrReplaceDigitalTwinAsync(patientId, patientTwin);
+                Log.Ok($"- Created twin {patientId} successfully!");
 
                 // Create monitor twin
-                string idMonitorTwin = $"VitalSignsMonitor{model.Name}";
-                await createMonitorTwin(client, idMonitorTwin);
+                await CreateMonitorTwin(client, model.FiscalCode);
 
-                // Create a relationship
-                await createRelationship(client, patientTwin.Id, idMonitorTwin, NAME_RELATIONSHIP);
+                // Create a relationship between patient twin and monitor twin
+                await CreateRelationship(client, model.FiscalCode, patientId, NAME_RELATIONSHIP);
             }
             catch (RequestFailedException e) {
                 Log.Error($"Create patient twin error: {e.Status}: {e.Message}");
@@ -105,31 +118,25 @@
             Console.WriteLine();
         }
 
-        private async Task createMonitorTwin(DigitalTwinsClient client, string id) {
+        private async Task CreateMonitorTwin(DigitalTwinsClient client, string idMonitorTwin) {
 
             try
             {
-                var monitorTwin = new BasicDigitalTwin();
+                var monitorTwin = new VitalSignsMonitor
+                {
+                    Metadata = { ModelId = MONITOR_MODEL_ID },
+                    DeviceId = idMonitorTwin,
+                    Configuration = GetDefaultConfiguration(),
+                    Temperature = GetSensorComponent(),
+                    BloodPressure = GetSensorGraphComponent(),
+                    Battery = GetSensorComponent(),
+                    HeartFrequency = GetSensorGraphComponent(),
+                    BreathFrequency = GetSensorGraphComponent(),
+                    Saturation = GetSensorGraphComponent()
+                };
 
-                // Component
-                var temperatureComponent = new BasicDigitalTwinComponent();
-                var bloodPressureComponent = new BasicDigitalTwinComponent();
-                var breathFrequencyComponent = new BasicDigitalTwinComponent();
-                var heartFrequencyComponent = new BasicDigitalTwinComponent();
-                var saturationComponent = new BasicDigitalTwinComponent();
-                var batteryComponent = new BasicDigitalTwinComponent();
-
-                monitorTwin.Id = id;
-                monitorTwin.Metadata.ModelId = await getModel(client, VITAL_PARAMETERS_MONITOR);
-                monitorTwin.Contents.Add(TEMPERATURE, temperatureComponent);
-                monitorTwin.Contents.Add(BLOOD_PRESSURE, bloodPressureComponent);
-                monitorTwin.Contents.Add(BATTERY, batteryComponent);
-                monitorTwin.Contents.Add(HEART_FREQUENCY, heartFrequencyComponent);
-                monitorTwin.Contents.Add(BREATH_FREQUENCY, breathFrequencyComponent);
-                monitorTwin.Contents.Add(SATURATION, saturationComponent);
-
-                await client.CreateOrReplaceDigitalTwinAsync<BasicDigitalTwin>(monitorTwin.Id, monitorTwin);
-                Log.Ok($"- Created twin {monitorTwin.Id} successfully!");
+                await client.CreateOrReplaceDigitalTwinAsync(idMonitorTwin, monitorTwin);
+                Log.Ok($"- Created twin {idMonitorTwin} successfully!");
             }
             catch (RequestFailedException e)
             {
@@ -137,11 +144,58 @@
             }
         }
 
-        public async Task createRelationship(DigitalTwinsClient client, string srcId, string targetId, string nameRel) {
+        private src.AzureApi.DTLDModels.Configuration GetDefaultConfiguration()
+        {
+            return new src.AzureApi.DTLDModels.Configuration
+            {
+                LastSelectedView = 0
+            };
+        }
 
-            var relationship = new BasicRelationship();
-            relationship.TargetId = targetId;
-            relationship.Name = nameRel;
+        private SensorComponent GetSensorComponent()
+        {
+            return new SensorComponent
+            {
+                SensorName = EMPTY_VALUE,
+                Alarm = false,
+                SensorValue = new SensorValueComponent
+                {
+                    Value = 0,
+                    MinValue = 0,
+                    MaxValue = 0,
+                    Symbol = EMPTY_VALUE,
+                    Type = EMPTY_VALUE,
+                    Unit = EMPTY_VALUE
+                }
+            };
+        }
+
+        private GraphSensorComponent GetSensorGraphComponent()
+        {
+            return new GraphSensorComponent
+            {
+                SensorName = EMPTY_VALUE,
+                Alarm = false,
+                GraphColor = EMPTY_VALUE,
+                SensorValue = new SensorValueComponent
+                {
+                    Value = 0,
+                    MinValue = 0,
+                    MaxValue = 0,
+                    Symbol = EMPTY_VALUE,
+                    Type = EMPTY_VALUE,
+                    Unit = EMPTY_VALUE
+                }
+            };
+        }
+
+        public async Task CreateRelationship(DigitalTwinsClient client, string srcId, string targetId, string nameRel) {
+
+            var relationship = new BasicRelationship
+            {
+                TargetId = targetId,
+                Name = nameRel
+            };
 
             try
             {
@@ -155,7 +209,7 @@
             }
         }
 
-        private async Task<string> getModel(DigitalTwinsClient client, string modelName)
+        private async Task<string> GetModel(DigitalTwinsClient client, string modelName)
         {
             AsyncPageable<DigitalTwinsModelData> modelDataList = client.GetModelsAsync();
 

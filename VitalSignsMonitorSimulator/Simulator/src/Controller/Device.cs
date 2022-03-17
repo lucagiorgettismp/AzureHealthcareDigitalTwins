@@ -1,46 +1,45 @@
 namespace Simulator.Controller
 {
-    using AzureApi;
+    using Azure.DigitalTwins.Core;
+    using Common.AzureApi;
     using Common.Enums;
     using Common.Utils;
     using Microsoft.Azure.Devices.Client;
     using Model;
     using Newtonsoft.Json;
-    using Simulator.Model.AzurePayloads;
-    using Simulator.src;
+    using Simulator.Model.Payload;
     using System;
-    using System.Linq;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
     using Utils;
-    using System.Windows.Forms;
 
     class Device
     {
-        DeviceClient deviceClient;
-        DeviceDataGenerator dataGenerator;
+        readonly DeviceClient deviceClient;
+        readonly DeviceDataGenerator dataGenerator;
 
-        public Device()
+        public Device(string connection)
         {
-            this.deviceClient = AuthenticationApi.GetDevice();
+            this.deviceClient = DeviceClient.CreateFromConnectionString(connection);
             this.dataGenerator = new DeviceDataGenerator();
         }
 
-        public async Task SendMessageToIoTHub(SimulationForm form, CancellationToken token, CrudMode mode)
+        public async Task SendMessageToIoTHub(SimulationForm form, CancellationToken token)
         {
             int msgCounter = 1;
 
             while (!token.IsCancellationRequested)
             {
-                var deviceData = dataGenerator.GetUpdatedDeviceData();
-                form.updateValues(deviceData);
+                DeviceData deviceData = dataGenerator.GetUpdatedDeviceData();
+                form.UpdateValues(deviceData);
 
-                var json = CreateJSON(deviceData, mode);
-                var message = CreateMessage(json);
+                string json = CreateJSON(deviceData);
+                Message message = CreateMessage(json);
 
+                ShowMessage(msgCounter, deviceData);
                 await deviceClient.SendEventAsync(message);
-                Log.Ok($"[{msgCounter}] Sending message at {DateTime.Now} and Message : {json}");
+                
                 Console.WriteLine();
 
                 await Task.Delay(1500);
@@ -48,41 +47,69 @@ namespace Simulator.Controller
             }
         }
 
-        private string CreateJSON(DeviceData deviceData, CrudMode mode)
+        private void ShowMessage(int counter, DeviceData message)
         {
-            var data = new VitalSignsMonitorPayload
+            Log.Ok($"[{counter}] Sending message at {DateTime.Now} and Message:" +
+                $"\n{message.Temperature.SensorName}: {message.Temperature.Value}, {message.Temperature.Symbol}, {message.Temperature.InAlarm}, " +
+                $"Min: {message.Temperature.MinValue}, Max: {message.Temperature.MaxValue}," +
+                $"\n{message.BloodPressure.SensorName}: {message.BloodPressure.Value} {message.BloodPressure.Symbol}, {message.BloodPressure.InAlarm}," +
+                $"Min: {message.BloodPressure.MinValue},Max: {message.BloodPressure.MaxValue}, Color: {message.BloodPressure.GraphColor}, " +
+                $"\n{message.HeartFrequency.SensorName}: {message.HeartFrequency.Value} {message.HeartFrequency.Symbol}, {message.HeartFrequency.InAlarm}," +
+                $"Min: {message.HeartFrequency.MinValue},Max: {message.HeartFrequency.MaxValue},Color: {message.HeartFrequency.GraphColor}, " +
+                $"\n{message.BreathFrequency.SensorName}: {message.BreathFrequency.Value} {message.BreathFrequency.Symbol}, {message.BreathFrequency.InAlarm}," +
+                $"Min: {message.BreathFrequency.MinValue},Max: {message.BreathFrequency.MaxValue},Color: {message.BreathFrequency.GraphColor}, " +
+                $"\n{message.Saturation.SensorName}: {message.Saturation.Value} {message.Saturation.Symbol}, {message.Saturation.InAlarm}, " +
+                $"Min: {message.Saturation.MinValue},Max: {message.Saturation.MaxValue},Color: {message.Saturation.GraphColor}, " +
+                $"\n{message.BatteryPower.SensorName}: {message.BatteryPower.Value} {message.BatteryPower.Symbol}, {message.BatteryPower.InAlarm}," +
+                $"Min: {message.BatteryPower.MinValue},Max: {message.BatteryPower.MaxValue}" 
+                );
+        }
+
+        private string CreateJSON(DeviceData deviceData)
+        {
+            var data = new EventGridMessagePayloadBody
             {
-                Mode = mode,
-                Data = mode != CrudMode.Delete ? new VitalSignsMonitorPayloadData
+                Mode = UpdateMode.Telemetry,
+                Data = new EventGridMessagePayloadData
                 {
-                    Temperature = GetVitalSignsMonitorPayloadParameterFromParam<double>(deviceData.Temperature, mode),
-                    BloodPressure = GetVitalSignsMonitorPayloadParameterFromParam<int>(deviceData.BloodPressure, mode),
-                    Saturation = GetVitalSignsMonitorPayloadParameterFromParam<int>(deviceData.Saturation, mode),
-                    BreathFrequency = GetVitalSignsMonitorPayloadParameterFromParam<int>(deviceData.BreathFrequency, mode),
-                    HeartFrequency = GetVitalSignsMonitorPayloadParameterFromParam<int>(deviceData.HeartFrequency, mode),
-                    BatteryPower = GetVitalSignsMonitorPayloadParameterFromParam<int>(deviceData.BatteryPower, mode)
-                } : null
+                    Temperature = GetVitalSignsMonitorPayloadParameterFromParam(deviceData.Temperature),
+                    BloodPressure = GetVitalSignsMonitorPayloadParameterFromParam(deviceData.BloodPressure),
+                    Saturation = GetVitalSignsMonitorPayloadParameterFromParam(deviceData.Saturation),
+                    BreathFrequency = GetVitalSignsMonitorPayloadParameterFromParam(deviceData.BreathFrequency),
+                    HeartFrequency = GetVitalSignsMonitorPayloadParameterFromParam(deviceData.HeartFrequency),
+                    BatteryPower = GetVitalSignsMonitorPayloadParameterFromParam(deviceData.BatteryPower)
+                }
             };
 
             return JsonConvert.SerializeObject(data);
         }
 
-        private VitalSignsMonitorPayloadParameter<T> GetVitalSignsMonitorPayloadParameterFromParam<T>(DeviceDataProperty<T> property, CrudMode mode)
+        private Sensor<T> GetVitalSignsMonitorPayloadParameterFromParam<T>(DeviceDataProperty<T> dataProperty)
         {
-            return new VitalSignsMonitorPayloadParameter<T>
+            return new Sensor<T>
             {
-                Value = property.Value,
-                InAlarm = property.InAlarm,
-                UnitOfMeasurement = mode == CrudMode.Create ? property.UnitOfMeasurement : null
+                SensorName = dataProperty.SensorName,
+                Alarm = dataProperty.InAlarm,
+                GraphColor = dataProperty.GraphColor,
+                SensorValue = new SensorValue<T>
+                {
+                    UnitOfMeasurement = dataProperty.UnitOfMeasurement,
+                    Symbol = dataProperty.Symbol,
+                    Type = dataProperty.Type,
+                    Value = dataProperty.Value,
+                    MinValue = dataProperty.MinValue,
+                    MaxValue = dataProperty.MaxValue
+                }
             };
         }
 
-        private static Microsoft.Azure.Devices.Client.Message CreateMessage(string jsonObject)
+        private static Message CreateMessage(string jsonObject)
         {
-            var message = new Microsoft.Azure.Devices.Client.Message(Encoding.ASCII.GetBytes(jsonObject));
-
-            message.ContentType = "application/json";
-            message.ContentEncoding = "UTF-8";
+            var message = new Message(Encoding.UTF8.GetBytes(jsonObject))
+            {
+                ContentType = "application/json",
+                ContentEncoding = "UTF-8"
+            };
 
             return message;
         }

@@ -7,14 +7,8 @@
   "contents": [
     {
       "@type": "Property",
-      "name": "value",
-      "displayName": "Value",
-      "schema": "double"
-    },
-    {
-      "@type": "Property",
-      "name": "unit",
-      "displayName": "Unit of measurement",
+      "name": "graph_color",
+      "displayName": "Graph color",
       "schema": "string"
     }
   ]
