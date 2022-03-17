@@ -58,6 +58,10 @@
     <None Include="testhost.dll.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{c13843bd-98cc-4a34-90dd-fd9402b9822d}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Simulator\Simulator.csproj">
       <Project>{b69b2f00-1e0d-469d-a41e-d1cca848938f}</Project>
       <Name>Simulator</Name>
