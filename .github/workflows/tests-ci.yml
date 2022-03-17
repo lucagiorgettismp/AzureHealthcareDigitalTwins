@@ -40,7 +40,7 @@ jobs:
       - uses: codecov/codecov-action@v2
         name: Create coverage
         with:
-          working-directory: TEST_SOLUTION_PATH
+          working-directory: ${{ env.TEST_SOLUTION_PATH }}
           name: codecov-simulator
           verbose: true
           fail_ci_if_error: true

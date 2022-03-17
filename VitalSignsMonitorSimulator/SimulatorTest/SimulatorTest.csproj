@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="testhost.dll.config" />
+    <None Include="SimulatorTest.dll.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
@@ -76,4 +76,8 @@
     <Error Condition="!Exists('..\packages\MSTest.TestAdapter.2.1.2\build\net45\MSTest.TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.2.1.2\build\net45\MSTest.TestAdapter.targets'))" />
   </Target>
   <Import Project="..\packages\MSTest.TestAdapter.2.1.2\build\net45\MSTest.TestAdapter.targets" Condition="Exists('..\packages\MSTest.TestAdapter.2.1.2\build\net45\MSTest.TestAdapter.targets')" />
+  
+  <Target Name="CopyAppConfig" AfterTargets="Build" DependsOnTargets="Build">
+	<Copy SourceFiles="SimulatorTest.dll.config" DestinationFiles="$(OutputPath)SimulatorTest.dll.config" />
+  </Target>
 </Project>
