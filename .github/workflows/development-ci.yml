@@ -74,7 +74,7 @@ jobs:
           name: Simulator
           path: |
             .\VitalSignsMonitorSimulator\Simulator\bin\Release\Simulator.exe 
-            .\VitalSignsMonitorSimulator\Client\bin\Release\Common.dll
+            .\VitalSignsMonitorSimulator\Simulator\bin\Release\Common.dll
         
   build-client:
     runs-on: [windows-latest]
@@ -97,11 +97,7 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: Client
-          path: |
-            .\VitalSignsMonitorSimulator\Client\bin\Release\Client.exe
-            .\VitalSignsMonitorSimulator\Client\bin\Release\Common.dll
-
-
+          path: .\VitalSignsMonitorSimulator\Client\bin\Release\
 
   jobs-failure:
       needs: [build-and-deploy-app-function, build-simulator, build-client]
