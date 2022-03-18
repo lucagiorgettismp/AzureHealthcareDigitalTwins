@@ -65,13 +65,13 @@ jobs:
       - name: Build
         run: msbuild ${{ env.SIMULATOR_SOLUTION_PATH }} /p:Configuration=Release
         
-      - run: mkdir -p artifacts/simulator
+      - run: mkdir -p artifacts\simulator
       
       - name: Upload artifacts
         uses: actions/upload-artifact@master
         with:
           name: Simulator
-          path: artifacts/simulator
+          path: .\artifacts\simulator
         
   # Build client
   build-client:
@@ -92,13 +92,13 @@ jobs:
       - name: Build
         run: msbuild ${{ env.CLIENT_SOLUTION_PATH }} /p:Configuration=Release
         
-      - run: mkdir -p artifacts/client
+      - run: mkdir -p artifacts\client
       
       - name: Upload artifacts
         uses: actions/upload-artifact@master
         with:
           name: Client
-          path: artifacts/client
+          path: .\artifacts\client
       
   # Build report
   build-report:
@@ -116,18 +116,20 @@ jobs:
           root_file: main.tex
           args: "-lualatex --file-line-error --interaction=nonstopmode"
           
-      - run: mkdir -p artifacts/doc
+      - run: mkdir -p artifacts\doc
 
       - name: Upload artifacts
         uses: actions/upload-artifact@master
         with:
           name: Doc
-          path: artifacts/doc
+          path: .\artifacts\doc
 
   # Create a release 
   release:
     runs-on: [windows-latest]
     needs: [build-report, build-client, build-simulator]
+    permissions:
+      contents: write
 
     steps:
     - uses: actions/checkout@master
@@ -135,17 +137,17 @@ jobs:
     - uses: actions/download-artifact@master
       with:
         name: Simulator
-        path: artifacts/simulator
+        path: .\artifacts\simulator
         
     - uses: actions/download-artifact@master
       with:
         name: Client
-        path: artifacts/client
+        path: .\artifacts\client
         
     - uses: actions/download-artifact@master
       with:
         name: Doc
-        path: artifacts/doc
+        path: .\artifacts\doc
         
     - name: Release
     # You may pin to the exact commit or the version.
