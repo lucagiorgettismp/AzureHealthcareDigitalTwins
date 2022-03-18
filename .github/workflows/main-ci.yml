@@ -1,0 +1,193 @@
+name: Main CI
+
+on:
+  push:
+    branches: [ main ]
+
+  workflow_dispatch:
+  
+env:
+  SIMULATOR_SOLUTION_PATH: '.\HealthcareVitalSignsMonitor\Simulator\Simulator.csproj'
+  CLIENT_SOLUTION_PATH: '.\HealthcareVitalSignsMonitor\Client\Client.csproj'
+  PACKAGES_PATH: '.\HealthcareVitalSignsMonitor\packages\'  
+  
+jobs:
+
+  # Deploy app function
+  build-and-deploy-app-function:
+    runs-on: [windows-latest]
+
+    env:
+      AZURE_FUNCTIONAPP_PACKAGE_PATH: '.\AzureAppFunctions\AppFunctions'
+      DOTNET_VERSION: '3.1'
+
+    steps:
+      - name: 'Checkout GitHub Action'
+        uses: actions/checkout@v2
+
+      - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: 'Resolve Project Dependencies Using Dotnet'
+        shell: pwsh
+        run: |
+          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+          dotnet build --configuration Release --output ./output
+          popd
+
+      - name: 'Run Azure Functions Action'
+        uses: Azure/functions-action@v1
+        id: fa
+        with:
+          app-name: 'healthcareIoTHubToDT'
+          slot-name: 'Production'
+          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_209DF526DE564123BAA37635737D89AB }}
+
+  # Build simulator
+  build-simulator:
+    runs-on: [windows-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.1
+  
+      - name: Setup NuGet.exe
+        uses: NuGet/setup-nuget@v1.0.5
+
+      - name: Restore NuGet packages
+        run: nuget restore ${{ env.SIMULATOR_SOLUTION_PATH }} -PackagesDirectory ${{ env.PACKAGES_PATH }}
+        
+      - name: Build
+        run: msbuild ${{ env.SIMULATOR_SOLUTION_PATH }} /p:Configuration=Release
+              
+      - name: Upload artifacts
+        uses: actions/upload-artifact@master
+        with:
+          name: Simulator
+          path: .\HealthcareVitalSignsMonitor\Simulator\bin\Release
+        
+  # Build client
+  build-client:
+    runs-on: [windows-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.1
+  
+      - name: Setup NuGet.exe
+        uses: NuGet/setup-nuget@v1.0.5
+
+      - name: Restore NuGet packages
+        run: nuget restore ${{ env.CLIENT_SOLUTION_PATH }} -PackagesDirectory ${{ env.PACKAGES_PATH }}
+        
+      - name: Build
+        run: msbuild ${{ env.CLIENT_SOLUTION_PATH }} /p:Configuration=Release
+              
+      - name: Upload artifacts
+        uses: actions/upload-artifact@master
+        with:
+          name: Client
+          path: .\HealthcareVitalSignsMonitor\Client\bin\Release
+      
+  # Build report
+  build-report:
+    runs-on: [ubuntu-latest]
+
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v1
+        
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v2
+        with:
+          working_directory: doc
+          pre_compile: "tlmgr update --self --all"
+          root_file: main.tex
+          args: "-lualatex --file-line-error --interaction=nonstopmode"
+          
+      - name: Upload artifacts
+        uses: actions/upload-artifact@master
+        with:
+          name: Doc
+          path: doc/main.pdf
+  
+  # Send a failure message Telegram
+  jobs-failure:
+    needs: [build-report, build-client, build-simulator]
+    if: failure()
+    runs-on: [ubuntu-latest]
+
+    steps:
+    - name: Send telegram failure message to Luca
+      uses: appleboy/telegram-action@master
+
+      with:
+        to: ${{ secrets.TELEGRAM_TO_LUCA }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+              ${{ github.event_name }} event,
+              on github.com/${{ github.repository }},
+              by ${{ github.actor }}:
+              <b>${{ github.event.head_commit.message }}</b>
+              ❌ <b>FAILED</b> ❌
+        format: html
+        disable_web_page_preview: true
+
+    - name: Send telegram failure message to Lorenzo
+      uses: appleboy/telegram-action@master
+
+      with:
+        to: ${{ secrets.TELEGRAM_TO_LORENZO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+              ${{ github.event_name }} event,
+              on github.com/${{ github.repository }},
+              by ${{ github.actor }}:
+              <b>${{ github.event.head_commit.message }}</b>
+              ❌ <b>FAILED</b> ❌
+        format: html
+        disable_web_page_preview: true
+
+   # Send a success message Telegram
+  jobs-success:
+    needs: [build-report, build-client, build-simulator]
+    if: success()
+    runs-on: [ubuntu-latest]
+
+    steps:
+    - name: Send telegram success message to Luca
+      uses: appleboy/telegram-action@master
+
+      with:
+        to: ${{ secrets.TELEGRAM_TO_LUCA }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+              ${{ github.event_name }} event,
+              on github.com/${{ github.repository }},
+              by ${{ github.actor }}:
+              <b>${{ github.event.head_commit.message }}</b>
+              ✅ <b>SUCCEDED</b> ✅
+        format: html
+        disable_web_page_preview: true
+
+    - name: Send telegram success message to Lorenzo
+      uses: appleboy/telegram-action@master
+
+      with:
+        to: ${{ secrets.TELEGRAM_TO_LORENZO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+              ${{ github.event_name }} event,
+              on github.com/${{ github.repository }},
+              by ${{ github.actor }}:
+              <b>${{ github.event.head_commit.message }}</b>
+              ✅ <b>SUCCEDED</b> ✅
+        format: html
+        disable_web_page_preview: true
