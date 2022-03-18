@@ -64,14 +64,12 @@ jobs:
         
       - name: Build
         run: msbuild ${{ env.SIMULATOR_SOLUTION_PATH }} /p:Configuration=Release
-        
-      - run: mkdir -p artifacts\simulator
-      
+              
       - name: Upload artifacts
         uses: actions/upload-artifact@master
         with:
           name: Simulator
-          path: .\artifacts\simulator
+          path: .\HealthcareVitalSignsMonitor\Simulator\bin\Release
         
   # Build client
   build-client:
@@ -91,14 +89,12 @@ jobs:
         
       - name: Build
         run: msbuild ${{ env.CLIENT_SOLUTION_PATH }} /p:Configuration=Release
-        
-      - run: mkdir -p artifacts\client
-      
+              
       - name: Upload artifacts
         uses: actions/upload-artifact@master
         with:
           name: Client
-          path: .\artifacts\client
+          path: .\HealthcareVitalSignsMonitor\Client\bin\Release
       
   # Build report
   build-report:
@@ -116,13 +112,11 @@ jobs:
           root_file: main.tex
           args: "-lualatex --file-line-error --interaction=nonstopmode"
           
-      - run: mkdir -p artifacts\doc
-
       - name: Upload artifacts
         uses: actions/upload-artifact@master
         with:
           name: Doc
-          path: .\artifacts\doc
+          path: .\doc\main.pdf
 
   # Create a release 
   release:
@@ -137,17 +131,17 @@ jobs:
     - uses: actions/download-artifact@master
       with:
         name: Simulator
-        path: .\artifacts\simulator
-        
+        path: .\HealthcareVitalSignsMonitor\Simulator\bin\Release
+
     - uses: actions/download-artifact@master
       with:
         name: Client
-        path: .\artifacts\client
+        path: .\HealthcareVitalSignsMonitor\Client\bin\Release
         
     - uses: actions/download-artifact@master
       with:
         name: Doc
-        path: .\artifacts\doc
+        path: .\doc
         
     - name: Release
     # You may pin to the exact commit or the version.
@@ -168,9 +162,9 @@ jobs:
         # prerelease: # optional
         # Newline-delimited list of path globs for asset files to upload
         files: |
-          .\artificats\simulator
-          .\artificats\client
-          .\artificats\doc
+          .\HealthcareVitalSignsMonitor\Simulator\bin\Release
+          .\HealthcareVitalSignsMonitor\Client\bin\Release
+          .\doc\.main.pdf
         
         # Fails if any of the `files` globs match nothing. Defaults to false
         fail_on_unmatched_files: true
