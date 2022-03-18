@@ -15,7 +15,7 @@ env:
   SIMULATOR_SOLUTION_PATH: '.\HealthcareVitalSignsMonitor\Simulator\Simulator.csproj'
   CLIENT_SOLUTION_PATH: '.\HealthcareVitalSignsMonitor\Client\Client.csproj'
   PACKAGES_PATH: '.\HealthcareVitalSignsMonitor\packages\'  
-  
+  TEST_SOLUTION_PATH: '.\HealthcareVitalSignsMonitor\SimulatorTest\SimulatorTest.csproj'  
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
