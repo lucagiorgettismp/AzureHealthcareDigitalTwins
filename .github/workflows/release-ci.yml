@@ -1,14 +1,10 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Release CI
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push events but only for the main branch
   push:
-    branches: [ main ]
+    tags:
+      - "v*.*.*"
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
   
 env:
@@ -16,40 +12,8 @@ env:
   CLIENT_SOLUTION_PATH: '.\HealthcareVitalSignsMonitor\Client\Client.csproj'
   PACKAGES_PATH: '.\HealthcareVitalSignsMonitor\packages\'  
   
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build-and-deploy-app-function:
-    runs-on: windows-latest
-
-    env:
-      AZURE_FUNCTIONAPP_PACKAGE_PATH: '.\AzureAppFunctions\AppFunctions' # set this to the path to your web app project, defaults to the repository root
-      DOTNET_VERSION: '3.1' # set this to the dotnet version to use
-
-    steps:
-      - name: 'Checkout GitHub Action'
-        uses: actions/checkout@v2
-
-      - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-
-      - name: 'Resolve Project Dependencies Using Dotnet'
-        shell: pwsh
-        run: |
-          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-          dotnet build --configuration Release --output ./output
-          popd
-
-      - name: 'Run Azure Functions Action'
-        uses: Azure/functions-action@v1
-        id: fa
-        with:
-          app-name: 'healthcareIoTHubToDT'
-          slot-name: 'Production'
-          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_209DF526DE564123BAA37635737D89AB }}
-
+  # Build simulator
   build-simulator:
     runs-on: [windows-latest]
 
@@ -67,7 +31,14 @@ jobs:
         
       - name: Build
         run: msbuild ${{ env.SIMULATOR_SOLUTION_PATH }} /p:Configuration=Release
+              
+      - name: Upload artifacts
+        uses: actions/upload-artifact@master
+        with:
+          name: Simulator
+          path: .\HealthcareVitalSignsMonitor\Simulator\bin\Release
         
+  # Build client
   build-client:
     runs-on: [windows-latest]
 
@@ -85,13 +56,21 @@ jobs:
         
       - name: Build
         run: msbuild ${{ env.CLIENT_SOLUTION_PATH }} /p:Configuration=Release
+              
+      - name: Upload artifacts
+        uses: actions/upload-artifact@master
+        with:
+          name: Client
+          path: .\HealthcareVitalSignsMonitor\Client\bin\Release
       
-  compile-report:
-    runs-on: ubuntu-latest
+  # Build report
+  build-report:
+    runs-on: [ubuntu-latest]
 
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v1
+        
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
@@ -100,54 +79,76 @@ jobs:
           root_file: main.tex
           args: "-lualatex --file-line-error --interaction=nonstopmode"
           
-  release:
-    runs-on: ubuntu-latest
-    needs: [compile-report, build-client, build-simulator]
-    
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
-    steps:
-      #- name: Tag/Release on Push Action
-      # You may pin to the exact commit or the version.
-      # uses: rymndhng/release-on-push-action@c76a55ddd0cbd67485bd5f9e133c553b2e48dfe2
-      - uses: rymndhng/release-on-push-action@v0.23.1
+      - name: Upload artifacts
+        uses: actions/upload-artifact@master
         with:
-          # The bumping scheme to use by default. One of minor|major|patch|norelease
-          bump_version_scheme: minor
-          # Additional text to insert into the release's body.
-          release_body: Vital signs monitor simulator and backend client.
-          # Prefix to append to git tags. To unset this, set version_prefix to an empty string.
-          #tag_prefix: # optional, default is v
-          # Maximum number of commits to add to release body
-          # max_commits: # optional, default is 50
-          # When set to 'true', uses Github's Generated Release Notes instead of this plugin's release notes
-          # use_github_release_notes: # optional, default is false
-          release_name: "Release <RELEASE_VERSION>"
-
-      - uses: actions/upload-artifact@master
-        name: Upload simulator artifact
-
-        with:
-          name: Simulator
-          path: .\HealthcareVitalSignsMonitor\Simulator\bin\Release\Simulator.exe
-
-      - uses: actions/upload-artifact@master
-        name: Upload client artifact
-
-        with:
-          name: Client
-          path: .\HealthcareVitalSignsMonitor\Client\bin\Release\Client.exe
-
-      - uses: actions/upload-artifact@master
-        name: Upload documentation artifact
-
-        with:
-          name: Documentation
+          name: Doc
           path: doc/main.pdf
 
+  # Create a release 
+  release:
+    runs-on: [windows-latest]
+    needs: [build-report, build-client, build-simulator]
+    permissions:
+      contents: write
+
+    steps:
+    - uses: actions/checkout@master
+
+    - uses: actions/download-artifact@master
+      with:
+        name: Simulator
+        path: .\HealthcareVitalSignsMonitor\Simulator\bin\Release
+
+    - uses: actions/download-artifact@master
+      with:
+        name: Client
+        path: .\HealthcareVitalSignsMonitor\Client\bin\Release
+        
+    - uses: actions/download-artifact@master
+      with:
+        name: Doc
+        path: .\doc\main.pdf
+        
+    - name: Release
+    # You may pin to the exact commit or the version.
+    # uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5
+      uses: softprops/action-gh-release@v0.1.14
+      with:
+        # Note-worthy description of changes in release
+        # body: # optional
+        # Path to load note-worthy description of changes in release from
+        body_path: "./release_body.txt"
+        # Gives the release a custom name. Defaults to tag name
+        # name: # optional
+        # Gives a tag name. Defaults to github.GITHUB_REF
+        # tag_name: # optional
+        # Creates a draft release. Defaults to false
+        # draft: # optional
+        # Identify the release as a prerelease. Defaults to false
+        # prerelease: # optional
+        # Newline-delimited list of path globs for asset files to upload
+        files: |
+          Simulator
+          Client
+          Doc
+        
+        # Fails if any of the `files` globs match nothing. Defaults to false
+        fail_on_unmatched_files: true
+        # Repository to make releases against, in <owner>/<repo> format
+        # repository: # optional
+        # Authorized secret GitHub Personal Access Token. Defaults to github.token
+        # token: # optional, default is ${{ github.token }}
+        # Commitish value that determines where the Git tag is created from. Can be any branch or commit SHA.
+        # target_commitish: # optional
+        # If specified, a discussion of the specified category is created and linked to the release. The value must be a category that already exists in the repository. If there is already a discussion linked to the release, this parameter is ignored.
+        # discussion_category_name: # optional
+        # Whether to automatically generate the name and body for this release. If name is specified, the specified name will be used; otherwise, a name will be automatically generated. If body is specified, the body will be pre-pended to the automatically generated notes.
+        # generate_release_notes: # optional
+  
+  # Send a failure message Telegram
   jobs-failure:
-    needs: [compile-report, build-client, build-simulator, release]
+    needs: [build-report, build-client, build-simulator, release]
     if: failure()
     runs-on: [ubuntu-latest]
 
@@ -182,10 +183,11 @@ jobs:
         format: html
         disable_web_page_preview: true
 
+   # Send a success message Telegram
   jobs-success:
-    needs: [compile-report, build-client, build-simulator, release]
+    needs: [build-report, build-client, build-simulator, release]
     if: success()
-    runs-on: [ ubuntu-latest]
+    runs-on: [ubuntu-latest]
 
     steps:
     - name: Send telegram success message to Luca
@@ -217,4 +219,3 @@ jobs:
               ✅ <b>SUCCEDED</b> ✅
         format: html
         disable_web_page_preview: true
-  
