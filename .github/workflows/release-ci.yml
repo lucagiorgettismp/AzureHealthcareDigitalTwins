@@ -13,11 +13,6 @@ env:
   PACKAGES_PATH: '.\HealthcareVitalSignsMonitor\packages\'  
   
 jobs:
-
-  # Deploy app function
-  build-and-deploy-app-function:
-    runs-on: [windows-latest]
-
   # Build simulator
   build-simulator:
     runs-on: [windows-latest]
