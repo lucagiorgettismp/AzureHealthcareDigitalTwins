@@ -1,14 +1,9 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Release CI
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push events but only for the main branch
   push:
     branches: [ main ]
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
   
 env:
@@ -16,14 +11,15 @@ env:
   CLIENT_SOLUTION_PATH: '.\HealthcareVitalSignsMonitor\Client\Client.csproj'
   PACKAGES_PATH: '.\HealthcareVitalSignsMonitor\packages\'  
   
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+
+  # Deploy app function
   build-and-deploy-app-function:
-    runs-on: windows-latest
+    runs-on: [windows-latest]
 
     env:
-      AZURE_FUNCTIONAPP_PACKAGE_PATH: '.\AzureAppFunctions\AppFunctions' # set this to the path to your web app project, defaults to the repository root
-      DOTNET_VERSION: '3.1' # set this to the dotnet version to use
+      AZURE_FUNCTIONAPP_PACKAGE_PATH: '.\AzureAppFunctions\AppFunctions'
+      DOTNET_VERSION: '3.1'
 
     steps:
       - name: 'Checkout GitHub Action'
@@ -50,6 +46,7 @@ jobs:
           package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_209DF526DE564123BAA37635737D89AB }}
 
+  # Build simulator
   build-simulator:
     runs-on: [windows-latest]
 
@@ -68,6 +65,7 @@ jobs:
       - name: Build
         run: msbuild ${{ env.SIMULATOR_SOLUTION_PATH }} /p:Configuration=Release
         
+  # Buil client      
   build-client:
     runs-on: [windows-latest]
 
@@ -86,8 +84,9 @@ jobs:
       - name: Build
         run: msbuild ${{ env.CLIENT_SOLUTION_PATH }} /p:Configuration=Release
       
-  compile-report:
-    runs-on: ubuntu-latest
+  # Build report   
+  build-report:
+    runs-on: [ubuntu-latest]
 
     steps:
       - name: Set up Git repository
@@ -99,10 +98,11 @@ jobs:
           pre_compile: "tlmgr update --self --all"
           root_file: main.tex
           args: "-lualatex --file-line-error --interaction=nonstopmode"
-          
+
+  # Create a release        
   release:
-    runs-on: ubuntu-latest
-    needs: [compile-report, build-client, build-simulator]
+    runs-on: [ubuntu-latest]
+    needs: [build-report, build-client, build-simulator]
     
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -130,24 +130,25 @@ jobs:
 
         with:
           name: Simulator
-          path: .\HealthcareVitalSignsMonitor\Simulator\bin\Release\Simulator.exe
+          path: .\HealthcareVitalSignsMonitor\Simulator\bin\Release\
 
       - uses: actions/upload-artifact@master
         name: Upload client artifact
 
         with:
           name: Client
-          path: .\HealthcareVitalSignsMonitor\Client\bin\Release\Client.exe
+          path: .\HealthcareVitalSignsMonitor\Client\bin\Release\
 
       - uses: actions/upload-artifact@master
         name: Upload documentation artifact
 
         with:
           name: Documentation
-          path: doc/main.pdf
+          path: doc\main.pdf
 
+  # Send a failure message Telegram
   jobs-failure:
-    needs: [compile-report, build-client, build-simulator, release]
+    needs: [build-report, build-client, build-simulator, release]
     if: failure()
     runs-on: [ubuntu-latest]
 
@@ -182,10 +183,11 @@ jobs:
         format: html
         disable_web_page_preview: true
 
+   # Send a success message Telegram
   jobs-success:
-    needs: [compile-report, build-client, build-simulator, release]
+    needs: [build-report, build-client, build-simulator, release]
     if: success()
-    runs-on: [ ubuntu-latest]
+    runs-on: [ubuntu-latest]
 
     steps:
     - name: Send telegram success message to Luca
