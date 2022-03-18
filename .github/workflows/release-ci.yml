@@ -129,9 +129,9 @@ jobs:
         # prerelease: # optional
         # Newline-delimited list of path globs for asset files to upload
         files: |
-          .\HealthcareVitalSignsMonitor\Simulator\bin\Release
-          .\HealthcareVitalSignsMonitor\Client\bin\Release
-          .\doc\main.pdf
+          Simulator
+          Client
+          Doc
         
         # Fails if any of the `files` globs match nothing. Defaults to false
         fail_on_unmatched_files: true
