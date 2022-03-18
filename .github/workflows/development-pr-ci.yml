@@ -12,9 +12,9 @@ on:
   workflow_dispatch:
   
 env:
-  SIMULATOR_SOLUTION_PATH: '.\VitalSignsMonitorSimulator\Simulator\Simulator.csproj'
-  CLIENT_SOLUTION_PATH: '.\VitalSignsMonitorSimulator\Client\Client.csproj'
-  PACKAGES_PATH: '.\VitalSignsMonitorSimulator\packages\'  
+  SIMULATOR_SOLUTION_PATH: '.\HealthcareVitalSignsMonitor\Simulator\Simulator.csproj'
+  CLIENT_SOLUTION_PATH: '.\HealthcareVitalSignsMonitor\Client\Client.csproj'
+  PACKAGES_PATH: '.\HealthcareVitalSignsMonitor\packages\'  
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -39,7 +39,7 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: Simulator
-          path: .\VitalSignsMonitorSimulator\Simulator\bin\Release\Simulator.exe 
+          path: .\HealthcareVitalSignsMonitor\Simulator\bin\Release\Simulator.exe 
         
   build-client:
     runs-on: [windows-latest]
@@ -62,4 +62,4 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: Client
-          path: .\VitalSignsMonitorSimulator\Client\bin\Release\Client.exe
+          path: .\HealthcareVitalSignsMonitor\Client\bin\Release\Client.exe

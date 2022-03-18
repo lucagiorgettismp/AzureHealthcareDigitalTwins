@@ -12,18 +12,17 @@ on:
   workflow_dispatch:
   
 env:
-  SIMULATOR_SOLUTION_PATH: '.\VitalSignsMonitorSimulator\Simulator\Simulator.csproj'
-  CLIENT_SOLUTION_PATH: '.\VitalSignsMonitorSimulator\Client\Client.csproj'
-  PACKAGES_PATH: '.\VitalSignsMonitorSimulator\packages\'
+  SIMULATOR_SOLUTION_PATH: '.\HealthcareVitalSignsMonitor\Simulator\Simulator.csproj'
+  CLIENT_SOLUTION_PATH: '.\HealthcareVitalSignsMonitor\Client\Client.csproj'
+  PACKAGES_PATH: '.\HealthcareVitalSignsMonitor\packages\'  
   
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build-and-deploy-app-function:
     runs-on: windows-latest
-
     env:
-      AZURE_FUNCTIONAPP_PACKAGE_PATH: '.\AzureTools\AzureAppFunctions\AppFunctions' # set this to the path to your web app project, defaults to the repository root
+      AZURE_FUNCTIONAPP_PACKAGE_PATH: '.\AzureAppFunctions\AppFunctions' # set this to the path to your web app project, defaults to the repository root
       DOTNET_VERSION: '3.1' # set this to the dotnet version to use
 
     steps:
@@ -73,7 +72,7 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: Simulator
-          path: .\VitalSignsMonitorSimulator\Simulator\bin\Release\Simulator.exe 
+          path: .\HealthcareVitalSignsMonitor\Simulator\bin\Release\
         
   build-client:
     runs-on: [windows-latest]
@@ -96,4 +95,77 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: Client
-          path: .\VitalSignsMonitorSimulator\Client\bin\Release\Client.exe 
+          path: .\HealthcareVitalSignsMonitor\Client\bin\Release\
+
+  jobs-failure:
+      needs: [build-and-deploy-app-function, build-simulator, build-client]
+      if: failure()
+      runs-on: [ubuntu-latest]
+
+      steps:
+      - name: Send telegram failure message
+        uses: appleboy/telegram-action@master
+
+        with:
+          to: ${{ secrets.TELEGRAM_TO_LUCA }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+                ${{ github.event_name }} event,
+                on github.com/${{ github.repository }},
+                by ${{ github.actor }}:
+                <b>${{ github.event.head_commit.message }}</b>
+                ❌ <b>FAILED</b> ❌
+          format: html
+          disable_web_page_preview: true
+
+      - name: Send telegram failure message to Lorenzo
+        uses: appleboy/telegram-action@master
+
+        with:
+          to: ${{ secrets.TELEGRAM_TO_LORENZO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+                ${{ github.event_name }} event,
+                on github.com/${{ github.repository }},
+                by ${{ github.actor }}:
+                <b>${{ github.event.head_commit.message }}</b>
+                ❌ <b>FAILED</b> ❌
+          format: html
+          disable_web_page_preview: true
+
+
+  jobs-success:
+      needs: [build-and-deploy-app-function, build-simulator, build-client]
+      if: success()
+      runs-on: [ ubuntu-latest]
+
+      steps:
+      - name: Send telegram success message
+        uses: appleboy/telegram-action@master
+
+        with:
+          to: ${{ secrets.TELEGRAM_TO_LUCA }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+                ${{ github.event_name }} event,
+                on github.com/${{ github.repository }},
+                by ${{ github.actor }}:
+                <b>${{ github.event.head_commit.message }}</b>
+                ✅ <b>SUCCEDED</b> ✅
+          format: html
+          disable_web_page_preview: true
+
+      - name: Send telegram success message to Lorenzo
+        uses: appleboy/telegram-action@master
+
+        with:
+          to: ${{ secrets.TELEGRAM_TO_LORENZO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+                ${{ github.event_name }} event,
+                on github.com/${{ github.repository }},
+                by ${{ github.actor }}:
+                <b>${{ github.event.head_commit.message }}</b>
+                ✅ <b>SUCCEDED</b> ✅
+          format: html
+          disable_web_page_preview: true
