@@ -64,7 +64,7 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: Client
-          path: .\VitalSignsMonitorSimulator\Client\bin\Release\Client.exe
+          path: .\HealthcareVitalSignsMonitor\Client\bin\Release\Client.exe
 
   execute-tests:
     runs-on: windows-latest
