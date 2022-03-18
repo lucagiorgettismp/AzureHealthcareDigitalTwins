@@ -38,4 +38,4 @@ jobs:
         run: msbuild ${{ env.TEST_SOLUTION_PATH }} /p:Configuration=Release
 
       - name: Test
-        run:  vstest.console ${{ env.TEST_DLL_PATH }}'
+        run:  vstest.console ${{ env.TEST_DLL_PATH }}
