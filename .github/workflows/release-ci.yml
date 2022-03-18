@@ -116,7 +116,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: Doc
-          path: .\doc\main.pdf
+          path: doc/main.pdf
 
   # Create a release 
   release:
@@ -164,7 +164,7 @@ jobs:
         files: |
           .\HealthcareVitalSignsMonitor\Simulator\bin\Release
           .\HealthcareVitalSignsMonitor\Client\bin\Release
-          .\doc\.main.pdf
+          .\doc\main.pdf
         
         # Fails if any of the `files` globs match nothing. Defaults to false
         fail_on_unmatched_files: true
