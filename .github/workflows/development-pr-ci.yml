@@ -62,4 +62,28 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: Client
-          path: .\HealthcareVitalSignsMonitor\Client\bin\Release\Client.exe
+          path: .\VitalSignsMonitorSimulator\Client\bin\Release\Client.exe
+
+  execute-tests:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.1
+  
+      - name: Setup NuGet.exe
+        uses: NuGet/setup-nuget@v1.0.5
+
+      - name: Setup VSTest.exe
+        uses: Malcolmnixon/Setup-VSTest@v4
+
+      - name: Restore NuGet packages
+        run: nuget restore ${{ env.TEST_SOLUTION_PATH }} -PackagesDirectory ${{ env.PACKAGES_PATH }}
+        
+      - name: Build
+        run: msbuild ${{ env.TEST_SOLUTION_PATH }} /p:Configuration=Release
+
+      - name: Test
+        run:  vstest.console ${{ env.TEST_DLL_PATH }}
