@@ -12,17 +12,18 @@ on:
   workflow_dispatch:
   
 env:
-  SIMULATOR_SOLUTION_PATH: '.\VitalSignsMonitorSimulator\Simulator\Simulator.csproj'
-  CLIENT_SOLUTION_PATH: '.\VitalSignsMonitorSimulator\Client\Client.csproj'
-  PACKAGES_PATH: '.\VitalSignsMonitorSimulator\packages\'
-  
+  SIMULATOR_SOLUTION_PATH: '.\HealthcareVitalSignsMonitor\Simulator\Simulator.csproj'
+  CLIENT_SOLUTION_PATH: '.\HealthcareVitalSignsMonitor\Client\Client.csproj'
+  PACKAGES_PATH: '.\HealthcareVitalSignsMonitor\packages\'  
+  TEST_SOLUTION_PATH: '.\HealthcareVitalSignsMonitor\SimulatorTest\SimulatorTest.csproj'  
+  TEST_DLL_PATH: '.\HealthcareVitalSignsMonitor\SimulatorTest\bin\Release\SimulatorTest.dll'
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build-and-deploy-app-function:
     runs-on: windows-latest
     env:
-      AZURE_FUNCTIONAPP_PACKAGE_PATH: '.\AzureTools\AzureAppFunctions\AppFunctions' # set this to the path to your web app project, defaults to the repository root
+      AZURE_FUNCTIONAPP_PACKAGE_PATH: '.\AzureAppFunctions\AppFunctions' # set this to the path to your web app project, defaults to the repository root
       DOTNET_VERSION: '3.1' # set this to the dotnet version to use
 
     steps:
@@ -72,7 +73,7 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: Simulator
-          path: .\VitalSignsMonitorSimulator\Simulator\bin\Release\Simulator.exe 
+          path: .\HealthcareVitalSignsMonitor\Simulator\bin\Release\
         
   build-client:
     runs-on: [windows-latest]
@@ -95,11 +96,34 @@ jobs:
       - uses: actions/upload-artifact@master
         with:
           name: Client
-          path: .\VitalSignsMonitorSimulator\Client\bin\Release\Client.exe 
+          path: .\HealthcareVitalSignsMonitor\Client\bin\Release\
 
+  execute-tests:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.1
+  
+      - name: Setup NuGet.exe
+        uses: NuGet/setup-nuget@v1.0.5
+
+      - name: Setup VSTest.exe
+        uses: Malcolmnixon/Setup-VSTest@v4
+
+      - name: Restore NuGet packages
+        run: nuget restore ${{ env.TEST_SOLUTION_PATH }} -PackagesDirectory ${{ env.PACKAGES_PATH }}
+        
+      - name: Build
+        run: msbuild ${{ env.TEST_SOLUTION_PATH }} /p:Configuration=Release
+
+      - name: Test
+        run:  vstest.console ${{ env.TEST_DLL_PATH }}
 
   jobs-failure:
-      needs: [build-and-deploy-app-function, build-simulator, build-client]
+      needs: [build-and-deploy-app-function, build-simulator, build-client, execute-tests]
       if: failure()
       runs-on: [ubuntu-latest]
 
@@ -136,7 +160,7 @@ jobs:
 
 
   jobs-success:
-      needs: [build-and-deploy-app-function, build-simulator, build-client]
+      needs: [build-and-deploy-app-function, build-simulator, build-client, execute-tests]
       if: success()
       runs-on: [ ubuntu-latest]
 
@@ -152,7 +176,7 @@ jobs:
                 on github.com/${{ github.repository }},
                 by ${{ github.actor }}:
                 <b>${{ github.event.head_commit.message }}</b>
-                ✅ <b>SUCCEDED</b>
+                ✅ <b>SUCCEDED</b> ✅
           format: html
           disable_web_page_preview: true
 
@@ -167,6 +191,6 @@ jobs:
                 on github.com/${{ github.repository }},
                 by ${{ github.actor }}:
                 <b>${{ github.event.head_commit.message }}</b>
-                ✅ <b>SUCCEDED</b>
+                ✅ <b>SUCCEDED</b> ✅
           format: html
           disable_web_page_preview: true
