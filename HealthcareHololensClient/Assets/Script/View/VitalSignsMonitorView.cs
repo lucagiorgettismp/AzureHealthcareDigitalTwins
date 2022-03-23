@@ -64,7 +64,6 @@ namespace Assets.Script.View
 
         internal void StartLoading()
         {
-            this.ButtonMenu.gameObject.SetActive(true);
             this.LoadingCircle.gameObject.SetActive(true);
         }
 

@@ -19,4 +19,4 @@ MonoBehaviour:
     componentName: QRCodeTrackingService
     priority: 10
     runtimePlatform: 8
-    configurationProfile: {fileID: 0}
+    configurationProfile: {fileID: 11400000, guid: 9b00ba3c859ba7744a045669285f1f64, type: 2}

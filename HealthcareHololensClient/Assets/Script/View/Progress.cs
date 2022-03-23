@@ -4,7 +4,7 @@ public class Progress : MonoBehaviour
 {
     // Start is called before the first frame update
     private RectTransform rectComponent;
-    private readonly float rotateSpeed = 200f;
+    private readonly float rotateSpeed = -200f;
 
     private void Start()
     {

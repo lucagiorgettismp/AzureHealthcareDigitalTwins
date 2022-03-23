@@ -21,8 +21,9 @@ public class QRCodeController : MonoBehaviour
         }
     }
 
-    internal void Close()
+    internal void StopController()
     {
+        QRCodeTrackingService.Disable();
         this.gameObject.SetActive(false);
     }
 
@@ -60,7 +61,6 @@ public class QRCodeController : MonoBehaviour
     private void QRCodeTrackingService_QRCodeFound(object sender, QRInfo codeReceived)
     {
         Debug.Log($"[QRCodeDiplayController]  QR Code found: {codeReceived.Data}"); 
-        this.gameObject.SetActive(false);
         actionSuccess(codeReceived);
     }
 
