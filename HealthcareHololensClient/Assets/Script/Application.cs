@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 public class Application : MonoBehaviour
 {
     public VitalSignsMonitorController VitalSignsMonitorController;
-    //public QRCodeController QRCodeController;
+    public QRCodeController QRCodeController;
 
     public void Start()
     {
         VitalSignsMonitorController.Init();
-        // QRCodeController.Init((qrInfo) => QRCodeFound(qrInfo));
+        QRCodeController.Init((qrInfo) => QRCodeFound(qrInfo));
 
         _ = ParseQrCodeString("{\"deviceId\": \"PGNLNZ97M18G479M\"}");
     }
@@ -28,7 +28,7 @@ public class Application : MonoBehaviour
         {
             var qrModel = JsonConvert.DeserializeObject<QrCodeInfoModel>(data);
             Debug.Log($"[QRCodeFoundCallback] {qrModel.DeviceId}");
-            //this.QRCodeController.Close();
+            this.QRCodeController.Close();
 
             await this.VitalSignsMonitorController.OnStartController(qrModel.DeviceId);
         }

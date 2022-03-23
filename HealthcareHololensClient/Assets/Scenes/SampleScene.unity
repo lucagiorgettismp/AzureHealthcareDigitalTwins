@@ -3464,6 +3464,50 @@ Transform:
   m_Father: {fileID: 1632303162}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &131591428
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 131591429}
+  - component: {fileID: 131591430}
+  m_Layer: 0
+  m_Name: QRCodeController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &131591429
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131591428}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2138742701}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &131591430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131591428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 751e73b78babb2d4c8d22b3f95d13638, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qrObservationTimeOut: 3500
 --- !u!1 &135428971
 GameObject:
   m_ObjectHideFlags: 0
@@ -43414,6 +43458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VitalSignsMonitorController: {fileID: 576775825}
+  QRCodeController: {fileID: 131591430}
 --- !u!4 &1496898492
 Transform:
   m_ObjectHideFlags: 0
@@ -60843,6 +60888,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 576775823}
+  - {fileID: 131591429}
   m_Father: {fileID: 1496898492}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

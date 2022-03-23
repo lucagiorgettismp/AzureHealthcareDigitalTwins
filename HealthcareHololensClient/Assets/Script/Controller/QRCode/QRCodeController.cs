@@ -1,21 +1,11 @@
 ﻿using System;
 using Microsoft.MixedReality.Toolkit;
-using TMPro;
 using UnityEngine;
 
 public class QRCodeController : MonoBehaviour
 {
     [SerializeField]
     private float qrObservationTimeOut = 3500;
-
-    [SerializeField]
-    private GameObject menu;
-
-    [SerializeField]
-    private TextMeshPro displayText;
-
-    [SerializeField]
-    private AudioSource confirmSound;
 
     private IQRCodeTrackingService qrCodeTrackingService;
 
@@ -27,8 +17,7 @@ public class QRCodeController : MonoBehaviour
         get
         {
             while (!MixedRealityToolkit.IsInitialized && Time.time < 5) ;
-            return qrCodeTrackingService ??
-                   (qrCodeTrackingService = MixedRealityToolkit.Instance.GetService<IQRCodeTrackingService>());
+            return qrCodeTrackingService ??= MixedRealityToolkit.Instance.GetService<IQRCodeTrackingService>();
         }
     }
 
@@ -64,7 +53,6 @@ public class QRCodeController : MonoBehaviour
 
     private void StartTracking()
     {
-        menu.SetActive(true);
         QRCodeTrackingService.QRCodeFound += QRCodeTrackingService_QRCodeFound;
         QRCodeTrackingService.Enable();
     }
@@ -87,7 +75,6 @@ public class QRCodeController : MonoBehaviour
               qrObservationTimeOut)
         {
             lastSeenCode = null;
-            displayText.text = string.Empty;
         }
     }
 }
