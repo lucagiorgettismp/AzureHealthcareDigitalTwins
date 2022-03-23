@@ -10,15 +10,14 @@ using UnityEngine;
 [MixedRealityExtensionService(SupportedPlatforms.WindowsUniversal)]
 public class QRCodeTrackingService : BaseExtensionService, IQRCodeTrackingService
 {
-    private QRCodeTrackingServiceProfile profile;
+    private readonly QRCodeTrackingServiceProfile _profile;
     public QRCodeTrackingService(string name, uint priority, BaseMixedRealityProfile profile) : base(name, priority, profile)
     {
-        this.profile = (QRCodeTrackingServiceProfile)profile;
+        this._profile = (QRCodeTrackingServiceProfile)profile;
     }
 
     public event EventHandler Initialized;
     public event EventHandler<QRInfo> QRCodeFound;
-    public event EventHandler<string> ProgressMessageSent;
 
     public bool InitializationFailed { get; private set; }
     public string ErrorMessage { get; private set; }
@@ -27,12 +26,12 @@ public class QRCodeTrackingService : BaseExtensionService, IQRCodeTrackingServic
     public bool IsInitialized { get; private set; }
     public string ProgressMessages { get; private set; }
 
-    private QRCodeWatcher qrTracker;
-    private QRCodeWatcherAccessStatus accessStatus;
+    private QRCodeWatcher _qrTracker;
+    private QRCodeWatcherAccessStatus _accessStatus;
 
-    private int initializationAttempt = 0;
+    private int _initializationAttempt = 0;
 
-    private readonly List<string> messageList = new List<string>();
+    private readonly List<string> _messageList = new List<string>();
 
     public override void Initialize()
     {
@@ -46,10 +45,10 @@ public class QRCodeTrackingService : BaseExtensionService, IQRCodeTrackingServic
             IsSupported = QRCodeWatcher.IsSupported();
             if (IsSupported)
             {
-                SendProgressMessage($"Initializing QR tracker attempt {++initializationAttempt}");
+                SendProgressMessage($"Initializing QR tracker attempt {++_initializationAttempt}");
 
                 var capabilityTask = QRCodeWatcher.RequestAccessAsync();
-                await capabilityTask.AwaitWithTimeout(profile.AccessRetryTime,
+                await capabilityTask.AwaitWithTimeout(_profile.AccessRetryTime,
                     ProcessTrackerCapabilityReturned,
                     () => _ = InitializeTracker());
             }
@@ -70,12 +69,12 @@ public class QRCodeTrackingService : BaseExtensionService, IQRCodeTrackingServic
         {
             InitializationFail($"QR tracker could not be initialized: {ast}");
         }
-        accessStatus = ast;
+        _accessStatus = ast;
     }
 
     public override void Update()
     {
-        if (qrTracker == null && accessStatus == QRCodeWatcherAccessStatus.Allowed)
+        if (_qrTracker == null && _accessStatus == QRCodeWatcherAccessStatus.Allowed)
         {
             SetupTracking();
         }
@@ -83,8 +82,8 @@ public class QRCodeTrackingService : BaseExtensionService, IQRCodeTrackingServic
 
     private void SetupTracking()
     {
-        qrTracker = new QRCodeWatcher();
-        qrTracker.Updated += QRCodeWatcher_Updated;
+        _qrTracker = new QRCodeWatcher();
+        _qrTracker.Updated += QRCodeWatcher_Updated;
         IsInitialized = true;
         Initialized?.Invoke(this, new EventArgs());
         SendProgressMessage("QR tracker initialized");
@@ -106,7 +105,7 @@ public class QRCodeTrackingService : BaseExtensionService, IQRCodeTrackingServic
 
         try
         {
-            qrTracker.Start();
+            _qrTracker.Start();
             IsTracking = true;
             SendProgressMessage("Enabled tracking");
         }
@@ -122,7 +121,7 @@ public class QRCodeTrackingService : BaseExtensionService, IQRCodeTrackingServic
         if (IsTracking)
         {
             IsTracking = false;
-            qrTracker?.Stop();
+            _qrTracker?.Stop();
             SendProgressMessage("Disabled tracking");
         }
     }
@@ -136,12 +135,12 @@ public class QRCodeTrackingService : BaseExtensionService, IQRCodeTrackingServic
 
     private void SendProgressMessage(string msg)
     {
-        if (!profile.ExposedProgressMessages)
+        if (!_profile.ExposedProgressMessages)
         {
             return;
         }
 
         Debug.Log(msg);
-        messageList.Add(msg);
+        _messageList.Add(msg);
     }
 }

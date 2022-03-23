@@ -5,19 +5,18 @@ using UnityEngine;
 public class QRCodeController : MonoBehaviour
 {
     [SerializeField]
-    private float qrObservationTimeOut = 3500;
+    float QrObservationTimeOut = 3500;
 
-    private IQRCodeTrackingService qrCodeTrackingService;
-
-    private QRInfo lastSeenCode;
-    private Action<QRInfo> actionSuccess;
+    private IQRCodeTrackingService _qrCodeTrackingService;
+    private QRInfo _lastSeenCode;
+    private Action<QRInfo> _actionSuccess;
 
     private IQRCodeTrackingService QRCodeTrackingService
     {
         get
         {
             while (!MixedRealityToolkit.IsInitialized && Time.time < 5) ;
-            return qrCodeTrackingService ??= MixedRealityToolkit.Instance.GetService<IQRCodeTrackingService>();
+            return _qrCodeTrackingService ??= MixedRealityToolkit.Instance.GetService<IQRCodeTrackingService>();
         }
     }
 
@@ -43,7 +42,7 @@ public class QRCodeController : MonoBehaviour
             QRCodeTrackingService.Initialized += QRCodeTrackingService_Initialized;
         }
 
-        this.actionSuccess = actionSuccess;
+        this._actionSuccess = actionSuccess;
     }
 
 
@@ -61,20 +60,20 @@ public class QRCodeController : MonoBehaviour
     private void QRCodeTrackingService_QRCodeFound(object sender, QRInfo codeReceived)
     {
         Debug.Log($"[QRCodeDiplayController]  QR Code found: {codeReceived.Data}"); 
-        actionSuccess(codeReceived);
+        _actionSuccess(codeReceived);
     }
 
     private void Update()
     {
-        if (lastSeenCode == null)
+        if (_lastSeenCode == null)
         {
             return;
         }
         if (Math.Abs(
-            (lastSeenCode.LastDetectedTime.UtcDateTime - DateTimeOffset.UtcNow).TotalMilliseconds) >
-              qrObservationTimeOut)
+            (_lastSeenCode.LastDetectedTime.UtcDateTime - DateTimeOffset.UtcNow).TotalMilliseconds) >
+              QrObservationTimeOut)
         {
-            lastSeenCode = null;
+            _lastSeenCode = null;
         }
     }
 }

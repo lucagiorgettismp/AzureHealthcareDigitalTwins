@@ -1,3 +1,4 @@
+using Assets.Script.Utils;
 using Assets.Script.View;
 using System;
 using TMPro;
@@ -6,34 +7,34 @@ using UnityEngine;
 public class HeartFrequencyPanel : BaseApplicationPanel
 {
     /* Datetime */
-    private TextMeshPro Date;
-    private TextMeshPro Hour;
+    private TextMeshPro _date;
+    private TextMeshPro _hour;
 
     /* Value */
-    private TextMeshPro HeartFrequencyValue;
-    private TextMeshPro BatteryValue;
+    private TextMeshPro _heartFrequencyValue;
+    private TextMeshPro _batteryValue;
    
     /* Sensor name */
-    private TextMeshPro HeartFrequencySensorName;
-    private TextMeshPro BatterySensorName;
+    private TextMeshPro _heartFrequencySensorName;
+    private TextMeshPro _batterySensorName;
 
     /* Symbol */
-    private TextMeshPro HeartFrequencySymbol;
-    private TextMeshPro BatterySymbol;
+    private TextMeshPro _heartFrequencySymbol;
+    private TextMeshPro _batterySymbol;
 
     /* Alert */
-    private GameObject HeartFrequencyAlert;
-    private GameObject BatteryAlert;
+    private GameObject _heartFrequencyAlert;
+    private GameObject _batteryAlert;
 
     /* Line Chart*/
-    private WindowGraph HeartFrequencyGraph;
+    private WindowGraph _heartFrequencyGraph;
 
     /* Colors */
     const string RED_COLOR = "Materials/RedColor";
     const string WHITE_COLOR = "Materials/WhiteColor";
 
-    Material RedColor;
-    Material WhiteColor;
+    private Material _redColor;
+    private Material _whiteColor;
 
     public void Awake()
     {
@@ -43,41 +44,41 @@ public class HeartFrequencyPanel : BaseApplicationPanel
     public void Update()
     {
         var dateTime = DateTime.Now;
-        this.Hour.text = dateTime.ToShortDateString();
-        this.Date.text = dateTime.ToLongTimeString();
+        this._hour.text = dateTime.ToShortDateString();
+        this._date.text = dateTime.ToLongTimeString();
     }
 
     private void InitializedComponent()
     {
         /* Datetime components */
-        this.Date = GameObject.Find("DetailHeartFrequencyDate").GetComponent<TextMeshPro>();
-        this.Hour = GameObject.Find("DetailHeartFrequencyHour").GetComponent<TextMeshPro>();
+        this._date = GameObject.Find("DetailHeartFrequencyDate").GetComponent<TextMeshPro>();
+        this._hour = GameObject.Find("DetailHeartFrequencyHour").GetComponent<TextMeshPro>();
 
         /* Value components */
-        this.HeartFrequencyValue = GameObject.Find("DetailHeartFrequencyValue").GetComponent<TextMeshPro>();
-        this.BatteryValue = GameObject.Find("DetailHeartFrequencyBatteryValue").GetComponent<TextMeshPro>();
+        this._heartFrequencyValue = GameObject.Find("DetailHeartFrequencyValue").GetComponent<TextMeshPro>();
+        this._batteryValue = GameObject.Find("DetailHeartFrequencyBatteryValue").GetComponent<TextMeshPro>();
 
         /* Symbol components */
-        this.HeartFrequencySymbol = GameObject.Find("DetailHeartFrequencySymbol").GetComponent<TextMeshPro>();
-        this.BatterySymbol = GameObject.Find("DetailHeartFrequencyBatterySymbol").GetComponent<TextMeshPro>();
+        this._heartFrequencySymbol = GameObject.Find("DetailHeartFrequencySymbol").GetComponent<TextMeshPro>();
+        this._batterySymbol = GameObject.Find("DetailHeartFrequencyBatterySymbol").GetComponent<TextMeshPro>();
 
         /* Sensor name components */
-        this.HeartFrequencySensorName = GameObject.Find("DetailHeartFrequencySensorName").GetComponent<TextMeshPro>();
-        this.BatterySensorName = GameObject.Find("DetailHeartFrequencyBatterySensorName").GetComponent<TextMeshPro>();
+        this._heartFrequencySensorName = GameObject.Find("DetailHeartFrequencySensorName").GetComponent<TextMeshPro>();
+        this._batterySensorName = GameObject.Find("DetailHeartFrequencyBatterySensorName").GetComponent<TextMeshPro>();
 
         /* Alert components */
-        this.HeartFrequencyAlert = GameObject.Find("DetailHeartFrequencyAlert");
-        this.BatteryAlert = GameObject.Find("DetailHeartFrequencyBatteryAlert");
+        this._heartFrequencyAlert = GameObject.Find("DetailHeartFrequencyAlert");
+        this._batteryAlert = GameObject.Find("DetailHeartFrequencyBatteryAlert");
 
         /* Line chart components */
-        this.HeartFrequencyGraph = GameObject.Find("DetailHeartFrequencyLineChart").GetComponent<WindowGraph>();
+        this._heartFrequencyGraph = GameObject.Find("DetailHeartFrequencyLineChart").GetComponent<WindowGraph>();
 
         /* Load color resources */
-        RedColor = Resources.Load(RED_COLOR, typeof(Material)) as Material;
-        WhiteColor = Resources.Load(WHITE_COLOR, typeof(Material)) as Material;
+        _redColor = Resources.Load(RED_COLOR, typeof(Material)) as Material;
+        _whiteColor = Resources.Load(WHITE_COLOR, typeof(Material)) as Material;
 
-        this.HeartFrequencyAlert.GetComponent<Renderer>().material = WhiteColor;
-        this.BatteryAlert.GetComponent<Renderer>().material = WhiteColor;
+        this._heartFrequencyAlert.GetComponent<Renderer>().material = _whiteColor;
+        this._batteryAlert.GetComponent<Renderer>().material = _whiteColor;
     }
         
     public void UpdateView(Message message)
@@ -98,31 +99,31 @@ public class HeartFrequencyPanel : BaseApplicationPanel
 
     private void UpdateSensorSymbols(Message message)
     {
-        this.HeartFrequencySymbol.text = message.heart_frequency_sensor_value.symbol;
-        this.BatterySymbol.text = message.battery_sensor_value.symbol;
+        this._heartFrequencySymbol.text = message.heart_frequency_sensor_value.symbol;
+        this._batterySymbol.text = message.battery_sensor_value.symbol;
     }
 
     private void UpdateSensorValues(Message message)
     {
-        this.HeartFrequencyValue.text = message.heart_frequency_sensor_value.value.ToString();
-        this.BatteryValue.text = message.battery_sensor_value.value.ToString();
+        this._heartFrequencyValue.text = message.heart_frequency_sensor_value.value.ToString();
+        this._batteryValue.text = message.battery_sensor_value.value.ToString();
     }
 
     private void UpdateSensorNames(Message message)
     {
-        this.HeartFrequencySensorName.text = message.heart_frequency_sensor_name;
-        this.BatterySensorName.text = message.battery_sensor_name;
+        this._heartFrequencySensorName.text = message.heart_frequency_sensor_name;
+        this._batterySensorName.text = message.battery_sensor_name;
     }
 
     private void UpdateSensorAlerts(Message message)
     {
-        SetAlertSensor(this.HeartFrequencyAlert, message.heart_frequency_alarm);
-        SetAlertSensor(this.BatteryAlert, message.battery_alarm);
+        SetSensorAlert(this._heartFrequencyAlert, message.heart_frequency_alarm);
+        SetSensorAlert(this._batteryAlert, message.battery_alarm);
     }
 
-    private void SetAlertSensor(GameObject sensor, bool inAlarm)
+    private void SetSensorAlert(GameObject sensor, bool inAlarm)
     {
-        sensor.GetComponent<Renderer>().material = inAlarm ? RedColor : WhiteColor;
+        sensor.GetComponent<Renderer>().material = inAlarm ? _redColor : _whiteColor;
 
         if (inAlarm)
         {
@@ -137,11 +138,8 @@ public class HeartFrequencyPanel : BaseApplicationPanel
         float value = (float)message.heart_frequency_sensor_value.value;
 
         string graphColor = (string)message.heart_frequency_graph_color;
-        int channelR = Convert.ToInt32(graphColor.Split(',')[0]);
-        int channelG = Convert.ToInt32(graphColor.Split(',')[1]);
-        int channelB = Convert.ToInt32(graphColor.Split(',')[2]);
-        Color color = new Color(channelR, channelG, channelB, 250f);
+        Color color = ColorUtils.GetColorByString(graphColor);
 
-        this.HeartFrequencyGraph.AddPoint(value, yAxisMin, yAxisMax, color);
+        this._heartFrequencyGraph.AddPoint(value, yAxisMin, yAxisMax, color);
     }
 }

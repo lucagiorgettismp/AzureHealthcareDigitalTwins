@@ -5,31 +5,31 @@ using Microsoft.AspNetCore.SignalR.Client;
 
 public class SignalRConnector
 {
-    private HubConnection connection;
-    private ConnectorCallback callback;
-    private string deviceId = null;
+    private HubConnection _hubConnection;
+    private readonly string _deviceId = null;
+    private readonly Action<Message> _onMessageReceived;
 
-    public SignalRConnector(ConnectorCallback callback, string deviceId)
+    public SignalRConnector(Action<Message> onMessageReceived, string deviceId)
     {
-        this.callback = callback;
-        this.deviceId = deviceId;
+        this._deviceId = deviceId;
+        this._onMessageReceived = onMessageReceived;
     }
 
     public async Task InitAsync()
     {
-        if (this.deviceId != null)
+        if (this._deviceId != null)
         {
             string host = "https://healthcareiothubtodt.azurewebsites.net/api";
 
             try
             {
-                connection = new HubConnectionBuilder()
+                _hubConnection = new HubConnectionBuilder()
                     .WithUrl(host)
                     .Build();
 
-                connection.On<Message>(this.deviceId, (message) =>
+                _hubConnection.On<Message>(this._deviceId, (message) =>
                     {
-                        this.callback.OnMessageReceived(message);
+                        this._onMessageReceived(message);
                     });
             }
             catch (Exception e)
@@ -37,7 +37,7 @@ public class SignalRConnector
                 Debug.LogError("Error in connection signalR: " + e.Message);
             }
 
-            await connection.StartAsync();
+            await _hubConnection.StartAsync();
         }
     }
 }

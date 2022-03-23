@@ -10,19 +10,18 @@ public class VitalSignsMonitorController: MonoBehaviour
 {
     public VitalSignsMonitorView View;
     
-    private VitalSignsMonitorModel Model;
-    private string deviceId = null;
-    private PanelType lastSelectedPanelType;
-    private DigitalTwinsClient digitalTwinClient;
-
-    private Application Application;
+    private VitalSignsMonitorModel _model;
+    private string _deviceId = null;
+    private PanelType _lastSelectedPanelType;
+    private DigitalTwinsClient _digitalTwinClient;
+    private Application _application;
     
     public void Start()
     {
-        this.lastSelectedPanelType = PanelType.Home;
-        this.Application = GameObject.FindObjectOfType<Application>();
+        this._lastSelectedPanelType = PanelType.Home;
+        this._application = GameObject.FindObjectOfType<Application>();
 
-        this.Model = new VitalSignsMonitorModel(this);
+        this._model = new VitalSignsMonitorModel(this);
     }
 
     public void Init()
@@ -37,10 +36,10 @@ public class VitalSignsMonitorController: MonoBehaviour
         try
         {
             this.View.StartLoading();
-            this.deviceId = deviceId;
-            this.digitalTwinClient = TwinOperationApi.GetClient();
+            this._deviceId = deviceId;
+            this._digitalTwinClient = TwinOperationApi.GetClient();
 
-            this.Model.Init(deviceId);
+            this._model.Init(deviceId);
 
             await this.GetPatientAsync();
             await this.GetSelectedViewAsync();
@@ -56,26 +55,24 @@ public class VitalSignsMonitorController: MonoBehaviour
 
         var selectedPanel = (PanelType)message.configuration_last_selected_view;
 
-        if (lastSelectedPanelType != selectedPanel)
+        if (_lastSelectedPanelType != selectedPanel)
         {
             this.View.SetSelectedPanel(selectedPanel);
-            lastSelectedPanelType = selectedPanel;
+            _lastSelectedPanelType = selectedPanel;
         }
     }
 
     public async Task PersistSelectedPanel(PanelType selectedPanel)
     {
-        if (deviceId != null && deviceId.Length > 0)
+        if (_deviceId != null && _deviceId.Length > 0)
         {
-            await TwinOperationApi.SetSelectedView(digitalTwinClient, deviceId, selectedPanel);
+            await TwinOperationApi.SetSelectedView(_digitalTwinClient, _deviceId, selectedPanel);
         }
     }
 
     public async Task GetPatientAsync()
     {
-        this.View.SetPatientPanelLoading();
-
-        var patient = await TwinOperationApi.GetPatient(digitalTwinClient, deviceId);
+        var patient = await TwinOperationApi.GetPatient(_digitalTwinClient, _deviceId);
 
         this.View.StopLoading();
         this.View.SetPatient(patient);
@@ -83,14 +80,14 @@ public class VitalSignsMonitorController: MonoBehaviour
 
     private async Task GetSelectedViewAsync()
     {
-        var selectedPanel = await TwinOperationApi.GetSelectedView(digitalTwinClient, deviceId);
+        var selectedPanel = await TwinOperationApi.GetSelectedView(_digitalTwinClient, _deviceId);
         this.View.StopLoading();
         this.View.SetSelectedPanel(selectedPanel);
     }
 
     internal void CloseApplication()
     {
-        this.Application.Close();
+        this._application.Close();
     }
 }
     

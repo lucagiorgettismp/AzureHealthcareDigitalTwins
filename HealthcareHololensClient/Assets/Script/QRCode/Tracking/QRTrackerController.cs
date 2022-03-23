@@ -5,15 +5,15 @@ using UnityEngine;
 public class QRTrackerController : MonoBehaviour
 {
     [SerializeField]
-    private SpatialGraphCoordinateSystemSetter spatialGraphCoordinateSystemSetter;
+    public SpatialGraphCoordinateSystemSetter SpatialGraphCoordinateSystemSetter;
 
     [SerializeField]
-    private string locationQrValue = string.Empty;
+    public string LocationQrValue = string.Empty;
 
-    private Transform markerHolder;
-    private AudioSource audioSource;
-    private GameObject markerDisplay;
-    private QRInfo lastMessage;
+    private Transform _markerHolder;
+    private AudioSource _audioSource;
+    private GameObject _markerDisplay;
+    private QRInfo _lastMessage;
 
     public bool IsTrackingActive { get; private set; } = true;
 
@@ -36,15 +36,15 @@ public class QRTrackerController : MonoBehaviour
             return;
         }
 
-        markerHolder = spatialGraphCoordinateSystemSetter.gameObject.transform;
-        markerDisplay = markerHolder.GetChild(0).gameObject;
-        markerDisplay.SetActive(false);
+        _markerHolder = SpatialGraphCoordinateSystemSetter.gameObject.transform;
+        _markerDisplay = _markerHolder.GetChild(0).gameObject;
+        _markerDisplay.SetActive(false);
 
-        audioSource = markerHolder.gameObject.GetComponent<AudioSource>();
+        _audioSource = _markerHolder.gameObject.GetComponent<AudioSource>();
 
         QRCodeTrackingService.QRCodeFound += ProcessTrackingFound;
-        spatialGraphCoordinateSystemSetter.PositionAcquired += SetPosition;
-        spatialGraphCoordinateSystemSetter.PositionAcquisitionFailed +=
+        SpatialGraphCoordinateSystemSetter.PositionAcquired += SetPosition;
+        SpatialGraphCoordinateSystemSetter.PositionAcquisitionFailed +=
             (s, e) => ResetTracking();
 
 
@@ -72,7 +72,7 @@ public class QRTrackerController : MonoBehaviour
     {
         if (QRCodeTrackingService.IsInitialized)
         {
-            markerDisplay.SetActive(false);
+            _markerDisplay.SetActive(false);
             IsTrackingActive = true;
         }
     }
@@ -84,11 +84,11 @@ public class QRTrackerController : MonoBehaviour
             return;
         }
 
-        lastMessage = msg;
+        _lastMessage = msg;
 
-        if (msg.Data == locationQrValue && Math.Abs((DateTimeOffset.UtcNow - msg.LastDetectedTime.UtcDateTime).TotalMilliseconds) < 200)
+        if (msg.Data == LocationQrValue && Math.Abs((DateTimeOffset.UtcNow - msg.LastDetectedTime.UtcDateTime).TotalMilliseconds) < 200)
         {
-            spatialGraphCoordinateSystemSetter.SetLocationIdSize(msg.SpatialGraphNodeId,
+            SpatialGraphCoordinateSystemSetter.SetLocationIdSize(msg.SpatialGraphNodeId,
                 msg.PhysicalSideLength);
         }
     }
@@ -96,10 +96,10 @@ public class QRTrackerController : MonoBehaviour
     private void SetPosition(object sender, Pose pose)
     {
         IsTrackingActive = false;
-        markerHolder.localScale = Vector3.one * lastMessage.PhysicalSideLength;
-        markerDisplay.SetActive(true);
+        _markerHolder.localScale = Vector3.one * _lastMessage.PhysicalSideLength;
+        _markerDisplay.SetActive(true);
         PositionSet?.Invoke(this, pose);
-        audioSource.Play();
+        _audioSource.Play();
     }
 
     public EventHandler<Pose> PositionSet;

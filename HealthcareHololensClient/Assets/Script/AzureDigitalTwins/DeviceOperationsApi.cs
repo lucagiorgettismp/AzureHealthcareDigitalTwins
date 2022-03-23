@@ -10,21 +10,20 @@
     using Newtonsoft.Json;
     using System.Text.Json;
     using Model;
-    using Assets.Script.View;
     using Assets.Script.Model;
 
     class TwinOperationApi
     {
-        public static DigitalTwinsClient GetClient()
+        internal static DigitalTwinsClient GetClient()
         {
             Uri adtInstanceUrl;
 
             DigitalTwinsClient twinClient = null;
-            ConnectionConfig config = AuthenticationApi.GetRegistryManager();
+            ConnectionConfig config = GetRegistryManager();
 
             if (config != null)
             {
-                adtInstanceUrl = new Uri(config.hostClient);
+                adtInstanceUrl = new Uri(config.HostClient);
                 Debug.Log("Twin client authenticating...");
                 var credential = new DefaultAzureCredential();
                 twinClient = new DigitalTwinsClient(adtInstanceUrl, credential);
@@ -33,41 +32,6 @@
                 Console.WriteLine();
             }
             return twinClient;
-        }
-
-        public async static Task<Patient> GetPatient(DigitalTwinsClient client, string deviceId)
-        {
-            string patientTwinName = await ListRelationships(client, deviceId);
-
-            Patient patient = null;
-            if (patientTwinName != null)
-            {
-                patient = await GetPatientTwin(client, patientTwinName);
-            }
-
-            return patient;
-        }
-
-        private async static Task<string> ListRelationships(DigitalTwinsClient client, string srcId)
-        {
-            string namePatientTwin = null;
-            try
-            {
-                AsyncPageable<BasicRelationship> results = client.GetRelationshipsAsync<BasicRelationship>(srcId);
-                Debug.Log($"Twin {srcId} is connected to:");
-
-                await foreach (BasicRelationship rel in results)
-                {
-                    Debug.Log($"Twin {rel.Name} is connected to: {rel.TargetId}");
-                    namePatientTwin = rel.TargetId;
-                }
-            }
-            catch (RequestFailedException e)
-            {
-                Debug.LogError($"Relationship retrieval error: {e.Status}: {e.Message}");
-            }
-
-            return namePatientTwin;
         }
 
         internal static async Task SetSelectedView(DigitalTwinsClient client, string deviceId, PanelType selectedPanel)
@@ -101,6 +65,19 @@
             var conf = JsonConvert.DeserializeObject<ConfigurationPayloadData>(configurationJson);
 
             return (PanelType)conf.LastSelectedView;
+        }
+        
+        internal async static Task<Patient> GetPatient(DigitalTwinsClient client, string deviceId)
+        {
+            string patientTwinName = await ListRelationships(client, deviceId);
+
+            Patient patient = null;
+            if (patientTwinName != null)
+            {
+                patient = await GetPatientTwin(client, patientTwinName);
+            }
+
+            return patient;
         }
 
         private async static Task<Patient> GetPatientTwin(DigitalTwinsClient client, string twinId)
@@ -139,6 +116,28 @@
 
             Debug.Log($"Reading patient finished.");
             return patient;
+        }
+
+        private async static Task<string> ListRelationships(DigitalTwinsClient client, string srcId)
+        {
+            string namePatientTwin = null;
+            try
+            {
+                AsyncPageable<BasicRelationship> results = client.GetRelationshipsAsync<BasicRelationship>(srcId);
+                Debug.Log($"Twin {srcId} is connected to:");
+
+                await foreach (BasicRelationship rel in results)
+                {
+                    Debug.Log($"Twin {rel.Name} is connected to: {rel.TargetId}");
+                    namePatientTwin = rel.TargetId;
+                }
+            }
+            catch (RequestFailedException e)
+            {
+                Debug.LogError($"Relationship retrieval error: {e.Status}: {e.Message}");
+            }
+
+            return namePatientTwin;
         }
 
         [Serializable]

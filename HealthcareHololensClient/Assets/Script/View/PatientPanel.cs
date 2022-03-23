@@ -5,29 +5,28 @@ using UnityEngine;
 
 public class PatientPanel : BaseApplicationPanel
 {
-    private TextMeshPro PatientName;
-    private TextMeshPro PatientSurname;
-    private TextMeshPro PatientAge;
-    private TextMeshPro PatientGender;
-    private TextMeshPro PatientHeight;
-    private TextMeshPro PatientWeight;
-    private TextMeshPro PatientDescription;
-    private TextMeshPro PatientBodyMassIndex;
-    private TextMeshPro PatientFiscalCode;
-    private TextMeshPro PatientLoading;
+    private TextMeshPro _patientName;
+    private TextMeshPro _patientSurname;
+    private TextMeshPro _patientAge;
+    private TextMeshPro _patientGender;
+    private TextMeshPro _patientHeight;
+    private TextMeshPro _patientWeight;
+    private TextMeshPro _patientDescription;
+    private TextMeshPro _patientBodyMassIndex;
+    private TextMeshPro _patientFiscalCode;
+    private TextMeshPro _patientLoading;
 
     public void Awake()
     {
-        PatientName = GameObject.Find("PatientName").GetComponent<TextMeshPro>();
-        PatientSurname = GameObject.Find("PatientSurname").GetComponent<TextMeshPro>();
-        PatientAge = GameObject.Find("PatientAge").GetComponent<TextMeshPro>();
-        PatientGender = GameObject.Find("PatientGender").GetComponent<TextMeshPro>();
-        PatientHeight = GameObject.Find("PatientHeight").GetComponent<TextMeshPro>();
-        PatientWeight = GameObject.Find("PatientWeight").GetComponent<TextMeshPro>();
-        PatientDescription = GameObject.Find("PatientDescription").GetComponent<TextMeshPro>();
-        PatientBodyMassIndex = GameObject.Find("PatientBodyMassIndex").GetComponent<TextMeshPro>();
-        PatientFiscalCode = GameObject.Find("PatientFiscalCode").GetComponent<TextMeshPro>();
-        PatientLoading = GameObject.Find("PatientLoading").GetComponent<TextMeshPro>();
+        _patientName = GameObject.Find("PatientName").GetComponent<TextMeshPro>();
+        _patientSurname = GameObject.Find("PatientSurname").GetComponent<TextMeshPro>();
+        _patientAge = GameObject.Find("PatientAge").GetComponent<TextMeshPro>();
+        _patientGender = GameObject.Find("PatientGender").GetComponent<TextMeshPro>();
+        _patientHeight = GameObject.Find("PatientHeight").GetComponent<TextMeshPro>();
+        _patientWeight = GameObject.Find("PatientWeight").GetComponent<TextMeshPro>();
+        _patientDescription = GameObject.Find("PatientDescription").GetComponent<TextMeshPro>();
+        _patientBodyMassIndex = GameObject.Find("PatientBodyMassIndex").GetComponent<TextMeshPro>();
+        _patientFiscalCode = GameObject.Find("PatientFiscalCode").GetComponent<TextMeshPro>();
     }
 
     public void SetPatient(Patient patient)
@@ -36,27 +35,20 @@ public class PatientPanel : BaseApplicationPanel
         {
             if (patient != null)
             {
-                this.PatientLoading.gameObject.SetActive(false);
-
-                PatientName.text = "Name: " + patient.Name;
-                PatientSurname.text = "Surname: "+ patient.Surname;
-                PatientAge.text = "Age: " + patient.Age.ToString();
-                PatientGender.text = "Gender: " + patient.Gender;
-                PatientHeight.text = "Height: " + patient.Height.ToString() + " m";
-                PatientWeight.text = "Weight: " + patient.Weight.ToString() + " Kg";
-                PatientDescription.text = "Description: " + patient.Description;
-                PatientBodyMassIndex.text = "Body Mass Index: " + patient.BodyMassIndex.ToString();
-                PatientFiscalCode.text = "Fiscal Code: " + patient.FiscalCode;
+                _patientName.text = "Name: " + patient.Name;
+                _patientSurname.text = "Surname: "+ patient.Surname;
+                _patientAge.text = "Age: " + patient.Age.ToString();
+                _patientGender.text = "Gender: " + patient.Gender;
+                _patientHeight.text = "Height: " + patient.Height.ToString() + " m";
+                _patientWeight.text = "Weight: " + patient.Weight.ToString() + " Kg";
+                _patientDescription.text = "Description: " + patient.Description;
+                _patientBodyMassIndex.text = "Body Mass Index: " + patient.BodyMassIndex.ToString();
+                _patientFiscalCode.text = "Fiscal Code: " + patient.FiscalCode;
             }
         }
         catch (Exception e)
         {
             Debug.LogError("Error: " + e.Message);
         }
-    }
-
-    internal void SetLoading()
-    {
-        this.PatientLoading.text = "Loading....";
     }
 }

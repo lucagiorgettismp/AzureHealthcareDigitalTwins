@@ -12,18 +12,18 @@ using UnityEngine;
         public EventHandler<Pose> PositionAcquired;
         public EventHandler PositionAcquisitionFailed;
 
-        private Queue<Tuple<Guid, float>> locationIdSizes = new Queue<Tuple<Guid, float>>();
+        private Queue<Tuple<Guid, float>> _locationIdSizes = new Queue<Tuple<Guid, float>>();
 
         public void SetLocationIdSize(Guid spatialGraphNodeId, float physicalSideLength)
         {
-            locationIdSizes.Enqueue(new Tuple<Guid, float>(spatialGraphNodeId, physicalSideLength));
+            _locationIdSizes.Enqueue(new Tuple<Guid, float>(spatialGraphNodeId, physicalSideLength));
         }
 
-        void Update()
+        public void Update()
         {
-            if (locationIdSizes.Any())
+            if (_locationIdSizes.Any())
             {
-                var locationIdSize = locationIdSizes.Dequeue();
+                var locationIdSize = _locationIdSizes.Dequeue();
                 UpdateLocation(locationIdSize.Item1, locationIdSize.Item2);
             }
         }
@@ -94,7 +94,7 @@ using UnityEngine;
             if (Mathf.Abs(Quaternion.Dot(lastPose.Value.rotation, pose.rotation)) > 0.99f &&
                 Vector3.Distance(lastPose.Value.position, pose.position) < 0.5f)
             {
-                locationIdSizes.Clear();
+                _locationIdSizes.Clear();
                 lastPose = null;
                 gameObject.transform.SetPositionAndRotation(pose.position, pose.rotation);
                 PositionAcquired?.Invoke(this, pose);

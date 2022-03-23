@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 [Serializable]
 internal class QRCodeTrackingServiceNotSupportedException : Exception
