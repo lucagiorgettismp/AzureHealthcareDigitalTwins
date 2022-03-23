@@ -1,8 +1,8 @@
 using Assets.Script.Model;
-using Assets.Script.View;
+using Assets.Script.View.Panels;
 using UnityEngine;
 
-public class ButtonMenu : BaseApplicationPanel
+public class ButtonMenu : BasePanel
 {
     public void OnClickHomeButton()
     {

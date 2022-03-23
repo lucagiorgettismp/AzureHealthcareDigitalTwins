@@ -1,9 +1,8 @@
-using Assets.Script.View;
 using System;
 using TMPro;
 using UnityEngine;
 
-public class PatientPanel : BaseApplicationPanel
+public class PatientPanel : MonoBehaviour
 {
     private TextMeshPro _patientName;
     private TextMeshPro _patientSurname;
@@ -14,7 +13,6 @@ public class PatientPanel : BaseApplicationPanel
     private TextMeshPro _patientDescription;
     private TextMeshPro _patientBodyMassIndex;
     private TextMeshPro _patientFiscalCode;
-    private TextMeshPro _patientLoading;
 
     public void Awake()
     {

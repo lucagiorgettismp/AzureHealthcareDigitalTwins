@@ -1,18 +1,11 @@
-﻿using Assets.Script.Model;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using UnityEngine;
-using UnityEngine.UI;
-
-namespace Assets.Script.View
+﻿namespace Assets.Script.View
 {
-    public class BaseApplicationPanel : MonoBehaviour
-    {
-        public VitalSignsMonitorView Parent { get { return GameObject.FindObjectOfType<VitalSignsMonitorView>(); } }
-
-
-    }
+    using Assets.Script.Model;
+    using Assets.Script.View.Panels;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using UnityEngine;
+    using UnityEngine.UI;
 
     public class VitalSignsMonitorView: MonoBehaviour
     {
@@ -146,7 +139,7 @@ namespace Assets.Script.View
 
     internal class PanelWrapper
     {
-        public BaseApplicationPanel Panel { get; set; }
+        public BaseSensorPanel Panel { get; set; }
 
         public PanelType PanelType { get; set; }
     }
