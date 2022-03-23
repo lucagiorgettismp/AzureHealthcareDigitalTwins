@@ -39166,6 +39166,7 @@ GameObject:
   - component: {fileID: 1375036833}
   - component: {fileID: 1375036832}
   - component: {fileID: 1375036831}
+  - component: {fileID: 1375036836}
   m_Layer: 0
   m_Name: VitalSignsMonitorPanel
   m_TagString: Untagged
@@ -39357,6 +39358,18 @@ Transform:
   m_Father: {fileID: 2145438310}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1375036836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375036830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38732c9eff261fa4799f1603ec1dd935, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1376196938
 GameObject:
   m_ObjectHideFlags: 0
@@ -43397,9 +43410,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1496898490}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc40ee3e82e64b542bb7e2847cb121b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 157fb67abfe06ac428064878639d2d40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  VitalSignsMonitorController: {fileID: 576775825}
 --- !u!4 &1496898492
 Transform:
   m_ObjectHideFlags: 0
