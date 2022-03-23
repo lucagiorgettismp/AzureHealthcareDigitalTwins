@@ -2,38 +2,42 @@ using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using Microsoft.AspNetCore.SignalR.Client;
-using Microsoft.Extensions.DependencyInjection;
 
 public class SignalRConnector
 {
     private HubConnection connection;
-    private Callback callback;
+    private ConnectorCallback callback;
+    private string deviceId = null;
 
-    public SignalRConnector(Callback callback)
+    public SignalRConnector(ConnectorCallback callback, string deviceId)
     {
         this.callback = callback;
+        this.deviceId = deviceId;
     }
 
     public async Task InitAsync()
     {
-        string host = "https://healthcareiothubtodt.azurewebsites.net/api";
-
-        try
+        if (this.deviceId != null)
         {
-            connection = new HubConnectionBuilder()
-                .WithUrl(host)
-                .Build();
+            string host = "https://healthcareiothubtodt.azurewebsites.net/api";
 
-            connection.On<Message>("PGNLNZ97M18G479M", (message) =>
-                {
-                    this.callback.OnMessageReceived(message);
-                });
-        }
-        catch (Exception e)
-        {
-            Debug.LogError("Error in connection signalR: " + e.Message);
-        }
+            try
+            {
+                connection = new HubConnectionBuilder()
+                    .WithUrl(host)
+                    .Build();
 
-        await connection.StartAsync();
+                connection.On<Message>(this.deviceId, (message) =>
+                    {
+                        this.callback.OnMessageReceived(message);
+                    });
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Error in connection signalR: " + e.Message);
+            }
+
+            await connection.StartAsync();
+        }
     }
 }

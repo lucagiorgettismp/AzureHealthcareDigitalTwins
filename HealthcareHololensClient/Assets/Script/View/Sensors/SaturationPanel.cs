@@ -1,31 +1,32 @@
+using Assets.Script.View;
 using System;
 using TMPro;
 using UnityEngine;
 
-public class BloodPressureView : BaseApplicationPanel
+public class SaturationPanel : BaseApplicationPanel
 {
     /* Datetime */
     private TextMeshPro Date;
     private TextMeshPro Hour;
 
     /* Value */
-    private TextMeshPro BloodPressureValue;
+    private TextMeshPro SaturationValue;
     private TextMeshPro BatteryValue;
 
     /* Sensor name */
-    private TextMeshPro BloodPressureSensorName;
+    private TextMeshPro SaturationSensorName;
     private TextMeshPro BatterySensorName;
 
     /* Symbol */
-    private TextMeshPro BloodPressureSymbol;
+    private TextMeshPro SaturationSymbol;
     private TextMeshPro BatterySymbol;
 
     /* Alert */
-    private GameObject BloodPressureAlert;
+    private GameObject SaturationAlert;
     private GameObject BatteryAlert;
 
     /* Line Chart*/
-    private WindowGraph BloodPressureGraph;
+    private WindowGraph SaturationGraph;
 
     /* Colors */
     const string RED_COLOR = "Materials/RedColor";
@@ -49,33 +50,34 @@ public class BloodPressureView : BaseApplicationPanel
     private void InitializedComponent()
     {
         /* Datetime components */
-        this.Date = GameObject.Find("DetailBloodPressureDate").GetComponent<TextMeshPro>();
-        this.Hour = GameObject.Find("DetailBloodPressureHour").GetComponent<TextMeshPro>();
+        this.Date = GameObject.Find("DetailSaturationDate").GetComponent<TextMeshPro>();
+        this.Hour = GameObject.Find("DetailSaturationHour").GetComponent<TextMeshPro>();
 
         /* Value components */
-        this.BloodPressureValue = GameObject.Find("DetailBloodPressureValue").GetComponent<TextMeshPro>();
-        this.BatteryValue = GameObject.Find("DetailBloodPressureBatteryValue").GetComponent<TextMeshPro>();
+        this.SaturationValue = GameObject.Find("DetailSaturationValue").GetComponent<TextMeshPro>();
+        this.BatteryValue = GameObject.Find("DetailSaturationBatteryValue").GetComponent<TextMeshPro>();
 
         /* Symbol components */
-        this.BloodPressureSymbol = GameObject.Find("DetailBloodPressureSymbol").GetComponent<TextMeshPro>();
-        this.BatterySymbol = GameObject.Find("DetailBloodPressureBatterySymbol").GetComponent<TextMeshPro>();
+        this.SaturationSymbol = GameObject.Find("DetailSaturationSymbol").GetComponent<TextMeshPro>();
+        this.BatterySymbol = GameObject.Find("DetailSaturationBatterySymbol").GetComponent<TextMeshPro>();
 
         /* Sensor name components */
-        this.BloodPressureSensorName = GameObject.Find("DetailBloodPressureSensorName").GetComponent<TextMeshPro>();
-        this.BatterySensorName = GameObject.Find("DetailBloodPressureBatterySensorName").GetComponent<TextMeshPro>();
+        this.SaturationSensorName = GameObject.Find("DetailSaturationSensorName").GetComponent<TextMeshPro>();
+        this.BatterySensorName = GameObject.Find("DetailSaturationBatterySensorName").GetComponent<TextMeshPro>();
 
         /* Alert components */
-        this.BloodPressureAlert = GameObject.Find("DetailBloodPressureAlert");
-        this.BatteryAlert = GameObject.Find("DetailBloodPressureBatteryAlert");
+        this.SaturationAlert = GameObject.Find("DetailSaturationAlert");
+        this.BatteryAlert = GameObject.Find("DetailSaturationBatteryAlert");
+
 
         /* Line chart components */
-        this.BloodPressureGraph = GameObject.Find("DetailBloodPressureLineChart").GetComponent<WindowGraph>();
+        this.SaturationGraph = GameObject.Find("DetailSaturationLineChart").GetComponent<WindowGraph>();
 
         /* Load color resources */
         RedColor = Resources.Load(RED_COLOR, typeof(Material)) as Material;
         WhiteColor = Resources.Load(WHITE_COLOR, typeof(Material)) as Material;
 
-        this.BloodPressureAlert.GetComponent<Renderer>().material = WhiteColor;
+        this.SaturationAlert.GetComponent<Renderer>().material = WhiteColor;
         this.BatteryAlert.GetComponent<Renderer>().material = WhiteColor;
     }
 
@@ -97,25 +99,25 @@ public class BloodPressureView : BaseApplicationPanel
 
     private void UpdateSensorSymbols(Message message)
     {
-        this.BloodPressureSymbol.text = message.blood_pressure_sensor_value.symbol;
+        this.SaturationSymbol.text = message.saturation_sensor_value.symbol;
         this.BatterySymbol.text = message.battery_sensor_value.symbol;
     }
 
     private void UpdateSensorValues(Message message)
     {
-        this.BloodPressureValue.text = message.blood_pressure_sensor_value.value.ToString();
+        this.SaturationValue.text = message.saturation_sensor_value.value.ToString();
         this.BatteryValue.text = message.battery_sensor_value.value.ToString();
     }
 
     private void UpdateSensorNames(Message message)
     {
-        this.BloodPressureSensorName.text = message.blood_pressure_sensor_name;
+        this.SaturationSensorName.text = message.saturation_sensor_name;
         this.BatterySensorName.text = message.battery_sensor_name;
     }
 
     private void UpdateSensorAlerts(Message message)
     {
-        SetAlertSensor(this.BloodPressureAlert, message.blood_pressure_alarm);
+        SetAlertSensor(this.SaturationAlert, message.saturation_alarm);
         SetAlertSensor(this.BatteryAlert, message.battery_alarm);
     }
 
@@ -131,16 +133,16 @@ public class BloodPressureView : BaseApplicationPanel
 
     private void UpdateLineCharts(Message message)
     {
-        float yAxisMin  = (float)message.blood_pressure_sensor_value.min_value;
-        float yAxisMax  = (float)message.blood_pressure_sensor_value.max_value;
-        float value     = (float)message.blood_pressure_sensor_value.value;
+        float yAxisMin = (float)message.saturation_sensor_value.min_value;
+        float yAxisMax = (float)message.saturation_sensor_value.max_value;
+        float value = (float)message.saturation_sensor_value.value;
 
-        string graphColor = (string) message.blood_pressure_graph_color;
+        string graphColor = (string)message.saturation_graph_color;
         int channelR = Convert.ToInt32(graphColor.Split(',')[0]);
         int channelG = Convert.ToInt32(graphColor.Split(',')[1]);
         int channelB = Convert.ToInt32(graphColor.Split(',')[2]);
         Color color = new Color(channelR, channelG, channelB, 250f);
 
-        this.BloodPressureGraph.AddPoint(value, yAxisMin, yAxisMax, color);
+        this.SaturationGraph.AddPoint(value, yAxisMin, yAxisMax, color);
     }
 }

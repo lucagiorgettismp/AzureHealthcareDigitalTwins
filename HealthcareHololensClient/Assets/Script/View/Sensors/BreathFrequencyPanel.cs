@@ -1,31 +1,32 @@
+using Assets.Script.View;
 using System;
 using TMPro;
 using UnityEngine;
 
-public class SaturationView : BaseApplicationPanel
+public class BreathFrequencyPanel : BaseApplicationPanel
 {
     /* Datetime */
     private TextMeshPro Date;
     private TextMeshPro Hour;
 
     /* Value */
-    private TextMeshPro SaturationValue;
+    private TextMeshPro BreathFrequencyValue;
     private TextMeshPro BatteryValue;
 
     /* Sensor name */
-    private TextMeshPro SaturationSensorName;
+    private TextMeshPro BreathFrequencySensorName;
     private TextMeshPro BatterySensorName;
 
     /* Symbol */
-    private TextMeshPro SaturationSymbol;
+    private TextMeshPro BreathFrequencySymbol;
     private TextMeshPro BatterySymbol;
 
     /* Alert */
-    private GameObject SaturationAlert;
+    private GameObject BreathFrequencyAlert;
     private GameObject BatteryAlert;
 
     /* Line Chart*/
-    private WindowGraph SaturationGraph;
+    private WindowGraph BreathFrequencyGraph;
 
     /* Colors */
     const string RED_COLOR = "Materials/RedColor";
@@ -49,34 +50,33 @@ public class SaturationView : BaseApplicationPanel
     private void InitializedComponent()
     {
         /* Datetime components */
-        this.Date = GameObject.Find("DetailSaturationDate").GetComponent<TextMeshPro>();
-        this.Hour = GameObject.Find("DetailSaturationHour").GetComponent<TextMeshPro>();
+        this.Date = GameObject.Find("DetailBreathFrequencyDate").GetComponent<TextMeshPro>();
+        this.Hour = GameObject.Find("DetailBreathFrequencyHour").GetComponent<TextMeshPro>();
 
         /* Value components */
-        this.SaturationValue = GameObject.Find("DetailSaturationValue").GetComponent<TextMeshPro>();
-        this.BatteryValue = GameObject.Find("DetailSaturationBatteryValue").GetComponent<TextMeshPro>();
+        this.BreathFrequencyValue = GameObject.Find("DetailBreathFrequencyValue").GetComponent<TextMeshPro>();
+        this.BatteryValue = GameObject.Find("DetailBreathFrequencyBatteryValue").GetComponent<TextMeshPro>();
 
         /* Symbol components */
-        this.SaturationSymbol = GameObject.Find("DetailSaturationSymbol").GetComponent<TextMeshPro>();
-        this.BatterySymbol = GameObject.Find("DetailSaturationBatterySymbol").GetComponent<TextMeshPro>();
+        this.BreathFrequencySymbol = GameObject.Find("DetailBreathFrequencySymbol").GetComponent<TextMeshPro>();
+        this.BatterySymbol = GameObject.Find("DetailBreathFrequencyBatterySymbol").GetComponent<TextMeshPro>();
 
         /* Sensor name components */
-        this.SaturationSensorName = GameObject.Find("DetailSaturationSensorName").GetComponent<TextMeshPro>();
-        this.BatterySensorName = GameObject.Find("DetailSaturationBatterySensorName").GetComponent<TextMeshPro>();
+        this.BreathFrequencySensorName = GameObject.Find("DetailBreathFrequencySensorName").GetComponent<TextMeshPro>();
+        this.BatterySensorName = GameObject.Find("DetailBreathFrequencyBatterySensorName").GetComponent<TextMeshPro>();
 
         /* Alert components */
-        this.SaturationAlert = GameObject.Find("DetailSaturationAlert");
-        this.BatteryAlert = GameObject.Find("DetailSaturationBatteryAlert");
-
+        this.BreathFrequencyAlert = GameObject.Find("DetailBreathFrequencyAlert");
+        this.BatteryAlert = GameObject.Find("DetailBreathFrequencyBatteryAlert");
 
         /* Line chart components */
-        this.SaturationGraph = GameObject.Find("DetailSaturationLineChart").GetComponent<WindowGraph>();
+        this.BreathFrequencyGraph = GameObject.Find("DetailBreathFrequencyLineChart").GetComponent<WindowGraph>();
 
         /* Load color resources */
         RedColor = Resources.Load(RED_COLOR, typeof(Material)) as Material;
         WhiteColor = Resources.Load(WHITE_COLOR, typeof(Material)) as Material;
 
-        this.SaturationAlert.GetComponent<Renderer>().material = WhiteColor;
+        this.BreathFrequencyAlert.GetComponent<Renderer>().material = WhiteColor;
         this.BatteryAlert.GetComponent<Renderer>().material = WhiteColor;
     }
 
@@ -97,26 +97,26 @@ public class SaturationView : BaseApplicationPanel
     }
 
     private void UpdateSensorSymbols(Message message)
-    {
-        this.SaturationSymbol.text = message.saturation_sensor_value.symbol;
+    { 
+        this.BreathFrequencySymbol.text = message.breath_frequency_sensor_value.symbol;
         this.BatterySymbol.text = message.battery_sensor_value.symbol;
     }
 
     private void UpdateSensorValues(Message message)
     {
-        this.SaturationValue.text = message.saturation_sensor_value.value.ToString();
+        this.BreathFrequencyValue.text = message.breath_frequency_sensor_value.value.ToString();
         this.BatteryValue.text = message.battery_sensor_value.value.ToString();
     }
 
     private void UpdateSensorNames(Message message)
     {
-        this.SaturationSensorName.text = message.saturation_sensor_name;
+        this.BreathFrequencySensorName.text = message.breath_frequency_sensor_name;
         this.BatterySensorName.text = message.battery_sensor_name;
     }
 
     private void UpdateSensorAlerts(Message message)
     {
-        SetAlertSensor(this.SaturationAlert, message.saturation_alarm);
+        SetAlertSensor(this.BreathFrequencyAlert, message.breath_frequency_alarm);
         SetAlertSensor(this.BatteryAlert, message.battery_alarm);
     }
 
@@ -132,16 +132,16 @@ public class SaturationView : BaseApplicationPanel
 
     private void UpdateLineCharts(Message message)
     {
-        float yAxisMin = (float)message.saturation_sensor_value.min_value;
-        float yAxisMax = (float)message.saturation_sensor_value.max_value;
-        float value = (float)message.saturation_sensor_value.value;
+        float yAxisMin = (float)message.breath_frequency_sensor_value.min_value;
+        float yAxisMax = (float)message.breath_frequency_sensor_value.max_value;
+        float value = (float)message.breath_frequency_sensor_value.value;
 
-        string graphColor = (string)message.saturation_graph_color;
+        string graphColor = (string)message.breath_frequency_graph_color;
         int channelR = Convert.ToInt32(graphColor.Split(',')[0]);
         int channelG = Convert.ToInt32(graphColor.Split(',')[1]);
         int channelB = Convert.ToInt32(graphColor.Split(',')[2]);
         Color color = new Color(channelR, channelG, channelB, 250f);
 
-        this.SaturationGraph.AddPoint(value, yAxisMin, yAxisMax, color);
+        this.BreathFrequencyGraph.AddPoint(value, yAxisMin, yAxisMax, color);
     }
 }

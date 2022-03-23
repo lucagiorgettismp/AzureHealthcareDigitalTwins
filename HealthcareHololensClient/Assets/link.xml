@@ -25,4 +25,5 @@
        <assembly fullname="System.Text.Json" preserve="all"/>
        <assembly fullname="System.Threading.Channels" preserve="all"/>
        <assembly fullname="System.Threading.Tasks.Extensions" preserve="all"/>
+	   <assembly fullname="Windows.Mirage.dll" preserve="all"/>
 </linker>

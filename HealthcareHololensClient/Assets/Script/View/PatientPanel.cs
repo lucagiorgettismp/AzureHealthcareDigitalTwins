@@ -1,9 +1,9 @@
+using Assets.Script.View;
 using System;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
-public class PatientView : BaseApplicationPanel
+public class PatientPanel : BaseApplicationPanel
 {
     private TextMeshPro PatientName;
     private TextMeshPro PatientSurname;
@@ -55,12 +55,8 @@ public class PatientView : BaseApplicationPanel
         }
     }
 
-    public async Task Initialize()
+    internal void SetLoading()
     {
         this.PatientLoading.text = "Loading....";
-
-        var patient = await App.Controller.GetPatientAsync();
-
-        SetPatient(patient);
     }
 }

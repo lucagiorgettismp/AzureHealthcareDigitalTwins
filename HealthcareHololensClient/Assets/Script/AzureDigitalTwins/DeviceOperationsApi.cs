@@ -10,6 +10,8 @@
     using Newtonsoft.Json;
     using System.Text.Json;
     using Model;
+    using Assets.Script.View;
+    using Assets.Script.Model;
 
     class TwinOperationApi
     {

@@ -1,8 +1,9 @@
+using Assets.Script.View;
 using System;
 using TMPro;
 using UnityEngine;
 
-public class SensorValuesView : BaseApplicationPanel
+public class SensorValuesPanel : BaseApplicationPanel
 {
     /* Datetime */
     private TextMeshPro Date;

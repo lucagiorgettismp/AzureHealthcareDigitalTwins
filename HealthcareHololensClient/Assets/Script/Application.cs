@@ -1,25 +1,42 @@
 using UnityEngine;
-
-public class BaseApplicationPanel : MonoBehaviour
-{
-    public Application App { get { return GameObject.FindObjectOfType<Application>(); } }
-}
+using Newtonsoft.Json;
+using Assets.Script.Model;
+using System;
+using System.Threading.Tasks;
 
 public class Application : MonoBehaviour
 {
-    public VitalSignsMonitorModel Model;
-    public VitalSignsMonitorController Controller;
-    public VitalSignsMonitorView VitalSignsMonitorView;
-    public HeartFrequencyView HeartFrequencyView;
-    public BreathFrequencyView BreathFrequencyView;
-    public SaturationView SaturationView;
-    public BloodPressureView BloodPressureView;
-    public SensorValuesView SensorValuesView;
-    public PatientView PatientView;
-    public ButtonMenuView ButtonMenuView;
+    public VitalSignsMonitorController VitalSignsMonitorController;
+    //public QRCodeController QRCodeController;
 
     public void Start()
-    {}
+    {
+        VitalSignsMonitorController.Init();
+        // QRCodeController.Init((qrInfo) => QRCodeFound(qrInfo));
+
+        _ = ParseQrCodeString("{\"deviceId\": \"PGNLNZ97M18G479M\"}");
+    }
+
+    private async void QRCodeFound(QRInfo qrInfo)
+    {
+        await this.ParseQrCodeString(qrInfo.Data);
+    }
+
+    private async Task ParseQrCodeString(string data)
+    {
+        try
+        {
+            var qrModel = JsonConvert.DeserializeObject<QrCodeInfoModel>(data);
+            Debug.Log($"[QRCodeFoundCallback] {qrModel.DeviceId}");
+            //this.QRCodeController.Close();
+
+            await this.VitalSignsMonitorController.OnStartController(qrModel.DeviceId);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"[QRCodeFoundCallback] Error: {e.Message}");
+        }
+    }
 
     public void Close()
     {

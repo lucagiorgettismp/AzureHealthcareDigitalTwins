@@ -1,79 +1,96 @@
+using Assets.Script.Model;
+using Assets.Script.View;
 using Azure.DigitalTwins.Core;
 using AzureDigitalTwins;
-using System.Text;
+using System;
 using System.Threading.Tasks;
+using UnityEngine;
 
-public class VitalSignsMonitorController : BaseApplicationPanel
+public class VitalSignsMonitorController: MonoBehaviour
 {
-    private string deviceId;
+    public VitalSignsMonitorView View;
+    
+    private VitalSignsMonitorModel Model;
+    private string deviceId = null;
     private PanelType lastSelectedPanelType;
-    private bool receivedFirstMessage = false;
     private DigitalTwinsClient digitalTwinClient;
 
-    private void Start()
-    {
-        this.digitalTwinClient = TwinOperationApi.GetClient();
-    }
+    private Application Application;
     
-    public VitalSignsMonitorController()
+    public void Start()
     {
-        this.deviceId = "PGNLNZ97M18G479M";
         this.lastSelectedPanelType = PanelType.Home;
+        this.Application = GameObject.FindObjectOfType<Application>();
+
+        this.Model = new VitalSignsMonitorModel(this);
     }
 
-    public async void OnDataReceived(Message message) {
-        this.deviceId = message.device_id;
+    public void Init()
+    {
+        this.View.Start();
+        this.View.HideAllPanels();
+    }
 
-        if (!this.receivedFirstMessage)
+    public async Task OnStartController(string deviceId)
+    {
+        Debug.Log($"[OnStartController], calling...");
+        try
         {
-            receivedFirstMessage = true;
-            await this.InitSelectedViewAsync();
-            await App.PatientView.Initialize();
-        }
+            this.View.StartLoading();
+            this.deviceId = deviceId;
+            this.digitalTwinClient = TwinOperationApi.GetClient();
 
-        App.VitalSignsMonitorView.UpdateView(message);
-        App.HeartFrequencyView.UpdateView(message);
-        App.BreathFrequencyView.UpdateView(message);
-        App.SaturationView.UpdateView(message);
-        App.BloodPressureView.UpdateView(message);
-        App.SensorValuesView.UpdateView(message);
+            this.Model.Init(deviceId);
+
+            await this.GetPatientAsync();
+            await this.GetSelectedViewAsync();
+        }catch(Exception e)
+        {
+            Debug.LogError($"[OnStartController], Errror: {e.Message}");
+        }
+    }
+
+    public void OnDataReceived(Message message) {
+
+        this.View.UpdateData(message);
 
         var selectedPanel = (PanelType)message.configuration_last_selected_view;
 
         if (lastSelectedPanelType != selectedPanel)
         {
-            App.ButtonMenuView.UpdateSelectedPanel(selectedPanel);
+            this.View.SetSelectedPanel(selectedPanel);
             lastSelectedPanelType = selectedPanel;
         }
     }
+
     public async Task PersistSelectedPanel(PanelType selectedPanel)
     {
-        if (deviceId != null && deviceId != "")
+        if (deviceId != null && deviceId.Length > 0)
         {
             await TwinOperationApi.SetSelectedView(digitalTwinClient, deviceId, selectedPanel);
         }
-    }     
-
-    private static Microsoft.Azure.Devices.Client.Message CreateMessage(string jsonObject)
-    {
-        var message = new Microsoft.Azure.Devices.Client.Message(Encoding.UTF8.GetBytes(jsonObject))
-        {
-            ContentType = "application/json",
-            ContentEncoding = "UTF-8"
-        };
-
-        return message;
     }
 
-    public async Task<Patient> GetPatientAsync()
+    public async Task GetPatientAsync()
     {
-        return await TwinOperationApi.GetPatient(digitalTwinClient, deviceId);
+        this.View.SetPatientPanelLoading();
+
+        var patient = await TwinOperationApi.GetPatient(digitalTwinClient, deviceId);
+
+        this.View.StopLoading();
+        this.View.SetPatient(patient);
     }
 
-    private async Task InitSelectedViewAsync()
+    private async Task GetSelectedViewAsync()
     {
         var selectedPanel = await TwinOperationApi.GetSelectedView(digitalTwinClient, deviceId);
-        App.ButtonMenuView.UpdateSelectedPanel(selectedPanel);
+        this.View.StopLoading();
+        this.View.SetSelectedPanel(selectedPanel);
+    }
+
+    internal void CloseApplication()
+    {
+        this.Application.Close();
     }
 }
     

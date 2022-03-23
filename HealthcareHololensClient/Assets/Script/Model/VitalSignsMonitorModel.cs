@@ -1,15 +1,21 @@
 using System;
 using UnityEngine;
 
-public class VitalSignsMonitorModel : BaseApplicationPanel
+public class VitalSignsMonitorModel
 {
     private SignalRConnector connector;
+    private readonly VitalSignsMonitorController controller;
 
-    public async void Start()
+    public VitalSignsMonitorModel(VitalSignsMonitorController controller)
+    {
+        this.controller = controller;
+    }
+
+    public async void Init(string deviceId)
     {
         try
         {
-            connector = new SignalRConnector(new Callback(App.Controller));
+            connector = new SignalRConnector(new ConnectorCallback(controller), deviceId);
             await connector.InitAsync();
         }catch(Exception e)
         {
@@ -22,10 +28,11 @@ public interface ICallback {
     public void OnMessageReceived(Message message);  
 }
 
-public class Callback : ICallback
+public class ConnectorCallback : ICallback
 {
-    VitalSignsMonitorController controller;
-    public Callback(VitalSignsMonitorController controller)
+    private readonly VitalSignsMonitorController controller;
+
+    public ConnectorCallback(VitalSignsMonitorController controller)
     {
         this.controller = controller;
     }
