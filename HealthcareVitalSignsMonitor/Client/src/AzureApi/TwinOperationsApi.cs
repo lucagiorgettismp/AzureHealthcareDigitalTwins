@@ -119,7 +119,6 @@
         }
 
         private async Task CreateMonitorTwin(DigitalTwinsClient client, string idMonitorTwin) {
-
             try
             {
                 var monitorTwin = new VitalSignsMonitor
@@ -190,7 +189,6 @@
         }
 
         public async Task CreateRelationship(DigitalTwinsClient client, string srcId, string targetId, string nameRel) {
-
             var relationship = new BasicRelationship
             {
                 TargetId = targetId,

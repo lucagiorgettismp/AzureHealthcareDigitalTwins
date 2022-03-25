@@ -30,7 +30,6 @@
                 Log.Error(e.Message);
                 this.errorForm.SetText(e.Message);
                 this.errorForm.Show();
-         
             }
 
             this.op = new TwinOperationsApi();

@@ -106,7 +106,6 @@
             chartAreaHeartFrequency.AxisY.Minimum = Convert.ToInt32(appSettings["HeartFrequencyMinValue"]);
             chartAreaHeartFrequency.AxisY.Maximum = Convert.ToInt32(appSettings["HeartFrequencyMaxValue"]);
 
-
             this.chartBreathFrequency = this.Controls.Find(ID_CHART_BREATH_FREQUENCY, true).FirstOrDefault() as Chart;
             ChartArea chartAreaBreathFrequency = chartBreathFrequency.ChartAreas[0];
             chartAreaBreathFrequency.AxisY.IntervalType = DateTimeIntervalType.Number;

@@ -124,10 +124,3 @@ public enum PanelType
     Values = 5,
     Patient = 6
 }
-
-internal class PanelWrapper
-{
-    public GameObject Panel { get; set; }
-
-    public  PanelType PanelType { get; set; }
-}

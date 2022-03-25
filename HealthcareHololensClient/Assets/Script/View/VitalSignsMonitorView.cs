@@ -60,7 +60,7 @@ public class VitalSignsMonitorView : BaseApplicationPanel
     }
 
     public void Update()
-    {   
+    {
         var dateTime = DateTime.Now;
         this.Hour.text = dateTime.ToShortDateString();
         this.Date.text = dateTime.ToLongTimeString();
@@ -80,7 +80,6 @@ public class VitalSignsMonitorView : BaseApplicationPanel
         this.BloodPressureValue = GameObject.Find("BloodPressureValue").GetComponent<TextMeshPro>();
         this.TemperatureValue = GameObject.Find("TemperatureValue").GetComponent<TextMeshPro>();
         this.BatteryValue = GameObject.Find("BatteryValue").GetComponent<TextMeshPro>();
-
 
         /* Symbol components */
         this.HeartFrequencySymbol = GameObject.Find("HeartFrequencySymbol").GetComponent<TextMeshPro>();

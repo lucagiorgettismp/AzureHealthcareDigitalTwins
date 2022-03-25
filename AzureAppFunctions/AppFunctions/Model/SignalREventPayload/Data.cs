@@ -1,7 +1,7 @@
 using Newtonsoft.Json; 
 using System.Collections.Generic; 
-namespace AppFunctions.Model.SignalREventPayload{ 
-
+namespace AppFunctions.Model.SignalREventPayload
+{
     public class Data
     {
         [JsonProperty("modelId")]
@@ -10,5 +10,4 @@ namespace AppFunctions.Model.SignalREventPayload{
         [JsonProperty("patch")]
         public List<Patch> Patch;
     }
-
 }

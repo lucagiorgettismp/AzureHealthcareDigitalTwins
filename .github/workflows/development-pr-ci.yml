@@ -10,14 +10,14 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-  
+
 env:
   SIMULATOR_SOLUTION_PATH: '.\HealthcareVitalSignsMonitor\Simulator\Simulator.csproj'
   CLIENT_SOLUTION_PATH: '.\HealthcareVitalSignsMonitor\Client\Client.csproj'
   PACKAGES_PATH: '.\HealthcareVitalSignsMonitor\packages\'
-  TEST_SOLUTION_PATH: '.\HealthcareVitalSignsMonitor\SimulatorTest\SimulatorTest.csproj'  
+  TEST_SOLUTION_PATH: '.\HealthcareVitalSignsMonitor\SimulatorTest\SimulatorTest.csproj'
   TEST_DLL_PATH: '.\HealthcareVitalSignsMonitor\SimulatorTest\bin\Release\SimulatorTest.dll'
-  
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build-simulator:
@@ -25,42 +25,42 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.1
-  
+
       - name: Setup NuGet.exe
         uses: NuGet/setup-nuget@v1.0.5
 
       - name: Restore NuGet packages
         run: nuget restore ${{ env.SIMULATOR_SOLUTION_PATH }} -PackagesDirectory ${{ env.PACKAGES_PATH }}
-        
+
       - name: Build
         run: msbuild ${{ env.SIMULATOR_SOLUTION_PATH }} /p:Configuration=Release
-        
+
       - uses: actions/upload-artifact@master
         with:
           name: Simulator
-          path: .\HealthcareVitalSignsMonitor\Simulator\bin\Release\Simulator.exe 
-        
+          path: .\HealthcareVitalSignsMonitor\Simulator\bin\Release\Simulator.exe
+
   build-client:
     runs-on: [windows-latest]
 
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.1
-  
+
       - name: Setup NuGet.exe
         uses: NuGet/setup-nuget@v1.0.5
 
       - name: Restore NuGet packages
         run: nuget restore ${{ env.CLIENT_SOLUTION_PATH }} -PackagesDirectory ${{ env.PACKAGES_PATH }}
-        
+
       - name: Build
         run: msbuild ${{ env.CLIENT_SOLUTION_PATH }} /p:Configuration=Release
-        
+
       - uses: actions/upload-artifact@master
         with:
           name: Client
@@ -74,7 +74,7 @@ jobs:
 
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.1
-  
+
       - name: Setup NuGet.exe
         uses: NuGet/setup-nuget@v1.0.5
 
@@ -83,7 +83,7 @@ jobs:
 
       - name: Restore NuGet packages
         run: nuget restore ${{ env.TEST_SOLUTION_PATH }} -PackagesDirectory ${{ env.PACKAGES_PATH }}
-        
+
       - name: Build
         run: msbuild ${{ env.TEST_SOLUTION_PATH }} /p:Configuration=Release
 

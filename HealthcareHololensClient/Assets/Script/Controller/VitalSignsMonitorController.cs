@@ -14,7 +14,7 @@ public class VitalSignsMonitorController : BaseApplicationPanel
     {
         this.digitalTwinClient = TwinOperationApi.GetClient();
     }
-    
+
     public VitalSignsMonitorController()
     {
         this.deviceId = "PGNLNZ97M18G479M";
@@ -52,7 +52,7 @@ public class VitalSignsMonitorController : BaseApplicationPanel
         {
             await TwinOperationApi.SetSelectedView(digitalTwinClient, deviceId, selectedPanel);
         }
-    }     
+    }
 
     private static Microsoft.Azure.Devices.Client.Message CreateMessage(string jsonObject)
     {
@@ -76,4 +76,3 @@ public class VitalSignsMonitorController : BaseApplicationPanel
         App.ButtonMenuView.UpdateSelectedPanel(selectedPanel);
     }
 }
-    

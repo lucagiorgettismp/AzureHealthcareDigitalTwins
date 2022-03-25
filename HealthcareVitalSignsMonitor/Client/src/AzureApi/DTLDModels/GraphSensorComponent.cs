@@ -5,7 +5,6 @@ namespace Client.src.AzureApi.DTLDModels
 {
     class GraphSensorComponent : SensorComponent
     {
-
         [JsonPropertyName(DigitalTwinsJsonPropertyNames.DigitalTwinMetadata)]
         public GraphSensorComponentMetadata Metadata { get; set; } = new GraphSensorComponentMetadata();
 

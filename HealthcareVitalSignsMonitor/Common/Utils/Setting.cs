@@ -5,7 +5,6 @@
     using Microsoft.Extensions.Configuration;
     public class Setting
     {
-
         const string SETTING_FILE = "appsettings.json";
         public static IConfiguration ReadConfig()
         {

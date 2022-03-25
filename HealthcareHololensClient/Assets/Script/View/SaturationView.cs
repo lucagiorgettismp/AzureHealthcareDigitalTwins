@@ -68,7 +68,6 @@ public class SaturationView : BaseApplicationPanel
         this.SaturationAlert = GameObject.Find("DetailSaturationAlert");
         this.BatteryAlert = GameObject.Find("DetailSaturationBatteryAlert");
 
-
         /* Line chart components */
         this.SaturationGraph = GameObject.Find("DetailSaturationLineChart").GetComponent<WindowGraph>();
 

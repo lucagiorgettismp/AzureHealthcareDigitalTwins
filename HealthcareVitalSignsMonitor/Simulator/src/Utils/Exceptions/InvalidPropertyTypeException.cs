@@ -3,10 +3,7 @@
 namespace Simulator.Utils.Exceptions
 {
     [Serializable]
-    internal class InvalidPropertyTypeException : Exception
+    public class InvalidPropertyTypeException : Exception
     {
-        public InvalidPropertyTypeException()
-        {
-        }
     }
 }
