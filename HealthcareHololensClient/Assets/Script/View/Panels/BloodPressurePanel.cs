@@ -11,7 +11,7 @@ public class BloodPressurePanel : BaseLineChartSensorPanel
     private TextMeshPro _bloodPressureSensorName;
     private TextMeshPro _bloodPressureSymbol;
     private GameObject _bloodPressureAlert;
-    public WindowGraph _bloodPressureGraph;
+    private WindowGraph _bloodPressureGraph;
 
     public override void InitializeComponent()
     {

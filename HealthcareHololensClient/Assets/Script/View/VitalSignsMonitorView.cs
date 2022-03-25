@@ -100,6 +100,8 @@
 
                 panel.Panel.gameObject.SetActive(panel.PanelType == selectedPanel);
             }
+
+            _patientPanel.transform.position = GetPatientCurrentPosition();
         }
 
         internal async Task PanelSelectionChanged(PanelType selectedPanel)
