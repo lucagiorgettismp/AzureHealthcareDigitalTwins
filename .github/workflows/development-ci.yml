@@ -58,56 +58,57 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.1
-  
+
       - name: Setup NuGet.exe
         uses: NuGet/setup-nuget@v1.0.5
 
       - name: Restore NuGet packages
         run: nuget restore ${{ env.SIMULATOR_SOLUTION_PATH }} -PackagesDirectory ${{ env.PACKAGES_PATH }}
-        
+
       - name: Build
         run: msbuild ${{ env.SIMULATOR_SOLUTION_PATH }} /p:Configuration=Release
-        
+
       - uses: actions/upload-artifact@master
         with:
           name: Simulator
           path: .\HealthcareVitalSignsMonitor\Simulator\bin\Release\
-        
+
   build-client:
     runs-on: [windows-latest]
 
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.1
-  
+
       - name: Setup NuGet.exe
         uses: NuGet/setup-nuget@v1.0.5
 
       - name: Restore NuGet packages
         run: nuget restore ${{ env.CLIENT_SOLUTION_PATH }} -PackagesDirectory ${{ env.PACKAGES_PATH }}
-        
+
       - name: Build
         run: msbuild ${{ env.CLIENT_SOLUTION_PATH }} /p:Configuration=Release
-        
-      - uses: actions/upload-artifact@master
+
+      - name: Upload Simulator artifact
+        uses: actions/upload-artifact@master
         with:
           name: Client
           path: .\HealthcareVitalSignsMonitor\Client\bin\Release\
 
   execute-tests:
-    runs-on: windows-latest
+    runs-on: [windows-latest]
 
     steps:
       - uses: actions/checkout@v2
 
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.1
-  
+
       - name: Setup NuGet.exe
         uses: NuGet/setup-nuget@v1.0.5
 
