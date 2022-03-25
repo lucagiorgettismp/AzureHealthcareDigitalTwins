@@ -9,17 +9,17 @@
 
     public class VitalSignsMonitorView: MonoBehaviour
     {
-        private VitalSignsMonitorPanel _vitalSignsMonitorPanel;
-        private HeartFrequencyPanel _heartFrequencyPanel;
-        private BreathFrequencyPanel _breathFrequencyPanel;
-        private SaturationPanel _saturationPanel;
-        private BloodPressurePanel _bloodPressurePanel;
-        private SensorValuesPanel _sensorValuesPanel;
+        public VitalSignsMonitorPanel _vitalSignsMonitorPanel;
+        public HeartFrequencyPanel _heartFrequencyPanel;
+        public BreathFrequencyPanel _breathFrequencyPanel;
+        public SaturationPanel _saturationPanel;
+        public BloodPressurePanel _bloodPressurePanel;
+        public SensorValuesPanel _sensorValuesPanel;
 
-        private PatientPanel _patientPanel;
-        private ButtonMenu _buttonMenu;
+        public PatientPanel _patientPanel;
+        public ButtonMenu _buttonMenu;
 
-        private Image _loadingCircle;
+        public Image _loadingCircle;
 
         private VitalSignsMonitorController _controller;
         private PanelWrapper[] _panels;
@@ -27,17 +27,6 @@
         public void Start()
         {
             this._controller = GameObject.FindObjectOfType<VitalSignsMonitorController>();
-
-            this._vitalSignsMonitorPanel = GameObject.Find("VitalSignsMonitorPanel").GetComponent<VitalSignsMonitorPanel>();
-            this._heartFrequencyPanel = GameObject.Find("HeartFrequencyPanel").GetComponent<HeartFrequencyPanel>();
-            this._breathFrequencyPanel = GameObject.Find("BreathFrequencyPanel").GetComponent<BreathFrequencyPanel>();
-            this._saturationPanel = GameObject.Find("SaturationPanel").GetComponent<SaturationPanel>();
-            this._bloodPressurePanel = GameObject.Find("BloodPressurePanel").GetComponent<BloodPressurePanel>();
-            this._sensorValuesPanel = GameObject.Find("SensorValuesPanel").GetComponent<SensorValuesPanel>();
-            
-            this._patientPanel = GameObject.Find("PatientPanel").GetComponent<PatientPanel>();
-            this._buttonMenu = GameObject.Find("ButtonMenu").GetComponent<ButtonMenu>();
-            this._loadingCircle = GameObject.Find("LoadingCircle").GetComponent<Image>();
 
             var panelList = new List<PanelWrapper>
             {
@@ -140,7 +129,6 @@
     internal class PanelWrapper
     {
         public BaseSensorPanel Panel { get; set; }
-
         public PanelType PanelType { get; set; }
     }
 }

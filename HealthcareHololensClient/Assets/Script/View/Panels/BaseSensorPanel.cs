@@ -6,16 +6,16 @@
 
     public abstract class BaseSensorPanel : BasePanel
     {
-        public TextMeshPro _date;
-        public TextMeshPro _hour;
+        internal TextMeshPro _date;
+        internal TextMeshPro _hour;
 
-        public Material _redColor;
-        public Material _whiteColor;
+        internal Material _redColor;
+        internal Material _whiteColor;
 
-        public TextMeshPro _batterySensorName;
-        public TextMeshPro _batteryValue;
-        public TextMeshPro _batterySymbol;
-        public GameObject _batteryAlert;
+        internal TextMeshPro _batterySensorName;
+        internal TextMeshPro _batteryValue;
+        internal TextMeshPro _batterySymbol;
+        internal GameObject _batteryAlert;
 
         const string RED_COLOR = "Materials/RedColor";
         const string WHITE_COLOR = "Materials/WhiteColor";
