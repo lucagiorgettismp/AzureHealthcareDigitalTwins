@@ -19,8 +19,8 @@ public class WindowGraph : MonoBehaviour
 
     private List<float?> pointList;
 
-    const string CircleName = "Circle";
-    const string LineSegmentName = "Segment";
+    const string CIRCLE_NAME = "Circle";
+    const string LINE_SEGMENT_NAME = "Segment";
 
     //private RectTransform labelTemplateX;
     //private RectTransform dashTemplateX;
@@ -62,7 +62,7 @@ public class WindowGraph : MonoBehaviour
 
     private GameObject CreateCircle(Vector2 position)
     {
-        GameObject gameObject = new GameObject(CircleName, typeof(Image));
+        GameObject gameObject = new GameObject(CIRCLE_NAME, typeof(Image));
         gameObject.transform.SetParent(graphContainer, false);
         gameObject.GetComponent<Image>().sprite = circleSprite;
 
@@ -104,7 +104,7 @@ public class WindowGraph : MonoBehaviour
     private void ClearGraph()
     {
         var children = new List<GameObject>();
-        var toBeDestroyed = new List<string>() { CircleName, LineSegmentName };
+        var toBeDestroyed = new List<string>() { CIRCLE_NAME, LINE_SEGMENT_NAME };
 
         foreach (RectTransform child in graphContainer)
         {
@@ -139,7 +139,7 @@ public class WindowGraph : MonoBehaviour
 
     private void CreateSegment(Vector2 dotA, Vector2 dotB)
     {
-        GameObject gameObject = new GameObject(LineSegmentName, typeof(Image));
+        GameObject gameObject = new GameObject(LINE_SEGMENT_NAME, typeof(Image));
         gameObject.transform.SetParent(graphContainer, false);
 
         gameObject.GetComponent<Image>().color = color;

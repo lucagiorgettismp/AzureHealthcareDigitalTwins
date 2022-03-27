@@ -1,7 +1,7 @@
 ﻿namespace AzureDigitalTwins
 {
     using UnityEngine;
-    using System;
+    using Newtonsoft.Json;
 
     class AuthenticationApi
     {
@@ -10,17 +10,22 @@
         public static ConnectionConfig GetRegistryManager()
         {
             TextAsset jsonFile = Resources.Load<TextAsset>(FILE_NAME);
-            ConnectionConfig setting = JsonUtility.FromJson<ConnectionConfig>(jsonFile.text);
+
+            ConnectionConfig setting = JsonConvert.DeserializeObject<ConnectionConfig>(jsonFile.text);
 
             return setting;
         }
 
-        [Serializable]
         public class ConnectionConfig
         {
-            public string hostIotHub;
-            public string hostClient;
-            public string connectionIoTHub;
+            [JsonProperty("hostIotHub")]
+            public string HostIotHub { get; set; }
+
+            [JsonProperty("hostClient")]
+            public string HostClient { get; set; }
+
+            [JsonProperty("connectionIoTHub")]
+            public string ConnectionIoTHub { get; set; }
         }
     }
 }

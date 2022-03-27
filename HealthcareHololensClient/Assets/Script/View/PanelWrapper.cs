@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Script.Model;
+using UnityEngine;
 
 internal class PanelWrapper
 {
