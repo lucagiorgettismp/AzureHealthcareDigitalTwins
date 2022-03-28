@@ -15,19 +15,25 @@ public class VitalSignsMonitorController: MonoBehaviour
     private PanelType _lastSelectedPanelType;
     private DigitalTwinsClient _digitalTwinClient;
     private Application _application;
-    
+    private string _connectionString;
+    private const string FILE_NAME = "appsettings";
+
+    public void Awake()
+    {
+        this._connectionString = Resources.Load<TextAsset>(FILE_NAME).text;
+    }
+
     public void Start()
     {
         this._lastSelectedPanelType = PanelType.Home;
         this._application = GameObject.FindObjectOfType<Application>();
 
         this._model = new VitalSignsMonitorModel(this);
-    }
 
-    public void Init()
-    {
         this.View.Start();
         this.View.HideAllPanels();
+
+        this.View.StartLoading();
     }
 
     public async Task OnStartController(string deviceId)
@@ -35,9 +41,8 @@ public class VitalSignsMonitorController: MonoBehaviour
         Debug.Log($"[OnStartController], calling...");
         try
         {
-            this.View.StartLoading();
             this._deviceId = deviceId;
-            this._digitalTwinClient = TwinOperationApi.GetClient();
+            this._digitalTwinClient = TwinOperationApi.GetClient(this._connectionString);
 
             this._model.Init(deviceId);
 
@@ -45,7 +50,7 @@ public class VitalSignsMonitorController: MonoBehaviour
             await this.GetSelectedViewAsync();
         }catch(Exception e)
         {
-            Debug.LogError($"[OnStartController], Errror: {e.Message}");
+            Debug.LogError($"[OnStartController], Error: {e.Message}");
         }
     }
 

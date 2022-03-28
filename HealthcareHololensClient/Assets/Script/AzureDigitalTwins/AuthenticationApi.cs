@@ -1,19 +1,12 @@
 ﻿namespace AzureDigitalTwins
 {
-    using UnityEngine;
     using Newtonsoft.Json;
 
     class AuthenticationApi
     {
-        const string FILE_NAME = "appsettings";
-
-        public static ConnectionConfig GetRegistryManager()
+        public static ConnectionConfig GetRegistryManager(string connectionString)
         {
-            TextAsset jsonFile = Resources.Load<TextAsset>(FILE_NAME);
-
-            ConnectionConfig setting = JsonConvert.DeserializeObject<ConnectionConfig>(jsonFile.text);
-
-            return setting;
+            return JsonConvert.DeserializeObject<ConnectionConfig>(connectionString);
         }
 
         public class ConnectionConfig

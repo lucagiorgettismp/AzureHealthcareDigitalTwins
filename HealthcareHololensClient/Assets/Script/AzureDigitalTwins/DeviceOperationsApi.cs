@@ -14,23 +14,30 @@
 
     class TwinOperationApi
     {
-        internal static DigitalTwinsClient GetClient()
+        internal static DigitalTwinsClient GetClient(string connectionString)
         {
             Uri adtInstanceUrl;
-
             DigitalTwinsClient twinClient = null;
-            ConnectionConfig config = GetRegistryManager();
 
-            if (config != null)
+            try
             {
-                adtInstanceUrl = new Uri(config.HostClient);
-                Debug.Log("Twin client authenticating...");
-                var credential = new DefaultAzureCredential();
-                twinClient = new DigitalTwinsClient(adtInstanceUrl, credential);
+                ConnectionConfig config = GetRegistryManager(connectionString);
 
-                Debug.Log($"Service twin client created – ready to go!");
-                Console.WriteLine();
+                if (config != null)
+                {
+                    adtInstanceUrl = new Uri(config.HostClient);
+                    Debug.Log($"Twin client authenticating. ADT: {adtInstanceUrl}");
+                    var credential = new DefaultAzureCredential();
+                    twinClient = new DigitalTwinsClient(adtInstanceUrl, credential);
+
+                    Debug.Log($"Service twin client created – ready to go!");
+                    Console.WriteLine();
+                }
+            }catch(Exception e)
+            {
+                Debug.LogError($"[GetClient] Error: {e.Message}");
             }
+
             return twinClient;
         }
 

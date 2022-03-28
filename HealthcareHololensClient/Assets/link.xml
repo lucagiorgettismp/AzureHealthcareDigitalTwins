@@ -26,4 +26,14 @@
        <assembly fullname="System.Threading.Channels" preserve="all"/>
        <assembly fullname="System.Threading.Tasks.Extensions" preserve="all"/>
 	   <assembly fullname="Windows.Mirage.dll" preserve="all"/>
+	   <assembly fullname="Assets.Script.Model.QrCodeInfoModel" preserve="all"/>
+	   <assembly fullname="System.Core"> 
+			<type fullname="System.Linq.Expressions.Interpreter.LightLambda" preserve="all" />
+       </assembly>
+	   
+	   <assembly fullname="Azure.Core" preserve="all"/>
+	   <assembly fullname="Azure.Identity" preserve="all"/>
+	   <assembly fullname="Azure.DigitalTwins.Core" preserve="all"/>
+	   <assembly fullname="Microsoft.Identity.Client.Extensions.Msal" preserve="all"/>
+	   <assembly fullname="System.Security.Cryptography.ProtectedData" preserve="all"/>
 </linker>
