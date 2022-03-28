@@ -45,17 +45,6 @@ public class WindowGraph : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void AddPoint(float point, float yAxisMin, float yAxisMax, Color color)
     {
         if (pointList[pointList.Count -1] == null)
@@ -70,7 +59,6 @@ public class WindowGraph : MonoBehaviour
 
         UpdateGraph(pointList, yAxisMin, yAxisMax);
     }
-
 
     private GameObject CreateCircle(Vector2 position)
     {
@@ -159,16 +147,14 @@ public class WindowGraph : MonoBehaviour
         RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
         var direction = (dotB - dotA).normalized;
         var distance = Vector2.Distance(dotA, dotB);
-      
+
         rectTransform.anchorMin = new Vector2(0, 0);
         rectTransform.anchorMax = new Vector2(0, 0);
         rectTransform.sizeDelta = new Vector2(distance, 0.0008f);
-        rectTransform.anchoredPosition = dotA + 0.5f * distance * direction;
+        rectTransform.anchoredPosition = dotA + (0.5f * distance * direction);
 
         rectTransform.localEulerAngles = new Vector3(0, 0, GetAngleFromVectorFloat(direction));
-
     }
-
     private static float GetAngleFromVectorFloat(Vector3 direction)
     {
         direction = direction.normalized;

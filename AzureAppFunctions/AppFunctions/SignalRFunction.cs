@@ -17,7 +17,6 @@ namespace AppFunctions
 
     public class SignalRFunction
     {
-
         [FunctionName("negotiate")]
         public static SignalRConnectionInfo GetSignalRInfo(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequest req,

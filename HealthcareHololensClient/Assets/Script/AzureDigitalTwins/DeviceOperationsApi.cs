@@ -6,11 +6,11 @@
     using UnityEngine;
     using Azure.DigitalTwins.Core;
     using Azure.Identity;
-    using static AzureDigitalTwins.AuthenticationApi;
     using Newtonsoft.Json;
     using System.Text.Json;
     using Model;
     using Assets.Script.Model;
+    using static AzureDigitalTwins.AuthenticationApi;
 
     class TwinOperationApi
     {
@@ -111,7 +111,7 @@
                 Weight = Convert.ToDouble($"{weight}"),
                 Description = $"{description}",
                 FiscalCode = $"{fiscalCode}",
-                BodyMassIndex = $"{Math.Round(bmi.Value, 2)} {bmi.Unit}"           
+                BodyMassIndex = $"{Math.Round(bmi.Value, 2)} {bmi.Unit}"
             };
 
             Debug.Log($"Reading patient finished.");

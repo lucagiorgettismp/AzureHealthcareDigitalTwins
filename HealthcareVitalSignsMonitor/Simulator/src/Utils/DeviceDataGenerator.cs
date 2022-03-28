@@ -185,7 +185,7 @@
 
         private double GenerateDoubleValue(double value, double delta, double minValue, double maxValue)
         {
-            double newValue = value + this.random.NextDouble() * (2 * delta ) - delta;
+            double newValue = value + ((this.random.NextDouble() * (2 * delta )) - delta);
 
             newValue = newValue <= minValue ? minValue : newValue;
             newValue = newValue >= maxValue ? maxValue : newValue;
@@ -202,7 +202,7 @@
                 maxRandomValue = 1;
             }
 
-            int newValue = value + this.random.Next(-1, maxRandomValue) * delta;
+            int newValue = value + (this.random.Next(-1, maxRandomValue) * delta);
 
             newValue = newValue <= minValue ? minValue : newValue;
             newValue = newValue >= maxValue ? maxValue : newValue;

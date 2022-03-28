@@ -1,6 +1,6 @@
 using Newtonsoft.Json; 
-namespace AppFunctions.Model.SignalREventPayload{ 
-
+namespace AppFunctions.Model.SignalREventPayload
+{ 
     public class SignalREventGridPayload
     {
         [JsonProperty("data")]
@@ -12,5 +12,4 @@ namespace AppFunctions.Model.SignalREventPayload{
         [JsonProperty("traceparent")]
         public string Traceparent;
     }
-
 }

@@ -1352,7 +1352,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 46968527}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5575674804a5bb843a113236a8b77881, type: 3}
+  m_Script: {fileID: 11500000, guid: e30e90fc3870804499d6749038e4b8ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &51360587
@@ -3504,10 +3504,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 131591428}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 751e73b78babb2d4c8d22b3f95d13638, type: 3}
+  m_Script: {fileID: 11500000, guid: 4de689cd8e6328344ac8ee2c95a62143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  qrObservationTimeOut: 3500
+  QrObservationTimeOut: 3500
 --- !u!1 &135428971
 GameObject:
   m_ObjectHideFlags: 0
@@ -8738,7 +8738,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 330979128}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f95cb5e3f6859043bf205f7ac2ef176, type: 3}
+  m_Script: {fileID: 11500000, guid: beda2ed2081c67e48abc6f4b396452ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &330979134
@@ -21204,7 +21204,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 01379acec0859c0468a9e50a7303570d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 96b7615ef509dc249b73a0be77180d76, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -21251,7 +21251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83d9acc7968244a8886f3af591305bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeProfile: {fileID: 11400000, guid: 6234cc3a8e381094186db6f0398f7636, type: 2}
+  activeProfile: {fileID: 11400000, guid: 77b7540863445894489717ad5778c9a4, type: 2}
 --- !u!4 &732199391
 Transform:
   m_ObjectHideFlags: 0
@@ -23044,7 +23044,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 01379acec0859c0468a9e50a7303570d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 96b7615ef509dc249b73a0be77180d76, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -39411,7 +39411,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1375036830}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38732c9eff261fa4799f1603ec1dd935, type: 3}
+  m_Script: {fileID: 11500000, guid: b81ac6dc3450eab48aa4bb4daf854c12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1376196938
@@ -41455,7 +41455,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1437981548}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 900d86be3d17be040b22d68fe41592da, type: 3}
+  m_Script: {fileID: 11500000, guid: 6c8142d3751d7774884e048f60087aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1437981554
@@ -43858,7 +43858,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1508191023}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48cbbe07ec36129429ddf59f713a7834, type: 3}
+  m_Script: {fileID: 11500000, guid: 36092be40218d9d47b4eb63b1e8a470c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1518255457
@@ -56774,7 +56774,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1950353963}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb2f5fdb2f1e5c74f9acb45c3dfa5bb8, type: 3}
+  m_Script: {fileID: 11500000, guid: 519179a3d69ed094c98064b746b21415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1950353969
@@ -59970,7 +59970,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2087708268}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09d422f4e7a19504ab8bb7feecd01328, type: 3}
+  m_Script: {fileID: 11500000, guid: 27d0bd7aa1e055644bb0e722276a653d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2087708274
@@ -60431,7 +60431,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2110524828}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08f451b14bf5fe6429d803ff4f0ef489, type: 3}
+  m_Script: {fileID: 11500000, guid: ddbde5a7326ac594c94f1fe7be41d4a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2115580997
@@ -61109,6 +61109,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c50852c8b34ad40bfe901dfc8cef0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _vitalSignsMonitorPanel: {fileID: 1375036836}
+  _heartFrequencyPanel: {fileID: 1508191029}
+  _breathFrequencyPanel: {fileID: 1950353968}
+  _saturationPanel: {fileID: 2087708273}
+  _bloodPressurePanel: {fileID: 330979133}
+  _sensorValuesPanel: {fileID: 1437981553}
+  _patientPanel: {fileID: 2110524834}
+  _buttonMenu: {fileID: 46968533}
+  _loadingCircle: {fileID: 787637108}
 --- !u!4 &2145438310
 Transform:
   m_ObjectHideFlags: 0

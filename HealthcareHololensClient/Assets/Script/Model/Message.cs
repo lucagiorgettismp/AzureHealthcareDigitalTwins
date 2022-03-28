@@ -3,7 +3,6 @@ using System;
 [Serializable]
 public class Message
 {
-
     /* Temperature */
     public string temperature_sensor_name { get; set; }
     public bool temperature_alarm { get; set; }

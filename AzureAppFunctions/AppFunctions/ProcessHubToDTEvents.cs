@@ -30,7 +30,7 @@ namespace AppFunctions
                 Transport = new HttpClientTransport(httpClient)
             });
 
-            log.LogInformation($"ADT service client connection created.");
+            log.LogInformation("ADT service client connection created.");
 
             if (eventGridEvent != null && eventGridEvent.Data != null)
             {
@@ -48,7 +48,7 @@ namespace AppFunctions
                     case UpdateMode.Telemetry:
                         var telemetry = JObject.Parse(eventGridData)["body"]["data"].ToObject<TelemetryPayloadData>();
                         updateTwinData = BuildUpdatePatchJson(telemetry);
-                        updateTwinData.AppendReplace($"/device_id", deviceId);
+                        updateTwinData.AppendReplace("/device_id", deviceId);
 
                         break;
                     case UpdateMode.Configuration:

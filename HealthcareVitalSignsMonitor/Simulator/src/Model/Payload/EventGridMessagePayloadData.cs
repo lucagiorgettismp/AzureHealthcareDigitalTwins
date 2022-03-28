@@ -1,7 +1,6 @@
 using Newtonsoft.Json; 
 namespace Simulator.Model.Payload
 {
-
     public class EventGridMessagePayloadData
     {
         [JsonProperty("temperature")]

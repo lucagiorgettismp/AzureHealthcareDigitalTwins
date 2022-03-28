@@ -11,7 +11,6 @@ namespace AppFunctions
 
     public class ProcessDTUpdatetoTSI
     {
-
         [FunctionName("ProcessDTUpdatetoTSI")]
         public static async Task Run(
                     [EventHubTrigger("healthcaretwinseventhub", Connection = "EventHubAppSetting-Twins")] EventData myEventHubMessage,

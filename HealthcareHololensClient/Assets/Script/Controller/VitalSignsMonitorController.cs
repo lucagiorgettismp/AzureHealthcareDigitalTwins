@@ -90,4 +90,3 @@ public class VitalSignsMonitorController: MonoBehaviour
         this._application.Close();
     }
 }
-    
