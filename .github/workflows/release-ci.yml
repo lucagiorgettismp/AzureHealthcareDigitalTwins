@@ -40,7 +40,7 @@ jobs:
           # Name of output zip file
           dest: Simulator.zip
           # Whether to add subdirectories to simply zip all files to the root
-          recursive: false # optional, default is true
+          # recursive: false # optional, default is true
               
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
@@ -78,7 +78,7 @@ jobs:
           # Name of output zip file
           dest: Client.zip
           # Whether to add subdirectories to simply zip all files to the root
-          recursive: false # optional, default is true
+          # recursive: false # optional, default is true
           
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
