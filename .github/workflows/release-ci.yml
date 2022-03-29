@@ -109,7 +109,7 @@ jobs:
 
   # Create a release
   release:
-    runs-on: [windows-latest]
+    runs-on: [ubuntu-latest]
     needs: [build-report, build-client, build-simulator]
     permissions:
       contents: write
