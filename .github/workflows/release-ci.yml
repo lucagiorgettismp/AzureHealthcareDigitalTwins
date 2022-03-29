@@ -4,12 +4,12 @@ on:
   push:
     tags:
       - "v*.*.*"
-  
+
 env:
   SIMULATOR_SOLUTION_PATH: '.\HealthcareVitalSignsMonitor\Simulator\Simulator.csproj'
   CLIENT_SOLUTION_PATH: '.\HealthcareVitalSignsMonitor\Client\Client.csproj'
-  PACKAGES_PATH: '.\HealthcareVitalSignsMonitor\packages\'  
-  
+  PACKAGES_PATH: '.\HealthcareVitalSignsMonitor\packages\'
+
 jobs:
   # Build simulator
   build-simulator:
@@ -17,19 +17,19 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.1
-  
+
       - name: Setup NuGet.exe
         uses: NuGet/setup-nuget@v1.0.5
 
       - name: Restore NuGet packages
         run: nuget restore ${{ env.SIMULATOR_SOLUTION_PATH }} -PackagesDirectory ${{ env.PACKAGES_PATH }}
-        
+
       - name: Build
         run: msbuild ${{ env.SIMULATOR_SOLUTION_PATH }} /p:Configuration=Release
-        
+
       - name: Zip Simulator
         # You may pin to the exact commit or the version.
         # uses: vimtor/action-zip@5f1c4aa587ea41db1110df6a99981dbe19cee310
@@ -41,33 +41,32 @@ jobs:
           dest: Simulator.zip
           # Whether to add subdirectories to simply zip all files to the root
           # recursive: false # optional, default is true
-              
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
           name: Simulator
           path: Simulator.zip
-          
-        
+
   # Build client
   build-client:
     runs-on: [windows-latest]
 
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.1
-  
+
       - name: Setup NuGet.exe
         uses: NuGet/setup-nuget@v1.0.5
 
       - name: Restore NuGet packages
         run: nuget restore ${{ env.CLIENT_SOLUTION_PATH }} -PackagesDirectory ${{ env.PACKAGES_PATH }}
-        
+
       - name: Build
         run: msbuild ${{ env.CLIENT_SOLUTION_PATH }} /p:Configuration=Release
-              
+
       - name: Zip Client
         # You may pin to the exact commit or the version.
         # uses: vimtor/action-zip@5f1c4aa587ea41db1110df6a99981dbe19cee310
@@ -79,13 +78,13 @@ jobs:
           dest: Client.zip
           # Whether to add subdirectories to simply zip all files to the root
           # recursive: false # optional, default is true
-          
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
           name: Client
           path: Client.zip
-      
+
   # Build report
   build-report:
     runs-on: [ubuntu-latest]
@@ -93,7 +92,7 @@ jobs:
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v1
-        
+
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
@@ -101,14 +100,14 @@ jobs:
           pre_compile: "tlmgr update --self --all"
           root_file: main.tex
           args: "-lualatex --file-line-error --interaction=nonstopmode"
-          
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
           name: Doc
           path: doc/main.pdf
 
-  # Create a release 
+  # Create a release
   release:
     runs-on: [windows-latest]
     needs: [build-report, build-client, build-simulator]
@@ -126,17 +125,17 @@ jobs:
     - uses: actions/download-artifact@master
       with:
         name: Client
-        
+
     - uses: actions/download-artifact@master
       with:
         name: Doc
-        
+
     - name: Generate changelog
       id: changelog
       uses: metcalfc/changelog-generator@v3.0.0
       with:
         myToken: ${{ secrets.GITHUB_TOKEN }}
-        
+
     - name: Release
       uses: softprops/action-gh-release@v0.1.14
       with:
@@ -164,7 +163,7 @@ jobs:
               New release
               on github.com/${{ github.repository }},
               by ${{ github.actor }}:
-              <b>Relaease ${{ github.GITHUB_REF }}</b>
+              <b>Release ${{ github.ref }}</b>
               ❌ <b>FAILED</b> ❌
         format: html
         disable_web_page_preview: true
@@ -179,12 +178,12 @@ jobs:
               New release
               on github.com/${{ github.repository }},
               by ${{ github.actor }}:
-              <b>Relaease ${{ github.GITHUB_REF }}</b>
+              <b>Release ${{ github.ref }}</b>
               ❌ <b>FAILED</b> ❌
         format: html
         disable_web_page_preview: true
 
-   # Send a success message Telegram
+  # Send a success message Telegram
   jobs-success:
     needs: [build-report, build-client, build-simulator, release]
     if: success()
@@ -201,7 +200,7 @@ jobs:
               New release
               on github.com/${{ github.repository }},
               by ${{ github.actor }}:
-              <b>Relaease ${{ github.GITHUB_REF }}</b>
+              <b>Release ${{ github.ref }}</b>
               ✅ <b>SUCCEDED</b> ✅
         format: html
         disable_web_page_preview: true
@@ -216,7 +215,7 @@ jobs:
               New release
               on github.com/${{ github.repository }},
               by ${{ github.actor }}:
-              <b>Relaease ${{ github.GITHUB_REF }}</b>
+              <b>Release ${{ github.ref }}</b>
               ✅ <b>SUCCEDED</b> ✅
         format: html
         disable_web_page_preview: true
