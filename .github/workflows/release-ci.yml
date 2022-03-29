@@ -4,8 +4,6 @@ on:
   push:
     tags:
       - "v*.*.*"
-
-  workflow_dispatch:
   
 env:
   SIMULATOR_SOLUTION_PATH: '.\HealthcareVitalSignsMonitor\Simulator\Simulator.csproj'
@@ -48,7 +46,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: Simulator
-          path: ${{github.workspace}}/Simulator.zip
+          path: Simulator.zip
           
         
   # Build client
@@ -86,7 +84,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: Client
-          path: ${{github.workspace}}/Client.zip
+          path: Client.zip
       
   # Build report
   build-report:
@@ -123,17 +121,14 @@ jobs:
     - uses: actions/download-artifact@master
       with:
         name: Simulator
-        path: ${{github.workspace}}/Simulator.zip
 
     - uses: actions/download-artifact@master
       with:
         name: Client
-        path: ${{github.workspace}}/Client.zip
         
     - uses: actions/download-artifact@master
       with:
         name: Doc
-        path: doc\main.pdf
         
     - name: Release
     # You may pin to the exact commit or the version.
@@ -154,9 +149,9 @@ jobs:
         # prerelease: # optional
         # Newline-delimited list of path globs for asset files to upload
         files: |
-          ${{github.workspace}}/Simulator.zip
-          ${{github.workspace}}/Client.zip
-          doc\main.pdf
+          Simulator.zip
+          Client.zip
+          main.pdf
         
         # Fails if any of the `files` globs match nothing. Defaults to false
         fail_on_unmatched_files: true
