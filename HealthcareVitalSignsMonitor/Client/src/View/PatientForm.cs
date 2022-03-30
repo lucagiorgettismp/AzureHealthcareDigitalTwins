@@ -115,5 +115,15 @@
         {
             e.Handled = true;
         }
+
+        private void patient_height_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void patient_gender_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

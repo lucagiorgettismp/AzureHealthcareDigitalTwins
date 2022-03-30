@@ -63,5 +63,10 @@
                 Log.Error(ex.Message);
             }
         }
+
+        private void ClientForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

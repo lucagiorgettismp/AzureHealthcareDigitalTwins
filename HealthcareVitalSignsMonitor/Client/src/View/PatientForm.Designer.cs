@@ -239,6 +239,7 @@
             this.patient_height.Name = "patient_height";
             this.patient_height.Size = new System.Drawing.Size(253, 23);
             this.patient_height.TabIndex = 12;
+            this.patient_height.TextChanged += new System.EventHandler(this.patient_height_TextChanged);
             this.patient_height.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PatientHeightKeyPress);
             // 
             // patient_weight
@@ -294,6 +295,7 @@
             this.patient_gender.Name = "patient_gender";
             this.patient_gender.Size = new System.Drawing.Size(253, 24);
             this.patient_gender.TabIndex = 19;
+            this.patient_gender.SelectedIndexChanged += new System.EventHandler(this.patient_gender_SelectedIndexChanged);
             this.patient_gender.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PatientGenderKeyPress);
             // 
             // UnitHeightLabel

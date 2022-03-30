@@ -98,7 +98,8 @@ namespace Client.View
             this.Controls.Add(this.patients_twins_collections);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "ClientForm";
-            this.Text = "Form1";
+            this.Text = "Digital Twins";
+            this.Load += new System.EventHandler(this.ClientForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 

@@ -278,11 +278,11 @@
     <Compile Include="src\AzureApi\TwinOperationsApi.cs" />
     <Compile Include="src\Controller\Client.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="src\View\ClientForm.cs">
+    <Compile Include="src\View\DigitalTwinsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="src\View\ClientForm.Designer.cs">
-      <DependentUpon>ClientForm.cs</DependentUpon>
+    <Compile Include="src\View\DigitalTwinsForm.Designer.cs">
+      <DependentUpon>DigitalTwinsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="src\View\PatientForm.cs">
       <SubType>Form</SubType>
@@ -299,8 +299,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="src\View\ClientForm.resx">
-      <DependentUpon>ClientForm.cs</DependentUpon>
+    <EmbeddedResource Include="src\View\DigitalTwinsForm.resx">
+      <DependentUpon>DigitalTwinsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\View\PatientForm.resx">
       <DependentUpon>PatientForm.cs</DependentUpon>

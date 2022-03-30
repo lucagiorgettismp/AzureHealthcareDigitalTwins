@@ -364,6 +364,12 @@
     <Compile Include="src\Model\Payload\Sensor.cs" />
     <Compile Include="src\Model\Payload\SensorValue.cs" />
     <Compile Include="src\Utils\Exceptions\InvalidPropertyTypeException.cs" />
+    <Compile Include="src\View\SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\View\SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\View\SimulationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -371,11 +377,11 @@
       <DependentUpon>SimulationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="src\Utils\DeviceDataGenerator.cs" />
-    <Compile Include="src\View\ControlPanelForm.cs">
+    <Compile Include="src\View\DevicesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="src\View\ControlPanelForm.Designer.cs">
-      <DependentUpon>ControlPanelForm.cs</DependentUpon>
+    <Compile Include="src\View\DevicesForm.Designer.cs">
+      <DependentUpon>DevicesForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -386,11 +392,14 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="src\View\SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="src\View\SimulationForm.resx">
       <DependentUpon>SimulationForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\View\ControlPanelForm.resx">
-      <DependentUpon>ControlPanelForm.cs</DependentUpon>
+    <EmbeddedResource Include="src\View\DevicesForm.resx">
+      <DependentUpon>DevicesForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

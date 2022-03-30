@@ -12,6 +12,7 @@
     using System.Windows.Forms;
     using Common;
     using Common.View;
+    using Simulator.src.View;
 
     public partial class ControlPanelForm : Form
     {
@@ -163,6 +164,17 @@
                 this.errorForm.SetText(ex.Message);
                 this.errorForm.Show();
             }
+        }
+
+        private void ButtonTable_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void SettingsButtonClick(object sender, EventArgs e)
+        {
+            var settingsForm = new SettingsForm();
+            settingsForm.Show();
         }
     }
 }
