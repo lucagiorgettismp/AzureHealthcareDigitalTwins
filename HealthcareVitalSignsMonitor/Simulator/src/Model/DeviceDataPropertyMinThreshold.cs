@@ -7,10 +7,10 @@
         internal void SetValue(T value)
         {
             this.Value = value;
-            this.InAlarm = CheckMinThresholdAlarm(value, this.AlarmMinThreashold);
+            this.InAlarm = CheckMinThresholdAlarm(value, this.MinAlertThreashold);
         }
 
-        public T AlarmMinThreashold { get; set; }
+        public T MinAlertThreashold { get; set; }
 
         protected bool CheckMinThresholdAlarm(T ta, T tb)
         {

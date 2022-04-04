@@ -228,7 +228,7 @@
             this.patient_age.Name = "patient_age";
             this.patient_age.Size = new System.Drawing.Size(253, 23);
             this.patient_age.TabIndex = 10;
-            this.patient_age.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PatientAgeKeyPress);
+            this.patient_age.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumberFieldKeyPress);
             // 
             // patient_height
             // 
@@ -240,7 +240,7 @@
             this.patient_height.Size = new System.Drawing.Size(253, 23);
             this.patient_height.TabIndex = 12;
             this.patient_height.TextChanged += new System.EventHandler(this.patient_height_TextChanged);
-            this.patient_height.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PatientHeightKeyPress);
+            this.patient_height.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumberFieldKeyPress);
             // 
             // patient_weight
             // 
@@ -251,7 +251,7 @@
             this.patient_weight.Name = "patient_weight";
             this.patient_weight.Size = new System.Drawing.Size(253, 23);
             this.patient_weight.TabIndex = 13;
-            this.patient_weight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PatientWeightKeyPress);
+            this.patient_weight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumberFieldKeyPress);
             // 
             // patient_description
             // 
@@ -272,7 +272,7 @@
             this.patient_body_mass_index.Name = "patient_body_mass_index";
             this.patient_body_mass_index.Size = new System.Drawing.Size(253, 23);
             this.patient_body_mass_index.TabIndex = 15;
-            this.patient_body_mass_index.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PatientBodyMassIndexKeyPress);
+            this.patient_body_mass_index.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumberFieldKeyPress);
             // 
             // patient_name
             // 
@@ -282,6 +282,7 @@
             this.patient_name.Name = "patient_name";
             this.patient_name.Size = new System.Drawing.Size(253, 23);
             this.patient_name.TabIndex = 16;
+            this.patient_name.TextChanged += new System.EventHandler(this.patient_name_TextChanged);
             // 
             // patient_gender
             // 

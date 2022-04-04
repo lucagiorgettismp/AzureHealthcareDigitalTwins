@@ -1,5 +1,7 @@
 ﻿
+using Simulator.src.Model.Settings;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Simulator.src.View
@@ -45,56 +47,40 @@ namespace Simulator.src.View
             this.saturation_label = new System.Windows.Forms.Label();
             this.blood_pressure_label = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.temperature_check_min = new System.Windows.Forms.CheckBox();
-            this.temperature_alarm_min = new System.Windows.Forms.TextBox();
+            this.temperature_alert_min = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.heart_freq_check_min = new System.Windows.Forms.CheckBox();
-            this.heart_freq_alarm_min = new System.Windows.Forms.TextBox();
+            this.heart_freq_alert_min = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.breath_freq_check_min = new System.Windows.Forms.CheckBox();
-            this.breath_freq_alarm_min = new System.Windows.Forms.TextBox();
+            this.breath_freq_alert_min = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.saturation_check_min = new System.Windows.Forms.CheckBox();
             this.saturation_alert_min = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-            this.blood_press_check_min = new System.Windows.Forms.CheckBox();
             this.blood_press_alert_min = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
-            this.temperature_check_max = new System.Windows.Forms.CheckBox();
-            this.temperature_alarm_max = new System.Windows.Forms.TextBox();
+            this.temperature_alert_max = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
-            this.heart_freq_check_max = new System.Windows.Forms.CheckBox();
-            this.heart_freq_alarm_max = new System.Windows.Forms.TextBox();
+            this.heart_freq_alert_max = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
-            this.breath_freq_check_max = new System.Windows.Forms.CheckBox();
-            this.breath_freq_alarm_max = new System.Windows.Forms.TextBox();
+            this.breath_freq_alert_max = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
-            this.saturation_check_max = new System.Windows.Forms.CheckBox();
-            this.saturation_alert_max = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
-            this.blood_press_check_max = new System.Windows.Forms.CheckBox();
             this.blood_press_alert_max = new System.Windows.Forms.TextBox();
             this.battery_label = new System.Windows.Forms.Label();
             this.tableLayoutPanel13 = new System.Windows.Forms.TableLayoutPanel();
-            this.battery_check_min = new System.Windows.Forms.CheckBox();
             this.battery_alert_min = new System.Windows.Forms.TextBox();
             this.temperature_min = new System.Windows.Forms.TextBox();
             this.heart_freq_min = new System.Windows.Forms.TextBox();
             this.breath_freq_min = new System.Windows.Forms.TextBox();
-            this.saturation_min = new System.Windows.Forms.TextBox();
             this.blood_press_min = new System.Windows.Forms.TextBox();
             this.temperature_max = new System.Windows.Forms.TextBox();
             this.heart_freq_max = new System.Windows.Forms.TextBox();
             this.breath_freq_max = new System.Windows.Forms.TextBox();
-            this.saturation_max = new System.Windows.Forms.TextBox();
             this.blood_press_max = new System.Windows.Forms.TextBox();
             this.temperature_uom = new System.Windows.Forms.ComboBox();
             this.heart_freq_uom = new System.Windows.Forms.TextBox();
             this.breath_freq_uom = new System.Windows.Forms.TextBox();
-            this.saturation_uom = new System.Windows.Forms.TextBox();
             this.blood_press_uom = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.discard_button = new System.Windows.Forms.Button();
             this.save_button = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -105,7 +91,6 @@ namespace Simulator.src.View
             this.tableLayoutPanel8.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
-            this.tableLayoutPanel11.SuspendLayout();
             this.tableLayoutPanel12.SuspendLayout();
             this.tableLayoutPanel13.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -147,17 +132,14 @@ namespace Simulator.src.View
             this.tableLayoutPanel1.Controls.Add(this.temperature_min, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.heart_freq_min, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.breath_freq_min, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.saturation_min, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.blood_press_min, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.temperature_max, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.heart_freq_max, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.breath_freq_max, 2, 3);
-            this.tableLayoutPanel1.Controls.Add(this.saturation_max, 2, 4);
             this.tableLayoutPanel1.Controls.Add(this.blood_press_max, 2, 5);
             this.tableLayoutPanel1.Controls.Add(this.temperature_uom, 5, 1);
             this.tableLayoutPanel1.Controls.Add(this.heart_freq_uom, 5, 2);
             this.tableLayoutPanel1.Controls.Add(this.breath_freq_uom, 5, 3);
-            this.tableLayoutPanel1.Controls.Add(this.saturation_uom, 5, 4);
             this.tableLayoutPanel1.Controls.Add(this.blood_press_uom, 5, 5);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -290,11 +272,10 @@ namespace Simulator.src.View
             // 
             // tableLayoutPanel3
             // 
-            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnCount = 1;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.tableLayoutPanel3.Controls.Add(this.temperature_check_min, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.temperature_alarm_min, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.temperature_alert_min, 1, 0);
             this.tableLayoutPanel3.Location = new System.Drawing.Point(402, 31);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -303,32 +284,21 @@ namespace Simulator.src.View
             this.tableLayoutPanel3.Size = new System.Drawing.Size(134, 31);
             this.tableLayoutPanel3.TabIndex = 11;
             // 
-            // temperature_check_min
+            // temperature_alert_min
             // 
-            this.temperature_check_min.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.temperature_check_min.AutoSize = true;
-            this.temperature_check_min.Location = new System.Drawing.Point(9, 8);
-            this.temperature_check_min.Name = "temperature_check_min";
-            this.temperature_check_min.Size = new System.Drawing.Size(15, 14);
-            this.temperature_check_min.TabIndex = 0;
-            this.temperature_check_min.UseVisualStyleBackColor = true;
-            // 
-            // temperature_alarm_min
-            // 
-            this.temperature_alarm_min.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.temperature_alarm_min.Location = new System.Drawing.Point(36, 5);
-            this.temperature_alarm_min.Name = "temperature_alarm_min";
-            this.temperature_alarm_min.Size = new System.Drawing.Size(95, 20);
-            this.temperature_alarm_min.TabIndex = 1;
-            this.temperature_alarm_min.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumbersKeyPress);
+            this.temperature_alert_min.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.temperature_alert_min.Location = new System.Drawing.Point(19, 5);
+            this.temperature_alert_min.Name = "temperature_alert_min";
+            this.temperature_alert_min.Size = new System.Drawing.Size(95, 20);
+            this.temperature_alert_min.TabIndex = 1;
+            this.temperature_alert_min.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumbersKeyPress);
             // 
             // tableLayoutPanel4
             // 
-            this.tableLayoutPanel4.ColumnCount = 2;
+            this.tableLayoutPanel4.ColumnCount = 1;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.tableLayoutPanel4.Controls.Add(this.heart_freq_check_min, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.heart_freq_alarm_min, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.heart_freq_alert_min, 1, 0);
             this.tableLayoutPanel4.Location = new System.Drawing.Point(402, 62);
             this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -337,32 +307,21 @@ namespace Simulator.src.View
             this.tableLayoutPanel4.Size = new System.Drawing.Size(134, 31);
             this.tableLayoutPanel4.TabIndex = 12;
             // 
-            // heart_freq_check_min
+            // heart_freq_alert_min
             // 
-            this.heart_freq_check_min.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.heart_freq_check_min.AutoSize = true;
-            this.heart_freq_check_min.Location = new System.Drawing.Point(9, 8);
-            this.heart_freq_check_min.Name = "heart_freq_check_min";
-            this.heart_freq_check_min.Size = new System.Drawing.Size(15, 14);
-            this.heart_freq_check_min.TabIndex = 0;
-            this.heart_freq_check_min.UseVisualStyleBackColor = true;
-            // 
-            // heart_freq_alarm_min
-            // 
-            this.heart_freq_alarm_min.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.heart_freq_alarm_min.Location = new System.Drawing.Point(36, 5);
-            this.heart_freq_alarm_min.Name = "heart_freq_alarm_min";
-            this.heart_freq_alarm_min.Size = new System.Drawing.Size(95, 20);
-            this.heart_freq_alarm_min.TabIndex = 1;
-            this.heart_freq_alarm_min.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumbersKeyPress);
+            this.heart_freq_alert_min.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.heart_freq_alert_min.Location = new System.Drawing.Point(19, 5);
+            this.heart_freq_alert_min.Name = "heart_freq_alert_min";
+            this.heart_freq_alert_min.Size = new System.Drawing.Size(95, 20);
+            this.heart_freq_alert_min.TabIndex = 1;
+            this.heart_freq_alert_min.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumbersKeyPress);
             // 
             // tableLayoutPanel5
             // 
-            this.tableLayoutPanel5.ColumnCount = 2;
+            this.tableLayoutPanel5.ColumnCount = 1;
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.tableLayoutPanel5.Controls.Add(this.breath_freq_check_min, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.breath_freq_alarm_min, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.breath_freq_alert_min, 1, 0);
             this.tableLayoutPanel5.Location = new System.Drawing.Point(402, 93);
             this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
@@ -371,31 +330,20 @@ namespace Simulator.src.View
             this.tableLayoutPanel5.Size = new System.Drawing.Size(134, 31);
             this.tableLayoutPanel5.TabIndex = 13;
             // 
-            // breath_freq_check_min
+            // breath_freq_alert_min
             // 
-            this.breath_freq_check_min.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.breath_freq_check_min.AutoSize = true;
-            this.breath_freq_check_min.Location = new System.Drawing.Point(9, 8);
-            this.breath_freq_check_min.Name = "breath_freq_check_min";
-            this.breath_freq_check_min.Size = new System.Drawing.Size(15, 14);
-            this.breath_freq_check_min.TabIndex = 0;
-            this.breath_freq_check_min.UseVisualStyleBackColor = true;
-            // 
-            // breath_freq_alarm_min
-            // 
-            this.breath_freq_alarm_min.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.breath_freq_alarm_min.Location = new System.Drawing.Point(36, 5);
-            this.breath_freq_alarm_min.Name = "breath_freq_alarm_min";
-            this.breath_freq_alarm_min.Size = new System.Drawing.Size(95, 20);
-            this.breath_freq_alarm_min.TabIndex = 1;
-            this.breath_freq_alarm_min.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumbersKeyPress);
+            this.breath_freq_alert_min.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.breath_freq_alert_min.Location = new System.Drawing.Point(19, 5);
+            this.breath_freq_alert_min.Name = "breath_freq_alert_min";
+            this.breath_freq_alert_min.Size = new System.Drawing.Size(95, 20);
+            this.breath_freq_alert_min.TabIndex = 1;
+            this.breath_freq_alert_min.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumbersKeyPress);
             // 
             // tableLayoutPanel6
             // 
-            this.tableLayoutPanel6.ColumnCount = 2;
+            this.tableLayoutPanel6.ColumnCount = 1;
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.tableLayoutPanel6.Controls.Add(this.saturation_check_min, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.saturation_alert_min, 1, 0);
             this.tableLayoutPanel6.Location = new System.Drawing.Point(402, 124);
             this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(0);
@@ -405,20 +353,10 @@ namespace Simulator.src.View
             this.tableLayoutPanel6.Size = new System.Drawing.Size(134, 31);
             this.tableLayoutPanel6.TabIndex = 14;
             // 
-            // saturation_check_min
-            // 
-            this.saturation_check_min.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.saturation_check_min.AutoSize = true;
-            this.saturation_check_min.Location = new System.Drawing.Point(9, 8);
-            this.saturation_check_min.Name = "saturation_check_min";
-            this.saturation_check_min.Size = new System.Drawing.Size(15, 14);
-            this.saturation_check_min.TabIndex = 0;
-            this.saturation_check_min.UseVisualStyleBackColor = true;
-            // 
             // saturation_alert_min
             // 
             this.saturation_alert_min.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.saturation_alert_min.Location = new System.Drawing.Point(36, 5);
+            this.saturation_alert_min.Location = new System.Drawing.Point(19, 5);
             this.saturation_alert_min.Name = "saturation_alert_min";
             this.saturation_alert_min.Size = new System.Drawing.Size(95, 20);
             this.saturation_alert_min.TabIndex = 1;
@@ -426,33 +364,23 @@ namespace Simulator.src.View
             // 
             // tableLayoutPanel7
             // 
-            this.tableLayoutPanel7.ColumnCount = 2;
+            this.tableLayoutPanel7.ColumnCount = 1;
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.tableLayoutPanel7.Controls.Add(this.blood_press_check_min, 0, 0);
             this.tableLayoutPanel7.Controls.Add(this.blood_press_alert_min, 1, 0);
             this.tableLayoutPanel7.Location = new System.Drawing.Point(402, 155);
             this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 1;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
             this.tableLayoutPanel7.Size = new System.Drawing.Size(134, 31);
             this.tableLayoutPanel7.TabIndex = 15;
-            // 
-            // blood_press_check_min
-            // 
-            this.blood_press_check_min.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.blood_press_check_min.AutoSize = true;
-            this.blood_press_check_min.Location = new System.Drawing.Point(9, 8);
-            this.blood_press_check_min.Name = "blood_press_check_min";
-            this.blood_press_check_min.Size = new System.Drawing.Size(15, 14);
-            this.blood_press_check_min.TabIndex = 0;
-            this.blood_press_check_min.UseVisualStyleBackColor = true;
             // 
             // blood_press_alert_min
             // 
             this.blood_press_alert_min.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.blood_press_alert_min.Location = new System.Drawing.Point(36, 5);
+            this.blood_press_alert_min.Location = new System.Drawing.Point(19, 5);
             this.blood_press_alert_min.Name = "blood_press_alert_min";
             this.blood_press_alert_min.Size = new System.Drawing.Size(95, 20);
             this.blood_press_alert_min.TabIndex = 1;
@@ -460,11 +388,10 @@ namespace Simulator.src.View
             // 
             // tableLayoutPanel8
             // 
-            this.tableLayoutPanel8.ColumnCount = 2;
+            this.tableLayoutPanel8.ColumnCount = 1;
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.tableLayoutPanel8.Controls.Add(this.temperature_check_max, 0, 0);
-            this.tableLayoutPanel8.Controls.Add(this.temperature_alarm_max, 1, 0);
+            this.tableLayoutPanel8.Controls.Add(this.temperature_alert_max, 1, 0);
             this.tableLayoutPanel8.Location = new System.Drawing.Point(536, 31);
             this.tableLayoutPanel8.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
@@ -473,32 +400,21 @@ namespace Simulator.src.View
             this.tableLayoutPanel8.Size = new System.Drawing.Size(134, 31);
             this.tableLayoutPanel8.TabIndex = 16;
             // 
-            // temperature_check_max
+            // temperature_alert_max
             // 
-            this.temperature_check_max.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.temperature_check_max.AutoSize = true;
-            this.temperature_check_max.Location = new System.Drawing.Point(9, 8);
-            this.temperature_check_max.Name = "temperature_check_max";
-            this.temperature_check_max.Size = new System.Drawing.Size(15, 14);
-            this.temperature_check_max.TabIndex = 0;
-            this.temperature_check_max.UseVisualStyleBackColor = true;
-            // 
-            // temperature_alarm_max
-            // 
-            this.temperature_alarm_max.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.temperature_alarm_max.Location = new System.Drawing.Point(36, 5);
-            this.temperature_alarm_max.Name = "temperature_alarm_max";
-            this.temperature_alarm_max.Size = new System.Drawing.Size(95, 20);
-            this.temperature_alarm_max.TabIndex = 1;
-            this.temperature_alarm_max.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumbersKeyPress);
+            this.temperature_alert_max.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.temperature_alert_max.Location = new System.Drawing.Point(19, 5);
+            this.temperature_alert_max.Name = "temperature_alert_max";
+            this.temperature_alert_max.Size = new System.Drawing.Size(95, 20);
+            this.temperature_alert_max.TabIndex = 1;
+            this.temperature_alert_max.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumbersKeyPress);
             // 
             // tableLayoutPanel9
             // 
-            this.tableLayoutPanel9.ColumnCount = 2;
+            this.tableLayoutPanel9.ColumnCount = 1;
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.tableLayoutPanel9.Controls.Add(this.heart_freq_check_max, 0, 0);
-            this.tableLayoutPanel9.Controls.Add(this.heart_freq_alarm_max, 1, 0);
+            this.tableLayoutPanel9.Controls.Add(this.heart_freq_alert_max, 1, 0);
             this.tableLayoutPanel9.Location = new System.Drawing.Point(536, 62);
             this.tableLayoutPanel9.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel9.Name = "tableLayoutPanel9";
@@ -507,32 +423,21 @@ namespace Simulator.src.View
             this.tableLayoutPanel9.Size = new System.Drawing.Size(134, 31);
             this.tableLayoutPanel9.TabIndex = 17;
             // 
-            // heart_freq_check_max
+            // heart_freq_alert_max
             // 
-            this.heart_freq_check_max.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.heart_freq_check_max.AutoSize = true;
-            this.heart_freq_check_max.Location = new System.Drawing.Point(9, 8);
-            this.heart_freq_check_max.Name = "heart_freq_check_max";
-            this.heart_freq_check_max.Size = new System.Drawing.Size(15, 14);
-            this.heart_freq_check_max.TabIndex = 0;
-            this.heart_freq_check_max.UseVisualStyleBackColor = true;
-            // 
-            // heart_freq_alarm_max
-            // 
-            this.heart_freq_alarm_max.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.heart_freq_alarm_max.Location = new System.Drawing.Point(36, 5);
-            this.heart_freq_alarm_max.Name = "heart_freq_alarm_max";
-            this.heart_freq_alarm_max.Size = new System.Drawing.Size(95, 20);
-            this.heart_freq_alarm_max.TabIndex = 1;
-            this.heart_freq_alarm_max.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumbersKeyPress);
+            this.heart_freq_alert_max.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.heart_freq_alert_max.Location = new System.Drawing.Point(19, 5);
+            this.heart_freq_alert_max.Name = "heart_freq_alert_max";
+            this.heart_freq_alert_max.Size = new System.Drawing.Size(95, 20);
+            this.heart_freq_alert_max.TabIndex = 1;
+            this.heart_freq_alert_max.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumbersKeyPress);
             // 
             // tableLayoutPanel10
             // 
-            this.tableLayoutPanel10.ColumnCount = 2;
+            this.tableLayoutPanel10.ColumnCount = 1;
             this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.tableLayoutPanel10.Controls.Add(this.breath_freq_check_max, 0, 0);
-            this.tableLayoutPanel10.Controls.Add(this.breath_freq_alarm_max, 1, 0);
+            this.tableLayoutPanel10.Controls.Add(this.breath_freq_alert_max, 1, 0);
             this.tableLayoutPanel10.Location = new System.Drawing.Point(536, 93);
             this.tableLayoutPanel10.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel10.Name = "tableLayoutPanel10";
@@ -541,32 +446,20 @@ namespace Simulator.src.View
             this.tableLayoutPanel10.Size = new System.Drawing.Size(134, 31);
             this.tableLayoutPanel10.TabIndex = 18;
             // 
-            // breath_freq_check_max
+            // breath_freq_alert_max
             // 
-            this.breath_freq_check_max.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.breath_freq_check_max.AutoSize = true;
-            this.breath_freq_check_max.Location = new System.Drawing.Point(9, 8);
-            this.breath_freq_check_max.Name = "breath_freq_check_max";
-            this.breath_freq_check_max.Size = new System.Drawing.Size(15, 14);
-            this.breath_freq_check_max.TabIndex = 0;
-            this.breath_freq_check_max.UseVisualStyleBackColor = true;
-            // 
-            // breath_freq_alarm_max
-            // 
-            this.breath_freq_alarm_max.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.breath_freq_alarm_max.Location = new System.Drawing.Point(36, 5);
-            this.breath_freq_alarm_max.Name = "breath_freq_alarm_max";
-            this.breath_freq_alarm_max.Size = new System.Drawing.Size(95, 20);
-            this.breath_freq_alarm_max.TabIndex = 1;
-            this.breath_freq_alarm_max.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumbersKeyPress);
+            this.breath_freq_alert_max.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.breath_freq_alert_max.Location = new System.Drawing.Point(19, 5);
+            this.breath_freq_alert_max.Name = "breath_freq_alert_max";
+            this.breath_freq_alert_max.Size = new System.Drawing.Size(95, 20);
+            this.breath_freq_alert_max.TabIndex = 1;
+            this.breath_freq_alert_max.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumbersKeyPress);
             // 
             // tableLayoutPanel11
             // 
-            this.tableLayoutPanel11.ColumnCount = 2;
+            this.tableLayoutPanel11.ColumnCount = 1;
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.tableLayoutPanel11.Controls.Add(this.saturation_check_max, 0, 0);
-            this.tableLayoutPanel11.Controls.Add(this.saturation_alert_max, 1, 0);
             this.tableLayoutPanel11.Location = new System.Drawing.Point(536, 124);
             this.tableLayoutPanel11.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel11.Name = "tableLayoutPanel11";
@@ -575,31 +468,11 @@ namespace Simulator.src.View
             this.tableLayoutPanel11.Size = new System.Drawing.Size(134, 31);
             this.tableLayoutPanel11.TabIndex = 19;
             // 
-            // saturation_check_max
-            // 
-            this.saturation_check_max.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.saturation_check_max.AutoSize = true;
-            this.saturation_check_max.Location = new System.Drawing.Point(9, 8);
-            this.saturation_check_max.Name = "saturation_check_max";
-            this.saturation_check_max.Size = new System.Drawing.Size(15, 14);
-            this.saturation_check_max.TabIndex = 0;
-            this.saturation_check_max.UseVisualStyleBackColor = true;
-            // 
-            // saturation_alert_max
-            // 
-            this.saturation_alert_max.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.saturation_alert_max.Location = new System.Drawing.Point(36, 5);
-            this.saturation_alert_max.Name = "saturation_alert_max";
-            this.saturation_alert_max.Size = new System.Drawing.Size(95, 20);
-            this.saturation_alert_max.TabIndex = 1;
-            this.saturation_alert_max.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumbersKeyPress);
-            // 
             // tableLayoutPanel12
             // 
-            this.tableLayoutPanel12.ColumnCount = 2;
+            this.tableLayoutPanel12.ColumnCount = 1;
             this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.tableLayoutPanel12.Controls.Add(this.blood_press_check_max, 0, 0);
             this.tableLayoutPanel12.Controls.Add(this.blood_press_alert_max, 1, 0);
             this.tableLayoutPanel12.Location = new System.Drawing.Point(536, 155);
             this.tableLayoutPanel12.Margin = new System.Windows.Forms.Padding(0);
@@ -609,20 +482,10 @@ namespace Simulator.src.View
             this.tableLayoutPanel12.Size = new System.Drawing.Size(134, 31);
             this.tableLayoutPanel12.TabIndex = 20;
             // 
-            // blood_press_check_max
-            // 
-            this.blood_press_check_max.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.blood_press_check_max.AutoSize = true;
-            this.blood_press_check_max.Location = new System.Drawing.Point(9, 8);
-            this.blood_press_check_max.Name = "blood_press_check_max";
-            this.blood_press_check_max.Size = new System.Drawing.Size(15, 14);
-            this.blood_press_check_max.TabIndex = 0;
-            this.blood_press_check_max.UseVisualStyleBackColor = true;
-            // 
             // blood_press_alert_max
             // 
             this.blood_press_alert_max.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.blood_press_alert_max.Location = new System.Drawing.Point(36, 5);
+            this.blood_press_alert_max.Location = new System.Drawing.Point(19, 5);
             this.blood_press_alert_max.Name = "blood_press_alert_max";
             this.blood_press_alert_max.Size = new System.Drawing.Size(95, 20);
             this.blood_press_alert_max.TabIndex = 1;
@@ -640,10 +503,9 @@ namespace Simulator.src.View
             // 
             // tableLayoutPanel13
             // 
-            this.tableLayoutPanel13.ColumnCount = 2;
+            this.tableLayoutPanel13.ColumnCount = 1;
             this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            this.tableLayoutPanel13.Controls.Add(this.battery_check_min, 0, 0);
             this.tableLayoutPanel13.Controls.Add(this.battery_alert_min, 1, 0);
             this.tableLayoutPanel13.Location = new System.Drawing.Point(402, 186);
             this.tableLayoutPanel13.Margin = new System.Windows.Forms.Padding(0);
@@ -653,20 +515,10 @@ namespace Simulator.src.View
             this.tableLayoutPanel13.Size = new System.Drawing.Size(134, 38);
             this.tableLayoutPanel13.TabIndex = 22;
             // 
-            // battery_check_min
-            // 
-            this.battery_check_min.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.battery_check_min.AutoSize = true;
-            this.battery_check_min.Location = new System.Drawing.Point(9, 12);
-            this.battery_check_min.Name = "battery_check_min";
-            this.battery_check_min.Size = new System.Drawing.Size(15, 14);
-            this.battery_check_min.TabIndex = 0;
-            this.battery_check_min.UseVisualStyleBackColor = true;
-            // 
             // battery_alert_min
             // 
             this.battery_alert_min.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.battery_alert_min.Location = new System.Drawing.Point(36, 9);
+            this.battery_alert_min.Location = new System.Drawing.Point(19, 9);
             this.battery_alert_min.Name = "battery_alert_min";
             this.battery_alert_min.Size = new System.Drawing.Size(95, 20);
             this.battery_alert_min.TabIndex = 1;
@@ -679,7 +531,6 @@ namespace Simulator.src.View
             this.temperature_min.Name = "temperature_min";
             this.temperature_min.Size = new System.Drawing.Size(100, 20);
             this.temperature_min.TabIndex = 24;
-            this.temperature_min.TextChanged += new System.EventHandler(this.temperature_min_TextChanged);
             this.temperature_min.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumbersKeyPress);
             // 
             // heart_freq_min
@@ -699,15 +550,6 @@ namespace Simulator.src.View
             this.breath_freq_min.Size = new System.Drawing.Size(100, 20);
             this.breath_freq_min.TabIndex = 26;
             this.breath_freq_min.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumbersKeyPress);
-            // 
-            // saturation_min
-            // 
-            this.saturation_min.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.saturation_min.Location = new System.Drawing.Point(151, 129);
-            this.saturation_min.Name = "saturation_min";
-            this.saturation_min.Size = new System.Drawing.Size(100, 20);
-            this.saturation_min.TabIndex = 27;
-            this.saturation_min.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumbersKeyPress);
             // 
             // blood_press_min
             // 
@@ -745,15 +587,6 @@ namespace Simulator.src.View
             this.breath_freq_max.TabIndex = 32;
             this.breath_freq_max.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumbersKeyPress);
             // 
-            // saturation_max
-            // 
-            this.saturation_max.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.saturation_max.Location = new System.Drawing.Point(285, 129);
-            this.saturation_max.Name = "saturation_max";
-            this.saturation_max.Size = new System.Drawing.Size(100, 20);
-            this.saturation_max.TabIndex = 33;
-            this.saturation_max.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NumbersKeyPress);
-            // 
             // blood_press_max
             // 
             this.blood_press_max.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -767,10 +600,6 @@ namespace Simulator.src.View
             // 
             this.temperature_uom.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.temperature_uom.FormattingEnabled = true;
-            this.temperature_uom.Items.AddRange(new object[] {
-            "°C (Celsius)",
-            "°F (Fahrenheit)",
-            "K (Kelvin)"});
             this.temperature_uom.Location = new System.Drawing.Point(689, 36);
             this.temperature_uom.Name = "temperature_uom";
             this.temperature_uom.Size = new System.Drawing.Size(100, 21);
@@ -792,14 +621,6 @@ namespace Simulator.src.View
             this.breath_freq_uom.Size = new System.Drawing.Size(100, 20);
             this.breath_freq_uom.TabIndex = 38;
             // 
-            // saturation_uom
-            // 
-            this.saturation_uom.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.saturation_uom.Location = new System.Drawing.Point(689, 129);
-            this.saturation_uom.Name = "saturation_uom";
-            this.saturation_uom.Size = new System.Drawing.Size(100, 20);
-            this.saturation_uom.TabIndex = 39;
-            // 
             // blood_press_uom
             // 
             this.blood_press_uom.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -811,28 +632,17 @@ namespace Simulator.src.View
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tableLayoutPanel2.ColumnCount = 3;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 85F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
-            this.tableLayoutPanel2.Controls.Add(this.discard_button, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.save_button, 2, 0);
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.Controls.Add(this.save_button, 1, 0);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 241);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(809, 29);
             this.tableLayoutPanel2.TabIndex = 1;
-            // 
-            // discard_button
-            // 
-            this.discard_button.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.discard_button.Location = new System.Drawing.Point(589, 3);
-            this.discard_button.Name = "discard_button";
-            this.discard_button.Size = new System.Drawing.Size(75, 23);
-            this.discard_button.TabIndex = 0;
-            this.discard_button.Text = "Discard";
-            this.discard_button.UseVisualStyleBackColor = true;
             // 
             // save_button
             // 
@@ -843,17 +653,17 @@ namespace Simulator.src.View
             this.save_button.TabIndex = 1;
             this.save_button.Text = "Save";
             this.save_button.UseVisualStyleBackColor = true;
+            this.save_button.Click += new System.EventHandler(this.save_button_Click);
             // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(809, 270);
+            this.ClientSize = new System.Drawing.Size(809, 272);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "SettingsForm";
             this.Text = "Settings";
-            this.Load += new System.EventHandler(this.SettingsForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
@@ -872,8 +682,6 @@ namespace Simulator.src.View
             this.tableLayoutPanel9.PerformLayout();
             this.tableLayoutPanel10.ResumeLayout(false);
             this.tableLayoutPanel10.PerformLayout();
-            this.tableLayoutPanel11.ResumeLayout(false);
-            this.tableLayoutPanel11.PerformLayout();
             this.tableLayoutPanel12.ResumeLayout(false);
             this.tableLayoutPanel12.PerformLayout();
             this.tableLayoutPanel13.ResumeLayout(false);
@@ -892,7 +700,6 @@ namespace Simulator.src.View
         private System.Windows.Forms.Label saturation_label;
         private System.Windows.Forms.Label blood_pressure_label;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Button discard_button;
         private System.Windows.Forms.Button save_button;
         private System.Windows.Forms.Label unit_of_measurement_label;
         private System.Windows.Forms.Label alert_max_value_label;
@@ -900,53 +707,36 @@ namespace Simulator.src.View
         private System.Windows.Forms.Label max_value_label;
         private System.Windows.Forms.Label min_value_label;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.CheckBox temperature_check_min;
-        private System.Windows.Forms.TextBox temperature_alarm_min;
+        private System.Windows.Forms.TextBox temperature_alert_min;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
-        private System.Windows.Forms.CheckBox heart_freq_check_min;
-        private System.Windows.Forms.TextBox heart_freq_alarm_min;
+        private System.Windows.Forms.TextBox heart_freq_alert_min;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
-        private System.Windows.Forms.CheckBox breath_freq_check_min;
-        private System.Windows.Forms.TextBox breath_freq_alarm_min;
+        private System.Windows.Forms.TextBox breath_freq_alert_min;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
-        private System.Windows.Forms.CheckBox saturation_check_min;
-        private System.Windows.Forms.TextBox saturation_alert_min;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
-        private System.Windows.Forms.CheckBox blood_press_check_min;
-        private System.Windows.Forms.TextBox blood_press_alert_min;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
-        private System.Windows.Forms.CheckBox temperature_check_max;
-        private System.Windows.Forms.TextBox temperature_alarm_max;
+        private System.Windows.Forms.TextBox temperature_alert_max;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
-        private System.Windows.Forms.CheckBox heart_freq_check_max;
-        private System.Windows.Forms.TextBox heart_freq_alarm_max;
+        private System.Windows.Forms.TextBox heart_freq_alert_max;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
-        private System.Windows.Forms.CheckBox breath_freq_check_max;
-        private System.Windows.Forms.TextBox breath_freq_alarm_max;
+        private System.Windows.Forms.TextBox breath_freq_alert_max;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
-        private System.Windows.Forms.CheckBox saturation_check_max;
-        private System.Windows.Forms.TextBox saturation_alert_max;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel12;
-        private System.Windows.Forms.CheckBox blood_press_check_max;
         private System.Windows.Forms.TextBox blood_press_alert_max;
         private System.Windows.Forms.Label battery_label;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel13;
-        private System.Windows.Forms.CheckBox battery_check_min;
         private System.Windows.Forms.TextBox battery_alert_min;
         private System.Windows.Forms.TextBox temperature_min;
         private System.Windows.Forms.TextBox heart_freq_min;
         private System.Windows.Forms.TextBox breath_freq_min;
-        private System.Windows.Forms.TextBox saturation_min;
         private System.Windows.Forms.TextBox blood_press_min;
         private System.Windows.Forms.TextBox temperature_max;
         private System.Windows.Forms.TextBox heart_freq_max;
         private System.Windows.Forms.TextBox breath_freq_max;
-        private System.Windows.Forms.TextBox saturation_max;
         private System.Windows.Forms.TextBox blood_press_max;
         private System.Windows.Forms.ComboBox temperature_uom;
         private System.Windows.Forms.TextBox heart_freq_uom;
         private System.Windows.Forms.TextBox breath_freq_uom;
-        private System.Windows.Forms.TextBox saturation_uom;
         private System.Windows.Forms.TextBox blood_press_uom;
 
         private void NumbersKeyPress(object sender, KeyPressEventArgs e)
@@ -962,5 +752,19 @@ namespace Simulator.src.View
                 e.Handled = true;
             }
         }
+
+        private string[] GetTemperatureValues()
+        {
+            var labels = new List<string>();
+            foreach (TemperatureUnitOfMeasurement uom in Enum.GetValues(typeof(TemperatureUnitOfMeasurement)))
+            {
+                labels.Add(uom.Label());
+            }
+
+            return labels.ToArray();
+        }
+
+        private TextBox saturation_alert_min;
+        private TextBox blood_press_alert_min;
     }
 }
