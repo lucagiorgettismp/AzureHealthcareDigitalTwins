@@ -41,7 +41,6 @@ namespace Simulator.src.View
             this.Hide();
         }
 
-
         private void InitFields(string deviceId)
         {
             var settings = SettingsManager.ReadUserSettings(deviceId);

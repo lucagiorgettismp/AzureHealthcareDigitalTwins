@@ -14,6 +14,7 @@ namespace Common.View
             InitializeComponent();
             this.ControlBox = false;
         }
+
         public SuccessForm(Action onCloseAction) : this()
         {
             this.onClose = onCloseAction;
@@ -44,6 +45,5 @@ namespace Common.View
                 onClose();
             }
         }
-
     }
 }

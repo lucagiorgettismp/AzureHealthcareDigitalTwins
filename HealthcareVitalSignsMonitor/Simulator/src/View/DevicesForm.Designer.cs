@@ -75,7 +75,6 @@
             this.ButtonTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.ButtonTable.Size = new System.Drawing.Size(560, 34);
             this.ButtonTable.TabIndex = 0;
-            this.ButtonTable.Paint += new System.Windows.Forms.PaintEventHandler(this.ButtonTable_Paint);
             // 
             // devices_button
             // 

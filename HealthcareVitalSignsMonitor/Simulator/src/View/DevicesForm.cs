@@ -176,11 +176,6 @@
             }
         }
 
-        private void ButtonTable_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void SettingsButtonClick(object sender, EventArgs e)
         {
             settingsForm.Show();
