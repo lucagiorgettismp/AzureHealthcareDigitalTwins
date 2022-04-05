@@ -132,6 +132,7 @@ namespace Simulator.src
             {
                 UnitOfMeasurement = appSettings["PercentageUnitSymbol"],
                 MinValue = Convert.ToInt32(appSettings["BatteryMinValue"]),
+                MaxValue = Convert.ToInt32(appSettings["BatteryMaxValue"]),
                 MinAlertThreashold = Convert.ToInt32(appSettings["BatteryMinAlarmThresholdValue"]),
             };
 
