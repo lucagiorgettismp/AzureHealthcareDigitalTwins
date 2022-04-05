@@ -20,7 +20,6 @@ namespace Common.View
             this.onClose = onCloseAction;
         }
 
-
         public void SetText(string text)
         {
             Label successLabel = this.Controls.Find(ID_LABEL, true).FirstOrDefault() as Label;
