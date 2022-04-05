@@ -75,7 +75,7 @@ public class VitalSignsMonitorController: MonoBehaviour
     {
         if (_deviceId != null && _deviceId.Length > 0)
         {
-            await firebaseApiClient.SetSelectedViewAsync(_deviceId, selectedPanel);
+            firebaseApiClient.SetSelectedView(_deviceId, selectedPanel);
             //await TwinOperationApi.SetSelectedView(_digitalTwinClient, _deviceId, selectedPanel);
         }
     }

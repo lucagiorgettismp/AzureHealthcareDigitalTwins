@@ -11,8 +11,8 @@ public class Application : MonoBehaviour
 
     public void Start()
     {
-        //QRCodeController.Init((qrInfo) => QRCodeFound(qrInfo));
-        _ = ParseQrCodeString("{ \"deviceId\":\"PGNLNZ97M18G479M\"}");
+        QRCodeController.Init((qrInfo) => QRCodeFound(qrInfo));
+        //_ = ParseQrCodeString("{ \"deviceId\":\"PGNLNZ97M18G479M\"}");
     }
 
     private async void QRCodeFound(QRInfo qrInfo)
