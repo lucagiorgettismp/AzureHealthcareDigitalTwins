@@ -114,11 +114,11 @@
                 Surname = $"{surname}",
                 Age = Convert.ToInt32($"{age}"),
                 Gender = $"{gender}",
-                Height = Convert.ToDouble($"{height}"),
-                Weight = Convert.ToDouble($"{weight}"),
+                Height =$"{height}",
+                Weight = $"{weight}",
                 Description = $"{description}",
                 FiscalCode = $"{fiscalCode}",
-                BodyMassIndex = $"{Math.Round(bmi.Value, 2)} {bmi.Unit}"
+                //  BodyMassIndex = $"{Math.Round(bmi.Value, 2)} {bmi.Unit}"
             };
 
             Debug.Log($"Reading patient finished.");

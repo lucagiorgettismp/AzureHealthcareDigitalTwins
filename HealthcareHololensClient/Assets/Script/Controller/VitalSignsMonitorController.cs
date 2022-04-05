@@ -15,6 +15,8 @@ public class VitalSignsMonitorController: MonoBehaviour
     private PanelType _lastSelectedPanelType;
     private DigitalTwinsClient _digitalTwinClient;
     private Application _application;
+    private FirebaseRestAPIClient firebaseApiClient;
+
     private string _connectionString;
     private const string FILE_NAME = "appsettings";
 
@@ -34,6 +36,8 @@ public class VitalSignsMonitorController: MonoBehaviour
         this.View.HideAllPanels();
 
         this.View.StartLoading();
+
+        this.firebaseApiClient = new FirebaseRestAPIClient();
     }
 
     public async Task OnStartController(string deviceId)
@@ -42,8 +46,8 @@ public class VitalSignsMonitorController: MonoBehaviour
         try
         {
             this._deviceId = deviceId;
-            this._digitalTwinClient = TwinOperationApi.GetClient(this._connectionString);
-
+            //this._digitalTwinClient = TwinOperationApi.GetClient(this._connectionString);
+                    
             this._model.Init(deviceId);
 
             await this.GetPatientAsync();
@@ -71,13 +75,15 @@ public class VitalSignsMonitorController: MonoBehaviour
     {
         if (_deviceId != null && _deviceId.Length > 0)
         {
-            await TwinOperationApi.SetSelectedView(_digitalTwinClient, _deviceId, selectedPanel);
+            await firebaseApiClient.SetSelectedViewAsync(_deviceId, selectedPanel);
+            //await TwinOperationApi.SetSelectedView(_digitalTwinClient, _deviceId, selectedPanel);
         }
     }
 
     public async Task GetPatientAsync()
     {
-        var patient = await TwinOperationApi.GetPatient(_digitalTwinClient, _deviceId);
+        //var patient = await TwinOperationApi.GetPatient(_digitalTwinClient, _deviceId);
+        var patient = await this.firebaseApiClient.GetPatientAsync(_deviceId);
 
         this.View.StopLoading();
         this.View.SetPatient(patient);
@@ -85,8 +91,9 @@ public class VitalSignsMonitorController: MonoBehaviour
 
     private async Task GetSelectedViewAsync()
     {
-        var selectedPanel = await TwinOperationApi.GetSelectedView(_digitalTwinClient, _deviceId);
-        this.View.StopLoading();
+        //var selectedPanel = await TwinOperationApi.GetSelectedView(_digitalTwinClient, _deviceId);
+        var selectedPanel = (PanelType) await this.firebaseApiClient.GetSelectedViewAsync(_deviceId);
+        this.View.StopLoading();    
         this.View.SetSelectedPanel(selectedPanel);
     }
 

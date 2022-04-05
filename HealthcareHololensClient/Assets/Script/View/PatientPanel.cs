@@ -40,7 +40,7 @@ public class PatientPanel : MonoBehaviour
                 _patientHeight.text = "Height: " + patient.Height.ToString() + " m";
                 _patientWeight.text = "Weight: " + patient.Weight.ToString() + " Kg";
                 _patientDescription.text = "Description: " + patient.Description;
-                _patientBodyMassIndex.text = "Body Mass Index: " + patient.BodyMassIndex.ToString();
+                _patientBodyMassIndex.text = $"Body Mass Index: {patient.BodyMassIndex.Value} {patient.BodyMassIndex.Unit}";
                 _patientFiscalCode.text = "Fiscal Code: " + patient.FiscalCode;
             }
         }

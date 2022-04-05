@@ -1,20 +1,31 @@
+using Newtonsoft.Json;
+
 public class Patient
 {
-        public string Name { get; set; }
+    [JsonProperty("name")]
+    public string Name { get; set; }
 
-        public string Surname { get; set; }
+    [JsonProperty("surname")]
+    public string Surname { get; set; }
 
-        public string Gender { get; set; }
+    [JsonProperty("gender")]
+    public string Gender { get; set; }
 
-        public int Age { get; set; }
+    [JsonProperty("age")]
+    public int Age { get; set; }
 
-        public double Height { get; set; }
+    [JsonProperty("height")]
+    public string Height { get; set; }
 
-        public double Weight { get; set; }
+    [JsonProperty("weight")]
+    public string Weight { get; set; }
 
-        public string Description { get; set; }
+    [JsonProperty("description")]
+    public string Description { get; set; }
 
-        public string BodyMassIndex { get; set; }
+    [JsonProperty("fiscalcode")]
+    public string FiscalCode { get; set; }
 
-        public string FiscalCode { get; set; }
+    [JsonProperty("bodymassindex")]
+    public BodyMassIndex BodyMassIndex { get; set; }
 }
