@@ -7,11 +7,17 @@ namespace Common.View
     public partial class SuccessForm : Form
     {
         private const string ID_LABEL = "LabelTextSuccess";
+        private Action onClose = null;
 
         public SuccessForm()
         {
             InitializeComponent();
             this.ControlBox = false;
+        }
+
+        public SuccessForm(Action onCloseAction) : this()
+        {
+            this.onClose = onCloseAction;
         }
 
         public void SetText(string text)
@@ -24,6 +30,19 @@ namespace Common.View
         private void ButtonConfirmationClick(object sender, EventArgs e)
         {
             this.Hide();
+            if (this.onClose != null)
+            {
+                onClose();
+            }
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            this.Hide();
+            if (this.onClose != null)
+            {
+                onClose();
+            }
         }
     }
 }

@@ -18,11 +18,13 @@ namespace Simulator.Controller
     {
         readonly DeviceClient deviceClient;
         readonly DeviceDataGenerator dataGenerator;
+        readonly string deviceId;
 
-        public Device(string connection)
+        public Device(string connection, string deviceId)
         {
             this.deviceClient = DeviceClient.CreateFromConnectionString(connection);
-            this.dataGenerator = new DeviceDataGenerator();
+            this.deviceId = deviceId;
+            this.dataGenerator = new DeviceDataGenerator(deviceId);
         }
 
         public async Task SendMessageToIoTHub(SimulationForm form, CancellationToken token)
@@ -50,17 +52,17 @@ namespace Simulator.Controller
         private void ShowMessage(int counter, DeviceData message)
         {
             Log.Ok($"[{counter}] Sending message at {DateTime.Now} and Message:" +
-                $"\n{message.Temperature.SensorName}: {message.Temperature.Value}, {message.Temperature.Symbol}, {message.Temperature.InAlarm}, " +
+                $"\n{message.Temperature.SensorName}: {message.Temperature.Value}, {message.Temperature.UnitOfMeasurement}, {message.Temperature.InAlarm}, " +
                 $"Min: {message.Temperature.MinValue}, Max: {message.Temperature.MaxValue}," +
-                $"\n{message.BloodPressure.SensorName}: {message.BloodPressure.Value} {message.BloodPressure.Symbol}, {message.BloodPressure.InAlarm}," +
+                $"\n{message.BloodPressure.SensorName}: {message.BloodPressure.Value} {message.BloodPressure.UnitOfMeasurement}, {message.BloodPressure.InAlarm}," +
                 $"Min: {message.BloodPressure.MinValue},Max: {message.BloodPressure.MaxValue}, Color: {message.BloodPressure.GraphColor}, " +
-                $"\n{message.HeartFrequency.SensorName}: {message.HeartFrequency.Value} {message.HeartFrequency.Symbol}, {message.HeartFrequency.InAlarm}," +
+                $"\n{message.HeartFrequency.SensorName}: {message.HeartFrequency.Value} {message.HeartFrequency.UnitOfMeasurement}, {message.HeartFrequency.InAlarm}," +
                 $"Min: {message.HeartFrequency.MinValue},Max: {message.HeartFrequency.MaxValue},Color: {message.HeartFrequency.GraphColor}, " +
-                $"\n{message.BreathFrequency.SensorName}: {message.BreathFrequency.Value} {message.BreathFrequency.Symbol}, {message.BreathFrequency.InAlarm}," +
+                $"\n{message.BreathFrequency.SensorName}: {message.BreathFrequency.Value} {message.BreathFrequency.UnitOfMeasurement}, {message.BreathFrequency.InAlarm}," +
                 $"Min: {message.BreathFrequency.MinValue},Max: {message.BreathFrequency.MaxValue},Color: {message.BreathFrequency.GraphColor}, " +
-                $"\n{message.Saturation.SensorName}: {message.Saturation.Value} {message.Saturation.Symbol}, {message.Saturation.InAlarm}, " +
+                $"\n{message.Saturation.SensorName}: {message.Saturation.Value} {message.Saturation.UnitOfMeasurement}, {message.Saturation.InAlarm}, " +
                 $"Min: {message.Saturation.MinValue},Max: {message.Saturation.MaxValue},Color: {message.Saturation.GraphColor}, " +
-                $"\n{message.BatteryPower.SensorName}: {message.BatteryPower.Value} {message.BatteryPower.Symbol}, {message.BatteryPower.InAlarm}," +
+                $"\n{message.BatteryPower.SensorName}: {message.BatteryPower.Value} {message.BatteryPower.UnitOfMeasurement}, {message.BatteryPower.InAlarm}," +
                 $"Min: {message.BatteryPower.MinValue},Max: {message.BatteryPower.MaxValue}" 
                 );
         }
@@ -94,7 +96,6 @@ namespace Simulator.Controller
                 SensorValue = new SensorValue<T>
                 {
                     UnitOfMeasurement = dataProperty.UnitOfMeasurement,
-                    Symbol = dataProperty.Symbol,
                     Type = dataProperty.Type,
                     Value = dataProperty.Value,
                     MinValue = dataProperty.MinValue,
