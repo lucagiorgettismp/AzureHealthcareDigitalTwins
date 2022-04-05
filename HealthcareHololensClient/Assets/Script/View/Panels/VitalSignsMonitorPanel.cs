@@ -97,11 +97,11 @@ public class VitalSignsMonitorPanel : BaseLineChartSensorPanel
 
     public override void UpdateSensorSymbols(Message message)
     {
-        this._temperatureSymbol.text = message.temperature_sensor_value.symbol;
-        this._saturationSymbol.text = message.saturation_sensor_value.symbol;
-        this._bloodPressureSymbol.text = message.blood_pressure_sensor_value.symbol;
-        this._heartFrequencySymbol.text = message.heart_frequency_sensor_value.symbol;
-        this._breathFrequencySymbol.text = message.breath_frequency_sensor_value.symbol;
+        this._temperatureSymbol.text = message.temperature_sensor_value.unit;
+        this._saturationSymbol.text = message.saturation_sensor_value.unit;
+        this._bloodPressureSymbol.text = message.blood_pressure_sensor_value.unit;
+        this._heartFrequencySymbol.text = message.heart_frequency_sensor_value.unit;
+        this._breathFrequencySymbol.text = message.breath_frequency_sensor_value.unit;
     }
 
     public override void UpdateSensorValues(Message message)

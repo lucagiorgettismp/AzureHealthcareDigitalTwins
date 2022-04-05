@@ -15,9 +15,6 @@ namespace AppFunctions.Model.Payload
         [JsonProperty("unit")]
         public string UnitOfMeasurement { get; set; }
 
-        [JsonProperty("symbol")]
-        public string Symbol { get; set; }
-
         [JsonProperty("type")]
         public string Type { get; set; }
     }

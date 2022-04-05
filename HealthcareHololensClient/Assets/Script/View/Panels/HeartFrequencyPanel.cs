@@ -42,7 +42,7 @@ public class HeartFrequencyPanel : BaseLineChartSensorPanel
 
     public override void UpdateSensorSymbols(Message message)
     {
-        this._heartFrequencySymbol.text = message.heart_frequency_sensor_value.symbol;
+        this._heartFrequencySymbol.text = message.heart_frequency_sensor_value.unit;
     }
 
     public override void UpdateSensorValues(Message message)
