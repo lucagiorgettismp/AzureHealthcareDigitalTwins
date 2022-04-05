@@ -162,7 +162,6 @@
                     Value = 0,
                     MinValue = 0,
                     MaxValue = 0,
-                    Symbol = EMPTY_VALUE,
                     Type = EMPTY_VALUE,
                     Unit = EMPTY_VALUE
                 }
@@ -181,7 +180,6 @@
                     Value = 0,
                     MinValue = 0,
                     MaxValue = 0,
-                    Symbol = EMPTY_VALUE,
                     Type = EMPTY_VALUE,
                     Unit = EMPTY_VALUE
                 }

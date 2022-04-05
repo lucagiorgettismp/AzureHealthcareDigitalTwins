@@ -5,10 +5,10 @@
     {
         internal void SetValue(T value) {
             this.Value = value;
-            this.InAlarm = CheckMinThresholdAlarm(value, this.AlarmMinThreashold) || CheckMaxThresholdAlarm(this.Value, this.AlarmMaxThreashold);
+            this.InAlarm = CheckMinThresholdAlarm(value, this.MinAlertThreashold) || CheckMaxThresholdAlarm(this.Value, this.MaxAlertThrehshold);
         }
 
-        public T AlarmMaxThreashold { get; set; }
+        public T MaxAlertThrehshold { get; set; }
 
         private bool CheckMaxThresholdAlarm(T ta, T tb)
         {

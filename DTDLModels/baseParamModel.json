@@ -44,11 +44,6 @@
           "schema": "string"
         },
         {
-          "name": "symbol",
-          "displayName": "Unit of measurement symbol",
-          "schema": "string"
-        },
-        {
           "name": "type",
           "displayName": "Value type",
           "schema": "string"

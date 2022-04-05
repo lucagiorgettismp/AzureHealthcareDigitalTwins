@@ -5,8 +5,6 @@ on:
     tags:
       - "v*.*.*"
 
-  workflow_dispatch:
-
 env:
   SIMULATOR_SOLUTION_PATH: '.\HealthcareVitalSignsMonitor\Simulator\Simulator.csproj'
   CLIENT_SOLUTION_PATH: '.\HealthcareVitalSignsMonitor\Client\Client.csproj'
@@ -42,13 +40,13 @@ jobs:
           # Name of output zip file
           dest: Simulator.zip
           # Whether to add subdirectories to simply zip all files to the root
-          recursive: false # optional, default is true
+          # recursive: false # optional, default is true
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
           name: Simulator
-          path: .\HealthcareVitalSignsMonitor\Simulator\bin\Release
+          path: Simulator.zip
 
   # Build client
   build-client:
@@ -79,13 +77,13 @@ jobs:
           # Name of output zip file
           dest: Client.zip
           # Whether to add subdirectories to simply zip all files to the root
-          recursive: false # optional, default is true
+          # recursive: false # optional, default is true
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
           name: Client
-          path: .\HealthcareVitalSignsMonitor\Client\bin\Release
+          path: Client.zip
 
   # Build report
   build-report:
@@ -111,64 +109,42 @@ jobs:
 
   # Create a release
   release:
-    runs-on: [windows-latest]
+    runs-on: [ubuntu-latest]
     needs: [build-report, build-client, build-simulator]
     permissions:
       contents: write
 
     steps:
-    - uses: actions/checkout@master
+    - name: Checkout
+      uses: actions/checkout@v2
 
     - uses: actions/download-artifact@master
       with:
         name: Simulator
-        path: ${{github.workspace}}/Simulator.zip
 
     - uses: actions/download-artifact@master
       with:
         name: Client
-        path: .\HealthcareVitalSignsMonitor\Client\bin\Release
 
     - uses: actions/download-artifact@master
       with:
         name: Doc
-        path: .\doc\main.pdf
+
+    - name: Generate changelog
+      id: changelog
+      uses: metcalfc/changelog-generator@v3.0.0
+      with:
+        myToken: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Release
-    # You may pin to the exact commit or the version.
-    # uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5
       uses: softprops/action-gh-release@v0.1.14
       with:
-        # Note-worthy description of changes in release
-        # body: # optional
-        # Path to load note-worthy description of changes in release from
-        body_path: "./release_body.txt"
-        # Gives the release a custom name. Defaults to tag name
-        # name: # optional
-        # Gives a tag name. Defaults to github.GITHUB_REF
-        # tag_name: # optional
-        # Creates a draft release. Defaults to false
-        # draft: # optional
-        # Identify the release as a prerelease. Defaults to false
-        # prerelease: # optional
-        # Newline-delimited list of path globs for asset files to upload
+        body: ${{ steps.changelog.outputs.changelog }}
         files: |
-          ${{github.workspace}}/Simulator.zip
-          ${{github.workspace}}/Client.zip
-          doc\main.pdf
-
-        # Fails if any of the `files` globs match nothing. Defaults to false
+          Simulator.zip
+          Client.zip
+          main.pdf
         fail_on_unmatched_files: true
-        # Repository to make releases against, in <owner>/<repo> format
-        # repository: # optional
-        # Authorized secret GitHub Personal Access Token. Defaults to github.token
-        # token: # optional, default is ${{ github.token }}
-        # Commitish value that determines where the Git tag is created from. Can be any branch or commit SHA.
-        # target_commitish: # optional
-        # If specified, a discussion of the specified category is created and linked to the release. The value must be a category that already exists in the repository. If there is already a discussion linked to the release, this parameter is ignored.
-        # discussion_category_name: # optional
-        # Whether to automatically generate the name and body for this release. If name is specified, the specified name will be used; otherwise, a name will be automatically generated. If body is specified, the body will be pre-pended to the automatically generated notes.
-        # generate_release_notes: # optional
 
   # Send a failure message Telegram
   jobs-failure:
@@ -184,10 +160,10 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO_LUCA }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-              ${{ github.event_name }} event,
+              New release
               on github.com/${{ github.repository }},
               by ${{ github.actor }}:
-              <b>${{ github.event.head_commit.message }}</b>
+              <b>Release ${{ github.ref }}</b>
               ❌ <b>FAILED</b> ❌
         format: html
         disable_web_page_preview: true
@@ -199,10 +175,10 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO_LORENZO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-              ${{ github.event_name }} event,
+              New release
               on github.com/${{ github.repository }},
               by ${{ github.actor }}:
-              <b>${{ github.event.head_commit.message }}</b>
+              <b>Release ${{ github.ref }}</b>
               ❌ <b>FAILED</b> ❌
         format: html
         disable_web_page_preview: true
@@ -221,10 +197,10 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO_LUCA }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-              ${{ github.event_name }} event,
+              New release
               on github.com/${{ github.repository }},
               by ${{ github.actor }}:
-              <b>${{ github.event.head_commit.message }}</b>
+              <b>Release ${{ github.ref }}</b>
               ✅ <b>SUCCEDED</b> ✅
         format: html
         disable_web_page_preview: true
@@ -236,10 +212,10 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO_LORENZO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-              ${{ github.event_name }} event,
+              New release
               on github.com/${{ github.repository }},
               by ${{ github.actor }}:
-              <b>${{ github.event.head_commit.message }}</b>
+              <b>Release ${{ github.ref }}</b>
               ✅ <b>SUCCEDED</b> ✅
         format: html
         disable_web_page_preview: true
