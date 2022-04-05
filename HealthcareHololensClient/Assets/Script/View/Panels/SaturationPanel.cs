@@ -42,7 +42,7 @@ public class SaturationPanel : BaseLineChartSensorPanel
 
     public override void UpdateSensorSymbols(Message message)
     {
-        this._saturationSymbol.text = message.saturation_sensor_value.symbol;
+        this._saturationSymbol.text = message.saturation_sensor_value.unit;
     }
 
     public override void UpdateSensorValues(Message message)

@@ -44,7 +44,7 @@ public class BloodPressurePanel : BaseLineChartSensorPanel
 
     public override void UpdateSensorSymbols(Message message)
     {
-        this._bloodPressureSymbol.text = message.blood_pressure_sensor_value.symbol;
+        this._bloodPressureSymbol.text = message.blood_pressure_sensor_value.unit;
     }
 
     public override void UpdateSensorValues(Message message)

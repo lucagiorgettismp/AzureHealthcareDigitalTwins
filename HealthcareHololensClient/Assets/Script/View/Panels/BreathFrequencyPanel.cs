@@ -43,7 +43,7 @@ public class BreathFrequencyPanel : BaseLineChartSensorPanel
 
     public override void UpdateSensorSymbols(Message message)
     { 
-        this._breathFrequencySymbol.text = message.breath_frequency_sensor_value.symbol;
+        this._breathFrequencySymbol.text = message.breath_frequency_sensor_value.unit;
     }
 
     public override void UpdateSensorValues(Message message)
