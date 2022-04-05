@@ -25,11 +25,11 @@ public class FirebaseRestAPIClient
         return result;
     }
 
-    internal async Task<PanelType> GetSelectedViewAsync(string deviceId)
+    internal async Task<int> GetSelectedViewAsync(string deviceId)
     {
         var request = new RestRequest($"/devices/{deviceId}/configuration/lastselectedview.json", Method.GET);
         request.AddParameter("auth", TOKEN);
-        var result = await client.GetAsync<PanelType>(request);
+        var result = await client.GetAsync<int>(request);
         return result;
     }
 

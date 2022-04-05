@@ -71,7 +71,7 @@ public class VitalSignsMonitorController: MonoBehaviour
         }
     }
 
-    public async Task PersistSelectedPanel(PanelType selectedPanel)
+    public void PersistSelectedPanel(PanelType selectedPanel)
     {
         if (_deviceId != null && _deviceId.Length > 0)
         {
@@ -82,19 +82,31 @@ public class VitalSignsMonitorController: MonoBehaviour
 
     public async Task GetPatientAsync()
     {
-        //var patient = await TwinOperationApi.GetPatient(_digitalTwinClient, _deviceId);
-        var patient = await this.firebaseApiClient.GetPatientAsync(_deviceId);
+        try
+        {
+            //var patient = await TwinOperationApi.GetPatient(_digitalTwinClient, _deviceId);
+            var patient = await this.firebaseApiClient.GetPatientAsync(_deviceId);
 
-        this.View.StopLoading();
-        this.View.SetPatient(patient);
+            this.View.StopLoading();
+            this.View.SetPatient(patient);
+        }catch(Exception e)
+        {
+            Debug.LogError($"Error GetPatientAsync: {e.Message}");
+        }
     }
 
     private async Task GetSelectedViewAsync()
     {
+        try { 
         //var selectedPanel = await TwinOperationApi.GetSelectedView(_digitalTwinClient, _deviceId);
-        var selectedPanel = (PanelType) await this.firebaseApiClient.GetSelectedViewAsync(_deviceId);
+        var selectedPanel =  await this.firebaseApiClient.GetSelectedViewAsync(_deviceId);
         this.View.StopLoading();    
-        this.View.SetSelectedPanel(selectedPanel);
+        this.View.SetSelectedPanel((PanelType)selectedPanel);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Error GetSelectedViewAsync: {e.Message}");
+        }
     }
 
     internal void CloseApplication()

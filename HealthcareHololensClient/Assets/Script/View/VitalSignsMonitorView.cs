@@ -3,7 +3,6 @@
     using Assets.Script.Model;
     using Assets.Script.View.Panels;
     using System.Collections.Generic;
-    using System.Threading.Tasks;
     using UnityEngine;
     using UnityEngine.UI;
 
@@ -104,10 +103,10 @@
             _patientPanel.transform.position = GetPatientCurrentPosition();
         }
 
-        internal async Task PanelSelectionChanged(PanelType selectedPanel)
+        internal void PanelSelectionChanged(PanelType selectedPanel)
         {
             this.UpdateSelectedPanel(selectedPanel);
-            await this._controller.PersistSelectedPanel(selectedPanel);
+            this._controller.PersistSelectedPanel(selectedPanel);
         }
 
         internal void CloseApplication()
