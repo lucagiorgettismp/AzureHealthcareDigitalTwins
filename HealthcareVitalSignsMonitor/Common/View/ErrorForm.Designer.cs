@@ -1,5 +1,5 @@
 ﻿
-namespace Common
+namespace Common.View
 {
     partial class ErrorForm
     {

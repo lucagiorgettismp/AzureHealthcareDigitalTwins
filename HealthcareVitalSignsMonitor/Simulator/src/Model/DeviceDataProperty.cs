@@ -6,8 +6,6 @@
          
         public string UnitOfMeasurement { get; set; }
 
-        public string Symbol { get; set; }
-
         public string SensorName{ get; set; }
         
         public T MinValue { get; set; }

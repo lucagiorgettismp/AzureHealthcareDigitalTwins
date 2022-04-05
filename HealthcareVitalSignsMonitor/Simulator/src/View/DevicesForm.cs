@@ -12,6 +12,7 @@
     using System.Windows.Forms;
     using Common;
     using Common.View;
+    using Simulator.src.View;
 
     public partial class ControlPanelForm : Form
     {
@@ -19,6 +20,7 @@
         private CancellationTokenSource tokenSource = null;
 
         private SimulationForm simulationForm = null;
+        private SettingsForm settingsForm = null;
 
         private Button startButton;
         private Button stopButton;
@@ -45,6 +47,8 @@
                 Text = "Success",
                 FormBorderStyle = FormBorderStyle.FixedDialog
             };
+
+            this.settingsForm = new SettingsForm();
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -69,6 +73,8 @@
 
             this.stopButton = this.Controls.Find(ID_STOP_BUTTON, true).FirstOrDefault() as Button;
             this.stopButton.Enabled = false;
+
+            this.settings_button.Enabled = false;
         }
 
         // Start button simulator 
@@ -128,7 +134,7 @@
                 string message;
                 if(this.listbox_devices.Items.Count != 0)
                 {
-                    message = "Devices found!";
+                    message = "Device list loaded.";
                 }
                 else
                 {
@@ -150,12 +156,17 @@
             {
                 if (this.listbox_devices.SelectedItem != null)
                 {
-                    Log.Ok("Click on: " + this.listbox_devices.SelectedItem.ToString());
+                    var deviceId = this.listbox_devices.SelectedItem.ToString();
 
-                    string connection = await DeviceOperationsApi.GetConnectionString(this.listbox_devices.SelectedItem.ToString());
-                    this.deviceHub = new Device(connection);
+                    Log.Ok("Click on: " + deviceId);
+
+                    string connection = await DeviceOperationsApi.GetConnectionString(deviceId);
+                    this.deviceHub = new Device(connection, deviceId);
+
+                    settingsForm.SetDeviceId(deviceId);
 
                     this.startButton.Enabled = true;
+                    this.settings_button.Enabled = true;
                 }
             }catch(Exception ex)
             {
@@ -163,6 +174,11 @@
                 this.errorForm.SetText(ex.Message);
                 this.errorForm.Show();
             }
+        }
+
+        private void SettingsButtonClick(object sender, EventArgs e)
+        {
+            settingsForm.Show();
         }
     }
 }

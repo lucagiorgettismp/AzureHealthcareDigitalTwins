@@ -51,6 +51,8 @@ namespace SimulatorTests
 
         private Simulator.Utils.DeviceDataGenerator Generator;
 
+        private const string DEVICE_ID = "PGNLNZ97M18G479M";
+
         [TestMethod]
         public void TestSensorsDataGenerated() {
             InitValue();
@@ -71,7 +73,7 @@ namespace SimulatorTests
 
         private void InitValue()
         {
-            Generator = new Simulator.Utils.DeviceDataGenerator();
+            Generator = new Simulator.Utils.DeviceDataGenerator(DEVICE_ID);
 
             var appSettings = ConfigurationManager.AppSettings;
 
