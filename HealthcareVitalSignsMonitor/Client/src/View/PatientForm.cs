@@ -1,27 +1,27 @@
 ﻿namespace Client.View
 {
     using AzureApi.Models;
+    using Client.src.Controller;
     using Common.Utils;
-    using Controller;
     using System;
     using System.Windows.Forms;
 
     public partial class PatientForm : Form
     {
-        readonly Client clientTwins;
-        readonly Form clientForm;
+        private readonly PatientController _controller;
 
-        public PatientForm(Form clientForm, Client client)
+        //readonly Client clientTwins;
+        //readonly Form clientForm;
+
+        public PatientForm(PatientController controller)
         {
             InitializeComponent();
-            this.clientTwins = client;
-            this.clientForm = clientForm;
+            this._controller = controller;
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            this.clientForm.Enabled = true;
-            this.Hide();
+            this._controller.OnClose();
         }
 
         private void NumberFieldKeyPress(object sender, KeyPressEventArgs e)
@@ -46,8 +46,9 @@
                 this.patient_description.Text.Trim() != "" && this.patient_body_mass_index.Text.Trim() != "" &&
                 this.patient_fiscal_code.Text.Trim() != "") 
             {
+
                 Log.Ok("Create a twin");
-                var modelPatient = new PatientModel
+                var patientModel = new PatientModel
                 {
                     Name = this.patient_name.Text,
                     Surname = this.patient_surname.Text,
@@ -60,12 +61,7 @@
                     FiscalCode = this.patient_fiscal_code.Text
                 };
 
-                bool patientCreated = await this.clientTwins.CreatePatientTwin(modelPatient);
-                if (patientCreated)
-                {
-                    this.Close();
-                    this.clientForm.Enabled = true;
-                }
+                await this._controller.CreatePatient(patientModel);
             }
         }
 

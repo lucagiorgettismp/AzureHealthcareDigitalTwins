@@ -274,9 +274,10 @@
     <Compile Include="src\AzureApi\DTLDModels\PatientTwin.cs" />
     <Compile Include="src\AzureApi\DTLDModels\SensorComponent.cs" />
     <Compile Include="src\AzureApi\DTLDModels\VitalSignsMonitor.cs" />
+    <Compile Include="src\Controller\DigitalTwinsController.cs" />
+    <Compile Include="src\Controller\PatientContoller.cs" />
     <Compile Include="src\Models\PatientModel.cs" />
     <Compile Include="src\AzureApi\TwinOperationsApi.cs" />
-    <Compile Include="src\Controller\Client.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="src\View\DigitalTwinsForm.cs">
       <SubType>Form</SubType>
