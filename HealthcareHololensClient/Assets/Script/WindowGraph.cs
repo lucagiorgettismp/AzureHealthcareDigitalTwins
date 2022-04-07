@@ -125,14 +125,24 @@ public class WindowGraph : MonoBehaviour
         {
             var labelY = Instantiate(labelTemplateY);
             labelY.SetParent(graphContainer, false);
-            labelY.gameObject.SetActive(true);
+
+            UnityMainThread.worker.AddJob(() =>
+            {
+                labelY.gameObject.SetActive(true);
+            });
+
             float normalizedValue = i * 1f / ySeparators;
             labelY.anchoredPosition = new Vector2(-0.006f, normalizedValue * graphHeight);
             labelY.GetComponent<TextMeshPro>().text = Convert.ToInt32(yAxisMin + (normalizedValue * (yAxisMax - yAxisMin))).ToString();
 
             var dashY = Instantiate(dashTemplateY);
             dashY.SetParent(graphContainer, false);
-            dashY.gameObject.SetActive(true);
+
+            UnityMainThread.worker.AddJob(() =>
+            {
+                dashY.gameObject.SetActive(true);
+            });
+
             dashY.anchoredPosition = new Vector2(0f, normalizedValue * graphHeight);
         }
     }
