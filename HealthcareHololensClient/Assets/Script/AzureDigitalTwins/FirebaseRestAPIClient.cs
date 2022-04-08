@@ -25,11 +25,11 @@ public class FirebaseRestAPIClient
         return result;
     }
 
-    internal async Task<int> GetSelectedViewAsync(string deviceId)
+    internal async Task<ConfigurationPayloadData> GetConfigurationAsync(string deviceId)
     {
-        var request = new RestRequest($"/devices/{deviceId}/configuration/lastselectedview.json", Method.GET);
+        var request = new RestRequest($"/devices/{deviceId}/configuration.json", Method.GET);
         request.AddParameter("auth", TOKEN);
-        var result = await client.GetAsync<int>(request);
+        var result = await client.GetAsync<ConfigurationPayloadData>(request);
         return result;
     }
 
@@ -37,7 +37,7 @@ public class FirebaseRestAPIClient
     {
         try
         {
-            var request = new RestRequest($"/devices/{deviceId}.json?auth=0vPOYNsGqCQVKU9s7g2Ko3wBxj4qIBmxak1CDtxg", Method.PUT);
+            var request = new RestRequest($"/devices/{deviceId}.json?auth={TOKEN}", Method.PUT);
             request.AddHeader("Content-Type", "application/json");
 
             var body = JsonConvert.SerializeObject(

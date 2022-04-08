@@ -75,7 +75,7 @@ public class VitalSignsMonitorController: MonoBehaviour
         if (_deviceId != null && _deviceId.Length > 0)
         {
             firebaseApiClient.SetSelectedView(_deviceId, selectedPanel);
-            //await TwinOperationApi.SetSelectedView(_digitalTwinClient, _deviceId, selectedPanel);
+            //await TwinOperationApi.SetSelectedView(_digitalTwinClient, _deviceId, configuration);
         }
     }
 
@@ -97,10 +97,10 @@ public class VitalSignsMonitorController: MonoBehaviour
     private async Task GetSelectedViewAsync()
     {
         try { 
-        //var selectedPanel = await TwinOperationApi.GetSelectedView(_digitalTwinClient, _deviceId);
-        var selectedPanel =  await this.firebaseApiClient.GetSelectedViewAsync(_deviceId);
+        //var configuration = await TwinOperationApi.GetSelectedView(_digitalTwinClient, _deviceId);
+        var configuration =  await this.firebaseApiClient.GetConfigurationAsync(_deviceId);
         this.View.StopLoading();    
-        this.View.SetSelectedPanel((PanelType)selectedPanel);
+        this.View.SetSelectedPanel((PanelType)configuration.LastSelectedView);
         }
         catch (Exception e)
         {
