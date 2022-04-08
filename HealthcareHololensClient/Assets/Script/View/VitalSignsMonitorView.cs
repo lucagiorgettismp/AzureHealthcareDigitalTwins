@@ -69,12 +69,15 @@
 
         internal void UpdateData(Message message)
         {
-            this._vitalSignsMonitorPanel.UpdateView(message);
-            this._heartFrequencyPanel.UpdateView(message);
-            this._breathFrequencyPanel.UpdateView(message);
-            this._saturationPanel.UpdateView(message);
-            this._bloodPressurePanel.UpdateView(message);
-            this._sensorValuesPanel.UpdateView(message);
+            UnityMainThread.worker.AddJob(() =>
+            {
+                this._vitalSignsMonitorPanel.UpdateView(message);
+                this._heartFrequencyPanel.UpdateView(message);
+                this._breathFrequencyPanel.UpdateView(message);
+                this._saturationPanel.UpdateView(message);
+                this._bloodPressurePanel.UpdateView(message);
+                this._sensorValuesPanel.UpdateView(message);
+            });
         }
 
         internal void HideAllPanels()

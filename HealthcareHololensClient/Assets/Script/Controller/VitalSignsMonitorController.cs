@@ -1,6 +1,5 @@
 using Assets.Script.Model;
 using Assets.Script.View;
-using Azure.DigitalTwins.Core;
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -12,17 +11,8 @@ public class VitalSignsMonitorController: MonoBehaviour
     private VitalSignsMonitorModel _model;
     private string _deviceId = null;
     private PanelType _lastSelectedPanelType;
-    private DigitalTwinsClient _digitalTwinClient;
     private Application _application;
     private FirebaseRestAPIClient firebaseApiClient;
-
-    private string _connectionString;
-    private const string FILE_NAME = "appsettings";
-
-    public void Awake()
-    {
-        this._connectionString = Resources.Load<TextAsset>(FILE_NAME).text;
-    }
 
     public void Start()
     {
@@ -41,12 +31,9 @@ public class VitalSignsMonitorController: MonoBehaviour
 
     public async Task OnStartController(string deviceId)
     {
-        Debug.Log($"[OnStartController], calling...");
         try
         {
-            this._deviceId = deviceId;
-            //this._digitalTwinClient = TwinOperationApi.GetClient(this._connectionString);
-                    
+            this._deviceId = deviceId;                    
             this._model.Init(deviceId);
 
             await this.GetPatientAsync();
@@ -58,7 +45,6 @@ public class VitalSignsMonitorController: MonoBehaviour
     }
 
     public void OnDataReceived(Message message) {
-
         this.View.UpdateData(message);
 
         var selectedPanel = (PanelType)message.configuration_last_selected_view;
@@ -75,7 +61,6 @@ public class VitalSignsMonitorController: MonoBehaviour
         if (_deviceId != null && _deviceId.Length > 0)
         {
             firebaseApiClient.SetSelectedView(_deviceId, selectedPanel);
-            //await TwinOperationApi.SetSelectedView(_digitalTwinClient, _deviceId, selectedPanel);
         }
     }
 
@@ -83,7 +68,6 @@ public class VitalSignsMonitorController: MonoBehaviour
     {
         try
         {
-            //var patient = await TwinOperationApi.GetPatient(_digitalTwinClient, _deviceId);
             var patient = await this.firebaseApiClient.GetPatientAsync(_deviceId);
 
             this.View.StopLoading();
@@ -97,10 +81,9 @@ public class VitalSignsMonitorController: MonoBehaviour
     private async Task GetSelectedViewAsync()
     {
         try { 
-        //var selectedPanel = await TwinOperationApi.GetSelectedView(_digitalTwinClient, _deviceId);
-        var selectedPanel =  await this.firebaseApiClient.GetSelectedViewAsync(_deviceId);
-        this.View.StopLoading();    
-        this.View.SetSelectedPanel((PanelType)selectedPanel);
+            var configuration =  await this.firebaseApiClient.GetConfigurationAsync(_deviceId);
+            this.View.StopLoading();    
+            this.View.SetSelectedPanel((PanelType)configuration.LastSelectedView);
         }
         catch (Exception e)
         {
