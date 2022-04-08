@@ -48,8 +48,15 @@
 
         private static void OnControlPanelClose()
         {
-            _simulatorController.StopDevice();
-            _settingsController.Close();
+            if (_simulatorController != null)
+            {
+                _simulatorController.StopDevice();
+            }
+
+            if (_settingsController != null)
+            {
+                _settingsController.Close();
+            }
         }
     }
 }

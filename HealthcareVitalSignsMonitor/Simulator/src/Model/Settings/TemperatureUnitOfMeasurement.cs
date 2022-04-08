@@ -1,4 +1,4 @@
-﻿namespace Simulator.src.Model.Settings
+﻿namespace Simulator.Model.Settings
 {
     public enum TemperatureUnitOfMeasurement
     {

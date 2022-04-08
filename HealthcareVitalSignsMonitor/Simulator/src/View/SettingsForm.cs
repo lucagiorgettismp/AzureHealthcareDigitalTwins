@@ -1,12 +1,9 @@
-﻿using Common;
-using Common.View;
-using Simulator.Controller;
+﻿using Simulator.Controller;
 using Simulator.Model.Settings;
-using Simulator.src.Model.Settings;
 using System;
 using System.Windows.Forms;
 
-namespace Simulator.src.View
+namespace Simulator.View
 {
     public partial class SettingsForm : Form
     {
@@ -20,6 +17,9 @@ namespace Simulator.src.View
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            e.Cancel = true;
+            this.Parent = null;
+
             this.Hide();
         }
 
@@ -27,23 +27,34 @@ namespace Simulator.src.View
         {
             if (settings != null)
             {
+                // Battery
                 this.battery_alert_min.Text = settings.BatteryPower.MinAlertThreashold.ToString();
+
+                // Blood pressure
                 this.blood_press_alert_max.Text = settings.BloodPressure.MaxAlertThreashold.ToString();
                 this.blood_press_alert_min.Text = settings.BloodPressure.MinAlertThreashold.ToString();
                 this.blood_press_max.Text = settings.BloodPressure.MaxValue.ToString();
                 this.blood_press_min.Text = settings.BloodPressure.MinValue.ToString();
                 this.blood_press_uom.Text = settings.BloodPressure.UnitOfMeasurement;
+
+                // Breath frequency
                 this.breath_freq_alert_max.Text = settings.BreathFrequency.MaxAlertThreashold.ToString();
                 this.breath_freq_alert_min.Text = settings.BreathFrequency.MinAlertThreashold.ToString();
                 this.breath_freq_max.Text = settings.BreathFrequency.MaxValue.ToString();
                 this.breath_freq_min.Text = settings.BreathFrequency.MinValue.ToString();
                 this.breath_freq_uom.Text = settings.BreathFrequency.UnitOfMeasurement;
+
+                // Heart frequency
                 this.heart_freq_alert_max.Text = settings.HeartFrequency.MaxAlertThreashold.ToString();
                 this.heart_freq_alert_min.Text = settings.HeartFrequency.MinAlertThreashold.ToString();
                 this.heart_freq_max.Text = settings.HeartFrequency.MaxValue.ToString();
                 this.heart_freq_min.Text = settings.HeartFrequency.MinValue.ToString();
                 this.heart_freq_uom.Text = settings.HeartFrequency.UnitOfMeasurement;
+
+                // Saturation
                 this.saturation_alert_min.Text = settings.Saturation.MinAlertThreashold.ToString();
+
+                // Temperature
                 this.temperature_alert_max.Text = settings.Temperature.MaxAlertThreashold.ToString();
                 this.temperature_alert_min.Text = settings.Temperature.MinAlertThreashold.ToString();
                 this.temperature_max.Text = settings.Temperature.MaxValue.ToString();
@@ -53,7 +64,7 @@ namespace Simulator.src.View
             }
         }
 
-        private void save_button_Click(object sender, EventArgs e)
+        private void Save_button_click(object sender, EventArgs e)
         {
             var deviceSettings = new DeviceSettings
             {

@@ -1,7 +1,6 @@
 ﻿using Common.Utils;
 using Newtonsoft.Json;
 using Simulator.Model.Settings;
-using Simulator.src.Model.Settings;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -9,7 +8,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 
-namespace Simulator.src
+namespace Simulator
 {
     class SettingsManager
     {
@@ -23,8 +22,9 @@ namespace Simulator.src
                 if (!File.Exists(SETTINGS_PATH))
                 {
                     var devices = new List<DeviceSettings> { settings };
-                    // se non file -> creo e come unico figlio metto settings
-                    settingsFile = new SettingsFileModel {
+
+                    settingsFile = new SettingsFileModel
+                    {
                         Devices = devices
                     };
 
@@ -35,19 +35,25 @@ namespace Simulator.src
                 }
                 else
                 {
-                    // se ho file -> ciclo e modifico settings passato
                     settingsFile = GetAllSettings();
 
-                    foreach (var deviceSetting in settingsFile.Devices.Where(device => device.DeviceId == settings.DeviceId))
+                    if (settingsFile.Devices.Any(device => device.DeviceId == settings.DeviceId))
                     {
-                        deviceSetting.Temperature = settings.Temperature;
-                        deviceSetting.BloodPressure = settings.BloodPressure;
-                        deviceSetting.Saturation = settings.Saturation;
-                        deviceSetting.BreathFrequency = settings.BreathFrequency;
-                        deviceSetting.HeartFrequency = settings.HeartFrequency;
-                        deviceSetting.BatteryPower = settings.BatteryPower;
+                        foreach (var deviceSetting in settingsFile.Devices.Where(device => device.DeviceId == settings.DeviceId))
+                        {
+                            deviceSetting.Temperature = settings.Temperature;
+                            deviceSetting.BloodPressure = settings.BloodPressure;
+                            deviceSetting.Saturation = settings.Saturation;
+                            deviceSetting.BreathFrequency = settings.BreathFrequency;
+                            deviceSetting.HeartFrequency = settings.HeartFrequency;
+                            deviceSetting.BatteryPower = settings.BatteryPower;
 
-                        break;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        settingsFile.Devices.Add(settings);
                     }
 
                     using var streamWriter = new StreamWriter(SETTINGS_PATH);
@@ -78,10 +84,16 @@ namespace Simulator.src
             if (File.Exists(SETTINGS_PATH))
             {
                 var settings = GetAllSettings();
-
                 var deviceSettings = settings.GetDeviceSettingsByDeviceId(deviceId);
 
-                return deviceSettings;
+                if (deviceSettings == null)
+                {
+                    return GetDefaultSettings();
+                }
+                else
+                {
+                    return deviceSettings;
+                }
             } else
             {
                return GetDefaultSettings();
@@ -93,7 +105,7 @@ namespace Simulator.src
             return value switch
             {
                 "°C (Celsius)" => TemperatureUnitOfMeasurement.CELSIUS,
-                "°F(Fahrenheit)" => TemperatureUnitOfMeasurement.FAHRENHEIT,
+                "°F (Fahrenheit)" => TemperatureUnitOfMeasurement.FAHRENHEIT,
                 "K (Kelvin)" => TemperatureUnitOfMeasurement.KELVIN,
                 _ => null,
             };

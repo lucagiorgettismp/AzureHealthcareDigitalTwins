@@ -18,6 +18,9 @@
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            e.Cancel = false;
+            this.Parent = null;
+
             this._controller.OnClose();
         }
 

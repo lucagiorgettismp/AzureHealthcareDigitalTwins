@@ -1,10 +1,9 @@
-﻿
-using Simulator.src.Model.Settings;
+﻿using Simulator.Model.Settings;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace Simulator.src.View
+namespace Simulator.View
 {
     partial class SettingsForm
     {
@@ -653,7 +652,7 @@ namespace Simulator.src.View
             this.save_button.TabIndex = 1;
             this.save_button.Text = "Save";
             this.save_button.UseVisualStyleBackColor = true;
-            this.save_button.Click += new System.EventHandler(this.save_button_Click);
+            this.save_button.Click += new System.EventHandler(this.Save_button_click);
             // 
             // SettingsForm
             // 

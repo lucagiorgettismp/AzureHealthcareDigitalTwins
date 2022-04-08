@@ -3,15 +3,13 @@ using Simulator.Controller;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Windows.Forms;
-using Simulator.src.View;
 
 namespace Simulator.View
 {
     public partial class DevicesForm : Form
     {
-        private DevicesController _controller;
+        private readonly DevicesController _controller;
         private const string DEVICE_ID = "deviceId";
 
         public DevicesForm(DevicesController controller)

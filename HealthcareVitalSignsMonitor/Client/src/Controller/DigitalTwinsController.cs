@@ -26,6 +26,7 @@ namespace Client.Controller
             {
                 Text = "Digital Twins",
                 FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false
             };
 
             this._onAddPatientClick = onAddPatientClick;
@@ -34,13 +35,15 @@ namespace Client.Controller
             this._errorForm = new ErrorForm()
             {
                 Text = "Error",
-                FormBorderStyle = FormBorderStyle.FixedDialog
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false
             };
 
             this._successForm = new SuccessForm()
             {
                 Text = "Success",
-                FormBorderStyle = FormBorderStyle.FixedDialog
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false
             };
 
             try

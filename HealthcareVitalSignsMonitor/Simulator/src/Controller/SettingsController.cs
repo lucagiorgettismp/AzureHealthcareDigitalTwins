@@ -1,17 +1,16 @@
 ﻿using Common.View;
 using Simulator.Model.Settings;
-using Simulator.src;
-using Simulator.src.View;
+using Simulator.View;
 using System.Windows.Forms;
 
 namespace Simulator.Controller
 {
     public class SettingsController
     {
-        private string _deviceId;
-        private SettingsForm _view;
-        private SuccessForm _successForm;
-        private ErrorForm _errorForm;
+        private readonly string _deviceId;
+        private readonly SettingsForm _view;
+        private readonly SuccessForm _successForm;
+        private readonly ErrorForm _errorForm;
 
         public SettingsController(string deviceId)
         {
@@ -19,19 +18,22 @@ namespace Simulator.Controller
             this._view = new SettingsForm(this)
             {
                 Text = "Simulation",
-                FormBorderStyle = FormBorderStyle.FixedDialog
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false
             };
 
             this._successForm = new SuccessForm(onCloseAction: () => { this.Close(); })
             {
                 Text = "Success",
-                FormBorderStyle = FormBorderStyle.FixedDialog
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false
             };
 
             this._errorForm = new ErrorForm()
             {
                 Text = "Error",
-                FormBorderStyle = FormBorderStyle.FixedDialog
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false
             };
         }
 

@@ -10,8 +10,8 @@
 
     public partial class SimulationForm : Form
     {
-        private Timer timerHour = new Timer();
-        private DateTimePicker datePicker = new DateTimePicker();
+        private readonly Timer timerHour = new Timer();
+        private readonly DateTimePicker datePicker = new DateTimePicker();
 
         private Label labDate;
         private Label labHour;
@@ -60,8 +60,7 @@
         private const string ID_CHART_BREATH_FREQUENCY = "BreathFrequencyChart";
         private const string ID_CHART_SATURATION = "SaturationChart";
         private const string ID_CHART_BLOOD_PRESSURE = "BloodPressureChart";
-
-        int MaxPointsInGraph;
+        readonly int MaxPointsInGraph;
 
         public SimulationForm(int maxPointsInGraph = 20)
         {

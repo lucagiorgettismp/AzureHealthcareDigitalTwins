@@ -13,7 +13,7 @@ namespace Client.Controller
 {
     public class PatientController
     {
-        private readonly PatientForm _view;
+        private PatientForm _view;
         private readonly SuccessForm _successForm;
         private readonly ErrorForm _errorForm;
         private readonly DigitalTwinsClient _twinClient;
@@ -22,22 +22,19 @@ namespace Client.Controller
         public PatientController(Action onClose)
         {
             this._onClose = onClose;
-            this._view = new PatientForm(this)
-            {
-                Text = "Patient",
-                FormBorderStyle = FormBorderStyle.FixedDialog
-            };
 
             this._errorForm = new ErrorForm()
             {
                 Text = "Error",
-                FormBorderStyle = FormBorderStyle.FixedDialog
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false
             };
 
             this._successForm = new SuccessForm(() => this._view.Hide())
             {
                 Text = "Success",
-                FormBorderStyle = FormBorderStyle.FixedDialog
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false
             };
 
             try
@@ -54,18 +51,27 @@ namespace Client.Controller
 
         internal void OnClose()
         {
-            this.Close();
             this._onClose();
         }
 
         public void Close()
         {
-            this._view.Hide();
+            if (this._view != null)
+            {
+                this._view.Close();
+            }
         }
 
         internal void Start()
         {
-            _view.Show();
+            this._view = new PatientForm(this)
+            {
+                Text = "Patient",
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false
+            };
+
+            this._view.Show();
         }
 
         public async Task CreatePatient(PatientModel model)
@@ -77,6 +83,7 @@ namespace Client.Controller
 
                 this._successForm.SetText("Patient added successfully!");
                 this._successForm.Show();
+                this._onClose();
             }
             catch (Exception e)
             {

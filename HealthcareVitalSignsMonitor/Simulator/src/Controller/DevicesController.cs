@@ -25,19 +25,22 @@ namespace Simulator.Controller
             _view = new DevicesForm(this)
             {
                 Text = "Control Panel",
-                FormBorderStyle = FormBorderStyle.FixedDialog
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false
             };
 
             this._errorForm = new ErrorForm()
             {
                 Text = "Error",
-                FormBorderStyle = FormBorderStyle.FixedDialog
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false
             };
 
             this._successForm = new SuccessForm()
             {
                 Text = "Success",
-                FormBorderStyle = FormBorderStyle.FixedDialog
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false
             };
 
             this._onClose = onClose;
