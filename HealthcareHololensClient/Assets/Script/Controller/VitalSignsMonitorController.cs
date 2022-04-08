@@ -1,7 +1,6 @@
 using Assets.Script.Model;
 using Assets.Script.View;
 using Azure.DigitalTwins.Core;
-using AzureDigitalTwins;
 using System;
 using System.Threading.Tasks;
 using UnityEngine;
