@@ -1,39 +1,28 @@
 ﻿namespace Client.View
 {
+    using Client.src.Controller;
     using Common.Utils;
-    using Controller;
     using System;
     using System.Windows.Forms;
 
-    public partial class ClientForm : Form
+    partial class DigitalTwinsForm : Form
     {
-        readonly Client clientTwins;
-        private PatientForm patientForm = null;
+        private readonly DigitalTwinsController _controller;
 
-        public ClientForm()
+        public DigitalTwinsForm(DigitalTwinsController controller)
         {
             InitializeComponent();
-            this.clientTwins = new Client();
+            this._controller = controller;
         }
 
         private void CreateButtonClick(object sender, EventArgs e)
         {
-            patientForm = new PatientForm(this, this.clientTwins)
-            {
-                Text = "Patient",
-                FormBorderStyle = FormBorderStyle.FixedDialog
-            };
-
-            patientForm.Show();
-            this.Enabled = false;
+            _controller.OnNewPatientClick();
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            if (this.patientForm != null)
-            {
-                this.patientForm.Close();
-            }
+            this._controller.OnClose();
 
             base.OnFormClosing(e);
         }
@@ -42,11 +31,13 @@
         {
             this.patients_twins_collections.Items.Clear();
 
-            var twins = await this.clientTwins.GetTwins();
-            for(int i = 0; i < twins.Count; i++)
-            {
-                this.patients_twins_collections.Items.Add(twins[i]);
-            }
+            this.patients_twins_collections.Items.Add("Getting all digital twins");
+                  
+            var twins = await this._controller.GetDigitalTwins();
+
+            this.patients_twins_collections.Items.Clear();
+
+            this.patients_twins_collections.Items.AddRange(twins.ToArray());
         }
 
         private void SelectedIndexPatients(object sender, EventArgs e)

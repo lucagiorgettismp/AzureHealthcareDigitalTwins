@@ -1,47 +1,75 @@
+﻿using Common.Enums;
+using Common.Utils;
+using Microsoft.Azure.Devices.Client;
+using Newtonsoft.Json;
+using Simulator.AzureApi;
+using Simulator.Model;
+using Simulator.Model.Payload;
+using Simulator.Utils;
+using System;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
 namespace Simulator.Controller
 {
-    using Azure.DigitalTwins.Core;
-    using Common.AzureApi;
-    using Common.Enums;
-    using Common.Utils;
-    using Microsoft.Azure.Devices.Client;
-    using Model;
-    using Newtonsoft.Json;
-    using Simulator.Model.Payload;
-    using System;
-    using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Utils;
-
-    class Device
+    internal class SimulatorController
     {
-        readonly DeviceClient deviceClient;
-        readonly DeviceDataGenerator dataGenerator;
-        readonly string deviceId;
+        private readonly string _deviceId;
+        private readonly SimulationForm _view;
+        private CancellationTokenSource _tokenSource;
+        private DeviceDataGenerator _deviceDataGenerator;
+        private DeviceClient _deviceClient;
 
-        public Device(string connection, string deviceId)
+        public SimulatorController(string deviceId)
         {
-            this.deviceClient = DeviceClient.CreateFromConnectionString(connection);
-            this.deviceId = deviceId;
-            this.dataGenerator = new DeviceDataGenerator(deviceId);
+            this._deviceId = deviceId;
+
+            this._view = new SimulationForm
+            {
+                Text = "Simulation",
+                FormBorderStyle = FormBorderStyle.FixedDialog
+            };
         }
 
-        public async Task SendMessageToIoTHub(SimulationForm form, CancellationToken token)
+        public async Task InitAsync()
+        {
+            var connectionString = await DeviceOperationsApi.GetConnectionString(_deviceId);
+            this._deviceClient = DeviceClient.CreateFromConnectionString(connectionString);
+        }
+
+        internal void StopDevice()
+        {
+            this._view.Hide();
+            this._tokenSource.Cancel();
+        }
+
+        internal async Task StartDeviceAsync()
+        {
+            this._view.Show();
+
+            this._tokenSource = new CancellationTokenSource();
+            this._deviceDataGenerator = new DeviceDataGenerator(_deviceId);
+            await this.Simulation();
+        }
+
+        public async Task Simulation()
         {
             int msgCounter = 1;
 
-            while (!token.IsCancellationRequested)
+            while (!_tokenSource.IsCancellationRequested)
             {
-                DeviceData deviceData = dataGenerator.GetUpdatedDeviceData();
-                form.UpdateValues(deviceData);
+                DeviceData deviceData = _deviceDataGenerator.GetUpdatedDeviceData();
+
+                this._view.UpdateValues(deviceData);
 
                 string json = CreateJSON(deviceData);
-                Message message = CreateMessage(json);
+                Microsoft.Azure.Devices.Client.Message message = CreateMessage(json);
 
-                ShowMessage(msgCounter, deviceData);
-                await deviceClient.SendEventAsync(message);
-                
+                PrintMessage(msgCounter, deviceData);
+                await this._deviceClient.SendEventAsync(message);
+
                 Console.WriteLine();
 
                 await Task.Delay(1500);
@@ -49,7 +77,7 @@ namespace Simulator.Controller
             }
         }
 
-        private void ShowMessage(int counter, DeviceData message)
+        private void PrintMessage(int counter, DeviceData message)
         {
             Log.Ok($"[{counter}] Sending message at {DateTime.Now} and Message:" +
                 $"\n{message.Temperature.SensorName}: {message.Temperature.Value}, {message.Temperature.UnitOfMeasurement}, {message.Temperature.InAlarm}, " +
@@ -63,7 +91,7 @@ namespace Simulator.Controller
                 $"\n{message.Saturation.SensorName}: {message.Saturation.Value} {message.Saturation.UnitOfMeasurement}, {message.Saturation.InAlarm}, " +
                 $"Min: {message.Saturation.MinValue},Max: {message.Saturation.MaxValue},Color: {message.Saturation.GraphColor}, " +
                 $"\n{message.BatteryPower.SensorName}: {message.BatteryPower.Value} {message.BatteryPower.UnitOfMeasurement}, {message.BatteryPower.InAlarm}," +
-                $"Min: {message.BatteryPower.MinValue},Max: {message.BatteryPower.MaxValue}" 
+                $"Min: {message.BatteryPower.MinValue},Max: {message.BatteryPower.MaxValue}"
                 );
         }
 
@@ -104,9 +132,9 @@ namespace Simulator.Controller
             };
         }
 
-        private static Message CreateMessage(string jsonObject)
+        private static Microsoft.Azure.Devices.Client.Message CreateMessage(string jsonObject)
         {
-            var message = new Message(Encoding.UTF8.GetBytes(jsonObject))
+            var message = new Microsoft.Azure.Devices.Client.Message(Encoding.UTF8.GetBytes(jsonObject))
             {
                 ContentType = "application/json",
                 ContentEncoding = "UTF-8"

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Windows.Forms;
-using Client.View;
+using Client.src.Controller;
 
 namespace Client
 {
     static class Program
     {
+        private static PatientController patientController;
+        private static DigitalTwinsController dtController;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -15,13 +18,25 @@ namespace Client
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            ClientForm clientForm = new ClientForm
-            {
-                Text = "Client",
-                FormBorderStyle = FormBorderStyle.FixedDialog
-            };
+            patientController = new PatientController(() => OnPatientControllerClose());
+            dtController = new DigitalTwinsController(() => OnAddPatientClick(), () => OnClose());
 
-            Application.Run(clientForm);
+            dtController.Start();
+        }
+
+        private static void OnClose()
+        {
+            patientController.Close();
+        }
+
+        private static void OnAddPatientClick()
+        {
+            patientController.Start();
+        }
+
+        private static void OnPatientControllerClose()
+        {
+            dtController.Enable();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Common;
 using Common.View;
+using Simulator.Controller;
 using Simulator.Model.Settings;
 using Simulator.src.Model.Settings;
 using System;
@@ -9,31 +10,12 @@ namespace Simulator.src.View
 {
     public partial class SettingsForm : Form
     {
-        private SuccessForm successForm;
-        private ErrorForm errorForm;
-        private string deviceId;
+        private readonly SettingsController _controller;
 
-        public SettingsForm()
+        public SettingsForm(SettingsController controller)
         {
             InitializeComponent();
-
-            this.successForm = new SuccessForm(onCloseAction: () => { this.Hide(); })
-            {
-                Text = "Success",
-                FormBorderStyle = FormBorderStyle.FixedDialog
-            };
-
-            this.errorForm = new ErrorForm()
-            {
-                Text = "Error",
-                FormBorderStyle = FormBorderStyle.FixedDialog
-            };
-        }
-
-        public void SetDeviceId(string deviceId)
-        {
-            this.deviceId = deviceId;
-            InitFields(deviceId);
+            this._controller = controller;
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -41,10 +23,8 @@ namespace Simulator.src.View
             this.Hide();
         }
 
-        private void InitFields(string deviceId)
+        public void InitFields(DeviceSettings settings)
         {
-            var settings = SettingsManager.ReadUserSettings(deviceId);
-
             if (settings != null)
             {
                 this.battery_alert_min.Text = settings.BatteryPower.MinAlertThreashold.ToString();
@@ -75,9 +55,8 @@ namespace Simulator.src.View
 
         private void save_button_Click(object sender, EventArgs e)
         {
-            if (SettingsManager.SaveUserSettings(new DeviceSettings
+            var deviceSettings = new DeviceSettings
             {
-                DeviceId = this.deviceId,
                 Temperature = new SensorSettingsMinMaxThreashold<double>
                 {
                     MinValue = GetDouble(this.temperature_min.Text),
@@ -124,15 +103,9 @@ namespace Simulator.src.View
                     MinAlertThreashold = Convert.ToInt32(this.battery_alert_min.Text),
                     UnitOfMeasurement = "%"
                 }
-            }))
-            {
-                this.successForm.SetText("Settings saved");
-                this.successForm.Show();
-            } else
-            {
-                this.errorForm.SetText("Error in saving settings");
-                this.errorForm.Show();
-            }
+            };
+
+            this._controller.SaveSettings(deviceSettings);
         }
 
         private double GetDouble(string text)
