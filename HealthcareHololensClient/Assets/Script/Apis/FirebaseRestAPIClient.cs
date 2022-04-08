@@ -10,18 +10,18 @@ public class FirebaseRestAPIClient
 {
     private const string BASE_URL = "https://azurehealtcaredigitaltwins-default-rtdb.europe-west1.firebasedatabase.app";
     private const string TOKEN = "0vPOYNsGqCQVKU9s7g2Ko3wBxj4qIBmxak1CDtxg";
-    private readonly RestClient client;
+    private readonly RestClient _client;
 
     public FirebaseRestAPIClient()
     {
-        client = new RestClient(BASE_URL);
+        _client = new RestClient(BASE_URL);
     }
 
     internal async Task<Patient> GetPatientAsync(string deviceId)
     {
         var request = new RestRequest($"/patients/{deviceId}.json", Method.GET);
         request.AddParameter("auth", TOKEN);
-        var result = await client.GetAsync<Patient>(request);
+        var result = await _client.GetAsync<Patient>(request);
         return result;
     }
 
@@ -29,7 +29,7 @@ public class FirebaseRestAPIClient
     {
         var request = new RestRequest($"/devices/{deviceId}/configuration.json", Method.GET);
         request.AddParameter("auth", TOKEN);
-        var result = await client.GetAsync<ConfigurationPayloadData>(request);
+        var result = await _client.GetAsync<ConfigurationPayloadData>(request);
         return result;
     }
 
@@ -50,7 +50,7 @@ public class FirebaseRestAPIClient
                 });
 
             request.AddParameter("application/json", body, ParameterType.RequestBody);
-            IRestResponse response = client.Execute(request);
+            IRestResponse response = _client.Execute(request);
         }
         catch (Exception e)
         {

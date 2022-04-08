@@ -25,10 +25,7 @@ public class Application : MonoBehaviour
     {
         try
         {
-            Debug.Log($"[ParseQrCodeString] Parsing....");
             QrCodeInfoModel qrModel = JsonConvert.DeserializeObject<QrCodeInfoModel>(data);
-            Debug.Log($"[ParseQrCodeString] {qrModel.DeviceId}");
-
             await this.VitalSignsMonitorController.OnStartController(qrModel.DeviceId);
         }
         catch (Exception e)

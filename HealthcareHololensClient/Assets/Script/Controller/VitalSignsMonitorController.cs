@@ -31,7 +31,6 @@ public class VitalSignsMonitorController: MonoBehaviour
 
     public async Task OnStartController(string deviceId)
     {
-        Debug.Log($"[OnStartController], calling...");
         try
         {
             this._deviceId = deviceId;                    
@@ -46,7 +45,6 @@ public class VitalSignsMonitorController: MonoBehaviour
     }
 
     public void OnDataReceived(Message message) {
-
         this.View.UpdateData(message);
 
         var selectedPanel = (PanelType)message.configuration_last_selected_view;
