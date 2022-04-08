@@ -39,7 +39,6 @@ namespace Simulator
 
                     if (settingsFile.Devices.Any(device => device.DeviceId == settings.DeviceId))
                     {
-
                         foreach (var deviceSetting in settingsFile.Devices.Where(device => device.DeviceId == settings.DeviceId))
                         {
                             deviceSetting.Temperature = settings.Temperature;
