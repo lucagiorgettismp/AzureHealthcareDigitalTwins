@@ -8,9 +8,13 @@ namespace Client.src.AzureApi.DTLDModels
     {
         private const string UNIT_BODY_MASS_INDEX = "Kg/m2";
 
+        [JsonConstructor]
+        public PatientTwin()
+        {}
+
         public PatientTwin(PatientModel model, string modelId = "")
         {
-            Metadata = new PatientTwinMetadata{ ModelId = modelId };
+            Metadata = new PatientTwinMetadata { ModelId = modelId };
             Name = model.Name;
             Surname = model.Surname;
             Age = model.Age;
