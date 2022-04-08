@@ -1,7 +1,6 @@
-using Newtonsoft.Json;
 using System.Text.Json.Serialization;
 
-namespace Client.src.AzureApi.DTLDModels
+namespace Client.Api.DTLDModels
 {
     public class Configuration
     {

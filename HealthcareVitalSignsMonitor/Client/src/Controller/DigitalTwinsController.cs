@@ -1,5 +1,5 @@
 ﻿using Azure.DigitalTwins.Core;
-using Client.AzureApi;
+using Client.Api;
 using Client.View;
 using Common.AzureApi;
 using Common.Utils;
@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Client.src.Controller
+namespace Client.Controller
 {
     class DigitalTwinsController
     {

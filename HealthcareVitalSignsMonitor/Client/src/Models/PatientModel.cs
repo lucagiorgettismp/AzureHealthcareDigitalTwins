@@ -1,4 +1,4 @@
-﻿namespace Client.AzureApi.Models
+﻿namespace Client.Models
 {
     public class PatientModel
     {

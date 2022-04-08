@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Client.Controller;
+using System;
 using System.Windows.Forms;
-using Client.src.Controller;
 
 namespace Client
 {

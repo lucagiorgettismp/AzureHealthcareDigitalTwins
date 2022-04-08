@@ -1,7 +1,7 @@
 ﻿namespace Client.View
 {
-    using AzureApi.Models;
-    using Client.src.Controller;
+    using Client.Controller;
+    using Client.Models;
     using Common.Utils;
     using System;
     using System.Windows.Forms;

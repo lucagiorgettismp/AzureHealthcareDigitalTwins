@@ -1,7 +1,6 @@
-﻿using Azure.DigitalTwins.Core;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
-namespace Client.src.AzureApi.DTLDModels
+namespace Client.Api.DTLDModels
 {
     class SensorValueComponent
     {

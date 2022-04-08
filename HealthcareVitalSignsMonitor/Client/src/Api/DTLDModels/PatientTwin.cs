@@ -1,8 +1,8 @@
 ﻿using Azure.DigitalTwins.Core;
-using Client.AzureApi.Models;
+using Client.Models;
 using System.Text.Json.Serialization;
 
-namespace Client.src.AzureApi.DTLDModels
+namespace Client.Api.DTLDModels
 {
     class PatientTwin
     {

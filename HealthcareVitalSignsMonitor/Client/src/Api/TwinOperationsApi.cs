@@ -1,9 +1,9 @@
-﻿namespace Client.AzureApi
+﻿namespace Client.Api
 {
     using Azure;
     using Azure.DigitalTwins.Core;
-    using AzureApi.Models;
-    using Client.src.AzureApi.DTLDModels;
+    using Client.Api.DTLDModels;
+    using Client.Models;
     using Common.AzureApi;
     using Common.Utils;
     using Microsoft.Azure.Devices;
@@ -123,9 +123,9 @@
             }
         }
 
-        private src.AzureApi.DTLDModels.Configuration GetDefaultConfiguration()
+        private DTLDModels.Configuration GetDefaultConfiguration()
         {
-            return new src.AzureApi.DTLDModels.Configuration
+            return new DTLDModels.Configuration
             {
                 LastSelectedView = 0
             };

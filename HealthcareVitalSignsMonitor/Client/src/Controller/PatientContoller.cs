@@ -1,6 +1,6 @@
 ﻿using Azure.DigitalTwins.Core;
-using Client.AzureApi;
-using Client.AzureApi.Models;
+using Client.Api;
+using Client.Models;
 using Client.View;
 using Common.AzureApi;
 using Common.Utils;
@@ -9,7 +9,7 @@ using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Client.src.Controller
+namespace Client.Controller
 {
     public class PatientController
     {

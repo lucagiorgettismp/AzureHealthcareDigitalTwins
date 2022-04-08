@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using Azure.DigitalTwins.Core;
 
-namespace Client.src.AzureApi.DTLDModels
+namespace Client.Api.DTLDModels
 {
     class GraphSensorComponent : SensorComponent
     {

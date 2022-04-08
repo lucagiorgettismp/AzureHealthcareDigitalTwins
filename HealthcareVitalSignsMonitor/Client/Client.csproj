@@ -270,18 +270,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\AzureApi\DTLDModels\Configuration.cs" />
-    <Compile Include="src\AzureApi\DTLDModels\GraphSensorComponent.cs" />
-    <Compile Include="src\AzureApi\DTLDModels\SensorValueComponent.cs" />
-    <Compile Include="src\AzureApi\DTLDModels\BodyMassIndexComponent.cs" />
-    <Compile Include="src\AzureApi\DTLDModels\PatientTwin.cs" />
-    <Compile Include="src\AzureApi\DTLDModels\SensorComponent.cs" />
-    <Compile Include="src\AzureApi\DTLDModels\VitalSignsMonitor.cs" />
-    <Compile Include="src\AzureApi\FirebaseRestAPIClient.cs" />
+    <Compile Include="src\Api\DTLDModels\Configuration.cs" />
+    <Compile Include="src\Api\DTLDModels\GraphSensorComponent.cs" />
+    <Compile Include="src\Api\DTLDModels\SensorValueComponent.cs" />
+    <Compile Include="src\Api\DTLDModels\BodyMassIndexComponent.cs" />
+    <Compile Include="src\Api\DTLDModels\PatientTwin.cs" />
+    <Compile Include="src\Api\DTLDModels\SensorComponent.cs" />
+    <Compile Include="src\Api\DTLDModels\VitalSignsMonitor.cs" />
+    <Compile Include="src\Api\FirebaseRestAPIClient.cs" />
     <Compile Include="src\Controller\DigitalTwinsController.cs" />
     <Compile Include="src\Controller\PatientContoller.cs" />
     <Compile Include="src\Models\PatientModel.cs" />
-    <Compile Include="src\AzureApi\TwinOperationsApi.cs" />
+    <Compile Include="src\Api\TwinOperationsApi.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="src\View\DigitalTwinsForm.cs">
       <SubType>Form</SubType>
