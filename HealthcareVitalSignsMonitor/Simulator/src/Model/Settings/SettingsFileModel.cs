@@ -1,8 +1,6 @@
-﻿using Simulator.Model.Settings;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Simulator.src.Model.Settings
+namespace Simulator.Model.Settings
 {
     public class SettingsFileModel
     {

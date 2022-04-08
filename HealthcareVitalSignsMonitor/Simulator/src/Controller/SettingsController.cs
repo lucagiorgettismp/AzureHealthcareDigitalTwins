@@ -1,17 +1,16 @@
 ﻿using Common.View;
 using Simulator.Model.Settings;
-using Simulator.src;
-using Simulator.src.View;
+using Simulator.View;
 using System.Windows.Forms;
 
 namespace Simulator.Controller
 {
     public class SettingsController
     {
-        private string _deviceId;
-        private SettingsForm _view;
-        private SuccessForm _successForm;
-        private ErrorForm _errorForm;
+        private readonly string _deviceId;
+        private readonly SettingsForm _view;
+        private readonly SuccessForm _successForm;
+        private readonly ErrorForm _errorForm;
 
         public SettingsController(string deviceId)
         {
