@@ -1,6 +1,6 @@
 ﻿namespace Simulator.View
 {
-    partial class ControlPanelForm
+    partial class DevicesForm
     {
         /// <summary>
         /// Required designer variable.
@@ -145,7 +145,7 @@
             this.listbox_devices.Name = "listbox_devices";
             this.listbox_devices.Size = new System.Drawing.Size(554, 232);
             this.listbox_devices.TabIndex = 1;
-            this.listbox_devices.SelectedIndexChanged += new System.EventHandler(this.SelectedIndexDevices);
+            this.listbox_devices.SelectedIndexChanged += new System.EventHandler(this.OnDeviceSelected);
             // 
             // ControlPanelForm
             // 

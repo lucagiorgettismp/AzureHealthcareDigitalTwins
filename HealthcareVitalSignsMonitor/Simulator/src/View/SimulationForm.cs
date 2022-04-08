@@ -67,10 +67,6 @@
         {
             InitializeComponent();
 
-            timerHour.Interval = 1000;
-            timerHour.Tick += new EventHandler(TimerTick);
-            timerHour.Start();
-
             this.MaxPointsInGraph = maxPointsInGraph;
             this.ControlBox = false;
         }
@@ -123,6 +119,10 @@
             chartAreaBloodPressure.AxisY.IntervalType = DateTimeIntervalType.Number;
             chartAreaBloodPressure.AxisY.Minimum = Convert.ToInt32(appSettings["BloodPressureMinValue"]);
             chartAreaBloodPressure.AxisY.Maximum = Convert.ToInt32(appSettings["BloodPressureMaxValue"]);
+
+            timerHour.Interval = 1000;
+            timerHour.Tick += new EventHandler(TimerTick);
+            timerHour.Start();
         }
 
         private void TimerTick(object sender, EventArgs e)
