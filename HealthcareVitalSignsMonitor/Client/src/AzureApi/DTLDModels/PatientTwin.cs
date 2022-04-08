@@ -1,10 +1,35 @@
 ﻿using Azure.DigitalTwins.Core;
+using Client.AzureApi.Models;
 using System.Text.Json.Serialization;
 
 namespace Client.src.AzureApi.DTLDModels
 {
     class PatientTwin
     {
+        private const string UNIT_BODY_MASS_INDEX = "Kg/m2";
+
+        [JsonConstructor]
+        public PatientTwin()
+        {}
+
+        public PatientTwin(PatientModel model, string modelId = "")
+        {
+            Metadata = new PatientTwinMetadata { ModelId = modelId };
+            Name = model.Name;
+            Surname = model.Surname;
+            Age = model.Age;
+            Gender = model.Gender;
+            Description = model.Description;
+            Weight = model.Weight;
+            Height = model.Height;
+            FiscalCode = model.FiscalCode;
+            BodyMassIndex = new BodyMassIndexComponent
+            {
+                Value = model.BodyMassIndex,
+                Unit = UNIT_BODY_MASS_INDEX
+            };
+        }
+
         [JsonPropertyName(DigitalTwinsJsonPropertyNames.DigitalTwinMetadata)]
         public PatientTwinMetadata Metadata { get; set; } = new PatientTwinMetadata();
 
@@ -29,10 +54,10 @@ namespace Client.src.AzureApi.DTLDModels
         [JsonPropertyName("height")]
         public double Height { get; set; }
 
-        [JsonPropertyName("bmi")]
+        [JsonPropertyName("bodymassindex")]
         public BodyMassIndexComponent BodyMassIndex { get; set; }
 
-        [JsonPropertyName("fiscal_code")]
+        [JsonPropertyName("fiscalcode")]
         public string FiscalCode { get; set; }
     }
 
@@ -62,10 +87,10 @@ namespace Client.src.AzureApi.DTLDModels
         [JsonPropertyName("height")]
         public DigitalTwinPropertyMetadata Height { get; set; }
 
-        [JsonPropertyName("bmi")]
+        [JsonPropertyName("bodymassindex")]
         public DigitalTwinPropertyMetadata BodyMassIndex { get; set; }
 
-        [JsonPropertyName("fiscal_code")]
+        [JsonPropertyName("fiscalcode")]
         public DigitalTwinPropertyMetadata FiscalCode { get; set; }
     }
 }

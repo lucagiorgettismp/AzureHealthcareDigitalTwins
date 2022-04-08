@@ -3,7 +3,6 @@
     using Assets.Script.Model;
     using Assets.Script.View.Panels;
     using System.Collections.Generic;
-    using System.Threading.Tasks;
     using UnityEngine;
     using UnityEngine.UI;
 
@@ -43,50 +42,70 @@
 
         internal void StopLoading()
         {
-            this._loadingCircle.gameObject.SetActive(false);
+            UnityMainThread.worker.AddJob(() =>
+            {
+                this._loadingCircle.gameObject.SetActive(false);
+            });
         }
 
         internal void StartLoading()
         {
-            this._loadingCircle.gameObject.SetActive(true);
+            UnityMainThread.worker.AddJob(() =>
+            {
+                this._loadingCircle.gameObject.SetActive(true);
+            });
         }
 
         internal void SetPatient(Patient patient)
         {
-            this._loadingCircle.gameObject.SetActive(false);
-            this._patientPanel.transform.position = GetPatientCurrentPosition();
-            this._patientPanel.SetPatient(patient);
-            this._patientPanel.gameObject.SetActive(true);
+            UnityMainThread.worker.AddJob(() =>
+            {
+                this._patientPanel.transform.position = GetPatientCurrentPosition();
+                this._patientPanel.SetPatient(patient);
+                this._loadingCircle.gameObject.SetActive(false);
+                this._patientPanel.gameObject.SetActive(true);
+            });
         }
 
         internal void UpdateData(Message message)
         {
-            this._vitalSignsMonitorPanel.UpdateView(message);
-            this._heartFrequencyPanel.UpdateView(message);
-            this._breathFrequencyPanel.UpdateView(message);
-            this._saturationPanel.UpdateView(message);
-            this._bloodPressurePanel.UpdateView(message);
-            this._sensorValuesPanel.UpdateView(message);
+            UnityMainThread.worker.AddJob(() =>
+            {
+                this._vitalSignsMonitorPanel.UpdateView(message);
+                this._heartFrequencyPanel.UpdateView(message);
+                this._breathFrequencyPanel.UpdateView(message);
+                this._saturationPanel.UpdateView(message);
+                this._bloodPressurePanel.UpdateView(message);
+                this._sensorValuesPanel.UpdateView(message);
+            });
         }
 
         internal void HideAllPanels()
         {
             foreach (var panel in _panels)
             {
-                panel.Panel.gameObject.SetActive(false);
+                UnityMainThread.worker.AddJob(() =>
+                {
+                    panel.Panel.gameObject.SetActive(false);
+                });
             }
 
-            this._patientPanel.gameObject.SetActive(false);
-            this._buttonMenu.gameObject.SetActive(false);
-            this._loadingCircle.gameObject.SetActive(false);
+            UnityMainThread.worker.AddJob(() =>
+            {
+                this._patientPanel.gameObject.SetActive(false);
+                this._buttonMenu.gameObject.SetActive(false);
+                this._loadingCircle.gameObject.SetActive(false);
+            });
         }
 
         internal void SetSelectedPanel(PanelType selectedPanel)
         {
-            this._loadingCircle.gameObject.SetActive(false);
-
-            this._buttonMenu.gameObject.SetActive(true);
-            this.UpdateSelectedPanel(selectedPanel);
+            UnityMainThread.worker.AddJob(() =>
+            {
+                this._loadingCircle.gameObject.SetActive(false);
+                this._buttonMenu.gameObject.SetActive(true);
+                this.UpdateSelectedPanel(selectedPanel);
+            });
         }
 
         private void UpdateSelectedPanel(PanelType selectedPanel)
@@ -98,16 +117,19 @@
                     panel.Panel.transform.position = GetMonitorCurrentPosition();
                 }
 
-                panel.Panel.gameObject.SetActive(panel.PanelType == selectedPanel);
+                UnityMainThread.worker.AddJob(() =>
+                {
+                    panel.Panel.gameObject.SetActive(panel.PanelType == selectedPanel);
+                });
             }
 
             _patientPanel.transform.position = GetPatientCurrentPosition();
         }
 
-        internal async Task PanelSelectionChanged(PanelType selectedPanel)
+        internal void PanelSelectionChanged(PanelType selectedPanel)
         {
             this.UpdateSelectedPanel(selectedPanel);
-            await this._controller.PersistSelectedPanel(selectedPanel);
+            this._controller.PersistSelectedPanel(selectedPanel);
         }
 
         internal void CloseApplication()

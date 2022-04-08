@@ -24,7 +24,7 @@
     },
     {
       "@type": "Property",
-      "name": "fiscal_code",
+      "name": "fiscalcode",
       "displayName": "Fiscal Code",
       "schema": "string"
     },
@@ -56,7 +56,7 @@
     },
     {
       "@type": "Property",
-      "name": "bmi",
+      "name": "bodymassindex",
       "displayName": "Body Mass Index",
       "schema": {
         "@type": "Object",

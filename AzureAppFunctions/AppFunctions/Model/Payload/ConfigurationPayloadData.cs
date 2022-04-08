@@ -3,7 +3,7 @@ namespace AppFunctions.Model.Payload
 {
     public class ConfigurationPayloadData: IEventGridMessagePayloadData
     {
-        [JsonProperty("last_selected_view")]
+        [JsonProperty("lastselectedview")]
         public int LastSelectedView { get; set; }
     }
 }

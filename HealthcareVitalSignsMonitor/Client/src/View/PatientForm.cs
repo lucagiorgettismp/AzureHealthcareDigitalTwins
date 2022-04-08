@@ -10,9 +10,6 @@
     {
         private readonly PatientController _controller;
 
-        //readonly Client clientTwins;
-        //readonly Form clientForm;
-
         public PatientForm(PatientController controller)
         {
             InitializeComponent();

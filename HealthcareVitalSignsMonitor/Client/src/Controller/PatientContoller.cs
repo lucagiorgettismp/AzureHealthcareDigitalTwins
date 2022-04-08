@@ -72,7 +72,8 @@ namespace Client.src.Controller
         {
             try
             {
-                await new TwinOperationsApi().CreatePatientTwin(_twinClient, model);
+                await new TwinOperationsApi().CreatePatient(_twinClient, model);
+                new FirebaseRestAPIClient().CreatePatient(model);
 
                 this._successForm.SetText("Patient added successfully!");
                 this._successForm.Show();

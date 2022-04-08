@@ -26,7 +26,6 @@
         private const string EMPTY_VALUE = "";
 
         // Unit of measurement
-        private const string UNIT_BODY_MASS_INDEX = "Kg/m2";
 
         private async Task CreateDeviceHub(string deviceId)
         {
@@ -67,32 +66,13 @@
             return IdTwins;
         }
 
-        public async Task CreatePatientTwin(
+        public async Task CreatePatient(
             DigitalTwinsClient client, PatientModel model)
         {
-            // Create a patient twin
-            var bmi = new BodyMassIndexComponent
-            {
-                Value = model.BodyMassIndex,
-                Unit = UNIT_BODY_MASS_INDEX
-            };
-
             string patientId = $"{model.Name}Twin";
 
-            var patientTwin = new PatientTwin
-            {
-                Metadata = { ModelId = PATIENT_MODEL_ID },
-                Name = model.Name,
-                Surname = model.Surname,
-                Age = model.Age,
-                Gender = model.Gender,
-                Description = model.Description,
-                Weight = model.Weight,
-                Height = model.Height,
-                BodyMassIndex = bmi,
-                FiscalCode = model.FiscalCode
-            };
-
+            var patientTwin = new PatientTwin(model, PATIENT_MODEL_ID);
+            
             Log.Ok($"Create twin with..\nName: {model.Name},\nSurname: {model.Surname}\nAge: {model.Age}\nGender: {model.Gender}" +
                 $"\nDescription: {model.Description}\nWeight: {model.Weight}\nHeight: {model.Height}\nBmi: {model.BodyMassIndex}" +
                 $"\nFiscal code: {model.FiscalCode}");
