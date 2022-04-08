@@ -29,7 +29,8 @@ namespace Simulator.Controller
             this._view = new SimulationForm
             {
                 Text = "Simulation",
-                FormBorderStyle = FormBorderStyle.FixedDialog
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false
             };
         }
 
@@ -42,7 +43,11 @@ namespace Simulator.Controller
         internal void StopDevice()
         {
             this._view.Hide();
-            this._tokenSource.Cancel();
+
+            if (this._tokenSource != null)
+            {
+                this._tokenSource.Cancel();
+            }
         }
 
         internal async Task StartDeviceAsync()
