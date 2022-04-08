@@ -23,7 +23,6 @@ public class QRCodeController : MonoBehaviour
     internal void StopController()
     {
         QRCodeTrackingService.Disable();
-        this.gameObject.SetActive(false);
     }
 
     public void Init(Action<QRInfo> actionSuccess)

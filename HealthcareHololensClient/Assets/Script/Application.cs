@@ -11,14 +11,13 @@ public class Application : MonoBehaviour
 
     public void Start()
     {
-        VitalSignsMonitorController.Init();
-        // QRCodeController.Init((qrInfo) => QRCodeFound(qrInfo));
-
-        _ = ParseQrCodeString("{\"deviceId\": \"PGNLNZ97M18G479M\"}");
+        QRCodeController.Init((qrInfo) => QRCodeFound(qrInfo));
+        //_ = ParseQrCodeString("{ \"deviceId\":\"PGNLNZ97M18G479M\"}");
     }
 
     private async void QRCodeFound(QRInfo qrInfo)
     {
+        QRCodeController.StopController();
         await this.ParseQrCodeString(qrInfo.Data);
     }
 
@@ -26,17 +25,12 @@ public class Application : MonoBehaviour
     {
         try
         {
-            var qrModel = JsonConvert.DeserializeObject<QrCodeInfoModel>(data);
-            Debug.Log($"[QRCodeFoundCallback] {qrModel.DeviceId}");
+            QrCodeInfoModel qrModel = JsonConvert.DeserializeObject<QrCodeInfoModel>(data);
             await this.VitalSignsMonitorController.OnStartController(qrModel.DeviceId);
         }
         catch (Exception e)
         {
-            Debug.LogError($"[QRCodeFoundCallback] Error: {e.Message}");
-        } 
-        finally
-        {
-            this.QRCodeController.StopController();
+            Debug.LogError($"[ParseQrCodeString] Error: {e.Message}");
         }
     }
 

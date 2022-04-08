@@ -8,42 +8,42 @@ public class ButtonMenu : BasePanel
     {
         Debug.Log("Home button has been pressed!");
 
-        _ = this.Parent.PanelSelectionChanged(PanelType.Home);
+        this.Parent.PanelSelectionChanged(PanelType.Home);
     }
 
     public void OnClickHeartFrequencyButton()
     {
         Debug.Log("Heart frequency button has been pressed!");
 
-        _ = this.Parent.PanelSelectionChanged(PanelType.HeartFrequency);
+        this.Parent.PanelSelectionChanged(PanelType.HeartFrequency);
     }
 
     public void OnClickBreathFrequencyButton()
     {
         Debug.Log("Breath frequency button has been pressed!");
 
-        _ = this.Parent.PanelSelectionChanged(PanelType.BreathFrequency);
+        this.Parent.PanelSelectionChanged(PanelType.BreathFrequency);
     }
 
     public void OnClickSaturationButton()
     {
         Debug.Log("Saturation button has been pressed!");
 
-        _ = this.Parent.PanelSelectionChanged(PanelType.Saturation);
+        this.Parent.PanelSelectionChanged(PanelType.Saturation);
     }
 
     public void OnClickBloodPressureButton()
     {
         Debug.Log("Blood Pressure button has been pressed!");
 
-        _ = this.Parent.PanelSelectionChanged(PanelType.BloodPressure);
+        this.Parent.PanelSelectionChanged(PanelType.BloodPressure);
     }
 
     public void OnClickValuesButton()
     {
         Debug.Log("Values button has been pressed!");
 
-        _ = this.Parent.PanelSelectionChanged(PanelType.Values);
+        this.Parent.PanelSelectionChanged(PanelType.Values);
     }
 
     public void OnClickCloseButton()

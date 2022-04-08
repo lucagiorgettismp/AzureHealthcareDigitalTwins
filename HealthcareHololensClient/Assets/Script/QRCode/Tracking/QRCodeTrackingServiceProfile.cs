@@ -2,7 +2,7 @@ using UnityEngine;
 using Microsoft.MixedReality.Toolkit;
 
 [MixedRealityServiceProfile(typeof(IQRCodeTrackingService))]
-[CreateAssetMenu(fileName = "QRCodeTrackingServiceProfile", menuName = "Script/QRCode/Tracking/QRCodeTrackingService Configuration Profile")]
+[CreateAssetMenu(fileName = "QRCodeTrackingServiceProfile", menuName = "Script/QRCode/Tracking/QRCodeTrackingService DevicePayload Profile")]
 public class QRCodeTrackingServiceProfile : BaseMixedRealityProfile
 {
     [SerializeField]

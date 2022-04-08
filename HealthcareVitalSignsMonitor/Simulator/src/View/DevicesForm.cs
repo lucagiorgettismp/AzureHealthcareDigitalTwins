@@ -61,6 +61,7 @@ namespace Simulator.View
         private async void DevicesButtonClick(object sender, EventArgs e)
         {
             this.listbox_devices.Items.Clear();
+            this.listbox_devices.Enabled = false;
 
             Log.Ok("Get all devices...");
             this.listbox_devices.Items.Add("Getting all devices");
@@ -68,6 +69,7 @@ namespace Simulator.View
             List<JObject> devices = await this._controller.GetDevicesAsync();
 
             this.listbox_devices.Items.Clear();
+            this.listbox_devices.Enabled = true;
 
             foreach (var device in devices)
             {
