@@ -1,7 +1,7 @@
 ﻿
 namespace Client.View
 {
-    partial class ClientForm
+    partial class DigitalTwinsForm
     {
         /// <summary>
         /// Required designer variable.
