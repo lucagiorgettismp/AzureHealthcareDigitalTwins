@@ -31,7 +31,7 @@
         {
             this.patients_twins_collections.Items.Clear();
 
-            this.patients_twins_collections.Items.Add("Getting all digital twins");
+            this.patients_twins_collections.Items.Add("Getting all patients");
             this.patients_twins_collections.Enabled = false;
 
             var twins = await this._controller.GetDigitalTwins();
