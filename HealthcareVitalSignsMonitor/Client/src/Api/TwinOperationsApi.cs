@@ -69,7 +69,7 @@
         public async Task CreatePatient(
             DigitalTwinsClient client, PatientModel model)
         {
-            string patientId = $"{model.Name}Twin";
+            string patientId = $"{model.Name}{model.Surname}Twin";
 
             var patientTwin = new PatientTwin(model, PATIENT_MODEL_ID);
             
