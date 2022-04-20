@@ -81,9 +81,10 @@ namespace Client.Controller
 
         public async Task<List<string>> GetDigitalTwins()
         {
-            List<string> list = await new TwinOperationsApi().GetTwins(this._twinClient);
+            var list = await new TwinOperationsApi().GetTwins(this._twinClient);
 
-            string message = string.Empty();
+            var message = string.Empty;
+
             if (list.Count == 0)
             {
                 message = "No patients found.";
