@@ -1,72 +1,30 @@
 ﻿namespace Client.View
 {
-    using AzureApi.Models;
+    using Client.Controller;
+    using Client.Models;
     using Common.Utils;
-    using Controller;
     using System;
     using System.Windows.Forms;
 
     public partial class PatientForm : Form
     {
-        readonly Client clientTwins;
-        readonly Form clientForm;
+        private readonly PatientController _controller;
 
-        public PatientForm(Form clientForm, Client client)
+        public PatientForm(PatientController controller)
         {
             InitializeComponent();
-            this.clientTwins = client;
-            this.clientForm = clientForm;
+            this._controller = controller;
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            this.clientForm.Enabled = true;
-            base.OnFormClosing(e);
+            e.Cancel = false;
+            this.Parent = null;
+
+            this._controller.OnClose();
         }
 
-        private void PatientAgeKeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
-
-            // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void PatientHeightKeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
-
-            // Only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void PatientWeightKeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
-
-            // Only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void PatientBodyMassIndexKeyPress(object sender, KeyPressEventArgs e)
+        private void NumberFieldKeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
             {
@@ -82,15 +40,14 @@
 
         private async void SavePatientButtonClick(object sender, EventArgs e)
         {
-
             if (this.patient_name.Text.Trim() != "" && this.patient_surname.Text.Trim() != "" &&
                 this.patient_age.Text.Trim() != "" && this.patient_gender.Text.Trim() != "" &&
                 this.patient_height.Text.Trim() != "" && this.patient_weight.Text.Trim() != "" &&
                 this.patient_description.Text.Trim() != "" && this.patient_body_mass_index.Text.Trim() != "" &&
-                this.patient_fiscal_code.Text.Trim() != "") {
-
+                this.patient_fiscal_code.Text.Trim() != "")
+            {
                 Log.Ok("Create a twin");
-                var modelPatient = new PatientModel
+                var patientModel = new PatientModel
                 {
                     Name = this.patient_name.Text,
                     Surname = this.patient_surname.Text,
@@ -103,12 +60,7 @@
                     FiscalCode = this.patient_fiscal_code.Text
                 };
 
-                bool patientCreated = await this.clientTwins.CreatePatientTwin(modelPatient);
-                if (patientCreated)
-                {
-                    this.Close();
-                    this.clientForm.Enabled = true;
-                }
+                await this._controller.CreatePatient(patientModel);
             }
         }
 

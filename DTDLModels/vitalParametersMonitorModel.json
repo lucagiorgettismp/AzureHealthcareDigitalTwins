@@ -12,7 +12,7 @@
         "@type": "Object",
         "fields": [
           {
-            "name": "last_selected_view",
+            "name": "lastselectedview",
             "displayName": "Last selected view",
             "schema": "integer"
           }

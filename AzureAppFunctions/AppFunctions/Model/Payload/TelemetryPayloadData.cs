@@ -1,10 +1,8 @@
 using Newtonsoft.Json; 
 namespace AppFunctions.Model.Payload
 {
-
     public class TelemetryPayloadData: IEventGridMessagePayloadData
     {
-
         [JsonProperty("temperature")]
         public Sensor Temperature { get; set; }
 
@@ -23,5 +21,4 @@ namespace AppFunctions.Model.Payload
         [JsonProperty("battery_power")]
         public Sensor BatteryPower { get; set; }
     }
-
 }

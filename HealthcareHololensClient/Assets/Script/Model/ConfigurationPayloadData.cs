@@ -1,11 +1,9 @@
 using Newtonsoft.Json; 
 namespace Model
 {
-
     public class ConfigurationPayloadData
     {
-        [JsonProperty("last_selected_view")]
+        [JsonProperty("lastselectedview")]
         public int LastSelectedView { get; set; }
     }
-
-}
+}   

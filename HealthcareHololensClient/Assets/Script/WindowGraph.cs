@@ -19,8 +19,8 @@ public class WindowGraph : MonoBehaviour
 
     private List<float?> pointList;
 
-    const string CircleName = "Circle";
-    const string LineSegmentName = "Segment";
+    const string CIRCLE_NAME = "Circle";
+    const string LINE_SEGMENT_NAME = "Segment";
 
     //private RectTransform labelTemplateX;
     //private RectTransform dashTemplateX;
@@ -45,17 +45,6 @@ public class WindowGraph : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void AddPoint(float point, float yAxisMin, float yAxisMax, Color color)
     {
         if (pointList[pointList.Count -1] == null)
@@ -71,10 +60,9 @@ public class WindowGraph : MonoBehaviour
         UpdateGraph(pointList, yAxisMin, yAxisMax);
     }
 
-
     private GameObject CreateCircle(Vector2 position)
     {
-        GameObject gameObject = new GameObject(CircleName, typeof(Image));
+        GameObject gameObject = new GameObject(CIRCLE_NAME, typeof(Image));
         gameObject.transform.SetParent(graphContainer, false);
         gameObject.GetComponent<Image>().sprite = circleSprite;
 
@@ -116,7 +104,7 @@ public class WindowGraph : MonoBehaviour
     private void ClearGraph()
     {
         var children = new List<GameObject>();
-        var toBeDestroyed = new List<string>() { CircleName, LineSegmentName };
+        var toBeDestroyed = new List<string>() { CIRCLE_NAME, LINE_SEGMENT_NAME };
 
         foreach (RectTransform child in graphContainer)
         {
@@ -137,21 +125,31 @@ public class WindowGraph : MonoBehaviour
         {
             var labelY = Instantiate(labelTemplateY);
             labelY.SetParent(graphContainer, false);
-            labelY.gameObject.SetActive(true);
+
+            UnityMainThread.worker.AddJob(() =>
+            {
+                labelY.gameObject.SetActive(true);
+            });
+
             float normalizedValue = i * 1f / ySeparators;
             labelY.anchoredPosition = new Vector2(-0.006f, normalizedValue * graphHeight);
             labelY.GetComponent<TextMeshPro>().text = Convert.ToInt32(yAxisMin + (normalizedValue * (yAxisMax - yAxisMin))).ToString();
 
             var dashY = Instantiate(dashTemplateY);
             dashY.SetParent(graphContainer, false);
-            dashY.gameObject.SetActive(true);
+
+            UnityMainThread.worker.AddJob(() =>
+            {
+                dashY.gameObject.SetActive(true);
+            });
+
             dashY.anchoredPosition = new Vector2(0f, normalizedValue * graphHeight);
         }
     }
 
     private void CreateSegment(Vector2 dotA, Vector2 dotB)
     {
-        GameObject gameObject = new GameObject(LineSegmentName, typeof(Image));
+        GameObject gameObject = new GameObject(LINE_SEGMENT_NAME, typeof(Image));
         gameObject.transform.SetParent(graphContainer, false);
 
         gameObject.GetComponent<Image>().color = color;
@@ -159,16 +157,14 @@ public class WindowGraph : MonoBehaviour
         RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
         var direction = (dotB - dotA).normalized;
         var distance = Vector2.Distance(dotA, dotB);
-      
+
         rectTransform.anchorMin = new Vector2(0, 0);
         rectTransform.anchorMax = new Vector2(0, 0);
         rectTransform.sizeDelta = new Vector2(distance, 0.0008f);
-        rectTransform.anchoredPosition = dotA + 0.5f * distance * direction;
+        rectTransform.anchoredPosition = dotA + (0.5f * distance * direction);
 
         rectTransform.localEulerAngles = new Vector3(0, 0, GetAngleFromVectorFloat(direction));
-
     }
-
     private static float GetAngleFromVectorFloat(Vector3 direction)
     {
         direction = direction.normalized;

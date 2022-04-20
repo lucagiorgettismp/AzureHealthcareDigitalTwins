@@ -397,9 +397,12 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-AzureTools/AzureAppFunctions/AppFunctions/bin/
-AzureTools/AzureAppFunctions/AppFunctions/obj/
-AzureTools/AzureAppFunctions/AppFunctions/Properties/PublishProfiles/
+AzureAppFunctions/AppFunctions/bin/
+AzureAppFunctions/AppFunctions//obj/
+AzureAppFunctions/AppFunctions//Properties/PublishProfiles/
 
 *.user
-HololensClient/HealthcareHololens/Builds/
+
+HealthcareHololensClient/Builds/
+HealthcareHololensClient/Library/
+HealthcareHololensClient/Temp/

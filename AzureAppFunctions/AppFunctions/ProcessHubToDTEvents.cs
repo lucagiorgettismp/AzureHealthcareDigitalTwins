@@ -30,7 +30,7 @@ namespace AppFunctions
                 Transport = new HttpClientTransport(httpClient)
             });
 
-            log.LogInformation($"ADT service client connection created.");
+            log.LogInformation("ADT service client connection created.");
 
             if (eventGridEvent != null && eventGridEvent.Data != null)
             {
@@ -41,14 +41,14 @@ namespace AppFunctions
 
                 var deviceId = JObject.Parse(eventGridData)["systemProperties"]["iothub-connection-device-id"].ToObject<string>();
 
-                JsonPatchDocument updateTwinData;
+                JsonPatchDocument updateTwinData = null;
 
-                switch (mode) 
+                switch (mode)
                 {
                     case UpdateMode.Telemetry:
                         var telemetry = JObject.Parse(eventGridData)["body"]["data"].ToObject<TelemetryPayloadData>();
                         updateTwinData = BuildUpdatePatchJson(telemetry);
-                        updateTwinData.AppendReplace($"/device_id", deviceId);
+                        updateTwinData.AppendReplace("/device_id", deviceId);
 
                         break;
                     case UpdateMode.Configuration:
@@ -92,8 +92,8 @@ namespace AppFunctions
         private JsonPatchDocument AppendProperties(JsonPatchDocument updateTwinData, Sensor sensor, string path)
         {
             updateTwinData.AppendReplace<string>($"/{path}/sensor_name", sensor.SensorName);
-            updateTwinData.AppendReplace<bool>($"/{path}/alarm", sensor.Alarm);   
-            
+            updateTwinData.AppendReplace<bool>($"/{path}/alarm", sensor.Alarm);
+
             if(sensor is GraphSensor)
             {
                 updateTwinData.AppendReplace<string>($"/{path}/graph_color", (sensor as GraphSensor)?.GraphColor);

@@ -57,7 +57,7 @@ namespace Common.View
             this.TableMain.RowCount = 2;
             this.TableMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 66.94915F));
             this.TableMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.05085F));
-            this.TableMain.Size = new System.Drawing.Size(328, 118);
+            this.TableMain.Size = new System.Drawing.Size(262, 109);
             this.TableMain.TabIndex = 0;
             // 
             // ButtonTable
@@ -68,18 +68,18 @@ namespace Common.View
             this.ButtonTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.25293F));
             this.ButtonTable.Controls.Add(this.ButtonConfirmation, 1, 0);
             this.ButtonTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ButtonTable.Location = new System.Drawing.Point(3, 81);
+            this.ButtonTable.Location = new System.Drawing.Point(3, 75);
             this.ButtonTable.Name = "ButtonTable";
             this.ButtonTable.RowCount = 1;
             this.ButtonTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.ButtonTable.Size = new System.Drawing.Size(322, 34);
+            this.ButtonTable.Size = new System.Drawing.Size(256, 31);
             this.ButtonTable.TabIndex = 0;
             // 
             // ButtonConfirmation
             // 
-            this.ButtonConfirmation.Location = new System.Drawing.Point(108, 3);
+            this.ButtonConfirmation.Location = new System.Drawing.Point(87, 3);
             this.ButtonConfirmation.Name = "ButtonConfirmation";
-            this.ButtonConfirmation.Size = new System.Drawing.Size(80, 28);
+            this.ButtonConfirmation.Size = new System.Drawing.Size(80, 25);
             this.ButtonConfirmation.TabIndex = 0;
             this.ButtonConfirmation.Text = "OK";
             this.ButtonConfirmation.UseVisualStyleBackColor = true;
@@ -97,18 +97,18 @@ namespace Common.View
             this.TableTextSuccess.Name = "TableTextSuccess";
             this.TableTextSuccess.RowCount = 1;
             this.TableTextSuccess.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TableTextSuccess.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
-            this.TableTextSuccess.Size = new System.Drawing.Size(322, 72);
+            this.TableTextSuccess.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 66F));
+            this.TableTextSuccess.Size = new System.Drawing.Size(256, 66);
             this.TableTextSuccess.TabIndex = 1;
             // 
             // LabelTextSuccess
             // 
             this.LabelTextSuccess.AutoSize = true;
             this.LabelTextSuccess.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LabelTextSuccess.Location = new System.Drawing.Point(81, 30);
+            this.LabelTextSuccess.Location = new System.Drawing.Point(66, 30);
             this.LabelTextSuccess.Margin = new System.Windows.Forms.Padding(10, 30, 40, 10);
             this.LabelTextSuccess.Name = "LabelTextSuccess";
-            this.LabelTextSuccess.Size = new System.Drawing.Size(201, 32);
+            this.LabelTextSuccess.Size = new System.Drawing.Size(150, 26);
             this.LabelTextSuccess.TabIndex = 0;
             this.LabelTextSuccess.Text = "Text";
             // 
@@ -118,7 +118,7 @@ namespace Common.View
             this.PictureSuccess.BackColor = System.Drawing.Color.White;
             this.PictureSuccess.ErrorImage = null;
             this.PictureSuccess.Image = ((System.Drawing.Image)(resources.GetObject("PictureSuccess.Image")));
-            this.PictureSuccess.Location = new System.Drawing.Point(23, 23);
+            this.PictureSuccess.Location = new System.Drawing.Point(16, 20);
             this.PictureSuccess.Name = "PictureSuccess";
             this.PictureSuccess.Size = new System.Drawing.Size(24, 25);
             this.PictureSuccess.TabIndex = 1;
@@ -128,7 +128,7 @@ namespace Common.View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(328, 118);
+            this.ClientSize = new System.Drawing.Size(262, 109);
             this.Controls.Add(this.TableMain);
             this.Name = "SuccessForm";
             this.Text = "SuccessForm";

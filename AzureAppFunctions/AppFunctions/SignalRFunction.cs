@@ -17,7 +17,6 @@ namespace AppFunctions
 
     public class SignalRFunction
     {
-
         [FunctionName("negotiate")]
         public static SignalRConnectionInfo GetSignalRInfo(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequest req,
@@ -57,7 +56,7 @@ namespace AppFunctions
                     builder.Append($"_{chunk}");
                 }
 
-                message.Add(builder.ToString(), p.Value);              
+                message.Add(builder.ToString(), p.Value);
             });
 
             log.LogInformation($"Message to send: {string.Join(Environment.NewLine, message)}");

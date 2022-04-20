@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Common
+namespace Common.View
 {
     public partial class ErrorForm : Form
     {

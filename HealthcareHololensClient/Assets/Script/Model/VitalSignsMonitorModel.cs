@@ -1,37 +1,25 @@
 using System;
 using UnityEngine;
 
-public class VitalSignsMonitorModel : BaseApplicationPanel
+public class VitalSignsMonitorModel
 {
-    private SignalRConnector connector;
+    private SignalRConnector _connector;
+    private readonly VitalSignsMonitorController _controller;
 
-    public async void Start()
+    public VitalSignsMonitorModel(VitalSignsMonitorController controller)
+    {
+        this._controller = controller;
+    }
+
+    public async void Init(string deviceId)
     {
         try
         {
-            connector = new SignalRConnector(new Callback(App.Controller));
-            await connector.InitAsync();
+            _connector = new SignalRConnector((message) => this._controller.OnDataReceived(message), deviceId);
+            await _connector.InitAsync();
         }catch(Exception e)
         {
             Debug.LogError("Error model: "+ e.Message);
         }
-    }
-}
-
-public interface ICallback {
-    public void OnMessageReceived(Message message);  
-}
-
-public class Callback : ICallback
-{
-    VitalSignsMonitorController controller;
-    public Callback(VitalSignsMonitorController controller)
-    {
-        this.controller = controller;
-    }
-
-    public void OnMessageReceived(Message message)
-    {
-        this.controller.OnDataReceived(message);
     }
 }

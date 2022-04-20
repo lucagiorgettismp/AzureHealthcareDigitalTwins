@@ -15,7 +15,7 @@
 
         public static DigitalTwinsClient GetClient()
         {
-            Uri adtInstanceUrl;
+            Uri adtInstanceUrl = null;
 
             DigitalTwinsClient twinClient = null;
             IConfiguration config = Setting.ReadConfig();
@@ -27,7 +27,7 @@
                 var credential = new DefaultAzureCredential();
                 twinClient = new DigitalTwinsClient(adtInstanceUrl, credential);
 
-                Log.Ok($"Service twin client created – ready to go!");
+                Log.Ok("Service twin client created – ready to go!");
                 Console.WriteLine();
             }
             return twinClient;

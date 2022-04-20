@@ -10,8 +10,8 @@
 
     public partial class SimulationForm : Form
     {
-        private Timer timerHour = new Timer();
-        private DateTimePicker datePicker = new DateTimePicker();
+        private readonly Timer timerHour = new Timer();
+        private readonly DateTimePicker datePicker = new DateTimePicker();
 
         private Label labDate;
         private Label labHour;
@@ -60,16 +60,11 @@
         private const string ID_CHART_BREATH_FREQUENCY = "BreathFrequencyChart";
         private const string ID_CHART_SATURATION = "SaturationChart";
         private const string ID_CHART_BLOOD_PRESSURE = "BloodPressureChart";
-
-        int MaxPointsInGraph;
+        readonly int MaxPointsInGraph;
 
         public SimulationForm(int maxPointsInGraph = 20)
         {
             InitializeComponent();
-
-            timerHour.Interval = 1000;
-            timerHour.Tick += new EventHandler(TimerTick);
-            timerHour.Start();
 
             this.MaxPointsInGraph = maxPointsInGraph;
             this.ControlBox = false;
@@ -106,7 +101,6 @@
             chartAreaHeartFrequency.AxisY.Minimum = Convert.ToInt32(appSettings["HeartFrequencyMinValue"]);
             chartAreaHeartFrequency.AxisY.Maximum = Convert.ToInt32(appSettings["HeartFrequencyMaxValue"]);
 
-
             this.chartBreathFrequency = this.Controls.Find(ID_CHART_BREATH_FREQUENCY, true).FirstOrDefault() as Chart;
             ChartArea chartAreaBreathFrequency = chartBreathFrequency.ChartAreas[0];
             chartAreaBreathFrequency.AxisY.IntervalType = DateTimeIntervalType.Number;
@@ -124,6 +118,10 @@
             chartAreaBloodPressure.AxisY.IntervalType = DateTimeIntervalType.Number;
             chartAreaBloodPressure.AxisY.Minimum = Convert.ToInt32(appSettings["BloodPressureMinValue"]);
             chartAreaBloodPressure.AxisY.Maximum = Convert.ToInt32(appSettings["BloodPressureMaxValue"]);
+
+            timerHour.Interval = 1000;
+            timerHour.Tick += new EventHandler(TimerTick);
+            timerHour.Start();
         }
 
         private void TimerTick(object sender, EventArgs e)
