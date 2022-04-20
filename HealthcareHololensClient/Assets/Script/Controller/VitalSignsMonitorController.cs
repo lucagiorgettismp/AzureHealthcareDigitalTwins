@@ -82,8 +82,16 @@ public class VitalSignsMonitorController: MonoBehaviour
     {
         try { 
             var configuration =  await this.firebaseApiClient.GetConfigurationAsync(_deviceId);
-            this.View.StopLoading();    
-            this.View.SetSelectedPanel((PanelType)configuration.LastSelectedView);
+            this.View.StopLoading();
+
+            if (configuration == null)
+            {
+                this.View.SetSelectedPanel(PanelType.Home);
+            }
+            else
+            {
+                this.View.SetSelectedPanel((PanelType)configuration.LastSelectedView);
+            }
         }
         catch (Exception e)
         {
