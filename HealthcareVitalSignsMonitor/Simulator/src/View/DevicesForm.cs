@@ -77,16 +77,20 @@ namespace Simulator.View
 
         private void OnDeviceSelected(object sender, EventArgs e)
         {
-            var deviceId = this.listbox_devices.SelectedItem.ToString();
-            if (deviceId != null)
+            try
             {
-                this._controller.OnDeviceSelectedAsync(deviceId);
+                var deviceId = this.listbox_devices.SelectedItem.ToString();
+                if (deviceId != null)
+                {
+                    this._controller.OnDeviceSelectedAsync(deviceId);
 
-                Log.Ok("Click on: " + deviceId);
+                    Log.Ok("Click on: " + deviceId);
 
-                this.start_button.Enabled = true;
-                this.settings_button.Enabled = true;
+                    this.start_button.Enabled = true;
+                    this.settings_button.Enabled = true;
+                }
             }
+            catch (Exception) { }
         }
 
         private void SettingsButtonClick(object sender, EventArgs e)
