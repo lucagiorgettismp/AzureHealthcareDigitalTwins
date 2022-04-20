@@ -21,5 +21,4 @@ public class QRInfo
     public string Data { get; }
     public TimeSpan SystemRelativeLastDetectedTime { get; }
     public DateTimeOffset LastDetectedTime { get; }
-
 }
