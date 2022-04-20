@@ -83,14 +83,14 @@ namespace Client.Controller
         {
             List<string> list = await new TwinOperationsApi().GetTwins(this._twinClient);
 
-            string message;
+            string message = string.Empty();
             if (list.Count == 0)
             {
-                message = "No digital twins found.";
+                message = "No patients found.";
             }
             else
             {
-                message = "Digital twins found!";
+                message = "Patients found!";
             }
 
             this._successForm.SetText(message);

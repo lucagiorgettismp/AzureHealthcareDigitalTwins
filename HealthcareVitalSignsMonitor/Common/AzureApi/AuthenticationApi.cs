@@ -15,7 +15,7 @@
 
         public static DigitalTwinsClient GetClient()
         {
-            Uri adtInstanceUrl;
+            Uri adtInstanceUrl = null;
 
             DigitalTwinsClient twinClient = null;
             IConfiguration config = Setting.ReadConfig();

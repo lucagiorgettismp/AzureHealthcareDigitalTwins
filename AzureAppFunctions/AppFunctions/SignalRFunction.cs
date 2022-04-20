@@ -56,7 +56,7 @@ namespace AppFunctions
                     builder.Append($"_{chunk}");
                 }
 
-                message.Add(builder.ToString(), p.Value);              
+                message.Add(builder.ToString(), p.Value);
             });
 
             log.LogInformation($"Message to send: {string.Join(Environment.NewLine, message)}");

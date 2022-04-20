@@ -44,9 +44,8 @@
                 this.patient_age.Text.Trim() != "" && this.patient_gender.Text.Trim() != "" &&
                 this.patient_height.Text.Trim() != "" && this.patient_weight.Text.Trim() != "" &&
                 this.patient_description.Text.Trim() != "" && this.patient_body_mass_index.Text.Trim() != "" &&
-                this.patient_fiscal_code.Text.Trim() != "") 
+                this.patient_fiscal_code.Text.Trim() != "")
             {
-
                 Log.Ok("Create a twin");
                 var patientModel = new PatientModel
                 {

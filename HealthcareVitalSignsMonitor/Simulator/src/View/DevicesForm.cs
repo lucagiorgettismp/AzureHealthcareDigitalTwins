@@ -73,7 +73,6 @@ namespace Simulator.View
             {
                 this.listbox_devices.Items.Add(device[DEVICE_ID]);
             }
-
         }
 
         private void OnDeviceSelected(object sender, EventArgs e)

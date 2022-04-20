@@ -13,12 +13,12 @@ namespace Simulator
     class SettingsManager
     {
         private const string SETTINGS_PATH = "settings.json";
-        
+
         public static bool SaveUserSettings(DeviceSettings settings)
         {
             try
             {
-                SettingsFileModel settingsFile;
+                SettingsFileModel settingsFile = null;
                 if (!File.Exists(SETTINGS_PATH))
                 {
                     var devices = new List<DeviceSettings> { settings };

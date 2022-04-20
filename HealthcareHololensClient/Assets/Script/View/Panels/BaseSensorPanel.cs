@@ -70,7 +70,6 @@
             }
         }
 
-
         public abstract void InitializeComponent();
         public abstract void UpdateSensorNames(Message message);
         public abstract void UpdateSensorSymbols(Message message);

@@ -41,9 +41,9 @@ namespace AppFunctions
 
                 var deviceId = JObject.Parse(eventGridData)["systemProperties"]["iothub-connection-device-id"].ToObject<string>();
 
-                JsonPatchDocument updateTwinData;
+                JsonPatchDocument updateTwinData = null;
 
-                switch (mode) 
+                switch (mode)
                 {
                     case UpdateMode.Telemetry:
                         var telemetry = JObject.Parse(eventGridData)["body"]["data"].ToObject<TelemetryPayloadData>();
@@ -92,8 +92,8 @@ namespace AppFunctions
         private JsonPatchDocument AppendProperties(JsonPatchDocument updateTwinData, Sensor sensor, string path)
         {
             updateTwinData.AppendReplace<string>($"/{path}/sensor_name", sensor.SensorName);
-            updateTwinData.AppendReplace<bool>($"/{path}/alarm", sensor.Alarm);   
-            
+            updateTwinData.AppendReplace<bool>($"/{path}/alarm", sensor.Alarm);
+
             if(sensor is GraphSensor)
             {
                 updateTwinData.AppendReplace<string>($"/{path}/graph_color", (sensor as GraphSensor)?.GraphColor);

@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class BloodPressurePanel : BaseLineChartSensorPanel
 {
-
     private TextMeshPro _bloodPressureValue;
     private TextMeshPro _bloodPressureSensorName;
     private TextMeshPro _bloodPressureSymbol;

@@ -6,7 +6,6 @@ using Microsoft.MixedReality.Toolkit.Utilities;
 using Microsoft.MixedReality.Toolkit;
 using UnityEngine;
 
-
 [MixedRealityExtensionService(SupportedPlatforms.WindowsUniversal)]
 public class QRCodeTrackingService : BaseExtensionService, IQRCodeTrackingService
 {

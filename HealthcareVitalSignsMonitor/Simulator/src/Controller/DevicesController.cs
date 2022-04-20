@@ -76,8 +76,8 @@ namespace Simulator.Controller
             try
             {
                 devices = await DeviceOperationsApi.GetDevices();
-              
-                string message;
+
+                string message = String.Empty();
                 if (devices.Count != 0)
                 {
                     message = "Device list loaded.";

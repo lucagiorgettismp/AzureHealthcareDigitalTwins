@@ -23,7 +23,7 @@ public class QRTrackerController : MonoBehaviour
     {
         get
         {
-            while (!MixedRealityToolkit.IsInitialized && Time.time < 5) ;
+            while (!MixedRealityToolkit.IsInitialized && Time.time < 5)
             return qrCodeTrackingService ??
                     (qrCodeTrackingService = MixedRealityToolkit.Instance.GetService<IQRCodeTrackingService>());
         }
@@ -46,7 +46,6 @@ public class QRTrackerController : MonoBehaviour
         SpatialGraphCoordinateSystemSetter.PositionAcquired += SetPosition;
         SpatialGraphCoordinateSystemSetter.PositionAcquisitionFailed +=
             (s, e) => ResetTracking();
-
 
         if (QRCodeTrackingService.IsInitialized)
         {

@@ -6,7 +6,6 @@ using UnityEngine;
 #if WINDOWS_UWP
 #endif
 
-
     public abstract class SpatialGraphCoordinateSystemSetter : MonoBehaviour
     {
         public EventHandler<Pose> PositionAcquired;
@@ -76,8 +75,8 @@ using UnityEngine;
 
             // Move the anchor point to the *center* of the QR code
             var deltaToCenter = physicalSideLength * 0.5f;
-            pose.position += (pose.rotation * (deltaToCenter * Vector3.right) -
-                              pose.rotation * (deltaToCenter * Vector3.forward));
+            pose.position += ((pose.rotation * (deltaToCenter * Vector3.right)) -
+                              (pose.rotation * (deltaToCenter * Vector3.forward)));
             CheckPosition(pose);
         }
 
