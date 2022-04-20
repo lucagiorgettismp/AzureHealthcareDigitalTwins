@@ -15,7 +15,7 @@ public class QRCodeController : MonoBehaviour
     {
         get
         {
-            while (!MixedRealityToolkit.IsInitialized && Time.time < 5);
+            while (!MixedRealityToolkit.IsInitialized && Time.time < 5) { }
             return _qrCodeTrackingService ??= MixedRealityToolkit.Instance.GetService<IQRCodeTrackingService>();
         }
     }
