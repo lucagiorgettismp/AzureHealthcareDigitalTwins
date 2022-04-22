@@ -1,6 +1,7 @@
 ﻿namespace Simulator.Controller
 {
     using AzureApi;
+    using Common.Utils.Exceptions;
     using Common.View;
     using Newtonsoft.Json.Linq;
     using System;
@@ -82,7 +83,7 @@
                 this._successForm.SetText(message);
                 this._successForm.Show();
             }
-            catch (Exception ex)
+            catch (DevicesRetrievingException ex)
             {
                 this._errorForm.SetText(ex.Message);
                 this._errorForm.Show();

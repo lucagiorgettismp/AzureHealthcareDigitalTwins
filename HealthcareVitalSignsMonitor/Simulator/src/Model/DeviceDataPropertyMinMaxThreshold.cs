@@ -22,14 +22,13 @@ namespace Simulator.Model
             {
                 return (int)(object)value >= (int)(object)threshold;
             }
-            else if (value is double && threshold is double)
+
+            if (value is double && threshold is double)
             {
                 return (double)(object)value >= (double)(object)threshold;
             }
-            else
-            {
-                throw new InvalidPropertyTypeException();
-            }
+
+            throw new InvalidPropertyTypeException();
         }
     }
 }

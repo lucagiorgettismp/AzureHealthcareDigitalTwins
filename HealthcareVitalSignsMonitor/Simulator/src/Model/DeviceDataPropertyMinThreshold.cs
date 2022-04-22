@@ -15,20 +15,19 @@ namespace Simulator.Model
         public T MinAlertThreshold { get; set; }
 
         /// <exception cref="InvalidPropertyTypeException"/>
-        protected bool CheckMinThresholdAlert(T ta, T tb)
+        protected bool CheckMinThresholdAlert(T value, T threshold)
         {
-            if (ta is int && tb is int)
+            if (value is int && threshold is int)
             {
-                return (int)(object)ta <= (int)(object)tb;
+                return (int)(object)value <= (int)(object)threshold;
             }
-            else if (ta is double && tb is double)
+
+            if (value is double && threshold is double)
             {
-                return (double)(object)ta <= (double)(object)tb;
+                return (double)(object)value <= (double)(object)threshold;
             }
-            else
-            {
-                throw new InvalidPropertyTypeException();
-            }
+
+            throw new InvalidPropertyTypeException();
         }
     }
 }

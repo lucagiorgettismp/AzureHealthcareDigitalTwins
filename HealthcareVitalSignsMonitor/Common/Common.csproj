@@ -202,6 +202,7 @@
     <Compile Include="src\Utils\Exceptions\PatientTwinCreationException.cs" />
     <Compile Include="src\Utils\Exceptions\IotDeviceCreationException.cs" />
     <Compile Include="src\Utils\Exceptions\TwinsRelationshipCreationException.cs" />
+    <Compile Include="src\Utils\Exceptions\DevicesRetrievingException.cs" />
     <Compile Include="src\Utils\Exceptions\VitalSignsMonitorTwinCreationException.cs" />
     <Compile Include="src\Utils\AppSettings.cs" />
     <Compile Include="src\View\ErrorForm.cs">

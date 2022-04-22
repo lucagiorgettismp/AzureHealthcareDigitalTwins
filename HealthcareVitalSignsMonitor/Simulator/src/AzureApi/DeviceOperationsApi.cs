@@ -1,6 +1,4 @@
-﻿using Common.Utils.Exceptions;
-
-namespace Simulator.AzureApi
+﻿namespace Simulator.AzureApi
 {
     using Azure;
     using Common.AzureApi;
@@ -16,18 +14,27 @@ namespace Simulator.AzureApi
     {
         const string QUERY_GET_ALL_DEVICES = "SELECT * FROM devices";
 
+        /// <exception cref="DevicesRetrievingException"/>
         public static async Task<List<JObject>> GetDevices()
         {
-            var registryManager = AuthenticationApi.GetRegistryManager();
-            var query = registryManager.CreateQuery(QUERY_GET_ALL_DEVICES);
-            var jsonDevices = new List<JObject>();
-
-            while (query.HasMoreResults)
+            try
             {
-                var devices = await query.GetNextAsJsonAsync();
-                jsonDevices.AddRange(devices.Select(device => JObject.Parse(device)));
+                var registryManager = AuthenticationApi.GetRegistryManager();
+                var query = registryManager.CreateQuery(QUERY_GET_ALL_DEVICES);
+                var jsonDevices = new List<JObject>();
+
+                while (query.HasMoreResults)
+                {
+                    var devices = await query.GetNextAsJsonAsync();
+                    jsonDevices.AddRange(devices.Select(device => JObject.Parse(device)));
+                }
+                return jsonDevices;
             }
-            return jsonDevices;
+            catch (Exception e)
+            {
+                throw new DevicesRetrievingException(e);
+            }
+
         }
 
         /// <exception cref="ConnectionStringException"/>

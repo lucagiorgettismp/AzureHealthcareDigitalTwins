@@ -77,20 +77,16 @@
 
         private void OnDeviceSelected(object sender, EventArgs e)
         {
-            try
+            var deviceId = this.listbox_devices.SelectedItem?.ToString();
+            if (deviceId != null)
             {
-                var deviceId = this.listbox_devices.SelectedItem?.ToString();
-                if (deviceId != null)
-                {
-                    this._controller.OnDeviceSelectedAsync(deviceId);
+                this._controller.OnDeviceSelectedAsync(deviceId);
 
-                    Log.Ok("Click on: " + deviceId);
+                Log.Ok("Click on: " + deviceId);
 
-                    this.start_button.Enabled = true;
-                    this.settings_button.Enabled = true;
-                }
+                this.start_button.Enabled = true;
+                this.settings_button.Enabled = true;
             }
-            catch (Exception) { }
         }
 
         private void SettingsButtonClick(object sender, EventArgs e)
