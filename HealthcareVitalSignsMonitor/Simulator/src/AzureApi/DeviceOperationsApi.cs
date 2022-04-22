@@ -1,4 +1,6 @@
-﻿namespace Simulator.AzureApi
+﻿using Common.Utils.Exceptions;
+
+namespace Simulator.AzureApi
 {
     using Azure;
     using Common.AzureApi;

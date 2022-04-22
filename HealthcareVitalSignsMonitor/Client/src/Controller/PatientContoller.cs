@@ -1,4 +1,6 @@
-﻿namespace Client.Controller
+﻿using Common.Utils.Exceptions;
+
+namespace Client.Controller
 {
     using Azure.DigitalTwins.Core;
     using Api;

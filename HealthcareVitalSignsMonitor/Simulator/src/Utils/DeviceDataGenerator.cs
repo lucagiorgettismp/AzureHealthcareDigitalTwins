@@ -1,4 +1,6 @@
-﻿namespace Simulator.Utils
+﻿using Common.Utils.Exceptions;
+
+namespace Simulator.Utils
 {
     using Common.Utils.Exceptions;
     using Model;

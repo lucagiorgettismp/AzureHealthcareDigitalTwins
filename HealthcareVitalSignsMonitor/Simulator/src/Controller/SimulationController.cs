@@ -1,4 +1,6 @@
-﻿namespace Simulator.Controller
+﻿using Common.Utils.Exceptions;
+
+namespace Simulator.Controller
 {
     using AzureApi;
     using Common.Enums;

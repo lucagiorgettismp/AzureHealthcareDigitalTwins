@@ -1,3 +1,5 @@
+using Common.Utils.Exceptions;
+
 namespace Client.Api
 {
     using Common.Utils.Exceptions;
