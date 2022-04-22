@@ -60,11 +60,11 @@
             }
         }
 
-        public void SetSensorAlert(GameObject sensor, bool inAlarm)
+        public void SetSensorAlert(GameObject sensor, bool inAlert)
         {
-            sensor.GetComponent<Renderer>().material = inAlarm ? _redColor : _whiteColor;
+            sensor.GetComponent<Renderer>().material = inAlert ? _redColor : _whiteColor;
 
-            if (inAlarm)
+            if (inAlert)
             {
                 sensor.GetComponent<AudioSource>().Play();
             }
