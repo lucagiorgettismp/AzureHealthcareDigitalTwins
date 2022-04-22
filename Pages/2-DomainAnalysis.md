@@ -13,8 +13,8 @@ permalink: /domain_analysis.html
 <p>Molte grandi città del mondo stanno già impiegando questa tecnologia in ambito sanitario. Ad esempio nell’ospedale di Singapore, i chirurgi utilizzano questo approccio per visualizzare ologrammi di referti dei pazienti (come una risonanza magnetica) durante un intervento chirurgico (maggiori informazioni a questo <a href="https://govinsider.asia/citizen-centric/how-a-singapore-hospital-uses-holograms-to-assist-surgery-nuhs-ngiam-kee-yuan/"><em>link</em></a>). Si tratta di un caso simile al nostro ma con una principale differenza: nel nostro caso l’ologramma viene aggiornato in <em>real-time</em> con i dati del paziente.</p>
 
 <div id="#pic:monitor_example">
-<p align="left">
-    <img width="200" src="Images/monitor.png">
+<p align="center">
+    <img width="450" src="Images/monitor.png">
 </p>
 </div>
 
@@ -75,10 +75,6 @@ permalink: /domain_analysis.html
 <td style="text-align: left;">Unit of measurement</td>
 <td style="text-align: left;">Unità di misura utilizzata per rappresentare il valore di uno specifico parametro vitale.</td>
 </tr>
-</tbody>
-</table>
-<div id="tab:mixed-reality-ubiquitous-language-table">
-<tbody>
 <tr class="odd">
 <td style="text-align: left;">Paziente</td>
 <td style="text-align: left;">Patient</td>
@@ -101,7 +97,6 @@ permalink: /domain_analysis.html
 </tr>
 </tbody>
 </table>
-</div>
 <h2 id="requisiti">Requisiti</h2>
 <p>Una delle fasi fondamentali dell’intero processo di analisi, è ricaduta nella definizione dei requisiti che il progetto dovrà soddisfare. Questi verranno raffinati in corso d’opera andando a creare una comprensione del dominio sempre più approfondita. Verranno descritti i requisiti di business, utente, quelli legati al sistema, funzionali e non funzionali.</p>
 <h3 id="business">Business</h3>
@@ -136,7 +131,7 @@ permalink: /domain_analysis.html
 
 <div id="#pic:use-cases">
 <p align="center">
-    <img width="200" src="Images/useCase.png">
+    <img width="450" src="Images/useCase.png">
 </p>
 </div>
 
@@ -162,7 +157,7 @@ permalink: /domain_analysis.html
 
 <div id="#pic:domain-model">
 <p align="center">
-    <img width="200" src="Images/domain_model.png">
+    <img width="450" src="Images/domain_model.png">
 </p>
 </div>
 
@@ -181,7 +176,7 @@ permalink: /domain_analysis.html
 
 <div id="#pic:bounded-context">
 <p align="center">
-    <img width="200" src="Images/bounded_context.png">
+    <img width="450" src="Images/bounded_context.png">
 </p>
 </div>>
 
