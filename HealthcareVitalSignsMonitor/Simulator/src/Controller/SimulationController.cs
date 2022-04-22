@@ -3,6 +3,7 @@
     using AzureApi;
     using Common.Enums;
     using Common.Utils;
+    using Common.Utils.Exceptions;
     using Microsoft.Azure.Devices.Client;
     using Model;
     using Model.Payload;
@@ -15,7 +16,7 @@
     using Utils;
     using View;
 
-    internal class SimulatorController
+    internal class SimulationController
     {
         private readonly string _deviceId;
         private readonly SimulationForm _view;
@@ -23,7 +24,7 @@
         private DeviceDataGenerator _deviceDataGenerator;
         private DeviceClient _deviceClient;
 
-        public SimulatorController(string deviceId)
+        public SimulationController(string deviceId)
         {
             this._deviceId = deviceId;
 
@@ -37,8 +38,16 @@
 
         public async Task InitAsync()
         {
-            var connectionString = await DeviceOperationsApi.GetConnectionString(_deviceId);
-            this._deviceClient = DeviceClient.CreateFromConnectionString(connectionString);
+            try
+            {
+                var connectionString = await DeviceOperationsApi.GetConnectionString(_deviceId);
+                this._deviceClient = DeviceClient.CreateFromConnectionString(connectionString);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
         }
 
         internal void StopDevice()
@@ -53,7 +62,15 @@
             this._view.Show();
 
             this._tokenSource = new CancellationTokenSource();
-            this._deviceDataGenerator = new DeviceDataGenerator(_deviceId);
+            try
+            {
+                this._deviceDataGenerator = new DeviceDataGenerator(_deviceId);
+            }
+            catch (InvalidPropertyTypeException e)
+            {
+                Console.WriteLine(e);
+            }
+
             await this.Simulation();
         }
 

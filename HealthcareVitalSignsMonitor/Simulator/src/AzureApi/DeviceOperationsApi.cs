@@ -3,6 +3,7 @@
     using Azure;
     using Common.AzureApi;
     using Common.Utils;
+    using Common.Utils.Exceptions;
     using Newtonsoft.Json.Linq;
     using System;
     using System.Collections.Generic;
@@ -27,6 +28,7 @@
             return jsonDevices;
         }
 
+        /// <exception cref="ConnectionStringException"/>
         public static async Task<string> GetConnectionString(string deviceId)
         {
             string connection = null;
@@ -41,11 +43,12 @@
                 connection = $"HostName={host};DeviceId={device.Id};SharedAccessKey={device.Authentication.SymmetricKey.PrimaryKey}";
                 Log.Ok($"Connections string of device {device.Id}: {connection}");
             }
-            catch (RequestFailedException e)
+            catch (Exception e) when (e is RequestFailedException || e is AppSettingsReadingException)
             {
-                Log.Error($"Create device error: {e.Status}: {e.Message}");
+                Log.Error($"Create device error: {e}: {e.Message}");
+
+                throw new ConnectionStringException("Cannot get the device connection string", e);
             }
-            Console.WriteLine();
 
             return connection;
         }

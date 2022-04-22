@@ -1,15 +1,16 @@
-﻿using Azure.DigitalTwins.Core;
-using Client.Api;
-using Client.View;
-using Common.AzureApi;
-using Common.Utils;
-using Common.View;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-namespace Client.Controller
+﻿namespace Client.Controller
 {
+    using Api;
+    using Azure.DigitalTwins.Core;
+    using Common.AzureApi;
+    using Common.Utils;
+    using Common.Utils.Exceptions;
+    using Common.View;
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using System.Windows.Forms;
+    using View;
 
     internal class DigitalTwinsController
     {
@@ -50,9 +51,10 @@ namespace Client.Controller
             {
                 this._twinClient = AuthenticationApi.GetClient();
             }
-            catch (Exception e)
+            catch (ClientAuthenticationException e)
             {
                 Log.Error(e.Message);
+
                 this._errorForm.SetText(e.Message);
                 this._errorForm.Show();
             }

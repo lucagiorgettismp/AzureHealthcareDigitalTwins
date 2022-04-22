@@ -1,9 +1,9 @@
 ﻿namespace Simulator.Controller
 {
     using Common.View;
-    using Manager;
     using Model.Settings;
     using System.Windows.Forms;
+    using Utils;
     using View;
 
     public class SettingsController

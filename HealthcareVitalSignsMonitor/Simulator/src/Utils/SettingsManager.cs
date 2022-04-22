@@ -1,4 +1,4 @@
-﻿namespace Simulator.Manager
+﻿namespace Simulator.Utils
 {
     using Common.Utils;
     using Model.Settings;

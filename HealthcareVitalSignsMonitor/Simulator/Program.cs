@@ -7,7 +7,7 @@
 
     internal static class Program
     {
-        public static SimulatorController _simulatorController;
+        public static SimulationController _simulationController;
         public static SettingsController _settingsController;
 
         /// <summary>
@@ -41,24 +41,24 @@
 
         private static void OnDeviceStop()
         {
-            _simulatorController.StopDevice();
+            _simulationController.StopDevice();
         }
 
         private static async Task OnDeviceStartAsync()
         {
-            await _simulatorController.StartDeviceAsync();
+            await _simulationController.StartDeviceAsync();
         }
 
         private static async Task OnDeviceSelectedAsync(string deviceId)
         {
-            _simulatorController = new SimulatorController(deviceId);
-            await _simulatorController.InitAsync();
+            _simulationController = new SimulationController(deviceId);
+            await _simulationController.InitAsync();
             _settingsController = new SettingsController(deviceId);
         }
 
         private static void OnControlPanelClose()
         {
-            _simulatorController?.StopDevice();
+            _simulationController?.StopDevice();
             _settingsController?.Close();
         }
     }

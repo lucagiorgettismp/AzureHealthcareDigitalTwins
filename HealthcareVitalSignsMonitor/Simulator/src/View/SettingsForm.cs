@@ -1,12 +1,11 @@
-﻿using System.Globalization;
-
-namespace Simulator.View
+﻿namespace Simulator.View
 {
     using Controller;
-    using Manager;
     using Model.Settings;
     using System;
+    using System.Globalization;
     using System.Windows.Forms;
+    using Utils;
 
     public partial class SettingsForm : Form
     {
@@ -62,6 +61,7 @@ namespace Simulator.View
                 this.temperature_alert_min.Text = settings.Temperature.MinAlertThreashold.ToString(CultureInfo.CurrentCulture);
                 this.temperature_max.Text = settings.Temperature.MaxValue.ToString(CultureInfo.CurrentCulture);
                 this.temperature_min.Text = settings.Temperature.MinValue.ToString(CultureInfo.CurrentCulture);
+                this.temperature_uom.Items.Clear();
                 this.temperature_uom.Items.AddRange(this.GetTemperatureValues());
                 this.temperature_uom.SelectedIndex = temperature_uom.FindStringExact(SettingsManager.GetTemperatureUnitOfMeasurementBySymbol(settings.Temperature.UnitOfMeasurement)?.Label());
             }

@@ -1,5 +1,6 @@
 namespace Client.Api
 {
+    using Common.Utils.Exceptions;
     using DTLDModels;
     using Models;
     using Newtonsoft.Json;
@@ -22,18 +23,26 @@ namespace Client.Api
             _client = new RestClient(baseUrl);
         }
 
+        /// <exception cref="FirebaseCreatePatientException"/>
         public void CreatePatient(PatientModel patient)
         {
-            var request = new RestRequest($"/patients/{patient.FiscalCode}.json?auth={_authToken}", Method.PUT);
-            request.AddHeader("Content-Type", "application/json");
+            try
+            {
+                var request = new RestRequest($"/patients/{patient.FiscalCode}.json?auth={_authToken}", Method.PUT);
+                request.AddHeader("Content-Type", "application/json");
 
-            var dbModel = new PatientTwin(patient);
+                var dbModel = new PatientTwin(patient);
 
-            var body = JsonConvert.SerializeObject(dbModel);
+                var body = JsonConvert.SerializeObject(dbModel);
 
-            request.AddParameter("application/json", body, ParameterType.RequestBody);
-            IRestResponse response = _client.Execute(request);
-            Console.WriteLine(response.Content);
+                request.AddParameter("application/json", body, ParameterType.RequestBody);
+                IRestResponse response = _client.Execute(request);
+                Console.WriteLine(response.Content);
+            }
+            catch (Exception e)
+            {
+                throw new FirebaseCreatePatientException(e);
+            }
         }
     }
 }
