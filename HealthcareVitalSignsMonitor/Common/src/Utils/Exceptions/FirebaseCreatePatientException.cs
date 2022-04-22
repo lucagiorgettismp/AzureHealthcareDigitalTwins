@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace Common.Utils.Exceptions
 {
     [Serializable]
