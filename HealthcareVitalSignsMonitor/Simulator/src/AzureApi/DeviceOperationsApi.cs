@@ -1,32 +1,28 @@
-﻿using Azure;
-using Common.AzureApi;
-using Common.Utils;
-using Microsoft.Azure.Devices;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace Simulator.AzureApi
+﻿namespace Simulator.AzureApi
 {
-    class DeviceOperationsApi
+    using Azure;
+    using Common.AzureApi;
+    using Common.Utils;
+    using Newtonsoft.Json.Linq;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    internal class DeviceOperationsApi
     {
         const string QUERY_GET_ALL_DEVICES = "SELECT * FROM devices";
 
         public static async Task<List<JObject>> GetDevices()
         {
-            RegistryManager rm = AuthenticationApi.GetRegistryManager();
-            var query = rm.CreateQuery(QUERY_GET_ALL_DEVICES);
-            List<JObject> jsonDevices = new List<JObject>();
+            var registryManager = AuthenticationApi.GetRegistryManager();
+            var query = registryManager.CreateQuery(QUERY_GET_ALL_DEVICES);
+            var jsonDevices = new List<JObject>();
 
             while (query.HasMoreResults)
             {
                 var devices = await query.GetNextAsJsonAsync();
-                foreach (var device in devices)
-                {
-                    JObject json = JObject.Parse(device);
-                    jsonDevices.Add(json);
-                }
+                jsonDevices.AddRange(devices.Select(device => JObject.Parse(device)));
             }
             return jsonDevices;
         }
@@ -34,12 +30,12 @@ namespace Simulator.AzureApi
         public static async Task<string> GetConnectionString(string deviceId)
         {
             string connection = null;
-            RegistryManager rm = AuthenticationApi.GetRegistryManager();
+            var registryManager = AuthenticationApi.GetRegistryManager();
             try
             {
                 // Get device
-                Device device = await rm.GetDeviceAsync(deviceId);
-                string host = AuthenticationApi.GetHost();
+                var device = await registryManager.GetDeviceAsync(deviceId);
+                var host = AuthenticationApi.GetHost();
 
                 // Get string connection
                 connection = $"HostName={host};DeviceId={device.Id};SharedAccessKey={device.Authentication.SymmetricKey.PrimaryKey}";

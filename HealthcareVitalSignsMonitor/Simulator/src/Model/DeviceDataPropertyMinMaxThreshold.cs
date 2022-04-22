@@ -1,24 +1,24 @@
 ﻿namespace Simulator.Model
 {
-    using Simulator.Utils.Exceptions;
+    using Utils.Exceptions;
     public class DeviceDataPropertyMinMaxThreshold<T> : DeviceDataPropertyMinThreshold<T>
     {
         internal void SetValue(T value) {
             this.Value = value;
-            this.InAlarm = CheckMinThresholdAlarm(value, this.MinAlertThreashold) || CheckMaxThresholdAlarm(this.Value, this.MaxAlertThrehshold);
+            this.InAlert = CheckMinThresholdAlert(value, this.MinAlertThreashold) || CheckMaxThresholdAlert(this.Value, this.MaxAlertThreshold);
         }
 
-        public T MaxAlertThrehshold { get; set; }
+        public T MaxAlertThreshold { get; set; }
 
-        private bool CheckMaxThresholdAlarm(T ta, T tb)
+        private static bool CheckMaxThresholdAlert(T value, T threshold)
         {
-            if (ta is int && tb is int)
+            if (value is int && threshold is int)
             {
-                return (int)(object)ta >= (int)(object)tb;
+                return (int)(object)value >= (int)(object)threshold;
             }
-            else if (ta is double && tb is double)
+            else if (value is double && threshold is double)
             {
-                return (double)(object)ta >= (double)(object)tb;
+                return (double)(object)value >= (double)(object)threshold;
             }
             else
             {

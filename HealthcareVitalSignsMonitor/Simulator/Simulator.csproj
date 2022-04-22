@@ -355,7 +355,6 @@
     <Compile Include="src\Model\Settings\SensorSettingsMinMaxThreashold.cs" />
     <Compile Include="src\Model\Settings\SensorSettingsMinThreashold.cs" />
     <Compile Include="src\Manager\SettingsManager.cs" />
-    <Compile Include="src\Controller\VitalSignsMonitorPayloadParameter.cs" />
     <Compile Include="src\Model\DeviceData.cs" />
     <Compile Include="src\Model\DeviceDataPropertyMinMaxThreshold.cs" />
     <Compile Include="src\Model\DeviceDataPropertyMinThreshold.cs" />

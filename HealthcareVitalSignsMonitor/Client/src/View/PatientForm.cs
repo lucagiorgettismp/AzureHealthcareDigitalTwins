@@ -1,7 +1,7 @@
 ﻿namespace Client.View
 {
-    using Client.Controller;
-    using Client.Models;
+    using Controller;
+    using Models;
     using Common.Utils;
     using System;
     using System.Windows.Forms;

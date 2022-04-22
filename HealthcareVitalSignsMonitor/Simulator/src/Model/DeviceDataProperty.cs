@@ -14,7 +14,7 @@
 
         public string GraphColor { get; set; }
 
-        public bool InAlarm { get; internal set; }
+        public bool InAlert { get; internal set; }
 
         public T UpdateDelta { get; set; }
 

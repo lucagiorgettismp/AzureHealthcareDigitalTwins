@@ -89,8 +89,8 @@ namespace SimulatorTests
             double.TryParse(appSettings["TemperatureUpdateDelta"], NumberStyles.Any, CultureInfo.CurrentCulture, out TemperatureUpdateDelta);
             double.TryParse(appSettings["TemperatureMinValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out TemperatureMinValue);
             double.TryParse(appSettings["TemperatureMaxValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out TemperatureMaxValue);
-            double.TryParse(appSettings["TemperatureMinAlarmThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out TemperatureMinThresholdValue);
-            double.TryParse(appSettings["TemperatureMaxAlarmThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out TemperatureMaxThresholdValue);
+            double.TryParse(appSettings["TemperatureMinAlertThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out TemperatureMinThresholdValue);
+            double.TryParse(appSettings["TemperatureMaxAlertThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out TemperatureMaxThresholdValue);
 
             // Setting Heart Frequency
             double.TryParse(appSettings["HeartFrequencyUpdateDelta"], NumberStyles.Any, CultureInfo.CurrentCulture, out HeartFrequencyUpdateDelta);
@@ -103,27 +103,27 @@ namespace SimulatorTests
             double.TryParse(appSettings["BreathFrequencyUpdateDelta"], NumberStyles.Any, CultureInfo.CurrentCulture, out BreathFrequencyUpdateDelta);
             double.TryParse(appSettings["BreathFrequencyMinValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BreathFrequencyMinValue);
             double.TryParse(appSettings["BreathFrequencyMaxValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BreathFrequencyMaxValue);
-            double.TryParse(appSettings["BreathFrequencyMinAlarmThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BreathFrequencyMinThresholdValue);
-            double.TryParse(appSettings["BreathFrequencyMaxAlarmThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BreathFrequencyMaxThresholdValue);
+            double.TryParse(appSettings["BreathFrequencyMinAlertThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BreathFrequencyMinThresholdValue);
+            double.TryParse(appSettings["BreathFrequencyMaxAlertThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BreathFrequencyMaxThresholdValue);
 
             // Setting Saturation
             double.TryParse(appSettings["SaturationUpdateDelta"], NumberStyles.Any, CultureInfo.CurrentCulture, out SaturationUpdateDelta);
             double.TryParse(appSettings["SaturationMinValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out SaturationMinValue);
             double.TryParse(appSettings["SaturationMaxValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out SaturationMaxValue);
-            double.TryParse(appSettings["SaturationMinAlarmThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out SaturationMinThresholdValue);
+            double.TryParse(appSettings["SaturationMinAlertThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out SaturationMinThresholdValue);
 
             // Setting Blood Pressure
             double.TryParse(appSettings["BloodPressureUpdateDelta"], NumberStyles.Any, CultureInfo.CurrentCulture, out BloodPressureUpdateDelta);
             double.TryParse(appSettings["BloodPressureMinValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BloodPressureMinValue);
             double.TryParse(appSettings["BloodPressureMaxValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BloodPressureMaxValue);
-            double.TryParse(appSettings["BloodPressureMinAlarmThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BloodPressureMinThresholdValue);
-            double.TryParse(appSettings["BloodPressureMaxAlarmThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BloodPressureMaxThresholdValue);
+            double.TryParse(appSettings["BloodPressureMinAlertThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BloodPressureMinThresholdValue);
+            double.TryParse(appSettings["BloodPressureMaxAlertThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BloodPressureMaxThresholdValue);
 
             // Setting Battery
             double.TryParse(appSettings["BatteryUpdateDelta"], NumberStyles.Any, CultureInfo.CurrentCulture, out BatteryUpdateDelta);
             double.TryParse(appSettings["BatteryMinValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BatteryMinValue);
             double.TryParse(appSettings["BatteryMaxValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BatteryMaxValue);
-            double.TryParse(appSettings["BatteryMinAlarmThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BatteryMinThresholdValue);
+            double.TryParse(appSettings["BatteryMinAlertThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BatteryMinThresholdValue);
         }
 
         private void TestTemperatureDataGenerated(DeviceDataPropertyMinMaxThreshold<double> temperature)
@@ -136,8 +136,8 @@ namespace SimulatorTests
 
             TemperatureValue = currentValue;
 
-            bool inAlarm = temperature.InAlarm;
-            Assert.AreEqual(CheckMinMaxAlarmSensors(TemperatureValue, TemperatureMinThresholdValue, TemperatureMaxThresholdValue), inAlarm);
+            var inAlert = temperature.InAlert;
+            Assert.AreEqual(CheckMinMaxAlertSensors(TemperatureValue, TemperatureMinThresholdValue, TemperatureMaxThresholdValue), inAlert);
         }
 
         private void TestHeartFrequencyDataGenerated(DeviceDataPropertyMinMaxThreshold<int> heartFrequency)
@@ -150,8 +150,8 @@ namespace SimulatorTests
 
             HeartFrequencyValue = currentValue;
 
-            bool inAlarm = heartFrequency.InAlarm;
-            Assert.AreEqual(CheckMinMaxAlarmSensors(HeartFrequencyValue, HeartFrequencyMinThresholdValue, HeartFrequencyMaxThresholdValue), inAlarm);
+            var inAlert = heartFrequency.InAlert;
+            Assert.AreEqual(CheckMinMaxAlertSensors(HeartFrequencyValue, HeartFrequencyMinThresholdValue, HeartFrequencyMaxThresholdValue), inAlert);
         }
 
         private void TestBreathFrequencyDataGenerated(DeviceDataPropertyMinMaxThreshold<int> breathFrequency)
@@ -164,8 +164,8 @@ namespace SimulatorTests
 
             BreathFrequencyValue = currentValue;
 
-            bool inAlarm = breathFrequency.InAlarm;
-            Assert.AreEqual(CheckMinMaxAlarmSensors(BreathFrequencyValue, BreathFrequencyMinThresholdValue, BreathFrequencyMaxThresholdValue), inAlarm);
+            bool inAlert = breathFrequency.InAlert;
+            Assert.AreEqual(CheckMinMaxAlertSensors(BreathFrequencyValue, BreathFrequencyMinThresholdValue, BreathFrequencyMaxThresholdValue), inAlert);
         }
 
         private void TestSaturationDataGenerated(DeviceDataPropertyMinThreshold<int> saturation)
@@ -178,8 +178,8 @@ namespace SimulatorTests
 
             SaturationValue = currentValue;
 
-            bool inAlarm = saturation.InAlarm;
-            Assert.AreEqual(CheckMinAlarmSensors(SaturationValue, SaturationMinThresholdValue), inAlarm);
+            bool inAlert = saturation.InAlert;
+            Assert.AreEqual(CheckMinAlertSensors(SaturationValue, SaturationMinThresholdValue), inAlert);
         }
 
         private void TestBloodPressureDataGenerated(DeviceDataPropertyMinMaxThreshold<int> bloodPressure)
@@ -192,8 +192,8 @@ namespace SimulatorTests
 
             BloodPressureValue = currentValue;
 
-            bool inAlarm = bloodPressure.InAlarm;
-            Assert.AreEqual(CheckMinMaxAlarmSensors(BloodPressureValue, BloodPressureMinThresholdValue, BloodPressureMaxThresholdValue), inAlarm);
+            bool inAlert = bloodPressure.InAlert;
+            Assert.AreEqual(CheckMinMaxAlertSensors(BloodPressureValue, BloodPressureMinThresholdValue, BloodPressureMaxThresholdValue), inAlert);
         }
 
         private void TestBatteryPowerDataGenerated(DeviceDataPropertyMinThreshold<int> batteryPower)
@@ -206,8 +206,8 @@ namespace SimulatorTests
 
             BatteryValue = currentValue;
 
-            bool inAlarm = batteryPower.InAlarm;
-            Assert.AreEqual(CheckMinAlarmSensors(BatteryValue, BatteryMinThresholdValue), inAlarm);
+            bool inAlert = batteryPower.InAlert;
+            Assert.AreEqual(CheckMinAlertSensors(BatteryValue, BatteryMinThresholdValue), inAlert);
         }
 
         private bool CheckSensorsDataGenerated(double initValue, double newValue, double delta, double minValue, double maxValue)
@@ -228,12 +228,12 @@ namespace SimulatorTests
             return false;
         }
 
-        private bool CheckMinMaxAlarmSensors(double value, double minThreshold, double maxThreshold)
+        private bool CheckMinMaxAlertSensors(double value, double minThreshold, double maxThreshold)
         {
             return minThreshold >= value || value >= maxThreshold;
         }
 
-        private bool CheckMinAlarmSensors(double value, double minThreshold)
+        private bool CheckMinAlertSensors(double value, double minThreshold)
         {
             return minThreshold >= value;
         }

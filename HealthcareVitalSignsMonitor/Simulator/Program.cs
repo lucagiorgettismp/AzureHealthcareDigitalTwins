@@ -1,11 +1,11 @@
 ﻿namespace Simulator
 {
-    using Simulator.Controller;
+    using Controller;
     using System;
     using System.Threading.Tasks;
     using System.Windows.Forms;
 
-    static class Program
+    internal static class Program
     {
         public static SimulatorController _simulatorController;
         public static SettingsController _settingsController;
@@ -19,9 +19,19 @@
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            DevicesController controlPanelController = new DevicesController(() => OnControlPanelClose(), async (deviceId) => await OnDeviceSelectedAsync(deviceId), async () => await OnDeviceStartAsync(), () => OnDeviceStop(), () => OnSettings());
+            var controlPanelController = new DevicesController(OnControlPanelClose, OnDeviceSelected, OnStartClick, OnDeviceStop, OnSettings);
 
             controlPanelController.Start();
+        }
+
+        private static async void OnStartClick()
+        {
+            await OnDeviceStartAsync();
+        }
+
+        private static async void OnDeviceSelected(string deviceId)
+        {
+            await OnDeviceSelectedAsync(deviceId);
         }
 
         private static void OnSettings()
@@ -48,15 +58,8 @@
 
         private static void OnControlPanelClose()
         {
-            if (_simulatorController != null)
-            {
-                _simulatorController.StopDevice();
-            }
-
-            if (_settingsController != null)
-            {
-                _settingsController.Close();
-            }
+            _simulatorController?.StopDevice();
+            _settingsController?.Close();
         }
     }
 }

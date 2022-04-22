@@ -752,7 +752,7 @@ namespace Simulator.View
             }
         }
 
-        private string[] GetTemperatureValues()
+        private object[] GetTemperatureValues()
         {
             var labels = new List<string>();
             foreach (TemperatureUnitOfMeasurement uom in Enum.GetValues(typeof(TemperatureUnitOfMeasurement)))

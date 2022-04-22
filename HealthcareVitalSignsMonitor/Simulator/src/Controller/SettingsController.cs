@@ -1,10 +1,11 @@
-﻿using Common.View;
-using Simulator.Model.Settings;
-using Simulator.View;
-using System.Windows.Forms;
-
-namespace Simulator.Controller
+﻿namespace Simulator.Controller
 {
+    using Common.View;
+    using Manager;
+    using Model.Settings;
+    using System.Windows.Forms;
+    using View;
+
     public class SettingsController
     {
         private readonly string _deviceId;

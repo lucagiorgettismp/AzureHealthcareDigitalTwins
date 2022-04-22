@@ -1,18 +1,18 @@
-using Client.Api.DTLDModels;
-using Client.Models;
-using Newtonsoft.Json;
-using RestSharp;
-using System;
-using System.Configuration;
-
 namespace Client.Api
 {
-    public class FirebaseRestAPIClient
+    using DTLDModels;
+    using Models;
+    using Newtonsoft.Json;
+    using RestSharp;
+    using System;
+    using System.Configuration;
+
+    public class FirebaseRestApiClient
     {
         private readonly RestClient _client;
         private readonly string _authToken;
 
-        public FirebaseRestAPIClient()
+        public FirebaseRestApiClient()
         {
             var appSettings = ConfigurationManager.AppSettings;
 

@@ -7,11 +7,11 @@ using Common.View;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-
 namespace Client.Controller
 {
-    class DigitalTwinsController
+    using System.Windows.Forms;
+
+    internal class DigitalTwinsController
     {
         private readonly DigitalTwinsForm _view;
         private readonly Action _onAddPatientClick;
@@ -83,16 +83,7 @@ namespace Client.Controller
         {
             var list = await new TwinOperationsApi().GetTwins(this._twinClient);
 
-            var message = string.Empty;
-
-            if (list.Count == 0)
-            {
-                message = "No patients found.";
-            }
-            else
-            {
-                message = "Patients found!";
-            }
+            var message = list.Count == 0 ? "No patients found." : "Patients retrieved.";
 
             this._successForm.SetText(message);
             this._successForm.Show();

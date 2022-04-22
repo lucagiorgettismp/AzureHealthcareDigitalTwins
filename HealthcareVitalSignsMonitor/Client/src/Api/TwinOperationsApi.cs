@@ -2,8 +2,8 @@
 {
     using Azure;
     using Azure.DigitalTwins.Core;
-    using Client.Api.DTLDModels;
-    using Client.Models;
+    using DTLDModels;
+    using Models;
     using Common.AzureApi;
     using Common.Utils;
     using Microsoft.Azure.Devices;
@@ -19,7 +19,7 @@
         // Name relationship
         private const string NAME_RELATIONSHIP = "rel_has_monitor";
 
-        // Model devideId
+        // Model deviceId
         private const string MONITOR_MODEL_ID = "dtmi:healthCareDT:VitalParametersMonitor;1";
         private const string PATIENT_MODEL_ID = "dtmi:healthCareDT:Patient;1";
 
@@ -136,7 +136,7 @@
             return new SensorComponent
             {
                 SensorName = EMPTY_VALUE,
-                Alarm = false,
+                Alert = false,
                 SensorValue = new SensorValueComponent
                 {
                     Value = 0,
@@ -153,7 +153,7 @@
             return new GraphSensorComponent
             {
                 SensorName = EMPTY_VALUE,
-                Alarm = false,
+                Alert = false,
                 GraphColor = EMPTY_VALUE,
                 SensorValue = new SensorValueComponent
                 {

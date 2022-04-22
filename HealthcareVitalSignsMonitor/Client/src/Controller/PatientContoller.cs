@@ -1,16 +1,16 @@
-﻿using Azure.DigitalTwins.Core;
-using Client.Api;
-using Client.Models;
-using Client.View;
-using Common.AzureApi;
-using Common.Utils;
-using Common.View;
-using System;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace Client.Controller
+﻿namespace Client.Controller
 {
+    using Azure.DigitalTwins.Core;
+    using Api;
+    using Models;
+    using View;
+    using Common.AzureApi;
+    using Common.Utils;
+    using Common.View;
+    using System;
+    using System.Threading.Tasks;
+    using System.Windows.Forms;
+
     public class PatientController
     {
         private PatientForm _view;
@@ -79,7 +79,7 @@ namespace Client.Controller
             try
             {
                 await new TwinOperationsApi().CreatePatient(_twinClient, model);
-                new FirebaseRestAPIClient().CreatePatient(model);
+                new FirebaseRestApiClient().CreatePatient(model);
 
                 this._successForm.SetText("Patient added successfully!");
                 this._successForm.Show();

@@ -1,12 +1,12 @@
-﻿using Common.Utils;
-using Simulator.Controller;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-
-namespace Simulator.View
+﻿namespace Simulator.View
 {
+    using Common.Utils;
+    using Controller;
+    using Newtonsoft.Json.Linq;
+    using System;
+    using System.Collections.Generic;
+    using System.Windows.Forms;
+
     public partial class DevicesForm : Form
     {
         private readonly DevicesController _controller;
@@ -64,7 +64,7 @@ namespace Simulator.View
             Log.Ok("Get all devices...");
             this.listbox_devices.Items.Add("Getting all devices");
 
-            List<JObject> devices = await this._controller.GetDevicesAsync();
+            var devices = await this._controller.GetDevicesAsync();
 
             this.listbox_devices.Items.Clear();
             this.listbox_devices.Enabled = true;
@@ -79,7 +79,7 @@ namespace Simulator.View
         {
             try
             {
-                var deviceId = this.listbox_devices.SelectedItem.ToString();
+                var deviceId = this.listbox_devices.SelectedItem?.ToString();
                 if (deviceId != null)
                 {
                     this._controller.OnDeviceSelectedAsync(deviceId);

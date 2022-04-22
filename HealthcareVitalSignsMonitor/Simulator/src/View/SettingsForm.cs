@@ -1,10 +1,13 @@
-﻿using Simulator.Controller;
-using Simulator.Model.Settings;
-using System;
-using System.Windows.Forms;
+﻿using System.Globalization;
 
 namespace Simulator.View
 {
+    using Controller;
+    using Manager;
+    using Model.Settings;
+    using System;
+    using System.Windows.Forms;
+
     public partial class SettingsForm : Form
     {
         private readonly SettingsController _controller;
@@ -55,10 +58,10 @@ namespace Simulator.View
                 this.saturation_alert_min.Text = settings.Saturation.MinAlertThreashold.ToString();
 
                 // Temperature
-                this.temperature_alert_max.Text = settings.Temperature.MaxAlertThreashold.ToString();
-                this.temperature_alert_min.Text = settings.Temperature.MinAlertThreashold.ToString();
-                this.temperature_max.Text = settings.Temperature.MaxValue.ToString();
-                this.temperature_min.Text = settings.Temperature.MinValue.ToString();
+                this.temperature_alert_max.Text = settings.Temperature.MaxAlertThreashold.ToString(CultureInfo.CurrentCulture);
+                this.temperature_alert_min.Text = settings.Temperature.MinAlertThreashold.ToString(CultureInfo.CurrentCulture);
+                this.temperature_max.Text = settings.Temperature.MaxValue.ToString(CultureInfo.CurrentCulture);
+                this.temperature_min.Text = settings.Temperature.MinValue.ToString(CultureInfo.CurrentCulture);
                 this.temperature_uom.Items.AddRange(this.GetTemperatureValues());
                 this.temperature_uom.SelectedIndex = temperature_uom.FindStringExact(SettingsManager.GetTemperatureUnitOfMeasurementBySymbol(settings.Temperature.UnitOfMeasurement)?.Label());
             }
@@ -119,7 +122,7 @@ namespace Simulator.View
             this._controller.SaveSettings(deviceSettings);
         }
 
-        private double GetDouble(string text)
+        private static double GetDouble(string text)
         {
             return Convert.ToDouble(text.Replace(".", ","));
         }

@@ -1,6 +1,6 @@
 ﻿namespace Client.View
 {
-    using Client.Controller;
+    using Controller;
     using Common.Utils;
     using System;
     using System.Windows.Forms;
