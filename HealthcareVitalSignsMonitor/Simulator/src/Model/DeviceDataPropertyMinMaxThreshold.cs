@@ -6,7 +6,6 @@ namespace Simulator.Model
 
     public class DeviceDataPropertyMinMaxThreshold<T> : DeviceDataPropertyMinThreshold<T>
     {
-
         /// <exception cref="InvalidPropertyTypeException"/>
         internal void SetValue(T value) {
             this.Value = value;

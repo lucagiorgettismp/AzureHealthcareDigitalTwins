@@ -7,7 +7,6 @@ namespace Common.Utils.Exceptions
     {
         public AppSettingsReadingException(string message, Exception e) : base(message, e)
         {
-
         }
     }
 }

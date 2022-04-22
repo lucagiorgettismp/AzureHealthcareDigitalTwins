@@ -88,7 +88,6 @@ namespace Client.Controller
                 this._successForm.Show();
                 this._onClose();
             }
-
             catch (Exception e) when (e is PatientTwinCreationException || e is FirebaseCreatePatientException)
             {
                 Log.Error(e.Message);

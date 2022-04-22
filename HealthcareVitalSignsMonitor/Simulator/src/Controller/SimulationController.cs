@@ -49,7 +49,6 @@ namespace Simulator.Controller
             {
                 Console.WriteLine(e);
             }
-
         }
 
         internal void StopDevice()

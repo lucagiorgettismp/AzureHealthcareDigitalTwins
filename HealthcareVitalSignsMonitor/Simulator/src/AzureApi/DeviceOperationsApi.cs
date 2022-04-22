@@ -34,7 +34,6 @@
             {
                 throw new DevicesRetrievingException(e);
             }
-
         }
 
         /// <exception cref="ConnectionStringException"/>

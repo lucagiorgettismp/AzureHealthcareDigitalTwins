@@ -8,7 +8,6 @@ namespace Common.Utils.Exceptions
     {
         public PatientTwinCreationException(Exception exception) : base("Unable to create patient", exception)
         {
-    
         }
     }
 }

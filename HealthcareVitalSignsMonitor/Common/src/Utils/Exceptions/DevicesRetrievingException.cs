@@ -7,7 +7,6 @@ namespace Common.Utils.Exceptions
     {
         public DevicesRetrievingException(Exception e) : base("Cannot get devices from iot hub.", e)
         {
-
         }
     }
 }

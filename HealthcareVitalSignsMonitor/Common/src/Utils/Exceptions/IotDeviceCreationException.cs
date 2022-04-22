@@ -7,7 +7,6 @@ namespace Common.Utils.Exceptions
     {
         public IotDeviceCreationException(Exception e) : base("Cannot create iot device.", e)
         {
-
         }
     }
 }

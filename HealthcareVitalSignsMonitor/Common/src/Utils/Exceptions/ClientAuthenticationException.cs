@@ -7,7 +7,6 @@ namespace Common.Utils.Exceptions
     {
         public ClientAuthenticationException(Exception e) : base("Cannot authenticate digital twins client.", e)
         {
-
         }
     }
 }

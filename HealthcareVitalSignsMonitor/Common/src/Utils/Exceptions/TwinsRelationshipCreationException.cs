@@ -7,7 +7,6 @@ namespace Common.Utils.Exceptions
     {
         public TwinsRelationshipCreationException(Exception e) : base("Cannot create relation between twins.", e)
         {
-
         }
     }
 }

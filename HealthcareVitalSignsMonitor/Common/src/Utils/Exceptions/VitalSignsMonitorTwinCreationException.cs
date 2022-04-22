@@ -7,7 +7,6 @@ namespace Common.Utils.Exceptions
     {
         public VitalSignsMonitorTwinCreationException(Exception e) : base("Cannot create vital signs monitor.", e)
         {
-
         }
     }
 }

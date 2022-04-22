@@ -8,7 +8,6 @@ namespace Common.Utils.Exceptions
     {
         public FirebaseCreatePatientException(Exception e) : base("Cannot create patient of Firebase realtime database", e)
         {
-
         }
     }
 }

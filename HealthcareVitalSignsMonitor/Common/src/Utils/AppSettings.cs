@@ -21,7 +21,6 @@ namespace Common.Utils
 
                 return config;
             }
-
             catch (Exception ex) when (ex is FileNotFoundException || ex is UriFormatException)
             {
                 throw new AppSettingsReadingException("Cannot find client twin configuration file.", ex);
