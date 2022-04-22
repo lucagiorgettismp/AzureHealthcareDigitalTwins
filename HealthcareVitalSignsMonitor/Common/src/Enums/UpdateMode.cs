@@ -2,7 +2,6 @@
 {
     public enum UpdateMode
     {
-        Telemetry = 0,
-        Configuration = 1
+        Telemetry = 0
     }
 }

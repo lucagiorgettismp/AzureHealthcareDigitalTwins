@@ -1,13 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Forms;
-
-namespace Common.View
+﻿namespace Common.View
 {
+    using System;
+    using System.Linq;
+    using System.Windows.Forms;
+
     public partial class SuccessForm : Form
     {
-        private const string ID_LABEL = "LabelTextSuccess";
-        private Action onClose = null;
+        private readonly Action _onClose = null;
 
         public SuccessForm()
         {
@@ -17,31 +16,30 @@ namespace Common.View
 
         public SuccessForm(Action onCloseAction) : this()
         {
-            this.onClose = onCloseAction;
+            this._onClose = onCloseAction;
         }
 
         public void SetText(string text)
         {
-            Label successLabel = this.Controls.Find(ID_LABEL, true).FirstOrDefault() as Label;
-            successLabel.Text = text;
+            this.LabelTextSuccess.Text = text;
             this.Show();
         }
 
         private void ButtonConfirmationClick(object sender, EventArgs e)
         {
             this.Hide();
-            if (this.onClose != null)
+            if (this._onClose != null)
             {
-                onClose();
+                _onClose();
             }
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             this.Hide();
-            if (this.onClose != null)
+            if (this._onClose != null)
             {
-                onClose();
+                _onClose();
             }
         }
     }

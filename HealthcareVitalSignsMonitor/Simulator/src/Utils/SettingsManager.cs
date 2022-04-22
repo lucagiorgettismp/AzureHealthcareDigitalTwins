@@ -1,16 +1,16 @@
-﻿using Common.Utils;
-using Newtonsoft.Json;
-using Simulator.Model.Settings;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-
-namespace Simulator
+﻿namespace Simulator.Utils
 {
-    class SettingsManager
+    using Common.Utils;
+    using Model.Settings;
+    using Newtonsoft.Json;
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Globalization;
+    using System.IO;
+    using System.Linq;
+
+    internal class SettingsManager
     {
         private const string SETTINGS_PATH = "settings.json";
 
@@ -69,16 +69,6 @@ namespace Simulator
             }
         }
 
-        private static SettingsFileModel GetAllSettings()
-        {
-            var streamReader = new StreamReader(SETTINGS_PATH);
-            var jsonString = streamReader.ReadToEnd();
-
-            streamReader.Close();
-
-            return JsonConvert.DeserializeObject<SettingsFileModel>(jsonString);
-        }
-
         public static DeviceSettings ReadUserSettings(string deviceId)
         {
             if (File.Exists(SETTINGS_PATH))
@@ -86,18 +76,10 @@ namespace Simulator
                 var settings = GetAllSettings();
                 var deviceSettings = settings.GetDeviceSettingsByDeviceId(deviceId);
 
-                if (deviceSettings == null)
-                {
-                    return GetDefaultSettings();
-                }
-                else
-                {
-                    return deviceSettings;
-                }
-            } else
-            {
-               return GetDefaultSettings();
+                return deviceSettings ?? GetDefaultSettings();
             }
+
+            return GetDefaultSettings();
         }
 
         public static TemperatureUnitOfMeasurement? GetTemperatureUnitOfMeasurementByValue(string value)
@@ -122,22 +104,32 @@ namespace Simulator
             };
         }
 
+        private static SettingsFileModel GetAllSettings()
+        {
+            var streamReader = new StreamReader(SETTINGS_PATH);
+            var jsonString = streamReader.ReadToEnd();
+
+            streamReader.Close();
+
+            return JsonConvert.DeserializeObject<SettingsFileModel>(jsonString);
+        }
+
         private static DeviceSettings GetDefaultSettings()
         {
             var appSettings = ConfigurationManager.AppSettings;
 
             double.TryParse(appSettings["TemperatureMinValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out double temperatureMinValue);
             double.TryParse(appSettings["TemperatureMaxValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out double temperatureMaxValue);
-            double.TryParse(appSettings["TemperatureMinAlarmThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out double temperatureMinAlarm);
-            double.TryParse(appSettings["TemperatureMaxAlarmThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out double temperatureMaxAlarm);
+            double.TryParse(appSettings["TemperatureMinAlertThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out double temperatureMinAlert);
+            double.TryParse(appSettings["TemperatureMaxAlertThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out double temperatureMaxAlert);
 
             var temperature = new SensorSettingsMinMaxThreashold<double>
             {
                 UnitOfMeasurement = appSettings["TemperatureUnitSymbol"],
                 MinValue = temperatureMinValue,
                 MaxValue = temperatureMaxValue,
-                MinAlertThreashold = temperatureMinAlarm,
-                MaxAlertThreashold = temperatureMaxAlarm,
+                MinAlertThreashold = temperatureMinAlert,
+                MaxAlertThreashold = temperatureMaxAlert,
             };
 
             var batteryPower = new SensorSettingsMinThreashold<int>
@@ -145,7 +137,7 @@ namespace Simulator
                 UnitOfMeasurement = appSettings["PercentageUnitSymbol"],
                 MinValue = Convert.ToInt32(appSettings["BatteryMinValue"]),
                 MaxValue = Convert.ToInt32(appSettings["BatteryMaxValue"]),
-                MinAlertThreashold = Convert.ToInt32(appSettings["BatteryMinAlarmThresholdValue"]),
+                MinAlertThreashold = Convert.ToInt32(appSettings["BatteryMinAlertThresholdValue"]),
             };
 
             var bloodPressure = new SensorSettingsMinMaxThreashold<int>
@@ -153,8 +145,8 @@ namespace Simulator
                 UnitOfMeasurement = appSettings["BloodPressureUnitSymbol"],
                 MinValue = Convert.ToInt32(appSettings["BloodPressureMinValue"]),
                 MaxValue = Convert.ToInt32(appSettings["BloodPressureMaxValue"]),
-                MinAlertThreashold = Convert.ToInt32(appSettings["BloodPressureMinAlarmThresholdValue"]),
-                MaxAlertThreashold = Convert.ToInt32(appSettings["BloodPressureMaxAlarmThresholdValue"]),
+                MinAlertThreashold = Convert.ToInt32(appSettings["BloodPressureMinAlertThresholdValue"]),
+                MaxAlertThreashold = Convert.ToInt32(appSettings["BloodPressureMaxAlertThresholdValue"]),
             };
 
             var breathFrequency = new SensorSettingsMinMaxThreashold<int>
@@ -162,8 +154,8 @@ namespace Simulator
                 UnitOfMeasurement = appSettings["BreathFrequencyUnitSymbol"],
                 MinValue = Convert.ToInt32(appSettings["BreathFrequencyMinValue"]),
                 MaxValue = Convert.ToInt32(appSettings["BreathFrequencyMaxValue"]),
-                MinAlertThreashold = Convert.ToInt32(appSettings["BreathFrequencyMinAlarmThresholdValue"]),
-                MaxAlertThreashold = Convert.ToInt32(appSettings["BreathFrequencyMaxAlarmThresholdValue"]),
+                MinAlertThreashold = Convert.ToInt32(appSettings["BreathFrequencyMinAlertThresholdValue"]),
+                MaxAlertThreashold = Convert.ToInt32(appSettings["BreathFrequencyMaxAlertThresholdValue"]),
             };
 
             var heartFrequency = new SensorSettingsMinMaxThreashold<int>
@@ -171,8 +163,8 @@ namespace Simulator
                 UnitOfMeasurement = appSettings["HeartFrequencyUnitSymbol"],
                 MinValue = Convert.ToInt32(appSettings["HeartFrequencyMinValue"]),
                 MaxValue = Convert.ToInt32(appSettings["HeartFrequencyMaxValue"]),
-                MinAlertThreashold = Convert.ToInt32(appSettings["HeartFrequencyMinAlarmThresholdValue"]),
-                MaxAlertThreashold = Convert.ToInt32(appSettings["HeartFrequencyMaxAlarmThresholdValue"]),
+                MinAlertThreashold = Convert.ToInt32(appSettings["HeartFrequencyMinAlertThresholdValue"]),
+                MaxAlertThreashold = Convert.ToInt32(appSettings["HeartFrequencyMaxAlertThresholdValue"]),
             };
 
             var saturation = new SensorSettingsMinThreashold<int>
@@ -180,7 +172,7 @@ namespace Simulator
                 UnitOfMeasurement = appSettings["PercentageUnitSymbol"],
                 MinValue = Convert.ToInt32(appSettings["SaturationMinValue"]),
                 MaxValue = Convert.ToInt32(appSettings["SaturationMaxValue"]),
-                MinAlertThreashold = Convert.ToInt32(appSettings["SaturationMinAlarmThresholdValue"]),
+                MinAlertThreashold = Convert.ToInt32(appSettings["SaturationMinAlertThresholdValue"]),
             };
 
             return new DeviceSettings

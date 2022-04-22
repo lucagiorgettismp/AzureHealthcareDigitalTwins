@@ -92,7 +92,7 @@ namespace AppFunctions
         private JsonPatchDocument AppendProperties(JsonPatchDocument updateTwinData, Sensor sensor, string path)
         {
             updateTwinData.AppendReplace<string>($"/{path}/sensor_name", sensor.SensorName);
-            updateTwinData.AppendReplace<bool>($"/{path}/alarm", sensor.Alarm);
+            updateTwinData.AppendReplace<bool>($"/{path}/alert", sensor.Alert);
 
             if(sensor is GraphSensor)
             {

@@ -6,8 +6,8 @@
  "contents": [
   {
     "@type": "Property",
-    "name": "alarm",
-    "displayName": "Alarm",
+    "name": "alert",
+    "displayName": "Alert",
     "schema": "boolean"
   },
   {

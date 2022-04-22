@@ -1,16 +1,19 @@
-﻿using Azure.DigitalTwins.Core;
-using Client.Api;
-using Client.Models;
-using Client.View;
-using Common.AzureApi;
-using Common.Utils;
-using Common.View;
-using System;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Common.Utils.Exceptions;
 
 namespace Client.Controller
 {
+    using Azure.DigitalTwins.Core;
+    using Api;
+    using Models;
+    using View;
+    using Common.AzureApi;
+    using Common.Utils;
+    using Common.Utils.Exceptions;
+    using Common.View;
+    using System;
+    using System.Threading.Tasks;
+    using System.Windows.Forms;
+
     public class PatientController
     {
         private PatientForm _view;
@@ -41,7 +44,7 @@ namespace Client.Controller
             {
                 this._twinClient = AuthenticationApi.GetClient();
             }
-            catch (Exception e)
+            catch (Exception e) when (e is AppSettingsReadingException || e is ClientAuthenticationException)
             {
                 Log.Error(e.Message);
                 this._errorForm.SetText(e.Message);
@@ -79,16 +82,15 @@ namespace Client.Controller
             try
             {
                 await new TwinOperationsApi().CreatePatient(_twinClient, model);
-                new FirebaseRestAPIClient().CreatePatient(model);
+                new FirebaseRestApiClient().CreatePatient(model);
 
                 this._successForm.SetText("Patient added successfully!");
                 this._successForm.Show();
                 this._onClose();
             }
-            catch (Exception e)
+            catch (Exception e) when (e is PatientTwinCreationException || e is FirebaseCreatePatientException)
             {
                 Log.Error(e.Message);
-
                 this._errorForm.SetText(e.Message);
                 this._errorForm.Show();
             }

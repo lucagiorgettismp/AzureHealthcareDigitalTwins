@@ -77,6 +77,7 @@ namespace Common.View
             // 
             // ButtonConfirmation
             // 
+            this.ButtonConfirmation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.ButtonConfirmation.Location = new System.Drawing.Point(87, 3);
             this.ButtonConfirmation.Name = "ButtonConfirmation";
             this.ButtonConfirmation.Size = new System.Drawing.Size(80, 25);

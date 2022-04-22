@@ -58,7 +58,7 @@ public class BloodPressurePanel : BaseLineChartSensorPanel
 
     public override void UpdateSensorAlerts(Message message)
     {
-        SetSensorAlert(this._bloodPressureAlert, message.blood_pressure_alarm);
+        SetSensorAlert(this._bloodPressureAlert, message.blood_pressure_alert);
     }
 
     public override void UpdateLineCharts(Message message)

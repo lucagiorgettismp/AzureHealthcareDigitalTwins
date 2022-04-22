@@ -1,20 +1,24 @@
-﻿using Common.Enums;
-using Common.Utils;
-using Microsoft.Azure.Devices.Client;
-using Newtonsoft.Json;
-using Simulator.AzureApi;
-using Simulator.Model;
-using Simulator.Model.Payload;
-using Simulator.Utils;
-using System;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Common.Utils.Exceptions;
 
 namespace Simulator.Controller
 {
-    internal class SimulatorController
+    using AzureApi;
+    using Common.Enums;
+    using Common.Utils;
+    using Common.Utils.Exceptions;
+    using Microsoft.Azure.Devices.Client;
+    using Model;
+    using Model.Payload;
+    using Newtonsoft.Json;
+    using System;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using System.Windows.Forms;
+    using Utils;
+    using View;
+
+    internal class SimulationController
     {
         private readonly string _deviceId;
         private readonly SimulationForm _view;
@@ -22,7 +26,7 @@ namespace Simulator.Controller
         private DeviceDataGenerator _deviceDataGenerator;
         private DeviceClient _deviceClient;
 
-        public SimulatorController(string deviceId)
+        public SimulationController(string deviceId)
         {
             this._deviceId = deviceId;
 
@@ -36,18 +40,22 @@ namespace Simulator.Controller
 
         public async Task InitAsync()
         {
-            var connectionString = await DeviceOperationsApi.GetConnectionString(_deviceId);
-            this._deviceClient = DeviceClient.CreateFromConnectionString(connectionString);
+            try
+            {
+                var connectionString = await DeviceOperationsApi.GetConnectionString(_deviceId);
+                this._deviceClient = DeviceClient.CreateFromConnectionString(connectionString);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         internal void StopDevice()
         {
             this._view.Hide();
 
-            if (this._tokenSource != null)
-            {
-                this._tokenSource.Cancel();
-            }
+            this._tokenSource?.Cancel();
         }
 
         internal async Task StartDeviceAsync()
@@ -55,22 +63,30 @@ namespace Simulator.Controller
             this._view.Show();
 
             this._tokenSource = new CancellationTokenSource();
-            this._deviceDataGenerator = new DeviceDataGenerator(_deviceId);
+            try
+            {
+                this._deviceDataGenerator = new DeviceDataGenerator(_deviceId);
+            }
+            catch (InvalidPropertyTypeException e)
+            {
+                Console.WriteLine(e);
+            }
+
             await this.Simulation();
         }
 
         public async Task Simulation()
         {
-            int msgCounter = 1;
+            var msgCounter = 1;
 
             while (!_tokenSource.IsCancellationRequested)
             {
-                DeviceData deviceData = _deviceDataGenerator.GetUpdatedDeviceData();
+                var deviceData = _deviceDataGenerator.GetUpdatedDeviceData();
 
                 this._view.UpdateValues(deviceData);
 
-                string json = CreateJSON(deviceData);
-                Microsoft.Azure.Devices.Client.Message message = CreateMessage(json);
+                var json = CreateJson(deviceData);
+                var message = CreateMessage(json);
 
                 PrintMessage(msgCounter, deviceData);
                 await this._deviceClient.SendEventAsync(message);
@@ -82,25 +98,25 @@ namespace Simulator.Controller
             }
         }
 
-        private void PrintMessage(int counter, DeviceData message)
+        private static void PrintMessage(int counter, DeviceData message)
         {
             Log.Ok($"[{counter}] Sending message at {DateTime.Now} and Message:" +
-                $"\n{message.Temperature.SensorName}: {message.Temperature.Value}, {message.Temperature.UnitOfMeasurement}, {message.Temperature.InAlarm}, " +
+                $"\n{message.Temperature.SensorName}: {message.Temperature.Value}, {message.Temperature.UnitOfMeasurement}, {message.Temperature.InAlert}, " +
                 $"Min: {message.Temperature.MinValue}, Max: {message.Temperature.MaxValue}," +
-                $"\n{message.BloodPressure.SensorName}: {message.BloodPressure.Value} {message.BloodPressure.UnitOfMeasurement}, {message.BloodPressure.InAlarm}," +
+                $"\n{message.BloodPressure.SensorName}: {message.BloodPressure.Value} {message.BloodPressure.UnitOfMeasurement}, {message.BloodPressure.InAlert}," +
                 $"Min: {message.BloodPressure.MinValue},Max: {message.BloodPressure.MaxValue}, Color: {message.BloodPressure.GraphColor}, " +
-                $"\n{message.HeartFrequency.SensorName}: {message.HeartFrequency.Value} {message.HeartFrequency.UnitOfMeasurement}, {message.HeartFrequency.InAlarm}," +
+                $"\n{message.HeartFrequency.SensorName}: {message.HeartFrequency.Value} {message.HeartFrequency.UnitOfMeasurement}, {message.HeartFrequency.InAlert}," +
                 $"Min: {message.HeartFrequency.MinValue},Max: {message.HeartFrequency.MaxValue},Color: {message.HeartFrequency.GraphColor}, " +
-                $"\n{message.BreathFrequency.SensorName}: {message.BreathFrequency.Value} {message.BreathFrequency.UnitOfMeasurement}, {message.BreathFrequency.InAlarm}," +
+                $"\n{message.BreathFrequency.SensorName}: {message.BreathFrequency.Value} {message.BreathFrequency.UnitOfMeasurement}, {message.BreathFrequency.InAlert}," +
                 $"Min: {message.BreathFrequency.MinValue},Max: {message.BreathFrequency.MaxValue},Color: {message.BreathFrequency.GraphColor}, " +
-                $"\n{message.Saturation.SensorName}: {message.Saturation.Value} {message.Saturation.UnitOfMeasurement}, {message.Saturation.InAlarm}, " +
+                $"\n{message.Saturation.SensorName}: {message.Saturation.Value} {message.Saturation.UnitOfMeasurement}, {message.Saturation.InAlert}, " +
                 $"Min: {message.Saturation.MinValue},Max: {message.Saturation.MaxValue},Color: {message.Saturation.GraphColor}, " +
-                $"\n{message.BatteryPower.SensorName}: {message.BatteryPower.Value} {message.BatteryPower.UnitOfMeasurement}, {message.BatteryPower.InAlarm}," +
+                $"\n{message.BatteryPower.SensorName}: {message.BatteryPower.Value} {message.BatteryPower.UnitOfMeasurement}, {message.BatteryPower.InAlert}," +
                 $"Min: {message.BatteryPower.MinValue},Max: {message.BatteryPower.MaxValue}"
                 );
         }
 
-        private string CreateJSON(DeviceData deviceData)
+        private string CreateJson(DeviceData deviceData)
         {
             var data = new EventGridMessagePayloadBody
             {
@@ -119,12 +135,12 @@ namespace Simulator.Controller
             return JsonConvert.SerializeObject(data);
         }
 
-        private Sensor<T> GetVitalSignsMonitorPayloadParameterFromParam<T>(DeviceDataProperty<T> dataProperty)
+        private static Sensor<T> GetVitalSignsMonitorPayloadParameterFromParam<T>(DeviceDataProperty<T> dataProperty)
         {
             return new Sensor<T>
             {
                 SensorName = dataProperty.SensorName,
-                Alarm = dataProperty.InAlarm,
+                Alert = dataProperty.InAlert,
                 GraphColor = dataProperty.GraphColor,
                 SensorValue = new SensorValue<T>
                 {

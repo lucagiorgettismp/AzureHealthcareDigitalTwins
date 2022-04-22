@@ -348,14 +348,13 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\Controller\SettingsController.cs" />
-    <Compile Include="src\Controller\SimulatorController.cs" />
+    <Compile Include="src\Controller\SimulationController.cs" />
     <Compile Include="src\AzureApi\DeviceOperationsApi.cs" />
     <Compile Include="src\Controller\DevicesController.cs" />
     <Compile Include="src\Model\Settings\DeviceSettings.cs" />
     <Compile Include="src\Model\Settings\SensorSettingsMinMaxThreashold.cs" />
     <Compile Include="src\Model\Settings\SensorSettingsMinThreashold.cs" />
-    <Compile Include="src\Manager\SettingsManager.cs" />
-    <Compile Include="src\Controller\VitalSignsMonitorPayloadParameter.cs" />
+    <Compile Include="src\Utils\SettingsManager.cs" />
     <Compile Include="src\Model\DeviceData.cs" />
     <Compile Include="src\Model\DeviceDataPropertyMinMaxThreshold.cs" />
     <Compile Include="src\Model\DeviceDataPropertyMinThreshold.cs" />
@@ -369,7 +368,6 @@
     <Compile Include="src\Model\Settings\SensorSettings.cs" />
     <Compile Include="src\Model\Settings\SettingsFileModel.cs" />
     <Compile Include="src\Model\Settings\TemperatureUnitOfMeasurement.cs" />
-    <Compile Include="src\Utils\Exceptions\InvalidPropertyTypeException.cs" />
     <Compile Include="src\View\SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>

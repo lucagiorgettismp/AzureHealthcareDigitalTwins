@@ -124,11 +124,11 @@ public class VitalSignsMonitorPanel : BaseLineChartSensorPanel
 
     public override void UpdateSensorAlerts(Message message)
     {
-        SetSensorAlert(this._temperatureAlert, message.temperature_alarm);
-        SetSensorAlert(this._saturationAlert, message.saturation_alarm);
-        SetSensorAlert(this._bloodPressureAlert, message.blood_pressure_alarm);
-        SetSensorAlert(this._heartFrequencyAlert, message.heart_frequency_alarm);
-        SetSensorAlert(this._breathFrequencyAlert, message.breath_frequency_alarm);
+        SetSensorAlert(this._temperatureAlert, message.temperature_alert);
+        SetSensorAlert(this._saturationAlert, message.saturation_alert);
+        SetSensorAlert(this._bloodPressureAlert, message.blood_pressure_alert);
+        SetSensorAlert(this._heartFrequencyAlert, message.heart_frequency_alert);
+        SetSensorAlert(this._breathFrequencyAlert, message.breath_frequency_alert);
     }
 
     public override void UpdateLineCharts(Message message)

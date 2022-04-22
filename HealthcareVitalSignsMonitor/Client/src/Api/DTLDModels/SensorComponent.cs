@@ -8,8 +8,8 @@ namespace Client.Api.DTLDModels
         [JsonPropertyName(DigitalTwinsJsonPropertyNames.DigitalTwinMetadata)]
         public SensorComponentMetadata Metadata { get; set; } = new SensorComponentMetadata();
 
-        [JsonPropertyName("alarm")]
-        public bool Alarm { get; set; }
+        [JsonPropertyName("alert")]
+        public bool Alert { get; set; }
 
         [JsonPropertyName("sensor_name")]
         public string SensorName { get; set; }
@@ -20,8 +20,8 @@ namespace Client.Api.DTLDModels
 
     internal class SensorComponentMetadata
     {
-        [JsonPropertyName("alarm")]
-        public DigitalTwinPropertyMetadata Alarm { get; set; }
+        [JsonPropertyName("alert")]
+        public DigitalTwinPropertyMetadata Alert { get; set; }
 
         [JsonPropertyName("sensor_name")]
         public DigitalTwinPropertyMetadata SensorName { get; set; }

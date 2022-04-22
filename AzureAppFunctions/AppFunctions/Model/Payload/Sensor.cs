@@ -3,8 +3,8 @@ namespace AppFunctions.Model.Payload
 {
     public class Sensor
     {
-        [JsonProperty("alarm")]
-        public bool Alarm { get; set; }
+        [JsonProperty("alert")]
+        public bool Alert { get; set; }
 
         [JsonProperty("sensor_name")]
         public string SensorName { get; set; }

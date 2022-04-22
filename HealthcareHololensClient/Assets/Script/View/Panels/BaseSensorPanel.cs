@@ -45,7 +45,7 @@
             this._batterySensorName.text = message.battery_sensor_name;
             this._batteryValue.text = message.battery_sensor_value.value.ToString();
             this._batterySymbol.text = message.battery_sensor_value.unit;
-            SetSensorAlert(this._batteryAlert, message.battery_alarm);
+            SetSensorAlert(this._batteryAlert, message.battery_alert);
 
             try
             {
@@ -60,11 +60,11 @@
             }
         }
 
-        public void SetSensorAlert(GameObject sensor, bool inAlarm)
+        public void SetSensorAlert(GameObject sensor, bool inAlert)
         {
-            sensor.GetComponent<Renderer>().material = inAlarm ? _redColor : _whiteColor;
+            sensor.GetComponent<Renderer>().material = inAlert ? _redColor : _whiteColor;
 
-            if (inAlarm)
+            if (inAlert)
             {
                 sensor.GetComponent<AudioSource>().Play();
             }
