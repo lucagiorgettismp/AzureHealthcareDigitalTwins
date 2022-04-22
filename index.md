@@ -1,9 +1,9 @@
 # Pervasive Computing
 # Laboratorio di Sistemi Software
 
-<p align="center"> <h2> Relazione di Progetto </h2> </p>
-<p align="center"> <h3> Lorenzo Pagnini </h3> </p>
-<p align="center"> <h3> Luca Giorgetti </h3> </p>
+<h2 style="text-align: center">Relazione di Progetto</h2>
+<h3 style="text-align: center">Lorenzo Pagnini</h3> 
+<h3 style="text-align: center">Luca Giorgetti</h3>
 
 <p align="center">
     <img width="200" src="Images/logo.png">
