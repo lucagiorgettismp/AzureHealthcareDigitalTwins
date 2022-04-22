@@ -368,7 +368,6 @@
     <Compile Include="src\Model\Settings\SensorSettings.cs" />
     <Compile Include="src\Model\Settings\SettingsFileModel.cs" />
     <Compile Include="src\Model\Settings\TemperatureUnitOfMeasurement.cs" />
-    <Compile Include="src\Utils\Exceptions\InvalidPropertyTypeException.cs" />
     <Compile Include="src\View\SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>

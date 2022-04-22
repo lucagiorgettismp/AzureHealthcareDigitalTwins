@@ -1,4 +1,6 @@
-﻿namespace Simulator.Controller
+﻿using Common.Utils.Exceptions;
+
+namespace Simulator.Controller
 {
     using AzureApi;
     using Common.Enums;
@@ -37,8 +39,16 @@
 
         public async Task InitAsync()
         {
-            var connectionString = await DeviceOperationsApi.GetConnectionString(_deviceId);
-            this._deviceClient = DeviceClient.CreateFromConnectionString(connectionString);
+            try
+            {
+                var connectionString = await DeviceOperationsApi.GetConnectionString(_deviceId);
+                this._deviceClient = DeviceClient.CreateFromConnectionString(connectionString);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
         }
 
         internal void StopDevice()
@@ -53,7 +63,15 @@
             this._view.Show();
 
             this._tokenSource = new CancellationTokenSource();
-            this._deviceDataGenerator = new DeviceDataGenerator(_deviceId);
+            try
+            {
+                this._deviceDataGenerator = new DeviceDataGenerator(_deviceId);
+            }
+            catch (InvalidPropertyTypeException e)
+            {
+                Console.WriteLine(e);
+            }
+
             await this.Simulation();
         }
 

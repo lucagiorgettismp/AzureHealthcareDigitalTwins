@@ -1,4 +1,6 @@
-﻿namespace Client.Controller
+﻿using Common.Utils.Exceptions;
+
+namespace Client.Controller
 {
     using Azure.DigitalTwins.Core;
     using Api;
@@ -41,7 +43,7 @@
             {
                 this._twinClient = AuthenticationApi.GetClient();
             }
-            catch (Exception e)
+            catch (Exception e) when (e is AppSettingsReadingException || e is ClientAuthenticationException)
             {
                 Log.Error(e.Message);
                 this._errorForm.SetText(e.Message);
@@ -85,10 +87,10 @@
                 this._successForm.Show();
                 this._onClose();
             }
-            catch (Exception e)
+
+            catch (Exception e) when (e is PatientTwinCreationException || e is FirebaseCreatePatientException)
             {
                 Log.Error(e.Message);
-
                 this._errorForm.SetText(e.Message);
                 this._errorForm.Show();
             }

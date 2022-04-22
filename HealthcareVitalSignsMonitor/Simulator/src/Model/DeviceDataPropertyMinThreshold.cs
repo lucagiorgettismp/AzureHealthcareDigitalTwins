@@ -1,7 +1,7 @@
-﻿namespace Simulator.Model
-{
-    using Simulator.Utils.Exceptions;
+﻿using Common.Utils.Exceptions;
 
+namespace Simulator.Model
+{
     public class DeviceDataPropertyMinThreshold<T> : DeviceDataProperty<T>
     {
         internal void SetValue(T value)
@@ -12,6 +12,11 @@
 
         public T MinAlertThreashold { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <exception cref="InvalidPropertyTypeException"></exception>
+        /// <returns></returns>
         protected bool CheckMinThresholdAlert(T ta, T tb)
         {
             if (ta is int && tb is int)

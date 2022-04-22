@@ -7,6 +7,8 @@ using Common.View;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Common.Utils.Exceptions;
+
 namespace Client.Controller
 {
     using System.Windows.Forms;
@@ -50,7 +52,7 @@ namespace Client.Controller
             {
                 this._twinClient = AuthenticationApi.GetClient();
             }
-            catch (Exception e)
+            catch (ClientAuthenticationException e)
             {
                 Log.Error(e.Message);
                 this._errorForm.SetText(e.Message);

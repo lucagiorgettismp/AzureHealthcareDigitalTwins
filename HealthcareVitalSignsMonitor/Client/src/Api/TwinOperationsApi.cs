@@ -6,6 +6,7 @@
     using Models;
     using Common.AzureApi;
     using Common.Utils;
+    using Common.Utils.Exceptions;
     using Microsoft.Azure.Devices;
     using System;
     using System.Collections.Generic;
@@ -25,9 +26,12 @@
 
         private const string EMPTY_VALUE = "";
 
-        // Unit of measurement
-
-        private async Task CreateDeviceHub(string deviceId)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <exception cref="IotDeviceCreationException"></exception>
+        /// <returns></returns>
+        private static async Task CreateDeviceHub(string deviceId)
         {
             try
             {
@@ -39,6 +43,7 @@
             catch (RequestFailedException e)
             {
                 Log.Error($"Create device error: {e.Status}: {e.Message}");
+                throw new IotDeviceCreationException(e);
             }
             Console.WriteLine();
         }
@@ -66,6 +71,11 @@
             return IdTwins;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <exception cref="PatientTwinCreationException"></exception>
+        /// <returns></returns>
         public async Task CreatePatient(
             DigitalTwinsClient client, PatientModel model)
         {
@@ -92,12 +102,22 @@
                 // Create a relationship between patient twin and monitor twin
                 await CreateRelationship(client, model.FiscalCode, patientId, NAME_RELATIONSHIP);
             }
-            catch (RequestFailedException e) {
-                Log.Error($"Create patient twin error: {e.Status}: {e.Message}");
+            catch (Exception e) when (e is IotDeviceCreationException || 
+                                      e is RequestFailedException ||
+                                      e is ArgumentNullException || 
+                                      e is VitalSignsMonitorTwinCreationException ||
+                                      e is TwinsRelationshipCreationException)
+            {
+                Log.Error($"Create patient twin error: {e.Message}");
+                throw new PatientTwinCreationException(e);
             }
-            Console.WriteLine();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <exception cref="VitalSignsMonitorTwinCreationException"></exception>
+        /// <returns></returns>
         private async Task CreateMonitorTwin(DigitalTwinsClient client, string idMonitorTwin) {
             try
             {
@@ -120,6 +140,7 @@
             catch (RequestFailedException e)
             {
                 Log.Error($"Create monitor twin error: {e.Status}: {e.Message}");
+                throw new VitalSignsMonitorTwinCreationException(e);
             }
         }
 
@@ -166,6 +187,11 @@
             };
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <exception cref="TwinsRelationshipCreationException"></exception>
+        /// <returns></returns>
         public async Task CreateRelationship(DigitalTwinsClient client, string srcId, string targetId, string nameRel) {
             var relationship = new BasicRelationship
             {
@@ -182,6 +208,7 @@
             catch (RequestFailedException e)
             {
                 Log.Error($"Create relationship error: {e.Status}: {e.Message}");
+                throw new TwinsRelationshipCreationException(e);
             }
         }
 
@@ -201,4 +228,6 @@
             return modelId;
         }
     }
+
+
 }

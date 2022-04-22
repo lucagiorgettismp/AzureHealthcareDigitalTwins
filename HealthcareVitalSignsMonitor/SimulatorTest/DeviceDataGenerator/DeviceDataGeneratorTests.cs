@@ -3,6 +3,8 @@ using Simulator.Model;
 using System;
 using System.Configuration;
 using System.Globalization;
+using Common.Utils;
+using Common.Utils.Exceptions;
 
 namespace SimulatorTests
 {
@@ -73,57 +75,98 @@ namespace SimulatorTests
 
         private void InitValue()
         {
-            Generator = new Simulator.Utils.DeviceDataGenerator(DEVICE_ID);
+            try
+            {
+                Generator = new Simulator.Utils.DeviceDataGenerator(DEVICE_ID);
 
-            var appSettings = ConfigurationManager.AppSettings;
+                var appSettings = ConfigurationManager.AppSettings;
 
-            // Init value sensor
-            double.TryParse(appSettings["TemperatureInitValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out TemperatureValue);
-            double.TryParse(appSettings["HeartFrequencyInitValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out HeartFrequencyValue);
-            double.TryParse(appSettings["BreathFrequencyInitValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BreathFrequencyValue);
-            double.TryParse(appSettings["SaturationInitValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out SaturationValue);
-            double.TryParse(appSettings["BloodPressureInitValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BloodPressureValue); 
-            double.TryParse(appSettings["BatteryInitValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BatteryValue);
+                // Init value sensor
+                double.TryParse(appSettings["TemperatureInitValue"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                    out TemperatureValue);
+                double.TryParse(appSettings["HeartFrequencyInitValue"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                    out HeartFrequencyValue);
+                double.TryParse(appSettings["BreathFrequencyInitValue"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                    out BreathFrequencyValue);
+                double.TryParse(appSettings["SaturationInitValue"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                    out SaturationValue);
+                double.TryParse(appSettings["BloodPressureInitValue"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                    out BloodPressureValue);
+                double.TryParse(appSettings["BatteryInitValue"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                    out BatteryValue);
 
-            // Setting temperature
-            double.TryParse(appSettings["TemperatureUpdateDelta"], NumberStyles.Any, CultureInfo.CurrentCulture, out TemperatureUpdateDelta);
-            double.TryParse(appSettings["TemperatureMinValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out TemperatureMinValue);
-            double.TryParse(appSettings["TemperatureMaxValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out TemperatureMaxValue);
-            double.TryParse(appSettings["TemperatureMinAlertThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out TemperatureMinThresholdValue);
-            double.TryParse(appSettings["TemperatureMaxAlertThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out TemperatureMaxThresholdValue);
+                // Setting temperature
+                double.TryParse(appSettings["TemperatureUpdateDelta"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                    out TemperatureUpdateDelta);
+                double.TryParse(appSettings["TemperatureMinValue"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                    out TemperatureMinValue);
+                double.TryParse(appSettings["TemperatureMaxValue"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                    out TemperatureMaxValue);
+                double.TryParse(appSettings["TemperatureMinAlertThresholdValue"], NumberStyles.Any,
+                    CultureInfo.CurrentCulture, out TemperatureMinThresholdValue);
+                double.TryParse(appSettings["TemperatureMaxAlertThresholdValue"], NumberStyles.Any,
+                    CultureInfo.CurrentCulture, out TemperatureMaxThresholdValue);
 
-            // Setting Heart Frequency
-            double.TryParse(appSettings["HeartFrequencyUpdateDelta"], NumberStyles.Any, CultureInfo.CurrentCulture, out HeartFrequencyUpdateDelta);
-            double.TryParse(appSettings["HeartFrequencyMinValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out HeartFrequencyMinValue);
-            double.TryParse(appSettings["HeartFrequencyMaxValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out HeartFrequencyMaxValue);
-            double.TryParse(appSettings["HeartFrequencyMinValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out HeartFrequencyMinThresholdValue);
-            double.TryParse(appSettings["HeartFrequencyMaxValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out HeartFrequencyMaxThresholdValue);
+                // Setting Heart Frequency
+                double.TryParse(appSettings["HeartFrequencyUpdateDelta"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                    out HeartFrequencyUpdateDelta);
+                double.TryParse(appSettings["HeartFrequencyMinValue"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                    out HeartFrequencyMinValue);
+                double.TryParse(appSettings["HeartFrequencyMaxValue"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                    out HeartFrequencyMaxValue);
+                double.TryParse(appSettings["HeartFrequencyMinValue"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                    out HeartFrequencyMinThresholdValue);
+                double.TryParse(appSettings["HeartFrequencyMaxValue"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                    out HeartFrequencyMaxThresholdValue);
 
-            // Setting Breath Frequency
-            double.TryParse(appSettings["BreathFrequencyUpdateDelta"], NumberStyles.Any, CultureInfo.CurrentCulture, out BreathFrequencyUpdateDelta);
-            double.TryParse(appSettings["BreathFrequencyMinValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BreathFrequencyMinValue);
-            double.TryParse(appSettings["BreathFrequencyMaxValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BreathFrequencyMaxValue);
-            double.TryParse(appSettings["BreathFrequencyMinAlertThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BreathFrequencyMinThresholdValue);
-            double.TryParse(appSettings["BreathFrequencyMaxAlertThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BreathFrequencyMaxThresholdValue);
+                // Setting Breath Frequency
+                double.TryParse(appSettings["BreathFrequencyUpdateDelta"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                    out BreathFrequencyUpdateDelta);
+                double.TryParse(appSettings["BreathFrequencyMinValue"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                    out BreathFrequencyMinValue);
+                double.TryParse(appSettings["BreathFrequencyMaxValue"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                    out BreathFrequencyMaxValue);
+                double.TryParse(appSettings["BreathFrequencyMinAlertThresholdValue"], NumberStyles.Any,
+                    CultureInfo.CurrentCulture, out BreathFrequencyMinThresholdValue);
+                double.TryParse(appSettings["BreathFrequencyMaxAlertThresholdValue"], NumberStyles.Any,
+                    CultureInfo.CurrentCulture, out BreathFrequencyMaxThresholdValue);
 
-            // Setting Saturation
-            double.TryParse(appSettings["SaturationUpdateDelta"], NumberStyles.Any, CultureInfo.CurrentCulture, out SaturationUpdateDelta);
-            double.TryParse(appSettings["SaturationMinValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out SaturationMinValue);
-            double.TryParse(appSettings["SaturationMaxValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out SaturationMaxValue);
-            double.TryParse(appSettings["SaturationMinAlertThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out SaturationMinThresholdValue);
+                // Setting Saturation
+                double.TryParse(appSettings["SaturationUpdateDelta"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                    out SaturationUpdateDelta);
+                double.TryParse(appSettings["SaturationMinValue"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                    out SaturationMinValue);
+                double.TryParse(appSettings["SaturationMaxValue"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                    out SaturationMaxValue);
+                double.TryParse(appSettings["SaturationMinAlertThresholdValue"], NumberStyles.Any,
+                    CultureInfo.CurrentCulture, out SaturationMinThresholdValue);
 
-            // Setting Blood Pressure
-            double.TryParse(appSettings["BloodPressureUpdateDelta"], NumberStyles.Any, CultureInfo.CurrentCulture, out BloodPressureUpdateDelta);
-            double.TryParse(appSettings["BloodPressureMinValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BloodPressureMinValue);
-            double.TryParse(appSettings["BloodPressureMaxValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BloodPressureMaxValue);
-            double.TryParse(appSettings["BloodPressureMinAlertThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BloodPressureMinThresholdValue);
-            double.TryParse(appSettings["BloodPressureMaxAlertThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BloodPressureMaxThresholdValue);
+                // Setting Blood Pressure
+                double.TryParse(appSettings["BloodPressureUpdateDelta"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                    out BloodPressureUpdateDelta);
+                double.TryParse(appSettings["BloodPressureMinValue"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                    out BloodPressureMinValue);
+                double.TryParse(appSettings["BloodPressureMaxValue"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                    out BloodPressureMaxValue);
+                double.TryParse(appSettings["BloodPressureMinAlertThresholdValue"], NumberStyles.Any,
+                    CultureInfo.CurrentCulture, out BloodPressureMinThresholdValue);
+                double.TryParse(appSettings["BloodPressureMaxAlertThresholdValue"], NumberStyles.Any,
+                    CultureInfo.CurrentCulture, out BloodPressureMaxThresholdValue);
 
-            // Setting Battery
-            double.TryParse(appSettings["BatteryUpdateDelta"], NumberStyles.Any, CultureInfo.CurrentCulture, out BatteryUpdateDelta);
-            double.TryParse(appSettings["BatteryMinValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BatteryMinValue);
-            double.TryParse(appSettings["BatteryMaxValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BatteryMaxValue);
-            double.TryParse(appSettings["BatteryMinAlertThresholdValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out BatteryMinThresholdValue);
+                // Setting Battery
+                double.TryParse(appSettings["BatteryUpdateDelta"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                    out BatteryUpdateDelta);
+                double.TryParse(appSettings["BatteryMinValue"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                    out BatteryMinValue);
+                double.TryParse(appSettings["BatteryMaxValue"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                    out BatteryMaxValue);
+                double.TryParse(appSettings["BatteryMinAlertThresholdValue"], NumberStyles.Any,
+                    CultureInfo.CurrentCulture, out BatteryMinThresholdValue);
+            }
+            catch (Exception e) when (e is InvalidPropertyTypeException || e is ConfigurationErrorsException)
+            {
+                Log.Error(e.Message);
+            }
         }
 
         private void TestTemperatureDataGenerated(DeviceDataPropertyMinMaxThreshold<double> temperature)

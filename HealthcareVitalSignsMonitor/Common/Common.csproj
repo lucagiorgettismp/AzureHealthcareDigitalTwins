@@ -194,7 +194,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Utils\Setting.cs" />
+    <Compile Include="Utils\Exceptions\AppSettingsReadingException.cs" />
+    <Compile Include="Utils\Exceptions\ClientAuthenticationException.cs" />
+    <Compile Include="Utils\Exceptions\ConnectionStringException.cs" />
+    <Compile Include="Utils\Exceptions\FirebaseCreatePatientException.cs" />
+    <Compile Include="Utils\Exceptions\InvalidPropertyTypeException.cs" />
+    <Compile Include="Utils\Exceptions\PatientTwinCreationException.cs" />
+    <Compile Include="Utils\Exceptions\IotDeviceCreationException.cs" />
+    <Compile Include="Utils\Exceptions\TwinsRelationshipCreationException.cs" />
+    <Compile Include="Utils\Exceptions\VitalSignsMonitorTwinCreationException.cs" />
+    <Compile Include="Utils\AppSettings.cs" />
     <Compile Include="View\ErrorForm.cs">
       <SubType>Form</SubType>
     </Compile>

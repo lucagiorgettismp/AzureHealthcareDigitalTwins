@@ -1,4 +1,6 @@
-﻿namespace Simulator.Utils
+﻿using Common.Utils.Exceptions;
+
+namespace Simulator.Utils
 {
     using Model;
     using System;
@@ -18,18 +20,23 @@
         const string GREEN = "0,255,0";
         const string YELLOW = "255,255,0";
 
+        /// <exception cref="InvalidPropertyTypeException"/>
         public DeviceDataGenerator(string deviceId)
         {
             random = new Random();
             InitDeviceData(deviceId);
         }
 
+
+        /// <exception cref="InvalidPropertyTypeException"/>
         private void InitDeviceData(string deviceId)
         {
             var appSettings = ConfigurationManager.AppSettings;
 
-            double.TryParse(appSettings["TemperatureUpdateDelta"], NumberStyles.Any, CultureInfo.CurrentCulture, out double temperatureUpdateDelta);
-            double.TryParse(appSettings["TemperatureInitValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out double temperatureInitValue);
+            double.TryParse(appSettings["TemperatureUpdateDelta"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                out var temperatureUpdateDelta);
+            double.TryParse(appSettings["TemperatureInitValue"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                out var temperatureInitValue);
 
             var userSettings = SettingsManager.ReadUserSettings(deviceId);
 
@@ -125,7 +132,7 @@
                 Saturation = saturation
             };
         }
-
+    
         public DeviceData GetUpdatedDeviceData()
         {
             var newData = this.deviceData;
