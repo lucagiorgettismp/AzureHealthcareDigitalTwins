@@ -20,12 +20,10 @@ namespace Common.Utils
                     .Build();
 
                 return config;
-            }
-            catch (Exception ex) when (ex is FileNotFoundException || ex is UriFormatException)
+            } catch (Exception ex) when (ex is FileNotFoundException || ex is UriFormatException)
             {
                 throw new AppSettingsReadingException("Cannot find client twin configuration file.", ex);
-            }
-            catch (Exception ex)
+            } catch (Exception ex)
             {
                 throw new AppSettingsReadingException("Error while reading client twin configuration", ex);
             }
