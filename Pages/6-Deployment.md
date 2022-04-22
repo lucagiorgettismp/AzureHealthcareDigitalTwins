@@ -1,7 +1,7 @@
 ---
-permalink: /test_performance.html
+permalink: /deployment.html
 ---
 
-# Test e Performance
+# Deployment
 
 <a href="https://lucagiorgettismp.github.io/AzureHealthcareDigitalTwins/">Indietro</a>
