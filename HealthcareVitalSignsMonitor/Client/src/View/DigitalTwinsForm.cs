@@ -1,6 +1,6 @@
 ﻿namespace Client.View
 {
-    using Client.Controller;
+    using Controller;
     using Common.Utils;
     using System;
     using System.Windows.Forms;
@@ -44,16 +44,9 @@
 
         private void SelectedIndexPatients(object sender, EventArgs e)
         {
-            try
+            if (this.patients_twins_collections.SelectedItem != null)
             {
-                if (this.patients_twins_collections.SelectedItem != null)
-                {
-                    Log.Ok("Click on: " + patients_twins_collections.SelectedItem.ToString());
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex.Message);
+                Log.Ok("Click on: " + patients_twins_collections.SelectedItem);
             }
         }
     }

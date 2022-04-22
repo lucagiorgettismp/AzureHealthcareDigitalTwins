@@ -1,13 +1,13 @@
-﻿using Client.Controller;
-using System;
-using System.Windows.Forms;
-
-namespace Client
+﻿namespace Client
 {
-    static class Program
+    using Controller;
+    using System;
+    using System.Windows.Forms;
+
+    internal static class Program
     {
-        private static PatientController patientController;
-        private static DigitalTwinsController dtController;
+        private static PatientController _patientController;
+        private static DigitalTwinsController _dtController;
 
         /// <summary>
         /// The main entry point for the application.
@@ -18,25 +18,25 @@ namespace Client
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            patientController = new PatientController(() => OnPatientControllerClose());
-            dtController = new DigitalTwinsController(() => OnAddPatientClick(), () => OnClose());
+            _patientController = new PatientController(OnPatientControllerClose);
+            _dtController = new DigitalTwinsController(OnAddPatientClick, OnClose);
 
-            dtController.Start();
+            _dtController.Start();
         }
 
         private static void OnClose()
         {
-            patientController.Close();
+            _patientController.Close();
         }
 
         private static void OnAddPatientClick()
         {
-            patientController.Start();
+            _patientController.Start();
         }
 
         private static void OnPatientControllerClose()
         {
-            dtController.Enable();
+            _dtController.Enable();
         }
     }
 }

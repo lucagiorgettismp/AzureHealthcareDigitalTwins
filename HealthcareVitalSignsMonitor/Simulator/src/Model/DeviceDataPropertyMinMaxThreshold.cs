@@ -1,29 +1,33 @@
-﻿namespace Simulator.Model
+﻿using Common.Utils.Exceptions;
+
+namespace Simulator.Model
 {
-    using Simulator.Utils.Exceptions;
+    using Common.Utils.Exceptions;
+
     public class DeviceDataPropertyMinMaxThreshold<T> : DeviceDataPropertyMinThreshold<T>
     {
+        /// <exception cref="InvalidPropertyTypeException"/>
         internal void SetValue(T value) {
             this.Value = value;
-            this.InAlarm = CheckMinThresholdAlarm(value, this.MinAlertThreashold) || CheckMaxThresholdAlarm(this.Value, this.MaxAlertThrehshold);
+            this.InAlert = CheckMinThresholdAlert(value, this.MinAlertThreshold) || CheckMaxThresholdAlert(this.Value, this.MaxAlertThreshold);
         }
 
-        public T MaxAlertThrehshold { get; set; }
-
-        private bool CheckMaxThresholdAlarm(T ta, T tb)
+        public T MaxAlertThreshold { get; set; }
+        
+        /// <exception cref="InvalidPropertyTypeException"/>
+        private static bool CheckMaxThresholdAlert(T value, T threshold)
         {
-            if (ta is int && tb is int)
+            if (value is int && threshold is int)
             {
-                return (int)(object)ta >= (int)(object)tb;
+                return (int)(object)value >= (int)(object)threshold;
             }
-            else if (ta is double && tb is double)
+
+            if (value is double && threshold is double)
             {
-                return (double)(object)ta >= (double)(object)tb;
+                return (double)(object)value >= (double)(object)threshold;
             }
-            else
-            {
-                throw new InvalidPropertyTypeException();
-            }
+
+            throw new InvalidPropertyTypeException();
         }
     }
 }

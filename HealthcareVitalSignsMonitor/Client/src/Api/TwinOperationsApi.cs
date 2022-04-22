@@ -2,10 +2,11 @@
 {
     using Azure;
     using Azure.DigitalTwins.Core;
-    using Client.Api.DTLDModels;
-    using Client.Models;
+    using DTLDModels;
+    using Models;
     using Common.AzureApi;
     using Common.Utils;
+    using Common.Utils.Exceptions;
     using Microsoft.Azure.Devices;
     using System;
     using System.Collections.Generic;
@@ -19,15 +20,14 @@
         // Name relationship
         private const string NAME_RELATIONSHIP = "rel_has_monitor";
 
-        // Model devideId
+        // Model deviceId
         private const string MONITOR_MODEL_ID = "dtmi:healthCareDT:VitalParametersMonitor;1";
         private const string PATIENT_MODEL_ID = "dtmi:healthCareDT:Patient;1";
 
         private const string EMPTY_VALUE = "";
 
-        // Unit of measurement
-
-        private async Task CreateDeviceHub(string deviceId)
+        /// <exception cref="IotDeviceCreationException"/>
+        private static async Task CreateDeviceHub(string deviceId)
         {
             try
             {
@@ -39,6 +39,7 @@
             catch (RequestFailedException e)
             {
                 Log.Error($"Create device error: {e.Status}: {e.Message}");
+                throw new IotDeviceCreationException(e);
             }
             Console.WriteLine();
         }
@@ -66,6 +67,7 @@
             return IdTwins;
         }
 
+        /// <exception cref="PatientTwinCreationException"/>
         public async Task CreatePatient(
             DigitalTwinsClient client, PatientModel model)
         {
@@ -92,12 +94,18 @@
                 // Create a relationship between patient twin and monitor twin
                 await CreateRelationship(client, model.FiscalCode, patientId, NAME_RELATIONSHIP);
             }
-            catch (RequestFailedException e) {
-                Log.Error($"Create patient twin error: {e.Status}: {e.Message}");
+            catch (Exception e) when (e is IotDeviceCreationException || 
+                                      e is RequestFailedException ||
+                                      e is ArgumentNullException || 
+                                      e is VitalSignsMonitorTwinCreationException ||
+                                      e is TwinsRelationshipCreationException)
+            {
+                Log.Error($"Create patient twin error: {e.Message}");
+                throw new PatientTwinCreationException(e);
             }
-            Console.WriteLine();
         }
 
+        /// <exception cref="VitalSignsMonitorTwinCreationException"/>
         private async Task CreateMonitorTwin(DigitalTwinsClient client, string idMonitorTwin) {
             try
             {
@@ -120,6 +128,7 @@
             catch (RequestFailedException e)
             {
                 Log.Error($"Create monitor twin error: {e.Status}: {e.Message}");
+                throw new VitalSignsMonitorTwinCreationException(e);
             }
         }
 
@@ -136,7 +145,7 @@
             return new SensorComponent
             {
                 SensorName = EMPTY_VALUE,
-                Alarm = false,
+                Alert = false,
                 SensorValue = new SensorValueComponent
                 {
                     Value = 0,
@@ -153,7 +162,7 @@
             return new GraphSensorComponent
             {
                 SensorName = EMPTY_VALUE,
-                Alarm = false,
+                Alert = false,
                 GraphColor = EMPTY_VALUE,
                 SensorValue = new SensorValueComponent
                 {
@@ -166,6 +175,7 @@
             };
         }
 
+        /// <exception cref="TwinsRelationshipCreationException"/>
         public async Task CreateRelationship(DigitalTwinsClient client, string srcId, string targetId, string nameRel) {
             var relationship = new BasicRelationship
             {
@@ -182,6 +192,7 @@
             catch (RequestFailedException e)
             {
                 Log.Error($"Create relationship error: {e.Status}: {e.Message}");
+                throw new TwinsRelationshipCreationException(e);
             }
         }
 

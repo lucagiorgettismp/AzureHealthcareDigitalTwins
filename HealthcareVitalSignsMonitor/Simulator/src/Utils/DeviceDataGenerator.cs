@@ -1,5 +1,8 @@
-﻿namespace Simulator.Utils
+﻿using Common.Utils.Exceptions;
+
+namespace Simulator.Utils
 {
+    using Common.Utils.Exceptions;
     using Model;
     using System;
     using System.Configuration;
@@ -10,25 +13,29 @@
         private DeviceData deviceData;
         private readonly Random random;
 
-        const string IntType = "int";
-        const string DoubleType = "double";
+        private const string INT_TYPE = "int";
+        public const string DOUBLE_TYPE = "double";
 
         const string RED = "255,0,0";
         const string GREEN = "0,255,0";
         const string YELLOW = "255,255,0";
 
+        /// <exception cref="InvalidPropertyTypeException"/>
         public DeviceDataGenerator(string deviceId)
         {
             random = new Random();
             InitDeviceData(deviceId);
         }
 
+        /// <exception cref="InvalidPropertyTypeException"/>
         private void InitDeviceData(string deviceId)
         {
             var appSettings = ConfigurationManager.AppSettings;
 
-            double.TryParse(appSettings["TemperatureUpdateDelta"], NumberStyles.Any, CultureInfo.CurrentCulture, out double temperatureUpdateDelta);
-            double.TryParse(appSettings["TemperatureInitValue"], NumberStyles.Any, CultureInfo.CurrentCulture, out double temperatureInitValue);
+            double.TryParse(appSettings["TemperatureUpdateDelta"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                out var temperatureUpdateDelta);
+            double.TryParse(appSettings["TemperatureInitValue"], NumberStyles.Any, CultureInfo.CurrentCulture,
+                out var temperatureInitValue);
 
             var userSettings = SettingsManager.ReadUserSettings(deviceId);
 
@@ -37,11 +44,11 @@
                 UnitOfMeasurement = userSettings.Temperature.UnitOfMeasurement,
                 MinValue = userSettings.Temperature.MinValue,
                 MaxValue = userSettings.Temperature.MaxValue,
-                MinAlertThreashold = userSettings.Temperature.MinAlertThreashold,
-                MaxAlertThrehshold = userSettings.Temperature.MaxAlertThreashold,
+                MinAlertThreshold = userSettings.Temperature.MinAlertThreashold,
+                MaxAlertThreshold = userSettings.Temperature.MaxAlertThreashold,
                 UpdateDelta = temperatureUpdateDelta,
                 SensorName = appSettings["TemperatureSensorName"],
-                Type = DoubleType,
+                Type = DOUBLE_TYPE,
             };
 
             temperature.SetValue(temperatureInitValue);
@@ -51,10 +58,10 @@
                 UnitOfMeasurement = userSettings.BatteryPower.UnitOfMeasurement,
                 MinValue = userSettings.BatteryPower.MinValue,
                 MaxValue = userSettings.BatteryPower.MaxValue,
-                MinAlertThreashold = userSettings.BatteryPower.MinAlertThreashold,
+                MinAlertThreshold = userSettings.BatteryPower.MinAlertThreashold,
                 UpdateDelta = Convert.ToInt32(appSettings["BatteryUpdateDelta"]),
                 SensorName = appSettings["BatterySensorName"],
-                Type = IntType,
+                Type = INT_TYPE,
             };
             batteryPower.SetValue(Convert.ToInt32(appSettings["BatteryInitValue"]));
 
@@ -63,11 +70,11 @@
                 UnitOfMeasurement = userSettings.BloodPressure.UnitOfMeasurement,
                 MinValue = userSettings.BloodPressure.MinValue,
                 MaxValue = userSettings.BloodPressure.MaxValue,
-                MinAlertThreashold = userSettings.BloodPressure.MinAlertThreashold,
-                MaxAlertThrehshold = userSettings.BloodPressure.MaxAlertThreashold,
+                MinAlertThreshold = userSettings.BloodPressure.MinAlertThreashold,
+                MaxAlertThreshold = userSettings.BloodPressure.MaxAlertThreashold,
                 UpdateDelta = Convert.ToInt32(appSettings["BloodPressureUpdateDelta"]),
                 SensorName = appSettings["BloodPressureSensorName"],
-                Type = IntType,
+                Type = INT_TYPE,
                 GraphColor = YELLOW
             };
             bloodPressure.SetValue(Convert.ToInt32(appSettings["BloodPressureInitValue"]));
@@ -77,11 +84,11 @@
                 UnitOfMeasurement = userSettings.BreathFrequency.UnitOfMeasurement,
                 MinValue = userSettings.BreathFrequency.MinValue,
                 MaxValue = userSettings.BreathFrequency.MaxValue,
-                MinAlertThreashold = userSettings.BreathFrequency.MinAlertThreashold,
-                MaxAlertThrehshold = userSettings.BreathFrequency.MaxAlertThreashold,
+                MinAlertThreshold = userSettings.BreathFrequency.MinAlertThreashold,
+                MaxAlertThreshold = userSettings.BreathFrequency.MaxAlertThreashold,
                 UpdateDelta = Convert.ToInt32(appSettings["BreathFrequencyUpdateDelta"]),
                 SensorName = appSettings["BreathFrequencySensorName"],
-                Type = IntType,
+                Type = INT_TYPE,
                 GraphColor = GREEN
             };
             breathFrequency.SetValue(Convert.ToInt32(appSettings["BreathFrequencyInitValue"]));
@@ -91,11 +98,11 @@
                 UnitOfMeasurement = userSettings.HeartFrequency.UnitOfMeasurement,
                 MinValue = userSettings.HeartFrequency.MinValue,
                 MaxValue = userSettings.HeartFrequency.MaxValue,
-                MinAlertThreashold = userSettings.HeartFrequency.MinAlertThreashold,
-                MaxAlertThrehshold = userSettings.HeartFrequency.MaxAlertThreashold,
+                MinAlertThreshold = userSettings.HeartFrequency.MinAlertThreashold,
+                MaxAlertThreshold = userSettings.HeartFrequency.MaxAlertThreashold,
                 UpdateDelta = Convert.ToInt32(appSettings["HeartFrequencyUpdateDelta"]),
                 SensorName = appSettings["HeartFrequencySensorName"],
-                Type = IntType,
+                Type = INT_TYPE,
                 GraphColor = GREEN
             };
             heartFrequency.SetValue(Convert.ToInt32(appSettings["HeartFrequencyInitValue"]));
@@ -105,11 +112,11 @@
                 UnitOfMeasurement = userSettings.Saturation.UnitOfMeasurement,
                 MinValue = userSettings.Saturation.MinValue,
                 MaxValue = userSettings.Saturation.MaxValue,
-                MinAlertThreashold = userSettings.Saturation.MinAlertThreashold,
+                MinAlertThreshold = userSettings.Saturation.MinAlertThreashold,
                 UpdateDelta = Convert.ToInt32(appSettings["SaturationUpdateDelta"]),
                 SensorName = appSettings["SaturationSensorName"],
-                Type = IntType,
-                InAlarm = false,
+                Type = INT_TYPE,
+                InAlert = false,
                 GraphColor = RED
             };
             saturation.SetValue(Convert.ToInt32(appSettings["SaturationInitValue"]));
@@ -124,16 +131,16 @@
                 Saturation = saturation
             };
         }
-
+    
         public DeviceData GetUpdatedDeviceData()
         {
             var newData = this.deviceData;
 
             newData.Temperature.SetValue(this.GenerateDoubleValue(
-                (double)(object)deviceData.Temperature.Value,
-                (double)(object)deviceData.Temperature.UpdateDelta,
-                (double)(object)deviceData.Temperature.MinValue,
-                (double)(object)deviceData.Temperature.MaxValue));
+                deviceData.Temperature.Value,
+                deviceData.Temperature.UpdateDelta,
+                deviceData.Temperature.MinValue,
+                deviceData.Temperature.MaxValue));
 
             newData.BloodPressure.SetValue(this.GenerateIntValue(
                 deviceData.BloodPressure.Value,
@@ -177,7 +184,7 @@
 
         private double GenerateDoubleValue(double value, double delta, double minValue, double maxValue)
         {
-            double newValue = value + ((this.random.NextDouble() * (2 * delta )) - delta);
+            var newValue = value + ((this.random.NextDouble() * (2 * delta )) - delta);
 
             newValue = newValue <= minValue ? minValue : newValue;
             newValue = newValue >= maxValue ? maxValue : newValue;
@@ -187,14 +194,14 @@
 
         private int GenerateIntValue(int value, int delta, int minValue, int maxValue, bool canIncrease)
         {
-            int maxRandomValue = 2;
+            var maxRandomValue = 2;
 
             if (canIncrease)
             {
                 maxRandomValue = 1;
             }
 
-            int newValue = value + (this.random.Next(-1, maxRandomValue) * delta);
+            var newValue = value + (this.random.Next(-1, maxRandomValue) * delta);
 
             newValue = newValue <= minValue ? minValue : newValue;
             newValue = newValue >= maxValue ? maxValue : newValue;

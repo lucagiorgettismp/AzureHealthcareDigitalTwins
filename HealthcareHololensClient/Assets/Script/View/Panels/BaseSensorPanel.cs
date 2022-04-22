@@ -45,7 +45,7 @@
             this._batterySensorName.text = message.battery_sensor_name;
             this._batteryValue.text = message.battery_sensor_value.value.ToString();
             this._batterySymbol.text = message.battery_sensor_value.unit;
-            SetSensorAlert(this._batteryAlert, message.battery_alarm);
+            SetSensorAlert(this._batteryAlert, message.battery_alert);
 
             try
             {

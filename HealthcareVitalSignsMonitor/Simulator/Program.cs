@@ -1,13 +1,13 @@
 ﻿namespace Simulator
 {
-    using Simulator.Controller;
+    using Controller;
     using System;
     using System.Threading.Tasks;
     using System.Windows.Forms;
 
-    static class Program
+    internal static class Program
     {
-        public static SimulatorController _simulatorController;
+        public static SimulationController _simulationController;
         public static SettingsController _settingsController;
 
         /// <summary>
@@ -19,9 +19,19 @@
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            DevicesController controlPanelController = new DevicesController(() => OnControlPanelClose(), async (deviceId) => await OnDeviceSelectedAsync(deviceId), async () => await OnDeviceStartAsync(), () => OnDeviceStop(), () => OnSettings());
+            var controlPanelController = new DevicesController(OnControlPanelClose, OnDeviceSelected, OnStartClick, OnDeviceStop, OnSettings);
 
             controlPanelController.Start();
+        }
+
+        private static async void OnStartClick()
+        {
+            await OnDeviceStartAsync();
+        }
+
+        private static async void OnDeviceSelected(string deviceId)
+        {
+            await OnDeviceSelectedAsync(deviceId);
         }
 
         private static void OnSettings()
@@ -31,32 +41,25 @@
 
         private static void OnDeviceStop()
         {
-            _simulatorController.StopDevice();
+            _simulationController.StopDevice();
         }
 
         private static async Task OnDeviceStartAsync()
         {
-            await _simulatorController.StartDeviceAsync();
+            await _simulationController.StartDeviceAsync();
         }
 
         private static async Task OnDeviceSelectedAsync(string deviceId)
         {
-            _simulatorController = new SimulatorController(deviceId);
-            await _simulatorController.InitAsync();
+            _simulationController = new SimulationController(deviceId);
+            await _simulationController.InitAsync();
             _settingsController = new SettingsController(deviceId);
         }
 
         private static void OnControlPanelClose()
         {
-            if (_simulatorController != null)
-            {
-                _simulatorController.StopDevice();
-            }
-
-            if (_settingsController != null)
-            {
-                _settingsController.Close();
-            }
+            _simulationController?.StopDevice();
+            _settingsController?.Close();
         }
     }
 }

@@ -1,14 +1,15 @@
-﻿using Common.View;
-using Newtonsoft.Json.Linq;
-using Simulator.AzureApi;
-using Simulator.View;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace Simulator.Controller
+﻿namespace Simulator.Controller
 {
+    using AzureApi;
+    using Common.Utils.Exceptions;
+    using Common.View;
+    using Newtonsoft.Json.Linq;
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using System.Windows.Forms;
+    using View;
+
     public class DevicesController
     {
         private readonly DevicesForm _view;
@@ -72,25 +73,17 @@ namespace Simulator.Controller
 
         internal async Task<List<JObject>> GetDevicesAsync()
         {
-            List<JObject> devices = new List<JObject>();
+            var devices = new List<JObject>();
             try
             {
                 devices = await DeviceOperationsApi.GetDevices();
 
-                string message = string.Empty;
-                if (devices.Count != 0)
-                {
-                    message = "Device list loaded.";
-                }
-                else
-                {
-                    message = "No devices found.";
-                }
+                var message = devices.Count != 0 ? "Device list loaded." : "No devices found.";
 
                 this._successForm.SetText(message);
                 this._successForm.Show();
             }
-            catch (Exception ex)
+            catch (DevicesRetrievingException ex)
             {
                 this._errorForm.SetText(ex.Message);
                 this._errorForm.Show();

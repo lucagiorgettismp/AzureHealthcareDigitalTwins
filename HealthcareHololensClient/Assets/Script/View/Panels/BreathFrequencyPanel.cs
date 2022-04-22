@@ -58,7 +58,7 @@ public class BreathFrequencyPanel : BaseLineChartSensorPanel
 
     public override void UpdateSensorAlerts(Message message)
     {
-        SetSensorAlert(this._breathFrequencyAlert, message.breath_frequency_alarm);
+        SetSensorAlert(this._breathFrequencyAlert, message.breath_frequency_alert);
     }
 
     public override void UpdateLineCharts(Message message)

@@ -1,13 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Forms;
-
-namespace Common.View
+﻿namespace Common.View
 {
+    using System;
+    using System.Linq;
+    using System.Windows.Forms;
+
     public partial class ErrorForm : Form
     {
-        private const string ID_LABEL = "LabelTextError";
-       
         public ErrorForm()
         {
             InitializeComponent();
@@ -16,8 +14,7 @@ namespace Common.View
 
         public void SetText(string textError)
         {
-            Label errorLabel = this.Controls.Find(ID_LABEL, true).FirstOrDefault() as Label;
-            errorLabel.Text = textError;
+            this.LabelTextError.Text = textError;
             this.Show();
         }
 

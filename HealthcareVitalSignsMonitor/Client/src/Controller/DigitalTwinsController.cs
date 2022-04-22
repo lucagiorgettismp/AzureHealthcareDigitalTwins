@@ -1,17 +1,18 @@
-﻿using Azure.DigitalTwins.Core;
-using Client.Api;
-using Client.View;
-using Common.AzureApi;
-using Common.Utils;
-using Common.View;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace Client.Controller
+﻿namespace Client.Controller
 {
-    class DigitalTwinsController
+    using Api;
+    using Azure.DigitalTwins.Core;
+    using Common.AzureApi;
+    using Common.Utils;
+    using Common.Utils.Exceptions;
+    using Common.View;
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using System.Windows.Forms;
+    using View;
+
+    internal class DigitalTwinsController
     {
         private readonly DigitalTwinsForm _view;
         private readonly Action _onAddPatientClick;
@@ -50,9 +51,10 @@ namespace Client.Controller
             {
                 this._twinClient = AuthenticationApi.GetClient();
             }
-            catch (Exception e)
+            catch (ClientAuthenticationException e)
             {
                 Log.Error(e.Message);
+
                 this._errorForm.SetText(e.Message);
                 this._errorForm.Show();
             }
@@ -83,16 +85,7 @@ namespace Client.Controller
         {
             var list = await new TwinOperationsApi().GetTwins(this._twinClient);
 
-            var message = string.Empty;
-
-            if (list.Count == 0)
-            {
-                message = "No patients found.";
-            }
-            else
-            {
-                message = "Patients found!";
-            }
+            var message = list.Count == 0 ? "No patients found." : "Patients retrieved.";
 
             this._successForm.SetText(message);
             this._successForm.Show();
