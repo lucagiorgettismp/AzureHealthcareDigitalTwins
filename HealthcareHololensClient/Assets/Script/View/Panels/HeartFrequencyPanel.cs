@@ -57,7 +57,7 @@ public class HeartFrequencyPanel : BaseLineChartSensorPanel
 
     public override void UpdateSensorAlerts(Message message)
     {
-        SetSensorAlert(this._heartFrequencyAlert, message.heart_frequency_alarm);
+        SetSensorAlert(this._heartFrequencyAlert, message.heart_frequency_alert);
     }
     public override void UpdateLineCharts(Message message)
     {

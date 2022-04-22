@@ -3,7 +3,7 @@ namespace Simulator.Model.Payload
 {
     public class Sensor<T>
     {
-        [JsonProperty("alarm")]
+        [JsonProperty("alert")]
         public bool Alert { get; set; }
 
         [JsonProperty("sensor_name")]

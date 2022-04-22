@@ -57,7 +57,7 @@ public class SaturationPanel : BaseLineChartSensorPanel
 
     public override void UpdateSensorAlerts(Message message)
     {
-        SetSensorAlert(this._saturationAlert, message.saturation_alarm);
+        SetSensorAlert(this._saturationAlert, message.saturation_alert);
     }
 
     public override void UpdateLineCharts(Message message)
