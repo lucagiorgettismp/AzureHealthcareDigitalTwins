@@ -1,4 +1,4 @@
-<link type="text/css" rel="stylesheet" href="/stylesheet.css" />
+<link type="text/css" rel="stylesheet" href="stylesheet.css" />
 
 <h2 class="home-title">Relazione di Progetto</h2>
 <h3 class="home-title">Lorenzo Pagnini</h3> 
