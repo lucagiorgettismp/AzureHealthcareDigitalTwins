@@ -1,7 +1,10 @@
 \documentclass{report}
 \usepackage[utf8]{inputenc}
 \usepackage[colorlinks=true,urlcolor=black]{hyperref}
+
 \usepackage{listings}
+\renewcommand{\lstlistingname}{Frammento}
+
 \usepackage{natbib}
 \usepackage{graphicx}
 \usepackage{caption}
@@ -13,11 +16,27 @@
 \usepackage{wrapfig}
 \usepackage{emoji}
 \usepackage{grffile}
+%\usepackage{bera}  % Have a nice mono-spaced font
+\usepackage{xcolor}
+
+\makeatletter
+\newcommand{\mypm}{\mathbin{\mathpalette\@mypm\relax}}
+\newcommand{\@mypm}[2]{\ooalign{%
+  \raisebox{.1\height}{$#1+$}\cr
+  \smash{\raisebox{-.6\height}{$#1-$}}\cr}}
+
+\colorlet{punct}{red!60!black}
+\definecolor{background}{HTML}{EEEEEE}
+\definecolor{delim}{RGB}{20,105,176}
+\colorlet{numb}{magenta!60!black}
+
+\addtolength{\footnotesep}{1.5mm}
+\renewcommand{\thefootnote}{\textbf{\arabic{footnote}}}
 
 \begin{document}
 \hypersetup{linkcolor=black}
 
-\graphicspath{ {./images/} }
+\graphicspath{ {./Images/} }
 
 \input{Tex/Title}
 
@@ -33,7 +52,7 @@
 
 \input{Tex/5-DetailedDesign}
 
-\input{Tex/6-TestPerformance}
+\input{Tex/6-Deployment}
 
 \input{Tex/7-Conclusion}
 
