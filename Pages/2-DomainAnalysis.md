@@ -20,6 +20,7 @@ permalink: /domain_analysis.html
 <div id="#pic:monitor_example">
 <p align="center">
     <img width="450" src="Images/monitor.png">
+      <figcaption>Immagine 1.1</figcaption>
 </p>
 </div>
 
@@ -138,6 +139,7 @@ permalink: /domain_analysis.html
 <div id="#pic:use-cases">
 <p align="center">
     <img width="450" src="Images/useCase.png">
+    <figcaption>Immagine 1.2</figcaption>
 </p>
 </div>
 
@@ -170,6 +172,7 @@ permalink: /domain_analysis.html
 <div id="#pic:domain-model">
 <p align="center">
     <img width="450" src="Images/domain_model.png">
+    <figcaption>Immagine 1.3</figcaption>
 </p>
 </div>
 
@@ -191,6 +194,7 @@ permalink: /domain_analysis.html
 <div id="#pic:bounded-context">
 <p align="center">
     <img width="450" src="Images/bounded_context.png">
+    <figcaption>Immagine 1.4</figcaption>
 </p>
 </div>>
 
