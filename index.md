@@ -5,7 +5,7 @@
 <h3 class="home-title">Luca Giorgetti</h3>
 
 <p align="center">
-    <img width="350" height="300" src="Images/logo.png">
+    <img width="350" height="200" src="Images/logo.png">
 </p>
 
 ## Indice
