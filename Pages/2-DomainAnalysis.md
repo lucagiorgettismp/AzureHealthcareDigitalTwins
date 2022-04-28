@@ -18,10 +18,10 @@ permalink: /domain_analysis.html
 <p>Molte grandi città del mondo stanno già impiegando questa tecnologia in ambito sanitario. Ad esempio nell’ospedale di Singapore, i chirurgi utilizzano questo approccio per visualizzare ologrammi di referti dei pazienti (come una risonanza magnetica) durante un intervento chirurgico (maggiori informazioni a questo <a href="https://govinsider.asia/citizen-centric/how-a-singapore-hospital-uses-holograms-to-assist-surgery-nuhs-ngiam-kee-yuan/"><em>link</em></a>). Si tratta di un caso simile al nostro ma con una principale differenza: nel nostro caso l’ologramma viene aggiornato in <em>real-time</em> con i dati del paziente.</p>
 
 <div id="#pic:monitor_example">
-<figure>
-    <img width="450" src="Images/monitor.png" class="center" />
-    <figcaption>Immagine 1.1</figcaption>
-</figure>    
+<p align="center">
+    <img width="450" src="Images/monitor.png" />
+    <center>Immagine 1.1</center>
+</p>    
 </div>
 
 <p>Durante l’intervento, al paziente vengono collegati diversi sensori per monitorare i parametri vitali. I valori dei parametri vengono mostrati nel monitor ognuno con uno specifico colore. In particolare per ogni parametro viene mostrato il valore puntuale, l’unità di misura e per alcuni di loro anche un grafico. Nella figura <a href="#pic:monitor_example" data-reference-type="ref" data-reference="pic:monitor_example">1.1</a> è presente un esempio di monitor a parametri vitali ed è quello a cui noi ci siamo basati per la parte di simulazione. I parametri vitali monitorati sono: la temperatura, la pressione sanguigna, la frequenza respiratoria e cardiaca e la saturazione. Per ognuno di questi si è deciso anche di aggiungere un allarme che si attiva qualora il relativo valore supera una certa soglia sia inferiormente che superiormente.</p>
