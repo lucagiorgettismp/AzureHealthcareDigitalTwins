@@ -80,7 +80,7 @@ Mixed Reality &gt; Toolkit &gt; Utilities &gt; Configure Project for MRTK.</p>
   
 <div id="#pic:build-settings">
   <p align="center">
-      <img width="500" src="Images/hololens_build_settings.png" />
+      <img width="500" height="350" src="Images/hololens_build_settings.png" />
       <center>Immagine 1.3</center>
   </p>
 </div>
@@ -101,7 +101,7 @@ Mixed Reality &gt; Toolkit &gt; Utilities &gt; Configure Project for MRTK.</p>
 <li><p>Inserire una stringa di tipo Json fatta come segue:</p>
 <div class="sourceCode" id="cb1" data-language="json" data-startFrom="1"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span><span class="dt">&quot;deviceId&quot;</span><span class="fu">:</span> <span class="st">&quot;CODICE_FISCALE_DEL_PAZIENTE&quot;</span><span class="fu">}</span></span></code></pre></div></li>
 <li><p>Generare e scaricare il QR code appena creato.</p></li>
-</ol>
+
 <p>Una volta avviata l’applicazione su Hololens, inquadrare il QR code.<br />
 Quando viene rilevato l’identificativo del paziente, verranno caricate le informazioni sul paziente, il menù di selezione delle schermate e la schermata precedentemente selezionata (o di default la schermata Home se si tratta della prima apertura).</p>
 
