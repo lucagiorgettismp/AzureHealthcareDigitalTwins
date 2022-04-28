@@ -4,8 +4,6 @@ permalink: /detailed_design.html
 
 # Design di Dettaglio
 
-<h1 id="chap:detailed-design">Design di Dettaglio</h1>
-
 <p>In questo capitolo verrà illustrata l’organizzazione del codice per i componenti dell’architettura, i pattern utilizzati e le principali scelte implementative.</p>
 <h2 id="pattern-utilizzati">Pattern utilizzati</h2>
 <p>Sia per quanto riguarda l’architettura della parte client (simulatore e backend) che per quella della Mixed Reality è stato implementato il pattern MVC (<em>Model</em>-<em>View</em>-<em>Controller</em>). Il pattern è composto da tre componenti principali:</p>
@@ -49,7 +47,7 @@ permalink: /detailed_design.html
 
 <div id="#pic:model-graph">
   <p align="center">
-      <img width="450" src="Images/modelGraph.PNG" />
+      <img width="500" height="300" src="Images/modelGraph.PNG" />
       <center>Immagine 1.2</center>
   </p>
 </div>
