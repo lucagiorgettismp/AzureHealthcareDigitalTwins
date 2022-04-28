@@ -55,7 +55,7 @@ La scelta è ricaduta sulla licenza di tipo GNU GPLv3 (GNU GENERAL PUBLIC LICENS
 
 <div id="#pic:job-workflow">
   <p align="center">
-      <img width="450" src="Images/jobWorkflow.PNG" />
+      <img width="500" src="Images/jobWorkflow.PNG" />
       <center>Immagine 1.2</center>
   </p>
 </div>
