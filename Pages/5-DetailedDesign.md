@@ -47,7 +47,7 @@ permalink: /detailed_design.html
 
 <div id="#pic:model-graph">
   <p align="center">
-      <img width="500" height="300" src="Images/modelGraph.PNG" />
+      <img width="650" height="350" src="Images/modelGraph.PNG" />
       <center>Immagine 1.2</center>
   </p>
 </div>
@@ -139,10 +139,10 @@ permalink: /detailed_design.html
 <p>L’entry point dell’applicazione è lo script <em>Application.cs</em>, che gestisce il passaggio da una fase all’altra, istanziando due differenti controller:</p>
 <ul>
 <li><p><strong>QRCodeController</strong>: avvia il servizio background di rilevazione del QR code e prende in input una funzione da invocare non appena il QR code viene letto;</p></li>
-<li><p><strong>VitalSignsMonitorController</strong>: una volta ottenuto l’id del device, recupera i dati del paziente, la schermata selezionata in precedenza e avvia il servizio di ascolto dei messaggi provenienti da SignalR. Al cambio della schermata notifica il pannello selezionato al server.</p></li>
+<li><p><strong>VitalSignsMonitorController</strong>: una volta ottenuto l’id del device, recupera i dati del paziente <a href="#section1">[1]</a>, la schermata selezionata in precedenza e avvia il servizio di ascolto dei messaggi provenienti da SignalR. Al cambio della schermata notifica il pannello selezionato al server. <a href="#section1">[1]</a></p></li>
 </ul>
 <p>Tutte le classi contenute all’iterno alla cartella <em>/View</em> degli script estendono <em>MonoBeahaviour</em> e sono collegate al relativo elemento UI, così come lo sono i controller e <em>Application.cs</em>.<br />
 La cartella <em>/Model</em> contiene le classi POCO per la serializzazione e deserializzazione dei messaggi SignalR e verso il server, mentre nella cartella <em>/Api</em> si trovano le classi per l’interazione con il database realtime di Firebase e per interrogare ed autenticarsi presso la suite di Azure.</p>
 
-
+<p id="section1">[1] <strong>Importante</strong>: la libreria <em>DigitalTwinClient</em> per l'autenticazione e l'interfacciamento con i Digital Twins di <em>Azure</em> non funziona a <em>runtime</em> su <em>Hololens</em> (per mancanza di permessi di accesso ad una cartella privata del file system). <br> Per aggirare questo problema, il salvataggio del paziente e dell'ultima schermata aperta è stato replicato anche su Firebase RealTime Database.</p>
 <a href="https://lucagiorgettismp.github.io/AzureHealthcareDigitalTwins/">Indietro</a>
