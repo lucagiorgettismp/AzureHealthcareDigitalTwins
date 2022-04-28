@@ -5,7 +5,7 @@
 <h3 class="home-title">Luca Giorgetti</h3>
 
 <p align="center">
-    <img width="200" src="Images/logo.png">
+    <img width="350" height="300" src="Images/logo.png">
 </p>
 
 ## Indice
@@ -17,5 +17,5 @@
     <li><a href="https://lucagiorgettismp.github.io/AzureHealthcareDigitalTwins/architectural_design.html">Design Architetturale</a></li>
     <li><a href="https://lucagiorgettismp.github.io/AzureHealthcareDigitalTwins/detailed_design.html">Design di Dettaglio</a></li>
     <li><a href="https://lucagiorgettismp.github.io/AzureHealthcareDigitalTwins/deployment.html">Deployment</a></li>
-    <li><a href="https://lucagiorgettismp.github.io/AzureHealthcareDigitalTwins/conclusion.html">Conclusioni</a></li>
+    <li><a href="https://lucagiorgettismp.github.io/AzureHealthcareDigitalTwins/conclusion.html">Conclusione</a></li>
 </ol>
