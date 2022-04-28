@@ -5,7 +5,7 @@ permalink: /architectural_design.html
 # Design Architetturale
 
 <p>In questo capitolo verrà descritta l’architettura del sistema, illustrando i componenti principali. Si rimanda al
-  capitolo <a href="https://lucagiorgettismp.github.io/AzureHealthcareDigitalTwins/architectural_design.html">4</a> per ulteriori informazioni riguardante il codice
+  capitolo <a href="https://lucagiorgettismp.github.io/AzureHealthcareDigitalTwins/detailed_design.html">5</a> per ulteriori informazioni riguardante il codice
   dell’applicativo e le specifiche di implementazione.</p>
 <h2 id="architettura-generale">Architettura Generale</h2>
 <p>L’architettura generale del sistema è illustrata nella figura <a href="#pic:architecture" data-reference-type="ref"
