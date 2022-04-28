@@ -17,7 +17,7 @@ permalink: /development_process.html
 </div>
 
 <h3 id="versioning">Versioning</h3>
-<p>Il versioning è una scelta importante nello sviluppo di un progetto, perchè permette di dare un identificativo univoco ad una determinata versione del software. Nella scelta della tipologia di sistema di versioning, il fattore che ha pesato di più è la frequenza di commit/modifiche del codice durante l’intero sviluppo della applicazione. Ci siamo da subito aspettati, infatti, che nella prima parte di progetto i commit sul nostro DVCS fossero più frequenti rispetto a quelli nella fase avanzata del progetto. Abbiamo deciso quindi di adottare la tecnica del Semantic Versioning (<a href="https://semver.org/lang/it/">SEMVER</a>) che permette di capire, di versione in versione, quanto è effettivamente cambiato il codice, senza essere condizionato dalla frequenza di rilascio. Il semantic versioning è anche facilmente integrabile con il DVCS. Ogni numero di release rispetta il pattern <code>MAJOR.MINOR.PATCH</code>, in cui ad ogni release viene incrementato in base alle modifiche effettuate:</p>
+<p>Il versioning è una scelta importante nello sviluppo di un progetto, perchè permette di dare un identificativo univoco ad una determinata versione del software.</p><p> Nella scelta della tipologia di sistema di versioning, il fattore che ha pesato di più è la frequenza di commit/modifiche del codice durante l’intero sviluppo della applicazione. Ci siamo da subito aspettati, infatti, che nella prima parte di progetto i commit sul nostro DVCS fossero più frequenti rispetto a quelli nella fase avanzata del progetto.</p><p> Abbiamo deciso quindi di adottare la tecnica del Semantic Versioning (<a href="https://semver.org/lang/it/">SEMVER</a>) che permette di capire, di versione in versione, quanto è effettivamente cambiato il codice, senza essere condizionato dalla frequenza di rilascio. Il semantic versioning è anche facilmente integrabile con il DVCS.</p><p> Ogni numero di release rispetta il pattern <code>MAJOR.MINOR.PATCH</code>, in cui ad ogni release viene incrementato in base alle modifiche effettuate:</p>
 
 <ul>
 <li><p><code>MAJOR</code>: quando viene modificata l’API in maniera non retrocompatibile;</p></li>
@@ -25,7 +25,7 @@ permalink: /development_process.html
 <li><p><code>PATCH</code>: quando viene corretto un bug in maniera retrocompatibile.</p></li>
 </ul>
 
-<p>Nel semantic versioning, vige inoltre la politica del no-retract, pertanto i numeri di versione sono sempre incrementali e non è possibile creare una release con versione precedente ad una già rilasciata, questo al fine di garantire maggior chiarezza e sapendo che a numero di versione più alto corrisponde la versione più recente. Nel nostro progetto la scelta del numero di versione è stata lasciata agli sviluppatori. Ogni volta che viene fatta la push sul DVCS di un tag in formato <code>vMAJOR.MINOR.PATCH</code>, in automatico tramite un apposito workflow viene creata una release con allegati i compilati delle applicazioni e la documentazione aggiornata.</p>
+<p>Nel semantic versioning, vige inoltre la politica del no-retract, pertanto i numeri di versione sono sempre incrementali e non è possibile creare una release con versione precedente ad una già rilasciata, questo al fine di garantire maggior chiarezza e sapendo che a numero di versione più alto corrisponde la versione più recente.</p><p> Nel nostro progetto la scelta del numero di versione è stata lasciata agli sviluppatori. Ogni volta che viene fatta la push sul DVCS di un tag in formato <code>vMAJOR.MINOR.PATCH</code>, in automatico tramite un apposito workflow viene creata una release con allegati i compilati delle applicazioni e la documentazione aggiornata.</p>
 
 <h3 id="licensing">Licensing</h3>
 
@@ -55,7 +55,7 @@ La scelta è ricaduta sulla licenza di tipo GNU GPLv3 (GNU GENERAL PUBLIC LICENS
 
 <div id="#pic:job-workflow">
   <p align="center">
-      <img width="450" src="Images/" />
+      <img width="450" src="Images/jobWorkflow.png" />
       <center>Immagine 1.2</center>
   </p>
 </div>
@@ -77,6 +77,6 @@ La scelta è ricaduta sulla licenza di tipo GNU GPLv3 (GNU GENERAL PUBLIC LICENS
 <h3 id="quality-assurance">Quality Assurance</h3>
 
 <p>Per quanto riguarda la parte di qualità del codice, la scelta è ricaduta sui servizi <a href="https://www.codefactor.io/"><em>Codefactor</em></a> e <a href="https://deepsource.io/"><em>DeepSource</em></a>.</p>
-<p><span>CodeFactor</span> permette di essere facilmente integrabile a repository pubblici di Git Hub analizzando la qualità sintattica del codice. In questo modo ci ha permesso di correggere piccole imprecisioni e di conseguenza aumentarne la qualità. Un altro tool molto utile è DeepSource. Questo strumento permette di eseguire l’analisi semantica del codice, consentendo loro di rilevare diversi problemi, inclusi anti-pattern o rischi di bug in fase di esecuzione dell’applicativo.</p>
+<p><span>CodeFactor</span> permette di essere facilmente integrabile a repository pubblici di Git Hub analizzando la qualità sintattica del codice. In questo modo ci ha permesso di correggere piccole imprecisioni e di conseguenza aumentarne la qualità. </p><p>Un altro tool molto utile è DeepSource. Questo strumento permette di eseguire l’analisi semantica del codice, consentendo loro di rilevare diversi problemi, inclusi anti-pattern o rischi di bug in fase di esecuzione dell’applicativo.</p>
 
 <a href="https://lucagiorgettismp.github.io/AzureHealthcareDigitalTwins/">Indietro</a>
