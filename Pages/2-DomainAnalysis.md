@@ -19,8 +19,10 @@ permalink: /domain_analysis.html
 
 <div id="#pic:monitor_example">
 <p align="center">
-    <img width="450" src="Images/monitor.png">
-      <figcaption>Immagine 1.1</figcaption>
+    <figure>
+        <img width="450" src="Images/monitor.png" />
+        <figcaption>Immagine 1.1</figcaption>
+    </figure>    
 </p>
 </div>
 
@@ -198,7 +200,7 @@ permalink: /domain_analysis.html
 </p>
 </div>>
 
-<p>Come mostrato in figura<a href="#pic:bounded-context" data-reference-type="ref" data-reference="pic:bounded-context">1.4</a>, il <em>Surgical Intevention Subdomain</em> è suddiviso in tre diversi Bounded Context:</p>
+<p>Come mostrato in figura <a href="#pic:bounded-context" data-reference-type="ref" data-reference="pic:bounded-context">1.4</a>, il <em>Surgical Intevention Subdomain</em> è suddiviso in tre diversi Bounded Context:</p>
 <ul>
 <li><p><strong>Vital Signs Monitor Display</strong>: Visualizzazione del digital twin del monitor parametri vitali ed interazione con esso;</p></li>
 <li><p><strong>Vital Signs Monitor Detection</strong>: Rilevazione dei parametri vitali del paziente e della verifica del superamento delle soglie di allarme;</p></li>
