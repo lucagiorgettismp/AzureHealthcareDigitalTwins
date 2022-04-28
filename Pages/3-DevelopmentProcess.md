@@ -4,7 +4,6 @@ permalink: /development_process.html
 
 # Processi di Sviluppo
 
-<h1 id="processo-di-sviluppo">Processo di Sviluppo</h1>
 <h2 id="gestione-di-progetto">Gestione di Progetto</h2>
 
 <p>Si è utilizzato <em>Git</em> come sistema di DVCS del codice durante lo sviluppo, attraverso la piattaforma GitHub. L’abbiamo utilizzato sfruttando la tecnica del <em>GitFlow</em> come mostrato nella figura <a href="#pic:workflow" data-reference-type="ref" data-reference="pic:workflow">1.1</a>: il branch di default è sempre il <em>main</em>, al quale <em>development</em> è sempre allineato. Ogni volta che è necessario implementare una nuova <em>feature</em> viene creato un branch da <em>development</em>. Nel caso in cui debbano essere prodotti degli hotfix o risolti dei bug, essi vengono effettuati su un branch che parte da <em>development</em> e vi ritorna, prima di essere mergiato nuovamente su <em>main</em>. Successivamente, a lavoro ultimato, veniva creata una pull request per mergiare sul branch <em>development</em> e infine sul <em>main</em>.</p>
