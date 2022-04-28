@@ -100,7 +100,6 @@ jobs:
           pre_compile: "tlmgr update --self --all"
           root_file: main.tex
           args: "-pdf -jobname=Report -lualatex -file-line-error -interaction=nonstopmode"
-          post_compile: "latexmk -c"
           
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
