@@ -4,11 +4,16 @@ permalink: /domain_analysis.html
 
 # Analisi del Dominio
 
-<p>Questo capitolo verte su tutta l’analisi impiegata sulla conoscenza del dominio dell’applicativo, sull’identificazione dei requisiti, dei casi d’uso nonché sull’analisi dei principi della filosofia Domain Driven Design. Questa fase è stata di grande importanza poiché ci ha permesso, da una parte di avere un ottima conoscenza del dominio applicativo e dall’altra di discutere sui principali aspetti di sviluppo agevolando notevolmente la successiva fase di implementazione.</p>
+<p>Questo capitolo verte su tutta l’analisi impiegata sulla conoscenza del dominio dell’applicativo, sull’identificazione dei requisiti, dei casi d’uso nonché sull’analisi dei principi della filosofia Domain Driven Design.</p>
+<p>Questa fase è stata di grande importanza poiché ci ha permesso, da una parte di avere un ottima conoscenza del dominio applicativo e dall’altra di discutere sui principali aspetti di sviluppo agevolando notevolmente la successiva fase di implementazione.</p>
+
 <h2 id="il-dominio">Il dominio</h2>
 <p>In questa sezione verrà descritto il dominio dell’applicativo: verrà presentato l’obiettivo da raggiungere, lo stato dell’arte e l’<em>ubiquitous language</em> individuato.</p>
+
 <h3 id="obiettivo">Obiettivo</h3>
-<p>L’obiettivo del progetto è la creazione di un sistema che consenta a tutto il team della sala operatoria (medici, infermieri e anestesisti) di accedere in maniera agevole a tutte le informazioni del paziente durante un intervento chirurgico. In particolare quello che si richiede è di poter virtualizzare attraverso un ologramma il monitor a parametri vitali del paziente. In questo modo, durante un intervento, ogni membro del team può visualizzare ed interagire con l’ologramma controllando i relativi valori dei parametri del monitor indipendentemente dalla locazione del dispositivo fisico. Questo approccio porta a semplificare tutta una serie di operazioni che possono essere svolte sul paziente durante l’operazione. Si pensi se durante un intervento è necessario eseguire una TAC d’urgenza: significherebbe trasportare il paziente, tutti i sensori a cui è collegato e il relativo monitor in una stanza adiacente a quella chirurgica con il rischio di perdere del tempo prezioso per problemi che possono incorrere durante il trasferimento. Se si adottasse la soluzione proposta, sarebbe necessario spostare solamente il paziente e non i dispositivi fisici poiché ogni membro del team continua a visualizzare l’ologramma, riducendo così il tempo impiegato nel trasferimento del paziente. Un altro vantaggio è dato dalla connessione in remoto allo stato del monitor del paziente da parte di altri medici che possono essere coinvolti nell’operazione.</p>
+<p>L’obiettivo del progetto è la creazione di un sistema che consenta a tutto il team della sala operatoria (medici, infermieri e anestesisti) di accedere in maniera agevole a tutte le informazioni del paziente durante un intervento chirurgico. In particolare quello che si richiede è di poter virtualizzare attraverso un ologramma il monitor a parametri vitali del paziente. In questo modo, durante un intervento, ogni membro del team può visualizzare ed interagire con l’ologramma controllando i relativi valori dei parametri del monitor indipendentemente dalla locazione del dispositivo fisico.</p>
+<p>Questo approccio porta a semplificare tutta una serie di operazioni che possono essere svolte sul paziente durante l’operazione. Si pensi se durante un intervento è necessario eseguire una TAC d’urgenza: significherebbe trasportare il paziente, tutti i sensori a cui è collegato e il relativo monitor in una stanza adiacente a quella chirurgica con il rischio di perdere del tempo prezioso per problemi che possono incorrere durante il trasferimento. Se si adottasse la soluzione proposta, sarebbe necessario spostare solamente il paziente e non i dispositivi fisici poiché ogni membro del team continua a visualizzare l’ologramma, riducendo così il tempo impiegato nel trasferimento del paziente. Un altro vantaggio è dato dalla connessione in remoto allo stato del monitor del paziente da parte di altri medici che possono essere coinvolti nell’operazione.</p>
+
 <h3 id="stato-dellarte">Stato dell’arte</h3>
 <p>Molte grandi città del mondo stanno già impiegando questa tecnologia in ambito sanitario. Ad esempio nell’ospedale di Singapore, i chirurgi utilizzano questo approccio per visualizzare ologrammi di referti dei pazienti (come una risonanza magnetica) durante un intervento chirurgico (maggiori informazioni a questo <a href="https://govinsider.asia/citizen-centric/how-a-singapore-hospital-uses-holograms-to-assist-surgery-nuhs-ngiam-kee-yuan/"><em>link</em></a>). Si tratta di un caso simile al nostro ma con una principale differenza: nel nostro caso l’ologramma viene aggiornato in <em>real-time</em> con i dati del paziente.</p>
 
@@ -18,7 +23,8 @@ permalink: /domain_analysis.html
 </p>
 </div>
 
-<p>Durante l’intervento, al paziente vengono collegati diversi sensori per monitorare i parametri vitali. I valori dei parametri vengono mostrati nel monitor ognuno con uno specifico colore. In particolare per ogni parametro viene mostrato il valore puntuale, l’unità di misura e per alcuni di loro anche un grafico. Nella figura <a href="#pic:monitor_example" data-reference-type="ref" data-reference="pic:monitor_example">[pic:monitor_example]</a> è presente un esempio di monitor a parametri vitali ed è quello a cui noi ci siamo basati per la parte di simulazione. I parametri vitali monitorati sono: la temperatura, la pressione sanguigna, la frequenza respiratoria e cardiaca e la saturazione. Per ognuno di questi si è deciso anche di aggiungere un allarme che si attiva qualora il relativo valore supera una certa soglia sia inferiormente che superiormente.</p>
+<p>Durante l’intervento, al paziente vengono collegati diversi sensori per monitorare i parametri vitali. I valori dei parametri vengono mostrati nel monitor ognuno con uno specifico colore. In particolare per ogni parametro viene mostrato il valore puntuale, l’unità di misura e per alcuni di loro anche un grafico. Nella figura <a href="#pic:monitor_example" data-reference-type="ref" data-reference="pic:monitor_example">1.1</a> è presente un esempio di monitor a parametri vitali ed è quello a cui noi ci siamo basati per la parte di simulazione. I parametri vitali monitorati sono: la temperatura, la pressione sanguigna, la frequenza respiratoria e cardiaca e la saturazione. Per ognuno di questi si è deciso anche di aggiungere un allarme che si attiva qualora il relativo valore supera una certa soglia sia inferiormente che superiormente.</p>
+
 <h3 id="ubiquitous-language">Ubiquitous Language</h3>
 <p>L’<em>ubiquitous language</em> contiene un insieme di termini usati nella definizione del dominio al fine di eliminare incertezze, imprecisioni e fraintendimenti che possono derivare da ogni membro del team di progetto, esperti del dominio e altri partecipanti. E’ importante non solo specificare il significato di un termine ma anche il suo contesto di utilizzo. Tale linguaggio è sempre in continuo aggiornamento anche durante tutta la fase di sviluppo e non definito solamente all’inizio. La tabella <a href="#tab:mixed-reality-ubiquitous-language-table" data-reference-type="ref" data-reference="tab:mixed-reality-ubiquitous-language-table">1.1</a> illustra l’<em>ubiquitous language</em> per il nostro applicativo.</p>
 <table>
@@ -127,7 +133,7 @@ permalink: /domain_analysis.html
 <li><p>Accesso del paziente in ospedale;</p></li>
 <li><p>Intervento chirurgico.</p></li>
 </ul>
-<p>L’immagine <a href="#pic:use-cases" data-reference-type="ref" data-reference="pic:use-cases">1.1</a> mostra i caso d’uso del sistema relativi ai contesti citati.</p>
+<p>L’immagine <a href="#pic:use-cases" data-reference-type="ref" data-reference="pic:use-cases">1.2</a> mostra i caso d’uso del sistema relativi ai contesti citati.</p>
 
 <div id="#pic:use-cases">
 <p align="center">
@@ -137,12 +143,16 @@ permalink: /domain_analysis.html
 
 <h4 id="accesso-del-paziente-in-ospedale">Accesso del paziente in ospedale</h4>
 <p>Quando il paziente deve essere ricoverato in ospedale è necessario registrarlo nel sistema informatico dell’ospedale. L’operatore incaricato dovrà quindi creare la sua scheda clinica compilando i dati richiesti. Successivamente, il chirurgo se lo ritiene necessario può configurare le soglie di allerta per i parametri vitali e infine si dovrà generare il relativo QR code che sarà utilizzato per il riconoscimento del paziente in sala operatoria.</p>
+
 <h4 id="intervento-chirurgico">Intervento chirurgico</h4>
 <p>Se è necessario eseguire un operazione chirurgica al paziente, il chirurgo può utilizzare oltre al monitor a parametri vitali fisico anche quello virtuale grazie alla visualizzazione di un ologramma. Per fare ciò sarà necessario scannerizzare il QR code del paziente (generato in fase di ricovero) sia nel monitor fisico sia nell’ologramma al fine di creare la connessione tra i due sistemi per la ricezione dei dati. In questo modo il chirurgo potrà visualizzare nell’ologramma i dati relativi ai parametri vitali del paziente, eventuali allarmi, i grafici, i valori puntuali e scegliere di monitorare un preciso parametro anziché avere una schermata generale di tutti. Inoltre sarà possibile visualizzare la scheda clinica del paziente compilata in fase di ricovero.</p>
+
 <h3 id="non-funzionali">Non funzionali</h3>
 <p>I requisiti non funzionali sono così descritti.</p>
+
 <h4 id="usabilità">Usabilità</h4>
 <p>Il sistema deve fornire agli utenti finali un’interfaccia chiara, semplice, ben organizzata in modo da poter utilizzare al meglio tutte le sue funzionalità messe a disposizione e visualizzate.</p>
+
 <h4 id="legati-al-sistema-1">Legati al Sistema</h4>
 <ul>
 <li><p><strong>Reattività</strong>. L’utente non deve percepire ritardi tra la visualizzazione dei dati nel monitor a parametri vitali fisico e la visualizzazione degli stessi nell’ologramma;</p></li>
@@ -150,8 +160,10 @@ permalink: /domain_analysis.html
 <li><p><strong>Sicurezza</strong>. Utilizzando <em>Azure Digital Twins</em> i dati salvati nel cloud e quelli in transito tra due o più componenti di Azure sono crittografati;</p></li>
 <li><p><strong>Scalabilità</strong>. L’applicativo deve necessariamente consentire di aumentare o diminuire il numero di pazienti gestiti senza influire negativamente sulla prestazione del sistema.</p></li>
 </ul>
+
 <h3 id="implementativi">Implementativi</h3>
 <p>Il software dovrà essere realizzato utilizzando la filosofia <em>Domain Driven Design</em>. Dovranno inoltre essere utilizzate metodologie di DevOps al fine di automatizzare e integrare quanti più processi possibili. Si utilizzerà il servizio Azure Digital Twins (PaaS - Platform As A Service) per la gestione dei digital twins e l’interfacciamento con i diversi clients. Per la parte di mixed reality si utilizzerà la piattaforma Unity e i visori Microsoft Hololens 2.</p>
+
 <h2 id="aspetti-di-domain-driven-design">Aspetti di Domain Driven Design</h2>
 <p>Partendo dall’analisi dei requisiti evidenziati al paragrafo precedente e dall’approfondimento dei processi che avvengono nel contesto ospedaliero, abbiamo cercato di semplificare il dominio in cui si deve implementare la nostra soluzione dividendolo in più sotto-domini, alcuni di questi di interesse per la nostra implementazione, altri non correlati.</p>
 
@@ -162,7 +174,9 @@ permalink: /domain_analysis.html
 </div>
 
 <h3 id="core-domain">Core-Domain</h3>
-<p>Il Core-Domain della nostra applicazione è quello che in figura <a href="#pic:domain-model" data-reference-type="ref" data-reference="pic:domain-model">1.2</a> abbiamo definito Surgical Intervention. Ovvero l’intervento chirurgico vero e proprio, in cui la nostra applicazione real time deve ottenere i dati dall’asset fisico (monitor dei parametri vitali presente in sala operatoria), associarlo al paziente e deve essere proiettato come ologramma interattivo sugli occhiali Hololens del personale.Contendendo approvvigionamento dei dati, alimentazione del digital twin e presentazione dei dati, questo dominio è risultato quello principale, ma in base all’ordine delle operazioni che vengono svolte all’interno del processo ospedaliero, abbiamo evidenziato anche altri Sub-Domains che sono in qualche modo correlati o da supporto al Core-Domain.</p>
+<p>Il Core-Domain della nostra applicazione è quello che in figura <a href="#pic:domain-model" data-reference-type="ref" data-reference="pic:domain-model">1.3</a> abbiamo definito Surgical Intervention. Ovvero l’intervento chirurgico vero e proprio, in cui la nostra applicazione real time deve ottenere i dati dall’asset fisico (monitor dei parametri vitali presente in sala operatoria), associarlo al paziente e deve essere proiettato come ologramma interattivo sugli occhiali Hololens del personale.</p>
+<p>Contenendo approvvigionamento dei dati, alimentazione del digital twin e presentazione dei dati, questo dominio è risultato quello principale, ma in base all’ordine delle operazioni che vengono svolte all’interno del processo ospedaliero, abbiamo evidenziato anche altri Sub-Domains che sono in qualche modo correlati o da supporto al Core-Domain.</p>
+
 <h3 id="sub-domains">Sub-Domains</h3>
 <p>Abbiamo evidenziato altri tre Sub-Domains:</p>
 <ul>
@@ -180,7 +194,7 @@ permalink: /domain_analysis.html
 </p>
 </div>>
 
-<p>Come mostrato in <a href="#pic:bounded-context" data-reference-type="ref" data-reference="pic:bounded-context">1.3</a>, il <em>Surgical Intevention Subdomain</em> è suddiviso in tre diversi Bounded Context:</p>
+<p>Come mostrato in figura<a href="#pic:bounded-context" data-reference-type="ref" data-reference="pic:bounded-context">1.4</a>, il <em>Surgical Intevention Subdomain</em> è suddiviso in tre diversi Bounded Context:</p>
 <ul>
 <li><p><strong>Vital Signs Monitor Display</strong>: Visualizzazione del digital twin del monitor parametri vitali ed interazione con esso;</p></li>
 <li><p><strong>Vital Signs Monitor Detection</strong>: Rilevazione dei parametri vitali del paziente e della verifica del superamento delle soglie di allarme;</p></li>
