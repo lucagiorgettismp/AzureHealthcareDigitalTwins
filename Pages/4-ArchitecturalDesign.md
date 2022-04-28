@@ -5,8 +5,7 @@ permalink: /architectural_design.html
 # Design Architetturale
 
 <p>In questo capitolo verrà descritta l’architettura del sistema, illustrando i componenti principali. Si rimanda al
-  capitolo <a href="#chap:detailed-design" data-reference-type="ref"
-    data-reference="chap:detailed-design">[chap:detailed-design]</a> per ulteriori informazioni riguardante il codice
+  capitolo <a href="https://lucagiorgettismp.github.io/AzureHealthcareDigitalTwins/architectural_design.html">4</a> per ulteriori informazioni riguardante il codice
   dell’applicativo e le specifiche di implementazione.</p>
 <h2 id="architettura-generale">Architettura Generale</h2>
 <p>L’architettura generale del sistema è illustrata nella figura <a href="#pic:architecture" data-reference-type="ref"
@@ -72,15 +71,18 @@ permalink: /architectural_design.html
 
 <p>Come si evince dalla figura <a href="#pic:simulator" data-reference-type="ref"
     data-reference="pic:simulator">1.2</a>, per tutti questi parametri vitali (eccetto la temperatura), è mostrato un
-  grafico degli ultimi N campioni acquisiti con il colore di riferimento. Per tutti i parametri è presente anche un
+  grafico degli ultimi N campioni acquisiti con il colore di riferimento.</p>
+<p> Per tutti i parametri è presente anche un
   sensore di allerta (sia visivo che acustico) che si attiva se un valore supera (o diventa inferiore) il valore
   massimo (o minimo) di un determinato range (specifico per ogni parametro vitale). Tali sensori sono posti a sinistra
   dei grafici e alla destra del valore della temperatura e della batteria. Se si prende in considerazione l’immagine
   <a href="#pic:simulator" data-reference-type="ref" data-reference="pic:simulator">1.2</a>, questi non sono visibili
   poiché tutti i valori sono nella norma. L’infermiere o il chirurgo possono personalizzare i range e l’unità di
-  misura. A destra del simulatore invece possiamo individuare due colonne: la prima indica l’unità di misura usata per
+  misura.</p>
+  <p>A destra del simulatore invece possiamo individuare due colonne: la prima indica l’unità di misura usata per
   rappresentare il valore del parametro vitale mentre la seconda mostra il suo valore numerico. In alto a destra si
-  trova la data e l’orario corrente mentre in basso a destra il livello della batteria rimanente. Una volta che il
+  trova la data e l’orario corrente mentre in basso a destra il livello della batteria rimanente.</p>
+  <p>Una volta che il
   simulatore è in esecuzione, ogni volta che ha nuovi dati, questi vengono trasmessi al ADT.
 </p>
 <h2 id="azure-digital-twins">Azure Digital Twins</h2>
@@ -145,8 +147,8 @@ permalink: /architectural_design.html
 <h3 id="qr-code">QR Code</h3>
 <p>La parte relativa alla lettura del QR Code non ha nessuna interfaccia di interesse. Una volta avviata l’app su
   Hololens verrà mostrato un <em>loading progress</em> in attesa della lettura di un QR Code. Dopo aver mostrato il QR
-  Code, se è valido, verrà mostrato il menù, il monitor a parametri vitali e la scheda del paziente. Per
-  l’implementazione di questa parte ci siamo avvalsi del seguente <a
+  Code, se è valido, verrà mostrato il menù, il monitor a parametri vitali e la scheda del paziente.</p>
+  <p>Per l’implementazione di questa parte ci siamo avvalsi del seguente <a
     href="https://github.com/LocalJoost/QRCodeService"><em>repository</em></a>.</p>
 <h3 id="menù-interattivo">Menù Interattivo</h3>
 <p>Il menù si presenta come nell’immagine <a href="#pic:menu-hololens" data-reference-type="ref"
@@ -204,14 +206,13 @@ permalink: /architectural_design.html
   colore bianco quando i valori sono nella norma e di colore rosso quando assumono valori di pericolo per il paziente.
   Nell’esempio, la temperatura e la frequenza cardiaca sono in una situazione critica e vengono caratterizzati da un
   sensore di allarme di colore rosso. Proseguendo verso destra sono presenti i grafici dei quattro parametri vitali
-  più importanti.</p>
-<p><span class="image">Monitor a parametri vitali generale.</span></p>
-<p><span class="image">Monitor della saturazione.</span></p>
-<p>Successivamente sono presenti tre colonne e contengono rispettivamente il nome del parametro vitale, il valore
-  numerico e l’unità di misura utilizzata. La figura <a href="#pic:saturation-hololens" data-reference-type="ref"
+  più importanti.Successivamente sono presenti tre colonne e contengono rispettivamente il nome del parametro vitale, il valore
+  numerico e l’unità di misura utilizzata.</p>
+  <p>La figura <a href="#pic:saturation-hololens" data-reference-type="ref"
     data-reference="pic:saturation-hololens">1.5</a> mostra il pannello focalizzandosi su uno specifico parametro
   vitale. In questo modo si può osservare con più accuratezza e livello di dettaglio l’andamento del grafico. Tutti
   gli altri valori sono mostrati sotto il grafico.</p>
+
 <h3 id="pannello-del-paziente">Pannello del Paziente</h3>
 <p>L’ultimo ologramma è quello legato al paziente e mostra la sua cartella clinica. Tale pannello contiene le seguenti
   informazioni:</p>
