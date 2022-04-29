@@ -10,5 +10,3 @@ Project for Pervasive Computing and Laboratorio di Sistemi Software Courses.
 [![CodeFactor](https://www.codefactor.io/repository/github/lucagiorgettismp/azurehealthcaredigitaltwins/badge/main)](https://www.codefactor.io/repository/github/lucagiorgettismp/azurehealthcaredigitaltwins/overview/main)
 [![DeepSource](https://deepsource.io/gh/lucagiorgettismp/AzureHealthcareDigitalTwins.svg/?label=active+issues&token=TkpQppm2NjIFNsKDCeZRPHlD)](https://deepsource.io/gh/lucagiorgettismp/AzureHealthcareDigitalTwins/?ref=repository-badge)
 [![DeepSource](https://deepsource.io/gh/lucagiorgettismp/AzureHealthcareDigitalTwins.svg/?label=resolved+issues&token=TkpQppm2NjIFNsKDCeZRPHlD)](https://deepsource.io/gh/lucagiorgettismp/AzureHealthcareDigitalTwins/?ref=repository-badge)
-
-https://github.com/lucagiorgettismp/AzureHealthcareDigitalTwins/blob/upload-video/doc/video/demoHololens.mp4
