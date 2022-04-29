@@ -4,7 +4,7 @@
 Si è utilizzato \textit{Git} come sistema di DVCS del codice durante lo sviluppo, attraverso la piattaforma GitHub. L'abbiamo utilizzato sfruttando la tecnica del \textit{GitFlow} come mostrato nella figura \ref{pic:workflow}: il branch di default è sempre il \textit{main}, al quale \textit{development} è sempre allineato. Ogni volta che è necessario implementare una nuova \textit{feature} viene creato un branch da \textit{development}. Nel caso in cui debbano essere prodotti degli hotfix o risolti dei bug, essi vengono effettuati su un branch che parte da \textit{development} e vi ritorna, prima di essere mergiato nuovamente su \textit{main}. Successivamente, a lavoro ultimato, veniva creata una pull request per mergiare sul branch \textit{development} e infine sul \textit{main}.
 
 \begin{figure}[ht]
-    \includegraphics[width=9cm]{Images/gitWorkflow.png}
+    \includegraphics[width=9cm]{gitWorkflow.png}
     \centering
     \caption{\label{pic:workflow}Workflow del progetto.}
 \end{figure}

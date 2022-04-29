@@ -42,7 +42,7 @@ Sia per quanto riguarda l'architettura della parte client (simulatore e backend)
 
 \begin{wrapfigure}{r}{0.4\textwidth}
     \centering
-    \includegraphics[width=0.5\textwidth]{Images/mvcPattern.png}
+    \includegraphics[width=0.5\textwidth]{mvcPattern.png}
     \caption{\label{pic:mvc-pattern} Pattern MVC.}
 \end{wrapfigure}
 
@@ -88,7 +88,7 @@ E' una solution .NET scritta in C\# che contiene tre progetti:
 
 \subsubsection{Modelli}
 In questa directory sono contenuti i modelli che permettono di definire le proprietà e che costituiscono lo stato dei digital twins. Questa fase è stata una delle prime, di tutte quelle di analisi, e ci ha aiutato a capire come poter meglio modellare successivamente i digital twins. \newline \newline I modelli vengono definiti usando il linguaggio \href{https://github.com/Azure/opendigitaltwins-dtdl/blob/master/DTDL/v2/dtdlv2.md}{DTDL} (Digital Twins Definition Language). Si possono utilizzare diverse strutture e tipi di dati a seconda del contesto di utilizzo e da cosa si deve andare a modellare: noi abbiamo utilizzato prevalentemente \textit{Property}, \textit{Object} e \textit{Component}. Le prime descrivono lo stato in lettura e scrittura di un digital twin. L'\textit{Object} è un tipo di dato composto da campi (simile ad un oggetto in OOP). I \textit{Components} possono essere considerati come delle interfacce che permettono di descrivere \textit{Property} utilizzate da altri modelli che utilizzeranno questa interfaccia. Il risultato della modellazione ha portato a creare un modello con \textit{Property} comuni (\textit{Base Param Content}), un modello per ogni sensore, uno per il monitor a parametri vitali e infine quello per la modellazione del paziente.  L'immagine \ref{pic:model-graph} mostra il grafo dei modelli e le loro relazioni. \newline \newline \newline \begin{figure}[ht]
-    \includegraphics[width=14cm]{Images/ModelGraph.PNG}
+    \includegraphics[width=14cm]{ModelGraph.PNG}
     \centering
     \caption{\label{pic:model-graph}Grafo dei modelli.}
 \end{figure}
