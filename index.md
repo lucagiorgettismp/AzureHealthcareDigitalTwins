@@ -21,4 +21,8 @@
 </ol>
 
 <p>Di seguito è possibile vedere le demo dei nostri applicatvi:</p>
-<iframe src="https://drive.google.com/file/d/1Wv9B4aHP_hrlM46D81Ya1Bog4r38M-UW/preview" width="640" height="480" allow="autoplay"></iframe>
+
+<h3>Hololens</h3>
+<p align="center" >
+<iframe src="https://drive.google.com/file/d/1Wv9B4aHP_hrlM46D81Ya1Bog4r38M-UW/preview" width="640" height="480" allow="accelerometer; autoplay; clipboard-write" allowfullscreen></iframe>
+</p>
