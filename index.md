@@ -21,7 +21,7 @@
 </ol>
 
 <h3 class="home-title">Demo</h3> 
-<p>Di seguito è possibile vedere le demo dei nostri applicatvi:</p>
+<p class="home-paragraph">Di seguito è possibile vedere le demo dei nostri applicativi:</p>
 
 <h4 class="home-title">Client and Simulator Apps</h4>
 <div align="center" >
