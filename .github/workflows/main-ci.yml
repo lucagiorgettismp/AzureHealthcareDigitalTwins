@@ -110,13 +110,13 @@ jobs:
           working_directory: doc
           pre_compile: "tlmgr update --self --all"
           root_file: main.tex
-          args: "-lualatex --file-line-error --interaction=nonstopmode"
-
+          args: "-pdf -jobname=Report -lualatex -file-line-error -interaction=nonstopmode"
+          
       - name: Upload artifacts
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v1
         with:
           name: Doc
-          path: doc/main.pdf
+          path: doc/Report.pdf
 
   # Send a failure message Telegram
   jobs-failure:

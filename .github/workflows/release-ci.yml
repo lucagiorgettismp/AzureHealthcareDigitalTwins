@@ -99,13 +99,13 @@ jobs:
           working_directory: doc
           pre_compile: "tlmgr update --self --all"
           root_file: main.tex
-          args: "-lualatex --file-line-error --interaction=nonstopmode"
-
+          args: "-pdf -jobname=Report -lualatex -file-line-error -interaction=nonstopmode"
+          
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
           name: Doc
-          path: doc/main.pdf
+          path: doc/Report.pdf
 
   # Create a release
   release:
@@ -143,7 +143,7 @@ jobs:
         files: |
           Simulator.zip
           Client.zip
-          main.pdf
+          Report.pdf
         fail_on_unmatched_files: true
 
   # Send a failure message Telegram

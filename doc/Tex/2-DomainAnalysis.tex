@@ -125,7 +125,7 @@ Si elencano i requisiti funzionali per ognuno dei seguenti contesti:
 L'immagine \ref{pic:use-cases} mostra i caso d'uso del sistema relativi ai contesti citati.
 
 \begin{figure}[ht]
-    \includegraphics[width=11cm]{Images/useCase.png}
+    \includegraphics[width=11cm]{useCase.png}
     \centering
     \caption{\label{pic:use-cases}Casi d'uso del sistema.}
 \end{figure}
@@ -161,7 +161,7 @@ Il software dovrà essere realizzato utilizzando la filosofia \textit{Domain Dri
 Partendo dall'analisi dei requisiti evidenziati al paragrafo precedente e dall'approfondimento dei processi che avvengono nel contesto ospedaliero, abbiamo cercato di semplificare il dominio in cui si deve implementare la nostra soluzione dividendolo in più sotto-domini, alcuni di questi di interesse per la nostra implementazione, altri non correlati.
 
 \begin{figure}[H]
-    \includegraphics[width=10cm]{Images/domain_model.png}
+    \includegraphics[width=10cm]{domain_model.png}
     \centering
     \caption{\label{pic:domain-model}Dominio del nostro sistema.}
 \end{figure}
@@ -187,7 +187,7 @@ La fase di ricovero e di dimissione del paziente sono domini che in qualche modo
 Per ogni Sub-Domain abbiamo individuato i bounded context che racchiudessero delle funzionalità indipendenti le une dalle altre.
 
 \begin{figure}[H]
-    \includegraphics[width=12cm]{Images/bounded_context.png}
+    \includegraphics[width=12cm]{bounded_context.png}
     \centering
     \caption{\label{pic:bounded-context}Bounded context evidenziati.}
 \end{figure}
@@ -199,3 +199,14 @@ Come mostrato in figura     \ref{pic:bounded-context}, il \textit{Surgical Intev
     \item \textbf{Vital Signs Monitor Detection}: Rilevazione dei parametri vitali del paziente e della verifica del superamento delle soglie di allarme;
     \item \textbf{Monitor Device Configuration}: Configurazione dell'asset fisico. 
 \end{itemize}
+
+\subsection{Context Map}
+Poiché nel sistema ci sono più Bounded Contexts, è importante conoscere come questi si relazionino gli uni con gli altri.
+
+\begin{figure}[H]
+    \includegraphics[width=9cm]{contextMap.png}
+    \centering
+    \caption{\label{pic:context-map}Context Map.}
+\end{figure}
+
+Come si evince dall'immagine \ref{pic:context-map}, abbiamo individuato quattro Bounded Contexts (\textit{Patient Report Creation}, \textit{Diseas Diagnosis}, \textit{Patient Discharge} e \textit{Vital Signs Monitor Detection}) legati da una relazione di tipo \textit{shared kernel}. Questi condividono l'informazione del paziente. \newline \newline  Inoltre vi sono due relazioni di tipo \textit{Upstream / Dowstream} : quella tra il \textit{Monitor Device Configuration} e il \textit{Vital Signs Monitor Detection} e quella tra il \textit{Vital Signs Monitor Detection} e il \textit{Vital Signs Monitor Display}. Nel primo caso, i valori impostati in fase di configurazione vengono utilizzati nella fase di detection mentre nell'altra relazione, all'ottenimento dei valori aggiornati, questi vengono inviati per essere mostrati all'utente.
