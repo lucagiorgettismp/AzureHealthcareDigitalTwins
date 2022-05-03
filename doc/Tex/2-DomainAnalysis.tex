@@ -199,3 +199,14 @@ Come mostrato in figura     \ref{pic:bounded-context}, il \textit{Surgical Intev
     \item \textbf{Vital Signs Monitor Detection}: Rilevazione dei parametri vitali del paziente e della verifica del superamento delle soglie di allarme;
     \item \textbf{Monitor Device Configuration}: Configurazione dell'asset fisico. 
 \end{itemize}
+
+\subsection{Context Map}
+Poiché nel sistema ci sono più Bounded Contexts, è importante conoscere come questi si relazionino gli uni con gli altri.
+
+\begin{figure}[H]
+    \includegraphics[width=9cm]{Images/contextMap.png}
+    \centering
+    \caption{\label{pic:context-map}Context Map.}
+\end{figure}
+
+Come si evince dall'immagine \ref{pic:context-map}, abbiamo individuato quattro Bounded Contexts (\textit{Patient Report Creation}, \textit{Diseas Diagnosis}, \textit{Patient Discharge} e \textit{Vital Signs Monitor Detection}) legati da una relazione di tipo \textit{shared kernel}. Questi condividono l'informazione del paziente. \newline \newline  Inoltre vi sono due relazioni di tipo \textit{Upstream / Dowstream} : quella tra il \textit{Monitor Device Configuration} e il \textit{Vital Signs Monitor Detection} e quella tra il \textit{Vital Signs Monitor Detection} e il \textit{Vital Signs Monitor Display}. Nel primo caso, i valori impostati in fase di configurazione vengono utilizzati nella fase di detection mentre nell'altra relazione, all'ottenimento dei valori aggiornati, questi vengono inviati per essere mostrati all'utente.
