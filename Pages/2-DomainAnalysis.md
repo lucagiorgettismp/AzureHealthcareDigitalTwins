@@ -205,4 +205,20 @@ permalink: /domain_analysis.html
 <li><p><strong>Monitor Device Configuration</strong>: Configurazione dell’asset fisico.</p></li>
 </ul>
 
+<h3 id="bounded-context">Context Map</h3>
+
+<p>Poiché nel sistema ci sono più Bounded Contexts, è importante conoscere come questi si relazionino gli uni con gli altri. </p>
+
+<div id="#pic:context-map">
+<p align="center">
+    <img width="400" src="Images/contextMap.png">
+    <center>Immagine 1.5</center>
+</p>
+</div>>
+
+<p> Come si evince dall'immagine <a href="#pic:context-map" data-reference-type="ref" data-reference="pic:context-map">1.5</a>, abbiamo individuato quattro Bounded Contexts (<em>Patient Report Creation</em>, <em>Diseas Diagnosis</em>, <em>Patient Discharge</em> e <em>Vital Signs Monitor Detection</em>) legati da una relazione di tipo <em>shared kernel</em>. Questi condividono l'informazione del paziente.</p>
+
+<p>Inoltre vi sono due relazioni di tipo <em>Upstream / Dowstream</em> : quella tra il <em>Monitor Device Configuration</em> e il <em>Vital Signs Monitor Detection</em> e quella tra il <em>Vital Signs Monitor Detection</em> e il <em>Vital Signs Monitor Display</em>. Nel primo caso, i valori impostati in fase di configurazione vengono utilizzati nella fase di detection mentre nell'altra relazione, all'ottenimento dei valori aggiornati, questi vengono inviati per essere mostrati all'utente.</p>
+
+
 <a href="https://lucagiorgettismp.github.io/AzureHealthcareDigitalTwins/">Indietro</a>
