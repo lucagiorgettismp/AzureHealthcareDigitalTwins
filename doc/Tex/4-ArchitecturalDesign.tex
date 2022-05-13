@@ -2,7 +2,31 @@
 \label{chap:architectural-design}
 In questo capitolo verrà descritta l'architettura del sistema, illustrando i componenti principali. Si rimanda al capitolo \ref{chap:detailed-design} per ulteriori informazioni riguardante il codice dell'applicativo e le specifiche di implementazione.
 
-\section{Architettura Generale}
+\section{Architettura}
+
+\subsection{Generale}
+
+Considerando l'obiettivo del progetto abbiamo deciso di modellare la rappresentazione virtuale della nostra entità fisica (monitor a parametri vitali) attraverso i digital twins. Questo modello permette infatti di essere alimentato in maniera continua dai dati provenienti da sensori, realizzando un'\textit{anima digitale} del monitor. Questo concetto è impiegato maggiormente in ambiti industriali, permettendo di effettuare analisi all'interno dei processi produttivi. Anche in ambito \textit{healthcare}, questo modello offre dei vantaggi: nel nostro caso, il digital twin è stato utilizzato per:
+
+\begin{itemize}
+    \item \textbf{Concettualizzazione}: permette di ottenere un'efficace rappresentazione virtuale, anche real-time con l'impiego della mixed reality per la visualizzazione;
+
+    \item \textbf{Collaborazione}: concettualizzazione del monitor in modo che possa essere condivisa da più persone, anche in remoto.
+\end{itemize}
+
+Dopo aver modellato i dati, ci siamo preoccupati di scegliere dove posizionare i digital twin. Le opzioni tra cui scegliere sono tre: 
+
+\begin{itemize}
+    \item \textbf{Edge}: i digital twin vengono deployati all'interno dell'asset fisico;
+    
+    \item \textbf{Cloud}: i digital twin vengono deployati su una piattaforma cloud;
+    
+    \item \textbf{Fog}: i digital twin vengono deployati all'interno di una rete locale (LAN).
+\end{itemize}
+
+La nostra scelta è ricaduta sul cloud poiché abbiamo previsto lo scenario in cui la virtualizzazione può essere acceduta anche al di fuori dell'ospedale in cui viene eseguita l'operazione. Questa motivazione ci ha fatto escludere la tipologia fog. 
+
+\subsection{Dettaglio}
 L'architettura generale del sistema è illustrata nella figura \ref{pic:architecture}.
 
 \begin{figure}[ht]
@@ -18,8 +42,12 @@ Le componenti principali dell'architettura sono:
     
     \item \textbf{Azure Digital Twins (ADT)}: una piattaforma PaaS fornita da Microsoft che mette a disposizione un'insieme di funzionalità per poter implementare e gestire i Digital Twins. Questa piattaforma permette di creare un gemello digitale dell'asset fisico, memorizzare un'insieme di dati che costituiscono lo stato del digital twin e propagarlo ad altri clients: in questo caso Hololens. Nella figura \ref{pic:architecture} è la componente verde;
     
-    \item \textbf{Healthcare Hololens Client}: riceve lo stato dell'asset fisico da Azure Digital Twins tramite la libreria SignalR. Invia i dati di configurazione dell'ologramma ad Azure Digital Twins. Nella figura \ref{pic:architecture} è la componente rossa;  
+    \item \textbf{Healthcare Hololens Client}: riceve lo stato dell'asset fisico da Azure Digital Twins tramite web socket. Invia i dati di configurazione dell'ologramma ad Azure Digital Twins. Nella figura \ref{pic:architecture} è la componente rossa;  
 \end{itemize}
+
+\subsection{Protocolli di comunicazione}
+
+Per l'integrazione dei componenti della nostra architettura abbiamo dovuto scegliere alcuni protocolli di comunicazione. \newline \newline Per la comunicazione tra Healthcare Vital Signs Monitor e Azure Digital Twins abbiamo utilizzato il protocollo \textit{https} mentre per la comunicazione tra Azure Digital Twins e Healthcare Hololens Client la scelta è ricaduta sulla web socket. Questo protocollo crea un canale bidirezionale tra client e server, consentendo una comunicazione a bassa latenza. Inoltre, supporta l'utilizzo di un browser web permettendoci in futuro di sviluppare un applicazione web per la visualizzazione dei dati real-time. Queste motivazioni ci hanno fatto propendere per l'utilizzo di una web socket piuttosto che l'utilizzo del protocollo MQTT, molto diffuso in ambito IoT.
 
 \section{Healthcare Vital Signs Monitor}
 Questa componente permette di creare la cartella clinica di un paziente compilando uno specifico form. Una volta completata viene creato il dispositivo IoT nell'IoT Hub e vengono creati i due digital twins in ADT: quello relativo al paziente e quello relativo al monitor a parametri vitali. A questo punto si è in grado eseguire il simulatore su uno specifico paziente. I parametri vitali monitorati dal simulatore sono cinque:
@@ -56,7 +84,7 @@ Questa è la componente più corposa del sistema che funge da server. I diversi 
     
     \item \textbf{Time Series Insights (TSI)}: è una soluzione per archiviare, visualizzare ed eseguire queries su grandi quantità di dati relativi a quelli generati dai dispositivi IoT. Nel nostro applicativo i dati vengono solamente archiviati. Una funzionalità futura potrebbe essere quella di eseguire delle queries a partire dai clients per mostrare uno storico dei dati prodotti dal simulatore;
     
-    \item \textbf{SignalR}: SignalR è una libreria sviluppata da Microsoft che permette al server di inviare notifiche asincrone alle applicazioni clients creando una connessione bi-direzionale. Risulta essere performante per applicazioni \textit{real-time} come nel nostro caso.
+    \item \textbf{SignalR}: SignalR è una libreria sviluppata da Microsoft che implementa la web socket e permette al server di inviare notifiche asincrone alle applicazioni clients creando una connessione bi-direzionale. Risulta essere performante per applicazioni \textit{real-time} come nel nostro caso.
 \end{itemize}
 
 \section{Healthcare Hololens Client}
