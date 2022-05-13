@@ -7,10 +7,26 @@ permalink: /architectural_design.html
 <p>In questo capitolo verrà descritta l’architettura del sistema, illustrando i componenti principali. Si rimanda al
   capitolo <a href="https://lucagiorgettismp.github.io/AzureHealthcareDigitalTwins/detailed_design.html">5</a> per ulteriori informazioni riguardante il codice
   dell’applicativo e le specifiche di implementazione.</p>
-<h2 id="architettura-generale">Architettura Generale</h2>
+
+<h2 id="architettura-generale">Architettura</h2>
+<h3 id="generale">Generale</h3>
+<p>Considerando l’obiettivo del progetto abbiamo deciso di modellare la rappresentazione virtuale della nostra entità fisica (monitor a parametri vitali) attraverso i digital twins. Questo modello permette infatti di essere alimentato in maniera continua dai dati provenienti da sensori, realizzando un’<em>anima digitale</em> del monitor. Questo concetto è impiegato maggiormente in ambiti industriali, permettendo di effettuare analisi all’interno dei processi produttivi. Anche in ambito <em>healthcare</em>, questo modello offre dei vantaggi: nel nostro caso, il digital twin è stato utilizzato per:</p>
+<ul>
+<li><p><strong>Concettualizzazione</strong>: permette di ottenere un’efficace rappresentazione virtuale, anche real-time con l’impiego della mixed reality per la visualizzazione;</p></li>
+<li><p><strong>Collaborazione</strong>: concettualizzazione del monitor in modo che possa essere condivisa da più persone, anche in remoto.</p></li>
+</ul>
+<p>Dopo aver modellato i dati, ci siamo preoccupati di scegliere dove posizionare i digital twin. Le opzioni tra cui scegliere sono tre:</p>
+<ul>
+<li><p><strong>Edge</strong>: i digital twin vengono deployati all’interno dell’asset fisico;</p></li>
+<li><p><strong>Cloud</strong>: i digital twin vengono deployati su una piattaforma cloud;</p></li>
+<li><p><strong>Fog</strong>: i digital twin vengono deployati all’interno di una rete locale (LAN).</p></li>
+</ul>
+<p>La nostra scelta è ricaduta sul cloud poiché abbiamo previsto lo scenario in cui la virtualizzazione può essere acceduta anche al di fuori dell’ospedale in cui viene eseguita l’operazione. Questa motivazione ci ha fatto escludere la tipologia fog.</p>
+
+<h3 id="generale">Dettaglio</h3>
 <p>L’architettura generale del sistema è illustrata nella figura <a href="#pic:architecture" data-reference-type="ref"
     data-reference="pic:architecture">1.1</a>.</p>
-
+    
 <div id="#pic:architecture">
   <p align="center">
     <img width="450" src="Images/architecture.png" />
@@ -33,12 +49,14 @@ permalink: /architectural_design.html
         data-reference-type="ref" data-reference="pic:architecture">1.1</a> è la componente verde;</p>
   </li>
   <li>
-    <p><strong>Healthcare Hololens Client</strong>: riceve lo stato dell’asset fisico da Azure Digital Twins tramite
-      la libreria SignalR. Invia i dati di configurazione dell’ologramma ad Azure Digital Twins. Nella figura <a
+    <p><strong>Healthcare Hololens Client</strong>: riceve lo stato dell’asset fisico da Azure Digital Twins tramite web socket. Invia i dati di configurazione dell’ologramma ad Azure Digital Twins. Nella figura <a
         href="#pic:architecture" data-reference-type="ref" data-reference="pic:architecture">1.1</a> è la componente
       rossa;</p>
   </li>
 </ul>
+<h3 id="protocolli-di-comunicazione">Protocolli di comunicazione</h3>
+<p>Per l’integrazione dei componenti della nostra architettura abbiamo dovuto scegliere alcuni protocolli di comunicazione. Per la comunicazione tra Healthcare Vital Signs Monitor e Azure Digital Twins abbiamo utilizzato il protocollo <em>https</em> mentre per la comunicazione tra Azure Digital Twins e Healthcare Hololens Client la scelta è ricaduta sulla web socket. Questo protocollo crea un canale bidirezionale tra client e server, consentendo una comunicazione a bassa latenza. Inoltre, supporta l’utilizzo di un browser web permettendoci in futuro di sviluppare un applicazione web per la visualizzazione dei dati real-time. Queste motivazioni ci hanno fatto propendere per l’utilizzo di una web socket piuttosto che l’utilizzo del protocollo MQTT, molto diffuso in ambito IoT.</p>
+
 <h2 id="healthcare-vital-signs-monitor">Healthcare Vital Signs Monitor</h2>
 <p>Questa componente permette di creare la cartella clinica di un paziente compilando uno specifico form. Una volta
   completata viene creato il dispositivo IoT nell’IoT Hub e vengono creati i due digital twins in ADT: quello relativo
@@ -124,9 +142,7 @@ permalink: /architectural_design.html
       clients per mostrare uno storico dei dati prodotti dal simulatore;</p>
   </li>
   <li>
-    <p><strong>SignalR</strong>: SignalR è una libreria sviluppata da Microsoft che permette al server di inviare
-      notifiche asincrone alle applicazioni clients creando una connessione bi-direzionale. Risulta essere performante
-      per applicazioni <em>real-time</em> come nel nostro caso.</p>
+    <p><strong>SignalR</strong>: SignalR è una libreria sviluppata da Microsoft che implementa la web socket e permette al server di inviare notifiche asincrone alle applicazioni clients creando una connessione bi-direzionale. Risulta essere performante per applicazioni <em>real-time</em> come nel nostro caso.</p>
   </li>
 </ul>
 <h2 id="healthcare-hololens-client">Healthcare Hololens Client</h2>
