@@ -30,7 +30,7 @@ permalink: /development_process.html
 
 <p>Sono state considerate le principali licenze esistenti per progetti <em>open-source</em> consultabili al seguente <a href="https://choosealicense.com/licenses/"><em>link</em></a>.<br />
 
-La scelta è ricaduta sulla licenza di tipo GNU GPLv3 (GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007). Questo tipo di licenza fa si che il nostro software possa essere utilizzato da altri autori purché questi pubblichino il proprio software con una licenza compatibile.</p>
+La scelta è ricaduta sulla licenza di tipo GNU GPLv3 (GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007). Questo tipo di licenza fa si che il nostro software possa essere utilizzato da altri autori purché questi pubblichino il proprio software con una licenza compatibile con quella del nostro applicativo.</p>
 
 <h2 id="build-automation-e-continuos-integration">Build Automation e continuos integration</h2>
 <h3 id="panoramica">Panoramica</h3>
@@ -61,7 +61,7 @@ La scelta è ricaduta sulla licenza di tipo GNU GPLv3 (GNU GENERAL PUBLIC LICENS
 
 <h3 id="relazione">Relazione</h3>
 
-<p>La relazione è stata scritta in Latex utilizzando l’editor <a href="https://it.overleaf.com/"><em>Overleaf</em></a>. L’idea era quella di poter sincronizzare <em>Overleaf</em> con il repository del progetto di <em>GitHub</em> così che ad ogni modifica sull’editor corrispondeva un commit sul repository. Purtroppo questa è una funzionalità Premium che <em>Overleaf</em> mette a disposizione e che non abbiamo potuto sfruttare. Oltre alla relazione in <code>.pdf</code> abbiamo realizzato anche quella web tramite le <a href="https://pages.github.com/"><em>GitHub Pages</em></a> consultabile al seguente <a href="https://lucagiorgettismp.github.io/AzureHealthcareDigitalTwins/"><em>link</em></a>.</p>
+<p>La relazione è stata scritta in Latex utilizzando l’editor <a href="https://it.overleaf.com/"><em>Overleaf</em></a>. L’idea era quella di poter sincronizzare <em>Overleaf</em> con il repository del progetto di <em>GitHub</em> così che ad ogni modifica sull’editor corrispondeva un commit sul repository. Purtroppo questa è una funzionalità Premium che <em>Overleaf</em> mette a disposizione e che non abbiamo potuto sfruttare. Oltre alla relazione in <code>.pdf</code> abbiamo realizzato anche quella web tramite le <a href="https://pages.github.com/"><em>GitHub Pages</em></a> consultabile al seguente <a href="https://lucagiorgettismp.github.io/AzureHealthcareDigitalTwins/"><em>link</em></a>, in cui è possibile vedere i video dell'applicativo realizzato.</p>
 
 <h3 id="test">Test</h3>
 
@@ -76,6 +76,6 @@ La scelta è ricaduta sulla licenza di tipo GNU GPLv3 (GNU GENERAL PUBLIC LICENS
 <h3 id="quality-assurance">Quality Assurance</h3>
 
 <p>Per quanto riguarda la parte di qualità del codice, la scelta è ricaduta sui servizi <a href="https://www.codefactor.io/"><em>Codefactor</em></a> e <a href="https://deepsource.io/"><em>DeepSource</em></a>.</p>
-<p><span>CodeFactor</span> permette di essere facilmente integrabile a repository pubblici di Git Hub analizzando la qualità sintattica del codice. In questo modo ci ha permesso di correggere piccole imprecisioni e di conseguenza aumentarne la qualità. </p><p>Un altro tool molto utile è DeepSource. Questo strumento permette di eseguire l’analisi semantica del codice, consentendo loro di rilevare diversi problemi, inclusi anti-pattern o rischi di bug in fase di esecuzione dell’applicativo.</p>
+<p><span>CodeFactor</span> permette di essere facilmente integrabile a repository pubblici di Git Hub analizzando la qualità sintattica del codice. In questo modo ci ha permesso di correggere piccole imprecisioni e di conseguenza aumentarne la qualità. </p><p>Un altro tool molto utile è DeepSource. Questo strumento permette di eseguire l’analisi semantica del codice, consentendo di rilevare diversi problemi, inclusi anti-pattern o rischi di bug in fase di esecuzione dell’applicativo.</p>
 
 <a href="https://lucagiorgettismp.github.io/AzureHealthcareDigitalTwins/">Indietro</a>

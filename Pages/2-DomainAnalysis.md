@@ -11,8 +11,7 @@ permalink: /domain_analysis.html
 <p>In questa sezione verrà descritto il dominio dell’applicativo: verrà presentato l’obiettivo da raggiungere, lo stato dell’arte e l’<em>ubiquitous language</em> individuato.</p>
 
 <h3 id="obiettivo">Obiettivo</h3>
-<p>L’obiettivo del progetto è la creazione di un sistema che consenta a tutto il team della sala operatoria (medici, infermieri e anestesisti) di accedere in maniera agevole a tutte le informazioni del paziente durante un intervento chirurgico. In particolare quello che si richiede è di poter virtualizzare attraverso un ologramma il monitor a parametri vitali del paziente. In questo modo, durante un intervento, ogni membro del team può visualizzare ed interagire con l’ologramma controllando i relativi valori dei parametri del monitor indipendentemente dalla locazione del dispositivo fisico.</p>
-<p>Questo approccio porta a semplificare tutta una serie di operazioni che possono essere svolte sul paziente durante l’operazione. Si pensi se durante un intervento è necessario eseguire una TAC d’urgenza: significherebbe trasportare il paziente, tutti i sensori a cui è collegato e il relativo monitor in una stanza adiacente a quella chirurgica con il rischio di perdere del tempo prezioso per problemi che possono incorrere durante il trasferimento. Se si adottasse la soluzione proposta, sarebbe necessario spostare solamente il paziente e non i dispositivi fisici poiché ogni membro del team continua a visualizzare l’ologramma, riducendo così il tempo impiegato nel trasferimento del paziente. Un altro vantaggio è dato dalla connessione in remoto allo stato del monitor del paziente da parte di altri medici che possono essere coinvolti nell’operazione.</p>
+<p>L’obiettivo del progetto è la creazione di un sistema che consenta a tutto il team della sala operatoria (medici, infermieri e anestesisti) di accedere in maniera agevole a tutte le informazioni del paziente durante un intervento chirurgico. In particolare quello che si richiede è di poter virtualizzare attraverso un ologramma il monitor a parametri vitali del paziente. In questo modo, durante un intervento, ogni membro del team può visualizzare ed interagire con l’ologramma controllando i relativi valori dei parametri del monitor, indipendentemente dalla locazione del dispositivo fisico. Si pensi se durante un intervento, è necessario eseguire una TAC d'urgenza, in cui occorre trasportare il paziente, tutti i sensori a cui è collegato e il relativo monitor in una stanza adiacente a quella chirurgica. Adottando la soluzione proposta, anche un membro del team, non presente nella stanza adiacente, può comunque continuare a monitorare lo stato del paziente grazie all'ologramma. Tale vantaggio può essere sfruttato anche da medici che, trovandosi al di fuori dell'ospedale, possono essere coinvolti nell’operazione e monitorare la situazione del paziente.</p>
 
 <h3 id="stato-dellarte">Stato dell’arte</h3>
 <p>Molte grandi città del mondo stanno già impiegando questa tecnologia in ambito sanitario. Ad esempio nell’ospedale di Singapore, i chirurgi utilizzano questo approccio per visualizzare ologrammi di referti dei pazienti (come una risonanza magnetica) durante un intervento chirurgico (maggiori informazioni a questo <a href="https://govinsider.asia/citizen-centric/how-a-singapore-hospital-uses-holograms-to-assist-surgery-nuhs-ngiam-kee-yuan/"><em>link</em></a>). Si tratta di un caso simile al nostro ma con una principale differenza: nel nostro caso l’ologramma viene aggiornato in <em>real-time</em> con i dati del paziente.</p>
@@ -160,14 +159,14 @@ permalink: /domain_analysis.html
 <li><p><strong>Reattività</strong>. L’utente non deve percepire ritardi tra la visualizzazione dei dati nel monitor a parametri vitali fisico e la visualizzazione degli stessi nell’ologramma;</p></li>
 <li><p><strong>Fault tolerance</strong>. Deve essere implementato un adeguato sistema di gestione degli errori affinché le interruzioni involontarie non compromettono la salute del paziente durante un intervento chirurgico;</p></li>
 <li><p><strong>Sicurezza</strong>. Utilizzando <em>Azure Digital Twins</em> i dati salvati nel cloud e quelli in transito tra due o più componenti di Azure sono crittografati;</p></li>
-<li><p><strong>Scalabilità</strong>. L’applicativo deve necessariamente consentire di aumentare o diminuire il numero di pazienti gestiti senza influire negativamente sulla prestazione del sistema.</p></li>
+<li><p><strong>Scalabilità</strong>. L’applicativo deve necessariamente consentire di aumentare o diminuire il numero di pazienti gestiti e membri del team che accedono  all'ologramma senza influire negativamente sulla prestazione del sistema. </p></li>
 </ul>
 
 <h3 id="implementativi">Implementativi</h3>
 <p>Il software dovrà essere realizzato utilizzando la filosofia <em>Domain Driven Design</em>. Dovranno inoltre essere utilizzate metodologie di DevOps al fine di automatizzare e integrare quanti più processi possibili. Si utilizzerà il servizio Azure Digital Twins (PaaS - Platform As A Service) per la gestione dei digital twins e l’interfacciamento con i diversi clients. Per la parte di mixed reality si utilizzerà la piattaforma Unity e i visori Microsoft Hololens 2.</p>
 
 <h2 id="aspetti-di-domain-driven-design">Aspetti di Domain Driven Design</h2>
-<p>Partendo dall’analisi dei requisiti evidenziati al paragrafo precedente e dall’approfondimento dei processi che avvengono nel contesto ospedaliero, abbiamo cercato di semplificare il dominio in cui si deve implementare la nostra soluzione dividendolo in più sotto-domini, alcuni di questi di interesse per la nostra implementazione, altri non correlati.</p>
+<p>Partendo dall’analisi dei requisiti evidenziati al paragrafo precedente e dall’approfondimento dei processi che avvengono nel contesto ospedaliero, abbiamo cercato di semplificare il dominio in cui si deve implementare la nostra soluzione dividendolo in più sotto-domini, alcuni di questi di interesse per la nostra implementazione</p>
 
 <div id="#pic:domain-model">
 <p align="center">
@@ -178,7 +177,7 @@ permalink: /domain_analysis.html
 
 <h3 id="core-domain">Core-Domain</h3>
 <p>Il Core-Domain della nostra applicazione è quello che in figura <a href="#pic:domain-model" data-reference-type="ref" data-reference="pic:domain-model">1.3</a> abbiamo definito Surgical Intervention. Ovvero l’intervento chirurgico vero e proprio, in cui la nostra applicazione real time deve ottenere i dati dall’asset fisico (monitor dei parametri vitali presente in sala operatoria), associarlo al paziente e deve essere proiettato come ologramma interattivo sugli occhiali Hololens del personale.</p>
-<p>Contenendo approvvigionamento dei dati, alimentazione del digital twin e presentazione dei dati, questo dominio è risultato quello principale, ma in base all’ordine delle operazioni che vengono svolte all’interno del processo ospedaliero, abbiamo evidenziato anche altri Sub-Domains che sono in qualche modo correlati o da supporto al Core-Domain.</p>
+<p>Contenendo approvvigionamento, alimentazione e presentazione dei dati, questo dominio è risultato quello principale, ma in base all’ordine delle operazioni che vengono svolte all’interno del processo ospedaliero, abbiamo evidenziato anche altri Sub-Domains che sono in qualche modo correlati o da supporto al Core-Domain.</p>
 
 <h3 id="sub-domains">Sub-Domains</h3>
 <p>Abbiamo evidenziato altri tre Sub-Domains:</p>
@@ -187,7 +186,7 @@ permalink: /domain_analysis.html
 <li><p><strong>Diagnosis</strong>: Visite e analisi relative all’operazione, svolte prima e dopo l’operazione stessa.</p></li>
 <li><p><strong>Discharging</strong>: Dimissione del paziente. Conclusa l’operazione, la scheda del paziente e le informazioni relative all’operazione vengono archiviate.</p></li>
 </ul>
-<p>La fase di ricovero e di dimissione del paziente sono domini che in qualche modo sono di supporto al Core-Domain evidenziato. Durante il ricovero, alla creazione della scheda del paziente sarà possibile inizializzare il nostro sistema, mentre alla dimissione si potranno chiudere l’istanza del digital twin non più necessario.</p>
+<p>La fase di ricovero e di dimissione del paziente sono domini che in qualche modo sono di supporto al Core-Domain evidenziato. Durante il ricovero, alla creazione della scheda del paziente sarà possibile inizializzare il nostro sistema, mentre alla dimissione si potrà chiudere l'istanza del paziente dimesso.</p>
 <h3 id="bounded-context">Bounded Context</h3>
 <p>Per ogni Sub-Domain abbiamo individuato i bounded context che racchiudessero delle funzionalità indipendenti le une dalle altre.</p>
 

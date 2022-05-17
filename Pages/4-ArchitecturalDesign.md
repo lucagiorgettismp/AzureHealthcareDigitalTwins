@@ -91,7 +91,7 @@ permalink: /architectural_design.html
     data-reference="pic:simulator">1.2</a>, per tutti questi parametri vitali (eccetto la temperatura), è mostrato un
   grafico degli ultimi N campioni acquisiti con il colore di riferimento.</p>
 <p> Per tutti i parametri è presente anche un
-  sensore di allerta (sia visivo che acustico) che si attiva se un valore supera (o diventa inferiore) il valore
+  sensore di allerta che si attiva se un valore supera (o diventa inferiore) il valore
   massimo (o minimo) di un determinato range (specifico per ogni parametro vitale). Tali sensori sono posti a sinistra
   dei grafici e alla destra del valore della temperatura e della batteria. Se si prende in considerazione l’immagine
   <a href="#pic:simulator" data-reference-type="ref" data-reference="pic:simulator">1.2</a>, questi non sono visibili
@@ -142,7 +142,7 @@ permalink: /architectural_design.html
       clients per mostrare uno storico dei dati prodotti dal simulatore;</p>
   </li>
   <li>
-    <p><strong>SignalR</strong>: SignalR è una libreria sviluppata da Microsoft che implementa la web socket e permette al server di inviare notifiche asincrone alle applicazioni clients creando una connessione bi-direzionale. Risulta essere performante per applicazioni <em>real-time</em> come nel nostro caso.</p>
+    <p><strong>SignalR</strong>: SignalR è una libreria sviluppata da Microsoft che implementa una web socket e permette al server di inviare notifiche asincrone alle applicazioni clients creando una connessione bi-direzionale. Risulta essere performante per applicazioni <em>real-time</em> come nel nostro caso.</p>
   </li>
 </ul>
 <h2 id="healthcare-hololens-client">Healthcare Hololens Client</h2>
@@ -154,7 +154,7 @@ permalink: /architectural_design.html
   scegliere quale tipo di dato osservare: se visualizzare la situazione generale del paziente o focalizzarsi su un
   singolo parametro vitale. Grazie alla mixed reality, il grande vantaggio è dato dall’interazione dell’uomo con
   l’ologramma. Infatti è possibile spostare il monitor ovunque si voglia nello spazio reale, “<em>prendendolo</em>"
-  appunto con le mani. Invece per cambiare schermata è possibile premere su uno dei pulsanti del menù interattivo. Per
+  appunto con le mani. Per cambiare schermata, invece è possibile premere su uno dei pulsanti del menù interattivo. Per
   una maggiore comodità abbiamo pensato fosse utile far si che gli ologrammi si spostino automaticamente in base a
   dove l’uomo si sta muovendo o guardando nell’ambiente (ad esempio come la funzionalità <em>follow me</em>). Per fare
   ciò, è possibile attivare il pulsante PIN premendolo (in alto a destra di ogni ologramma). Come impostazione
