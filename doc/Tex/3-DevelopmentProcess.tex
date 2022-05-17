@@ -28,7 +28,7 @@ Nel nostro progetto la scelta del numero di versione è stata lasciata agli svil
 \subsection{Licensing}
 Sono state considerate le principali licenze esistenti per progetti \textit{open-source} consultabili al seguente \href{https://choosealicense.com/licenses/}{\textit{link}}. \\
 \newline La scelta è ricaduta sulla licenza di tipo GNU GPLv3 (GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007).
-Questo tipo di licenza fa si che il nostro software possa essere utilizzato da altri autori purché questi pubblichino il proprio software con una licenza compatibile.
+Questo tipo di licenza fa si che il nostro software possa essere utilizzato da altri autori purché questi pubblichino il proprio software con una licenza compatibile con quella del nostro applicativo.
 
 \section{Build Automation e continuos integration}
 
@@ -66,7 +66,7 @@ L'immagine \ref{pic:job-workflow} illustra il workflow descritto.
 \end{figure}
 
 \subsection{Relazione}
-La relazione è stata scritta in Latex utilizzando l'editor  \href{https://it.overleaf.com/}{\textit{Overleaf}}. L'idea era quella di poter sincronizzare \textit{Overleaf} con il repository del progetto di \textit{GitHub} così che ad ogni modifica sull'editor corrispondeva un commit sul repository. Purtroppo questa è una funzionalità Premium che \textit{Overleaf} mette a disposizione e che non abbiamo potuto sfruttare. Oltre alla relazione in \texttt{.pdf} abbiamo realizzato anche quella web tramite le \href{https://pages.github.com/}{\textit{GitHub Pages}} consultabile al seguente \href{https://lucagiorgettismp.github.io/AzureHealthcareDigitalTwins/}{\textit{link}}.
+La relazione è stata scritta in Latex utilizzando l'editor  \href{https://it.overleaf.com/}{\textit{Overleaf}}. L'idea era quella di poter sincronizzare \textit{Overleaf} con il repository del progetto di \textit{GitHub} così che ad ogni modifica sull'editor corrispondeva un commit sul repository. Purtroppo questa è una funzionalità Premium che \textit{Overleaf} mette a disposizione e che non abbiamo potuto sfruttare. Oltre alla relazione in \texttt{.pdf} abbiamo realizzato anche quella web tramite le \href{https://pages.github.com/}{\textit{GitHub Pages}} consultabile al seguente \href{https://lucagiorgettismp.github.io/AzureHealthcareDigitalTwins/}{\textit{link}}, in cui è possibile vedere i video dell'applicativo realizzato.
 
 \subsection{Test}
 I test del progetto si sono concentrati sulla parte di generazione dei valori del simulatore. Non sono stati effettuati test né per la parte relativa ad Azure né per quella legata alla mixed reality. Questo perché nel primo caso, si tratta di un'infrastruttura cloud che non dispone di strumenti per effettuare i test mentre per la parte legata alla mixed reality, la motivazione è data dal troppo tempo richiesto per approfondire questa tematica in contesti come il nostro. \newline \newline Si è utilizzato il framework \textit{Visual Studio Unit Testing} con la quale ci ha permesso di testare:
@@ -79,5 +79,5 @@ I test del progetto si sono concentrati sulla parte di generazione dei valori de
 \end{itemize}
 
 \subsection{Quality Assurance}
-Per quanto riguarda la parte di qualità del codice, la scelta è ricaduta sui servizi \href{https://www.codefactor.io/}{\textit{Codefactor}} e \href{https://deepsource.io/}{\textit{DeepSource}}. \newline \par{CodeFactor} permette di essere facilmente integrabile a repository pubblici di Git Hub analizzando la qualità sintattica del codice. In questo modo ci ha permesso di correggere piccole imprecisioni e di conseguenza aumentarne la qualità. \newline \newline Un altro tool molto utile è DeepSource. Questo strumento permette di eseguire l'analisi semantica del codice, consentendo loro di rilevare diversi problemi, inclusi anti-pattern o rischi di bug in fase di esecuzione dell'applicativo.
+Per quanto riguarda la parte di qualità del codice, la scelta è ricaduta sui servizi \href{https://www.codefactor.io/}{\textit{Codefactor}} e \href{https://deepsource.io/}{\textit{DeepSource}}. \newline \par{CodeFactor} permette di essere facilmente integrabile a repository pubblici di Git Hub analizzando la qualità sintattica del codice. In questo modo ci ha permesso di correggere piccole imprecisioni e di conseguenza aumentarne la qualità. \newline \newline Un altro tool molto utile è DeepSource. Questo strumento permette di eseguire l'analisi semantica del codice, consentendo di rilevare diversi problemi, inclusi anti-pattern o rischi di bug in fase di esecuzione dell'applicativo.
 
